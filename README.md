@@ -2,6 +2,44 @@
 
 A fun Vietnamese food picker app using a 52-card deck concept. Can't decide what to eat? Just pick a card!
 
+---
+
+## Gioi thieu (Tieng Viet)
+
+**Hom Nay An Gi?** la ung dung giup ban chon mon an moi ngay mot cach thu vi voi bo bai 52 la. Moi la bai tuong ung voi mot mon an Viet Nam truyen thong.
+
+### Tinh nang chinh
+
+- 52 mon an Viet Nam chia theo 4 loai: Bun/Pho, Com, Banh/Xoi, Mon khac
+- Loc theo vung mien: Bac, Trung, Nam
+- Danh dau mon yeu thich va loai tru mon khong thich
+- Che do nhieu nguoi choi - choi cung ban be
+- Len lich an tuan
+- Them mon an tuy chinh
+- Hieu ung lat bai dep mat voi am thanh
+- Ho tro che do toi
+- PWA - Cai dat tren dien thoai de truy cap nhanh
+- Chia se ket qua len mang xa hoi
+
+### Cach su dung
+
+1. Mo ung dung
+2. Cham vao bat ky la bai nao de xem goi y mon an
+3. Su dung bo loc de thu hep theo loai mon hoac vung mien
+4. Danh dau yeu thich bang cach nhan vao bieu tuong trai tim
+5. Chia se ket qua voi ban be
+
+### Ho tro tac gia
+
+Neu ban thay ung dung huu ich, hay can nhac ung ho tac gia:
+
+| Phuong thuc | So tai khoan | Ten |
+|-------------|--------------|-----|
+| MB Bank | 0360126996868 | LE VAN AN |
+| Momo | 0976896621 | LE VAN AN |
+
+---
+
 ## Features
 
 - 52 Vietnamese dishes organized by category (Noodles, Rice, Pastry, Others)
