@@ -1,0 +1,14 @@
+{
+  "name": "food-card-picker",
+  "version": "1.0.0",
+  "description": "Rút bài chọn món - Mobile-friendly web app",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "fast-check": "^3.15.0",
+    "jest-environment-jsdom": "^29.7.0"
+  }
+}
