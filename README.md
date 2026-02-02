@@ -1,46 +1,50 @@
-# Hom Nay An Gi? (What to Eat Today?)
+# Hôm Nay Ăn Gì?
 
-A fun Vietnamese food picker app using a 52-card deck concept. Can't decide what to eat? Just pick a card!
+Ứng dụng chọn món ăn thú vị với bộ bài 52 lá. Không biết ăn gì? Bốc một lá bài!
 
 ---
 
-## Gioi thieu (Tieng Viet)
+## Giới thiệu
 
-**Hom Nay An Gi?** la ung dung giup ban chon mon an moi ngay mot cach thu vi voi bo bai 52 la. Moi la bai tuong ung voi mot mon an Viet Nam truyen thong.
+**Hôm Nay Ăn Gì?** là ứng dụng giúp bạn chọn món ăn mỗi ngày một cách thú vị với bộ bài 52 lá. Mỗi lá bài tương ứng với một món ăn Việt Nam truyền thống.
 
-### Tinh nang chinh
+### Tính năng chính
 
-- 52 mon an Viet Nam chia theo 4 loai: Bun/Pho, Com, Banh/Xoi, Mon khac
-- Loc theo vung mien: Bac, Trung, Nam
-- Danh dau mon yeu thich va loai tru mon khong thich
-- Che do nhieu nguoi choi - choi cung ban be
-- Len lich an tuan
-- Them mon an tuy chinh
-- Hieu ung lat bai dep mat voi am thanh
-- Ho tro che do toi
-- PWA - Cai dat tren dien thoai de truy cap nhanh
-- Chia se ket qua len mang xa hoi
+- 52 món ăn Việt Nam chia theo 4 loại: Bún/Phở, Cơm, Bánh/Xôi, Món khác
+- Lọc theo vùng miền: Bắc, Trung, Nam
+- Đánh dấu món yêu thích và loại trừ món không thích
+- Chế độ nhiều người chơi - chơi cùng bạn bè
+- Lên lịch ăn tuần
+- Thêm món ăn tùy chỉnh
+- Hiệu ứng lật bài đẹp mắt với âm thanh
+- Hỗ trợ chế độ tối
+- PWA - Cài đặt trên điện thoại để truy cập nhanh
+- Chia sẻ kết quả lên mạng xã hội
 
-### Cach su dung
+### Cách sử dụng
 
-1. Mo ung dung
-2. Cham vao bat ky la bai nao de xem goi y mon an
-3. Su dung bo loc de thu hep theo loai mon hoac vung mien
-4. Danh dau yeu thich bang cach nhan vao bieu tuong trai tim
-5. Chia se ket qua voi ban be
+1. Mở ứng dụng
+2. Chạm vào bất kỳ lá bài nào để xem gợi ý món ăn
+3. Sử dụng bộ lọc để thu hẹp theo loại món hoặc vùng miền
+4. Đánh dấu yêu thích bằng cách nhấn vào biểu tượng trái tim
+5. Chia sẻ kết quả với bạn bè
 
-### Ho tro tac gia
+### Hỗ trợ tác giả
 
-Neu ban thay ung dung huu ich, hay can nhac ung ho tac gia:
+Nếu bạn thấy ứng dụng hữu ích, hãy cân nhắc ủng hộ tác giả:
 
-| Phuong thuc | So tai khoan | Ten |
+| Phương thức | Số tài khoản | Tên |
 |-------------|--------------|-----|
 | MB Bank | 0360126996868 | LE VAN AN |
 | Momo | 0976896621 | LE VAN AN |
 
 ---
 
-## Features
+## English
+
+A fun Vietnamese food picker app using a 52-card deck concept. Can't decide what to eat? Just pick a card!
+
+### Features
 
 - 52 Vietnamese dishes organized by category (Noodles, Rice, Pastry, Others)
 - Filter by region (North, Central, South Vietnam)
@@ -53,13 +57,13 @@ Neu ban thay ung dung huu ich, hay can nhac ung ho tac gia:
 - PWA - Install on your phone for quick access
 - Share results as images to social media
 
-## Screenshots
+### Screenshots
 
 ![Home Screen](screenshots/home.png)
 ![Card Result](screenshots/result.png)
 ![Settings](screenshots/settings.png)
 
-## How to Use
+### How to Use
 
 1. Open the app
 2. Tap any card to reveal your meal suggestion
@@ -67,9 +71,9 @@ Neu ban thay ung dung huu ich, hay can nhac ung ho tac gia:
 4. Mark favorites by tapping the heart icon
 5. Share your result with friends
 
-## Installation
+### Installation
 
-### Web
+#### Web
 Visit the hosted version or run locally:
 
 ```bash
@@ -85,12 +89,12 @@ python -m http.server 3000
 # Open http://localhost:3000 in your browser
 ```
 
-### PWA
+#### PWA
 1. Open the app in Chrome/Safari
 2. Click "Add to Home Screen" or install prompt
 3. Use shortcuts for quick actions
 
-## Tech Stack
+### Tech Stack
 
 - HTML5, CSS3, JavaScript (Vanilla)
 - Web Audio API for sound effects
@@ -98,7 +102,7 @@ python -m http.server 3000
 - Service Worker for offline support
 - LocalStorage for data persistence
 
-## Project Structure
+### Project Structure
 
 ```
 homnayangi/
@@ -112,20 +116,11 @@ homnayangi/
 └── screenshots/        # Screenshots for README
 ```
 
-## Author
+## Tác giả / Author
 
 Le An (Vietnam IT)
 - GitHub: [@anlvdt](https://github.com/anlvdt)
 
-## Support
+## Giấy phép / License
 
-If you find this app useful, consider buying me a coffee:
-
-| Method | Account | Name |
-|--------|---------|------|
-| MB Bank | 0360126996868 | LE VAN AN |
-| Momo | 0976896621 | LE VAN AN |
-
-## License
-
-MIT License - See [LICENSE](LICENSE) for details.
+MIT License
