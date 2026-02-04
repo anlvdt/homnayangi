@@ -1264,7 +1264,7 @@ header {
   transform: scale(0.98);
 }
 
-.feature-card > svg {
+.feature-card>svg {
   width: 24px;
   height: 24px;
   color: #1a6b3a;
@@ -1442,7 +1442,7 @@ body.dark-mode .feature-desc {
   color: #888;
 }
 
-body.dark-mode .feature-card > svg {
+body.dark-mode .feature-card>svg {
   color: #fbbf24;
 }
 
@@ -1693,7 +1693,7 @@ body.dark-mode .stat-dish {
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
 
-.custom-dish-content .modal-header + * {
+.custom-dish-content .modal-header+* {
   padding: 0 20px;
 }
 
@@ -2578,8 +2578,15 @@ body.dark-mode .donate-card {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .onboarding-icon {
@@ -2854,4 +2861,36 @@ body.dark-mode .exclude-name {
 
 body.dark-mode .exclude-checkbox {
   border-color: #666;
+}
+
+/* Shopee Link in About/Donate */
+.shopee-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: linear-gradient(135deg, #EE4D2D 0%, #FF6B4A 100%);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  margin-top: 12px;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(238, 77, 45, 0.3);
+}
+
+.shopee-link:hover {
+  background: linear-gradient(135deg, #FF6B4A 0%, #EE4D2D 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(238, 77, 45, 0.4);
+}
+
+.shopee-link svg {
+  width: 18px;
+  height: 18px;
+}
+
+body.dark-mode .shopee-link {
+  box-shadow: 0 2px 12px rgba(238, 77, 45, 0.4);
 }
