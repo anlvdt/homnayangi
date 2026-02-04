@@ -118,8 +118,33 @@ homnayangi/
 
 ## Tác giả / Author
 
-Le An (Vietnam IT)
-- GitHub: [@anlvdt](https://github.com/anlvdt)
+**Le Van An** (Vietnam IT)
+
+[![GitHub](https://img.shields.io/badge/GitHub-@anlvdt-181717?logo=github)](https://github.com/anlvdt)
+[![Facebook](https://img.shields.io/badge/Facebook-Laptop%20Le%20An-1877F2?logo=facebook&logoColor=white)](https://www.facebook.com/laptopleandotcom)
+
+---
+
+## Ủng hộ tác giả / Support the Developer
+
+Nếu bạn thấy ứng dụng hữu ích, hãy cân nhắc ủng hộ tác giả:
+
+If you find this app useful, please consider supporting the developer:
+
+| Phương thức / Method | Số tài khoản / Account | Tên / Name |
+|---------------------|------------------------|------------|
+| **MB Bank** | `0360126996868` | LE VAN AN |
+| **Momo** | `0976896621` | LE VAN AN |
+
+### Hỗ trợ qua Shopee / Support via Shopee
+
+Bạn cũng có thể hỗ trợ bằng cách ghé thăm gian hàng Shopee (không cần mua hàng):
+
+You can also support by visiting the Shopee store (no purchase required):
+
+🛒 **[Ghé thăm gian hàng Laptop Le An](https://collshp.com/laptopleandotcom?view=storefront)**
+
+---
 
 ## Giấy phép / License
 
