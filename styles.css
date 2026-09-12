@@ -2295,9 +2295,204 @@ header p {
   }
 }
 
-@media (min-width: 601px) {
+/* ========================================
+   TABLET (601–1023px)
+   ======================================== */
+@media (min-width: 601px) and (max-width: 1023px) {
+  .container {
+    max-width: 860px;
+    padding-top: 20px;
+    gap: 16px;
+  }
+
+  header h1 { font-size: 1.6rem; }
+  header p { font-size: 0.85rem; }
+
   .deck {
-    grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(68px, 1fr));
+    gap: 10px;
+  }
+
+  .settings-content, .multiplayer-content, .planner-content,
+  .custom-dish-content, .excludes-content, .wheel-content,
+  .reel-content, .battle-content, .results-panel-content {
+    max-width: 520px;
+  }
+
+  .reel-content { max-width: 640px; }
+}
+
+/* ========================================
+   DESKTOP (≥1024px) — sidebar + deck layout
+   ======================================== */
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1280px;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 18px 28px;
+    align-items: start;
+    padding-top: 24px;
+  }
+
+  header {
+    grid-column: 1 / -1;
+    padding: 8px 4px;
+  }
+
+  .header-logo { width: 52px; height: 52px; border-radius: 14px; }
+  header h1 { font-size: 1.8rem; }
+  header p { font-size: 0.88rem; }
+
+  .challenge-badge {
+    font-size: 0.85rem;
+    padding: 8px 16px;
+  }
+
+  /* Sidebar column */
+  .controls, .dish-of-day, .play-actions, .player-bar {
+    grid-column: 1;
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 14px;
+    position: sticky;
+    top: 20px;
+  }
+
+  .mode-group { width: 100%; }
+  .mode-btn { flex: 1; }
+
+  .filter-group {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .filter-select { width: 100%; }
+
+  .action-group {
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .icon-btn { width: 44px; height: 44px; }
+  .icon-btn svg { width: 19px; height: 19px; }
+
+  .dish-of-day {
+    align-self: stretch;
+    justify-content: center;
+    padding: 12px;
+    font-size: 0.85rem;
+  }
+
+  .play-actions {
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .quick-pick-btn {
+    width: 100%;
+  }
+
+  .play-modes {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .mode-pill {
+    justify-content: center;
+    padding: 12px;
+    font-size: 0.88rem;
+  }
+
+  .player-bar {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .player-bar .game-info {
+    justify-content: center;
+  }
+
+  /* Deck column — 13 cards per row = 4 rows of a real 52-card deck */
+  .deck {
+    grid-column: 2;
+    grid-row: 2 / span 20;
+    grid-template-columns: repeat(13, 1fr);
+    gap: 10px;
+    align-content: start;
+  }
+
+  .card .back::after { font-size: 1.25rem; }
+  .front .corner-tl { font-size: 0.66rem; }
+  .front .corner-br { font-size: 0.66rem; }
+  .front .num { font-size: 0.74rem; }
+  .front .suit { font-size: 0.66rem; }
+  .front .food { font-size: 0.6rem; }
+
+  /* Roomier modals on desktop */
+  .result-card {
+    width: 360px;
+  }
+
+  .settings-content, .multiplayer-content, .planner-content,
+  .custom-dish-content, .excludes-content, .wheel-content,
+  .reel-content, .battle-content, .results-panel-content {
+    max-width: 560px;
+  }
+
+  .reel-content { max-width: 720px; }
+  .reel-window { height: 160px; }
+  .reel-tile img { height: 88px; }
+
+  .excludes-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .week-grid {
+    grid-template-columns: repeat(7, 1fr);
+  }
+}
+
+/* Very large screens — a touch more air */
+@media (min-width: 1440px) {
+  .container { max-width: 1400px; }
+  .deck { gap: 12px; }
+}
+
+/* ========================================
+   POINTER-SPECIFIC UX
+   Hover effects only where a real pointer exists
+   ======================================== */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover .back {
+    transform: translateY(-6px) rotate(-1deg);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.45), inset 0 0 0 3px rgba(255, 255, 255, 0.12);
+  }
+
+  .mode-btn:not(.active):hover {
+    color: var(--ink-on-felt);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .exclude-item:hover {
+    background: rgba(0, 0, 0, 0.08);
+  }
+
+  .day-btn:hover {
+    background: var(--gold-soft);
+  }
+}
+
+@media (hover: none) {
+  .card:hover .back {
+    transform: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), inset 0 0 0 3px rgba(255, 255, 255, 0.08);
   }
 }
 
