@@ -33,8 +33,8 @@
 
     <div class="controls">
       <div class="mode-group" role="group" aria-label="Chế độ chơi">
-        <button class="btn mode-btn active" id="singleMode">Một người</button>
-        <button class="btn mode-btn" id="multiMode">Nhiều người</button>
+        <button class="btn mode-btn active" id="singleMode" aria-pressed="true">Một người</button>
+        <button class="btn mode-btn" id="multiMode" aria-pressed="false">Nhiều người</button>
       </div>
       <div class="filter-group">
         <select class="filter-select" id="categoryFilter" aria-label="Lọc loại món">
@@ -79,6 +79,15 @@
       </svg>
       Món của ngày: <strong id="dishOfDayName"></strong>
     </button>
+
+    <div class="session-info" id="sessionInfo">
+      <span class="session-item" id="lastChoiceWrap" hidden>
+        Lần trước: <strong id="lastChoiceName"></strong>
+      </span>
+      <span class="session-item" id="pickCountWrap" hidden>
+        Đã bốc: <strong id="pickCount">0</strong> lần trên trình duyệt này
+      </span>
+    </div>
 
     <div class="play-actions">
       <button class="btn quick-pick-btn" id="quickPickBtn">

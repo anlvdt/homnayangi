@@ -1,4 +1,4 @@
-const CACHE_NAME = 'homnayangi-v9';
+const CACHE_NAME = 'homnayangi-v10';
 const urlsToCache = [
     './',
     './index.html',

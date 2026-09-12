@@ -1863,6 +1863,62 @@ header p {
   transform: scale(0.97);
 }
 
+/* Empty deck state — filters removed every card */
+.empty-deck {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 32px 20px;
+  color: var(--ink-on-felt-soft);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Session info — last choice + local pick counter (truanayangi local-counter) */
+.session-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 16px;
+  font-size: 0.72rem;
+  color: var(--ink-on-felt-soft);
+  opacity: 0.85;
+}
+
+.session-item strong {
+  color: var(--gold-soft);
+  font-weight: 700;
+}
+
+.session-item[hidden] {
+  display: none;
+}
+
+/* Storage error toast */
+.app-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%) translateY(16px);
+  z-index: 2000;
+  max-width: min(90vw, 420px);
+  padding: 10px 18px;
+  border-radius: 12px;
+  background: rgba(30, 20, 10, 0.95);
+  border: 1px solid rgba(240, 180, 41, 0.5);
+  color: var(--ink-on-felt);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.app-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
 .play-actions {
   display: flex;
   flex-direction: column;
@@ -1981,6 +2037,28 @@ header p {
   background: rgba(0, 0, 0, 0.25);
   border: 2px solid var(--surface-2);
   margin-bottom: 16px;
+}
+
+/* Edge fade masks — truanayangi's reel-fade left/right */
+.reel-window::before,
+.reel-window::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 44px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.reel-window::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(10, 14, 26, 0.95), transparent);
+}
+
+.reel-window::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(10, 14, 26, 0.95), transparent);
 }
 
 .reel-marker {

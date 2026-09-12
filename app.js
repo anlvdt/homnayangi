@@ -189,8 +189,37 @@ function loadSettings() {
   applySettings();
 }
 
+// Persist safely — storage can be full or blocked; surface it instead of crashing
+let storageWarned = false;
+
+function persist(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+    if (!storageWarned) {
+      storageWarned = true;
+      showToast('Không thể lưu dữ liệu. Lựa chọn chỉ giữ trong phiên này.');
+    }
+  }
+}
+
+function showToast(message) {
+  let toast = document.getElementById('appToast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'appToast';
+    toast.className = 'app-toast';
+    toast.setAttribute('role', 'status');
+    document.body.appendChild(toast);
+  }
+  toast.textContent = message;
+  toast.classList.add('show');
+  clearTimeout(showToast._timer);
+  showToast._timer = setTimeout(() => toast.classList.remove('show'), 3500);
+}
+
 function saveSettings() {
-  localStorage.setItem('homnayangi_settings', JSON.stringify(settings));
+  persist('homnayangi_settings', settings);
 }
 
 function applySettings() {
@@ -219,18 +248,38 @@ function applySettings() {
 // ========================================
 let customDishes = [];
 
+const MAX_CUSTOM_DISHES = 50;
+const MAX_DISH_NAME = 60;
+// eslint-disable-next-line no-control-regex
+const CONTROL_CHARS_RE = /[\x00-\x1f\x7f]/g;
+
+function sanitizeDishName(name) {
+  return String(name || '')
+    .replace(CONTROL_CHARS_RE, '')
+    .trim()
+    .normalize('NFC')
+    .slice(0, MAX_DISH_NAME);
+}
+
 function loadCustomDishes() {
   const saved = loadStored('homnayangi_custom_dishes', Array.isArray);
   if (saved) {
-    customDishes = saved.filter(d =>
-      d && typeof d.name === 'string' && d.name.trim() &&
-      SUITS.includes(d.category)
-    );
+    const seen = new Set();
+    customDishes = saved
+      .filter(d => d && typeof d === 'object' && SUITS.includes(d.category))
+      .map(d => ({ ...d, name: sanitizeDishName(d.name) }))
+      .filter(d => {
+        const key = d.name.toLowerCase();
+        if (!d.name || seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      })
+      .slice(0, MAX_CUSTOM_DISHES);
   }
 }
 
 function saveCustomDishes() {
-  localStorage.setItem('homnayangi_custom_dishes', JSON.stringify(customDishes));
+  persist('homnayangi_custom_dishes', customDishes);
 }
 
 // ========================================
@@ -242,7 +291,7 @@ function loadFavorites() {
 }
 
 function saveFavorites() {
-  localStorage.setItem('homnayangi_favorites', JSON.stringify(favorites));
+  persist('homnayangi_favorites', favorites);
 }
 
 function toggleFavorite(dishName) {
@@ -264,7 +313,7 @@ function loadExcludes() {
 }
 
 function saveExcludes() {
-  localStorage.setItem('homnayangi_excludes', JSON.stringify(excludes));
+  persist('homnayangi_excludes', excludes);
 }
 
 function toggleExclude(dishName) {
@@ -328,9 +377,13 @@ function renderExcludesList() {
 }
 
 function addCustomDish(dish) {
+  if (customDishes.length >= MAX_CUSTOM_DISHES) {
+    showToast(`Tối đa ${MAX_CUSTOM_DISHES} món tự thêm. Hãy xóa bớt món cũ.`);
+    return;
+  }
   customDishes.push({
     id: Date.now(),
-    name: dish.name,
+    name: sanitizeDishName(dish.name),
     pairing: dish.pairing,
     category: dish.category,
     imageUrl: dish.imageUrl || 'icons/icon-192.png'
@@ -446,7 +499,7 @@ function loadWeekPlan() {
 }
 
 function saveWeekPlan() {
-  localStorage.setItem('homnayangi_week_plan', JSON.stringify(weekPlan));
+  persist('homnayangi_week_plan', weekPlan);
 }
 
 function getAllDishes() {
@@ -553,7 +606,7 @@ function saveHistory() {
   if (history.length > 100) {
     history = history.slice(-100);
   }
-  localStorage.setItem('homnayangi_history', JSON.stringify(history));
+  persist('homnayangi_history', history);
 }
 
 function addToHistory(card) {
@@ -566,6 +619,7 @@ function addToHistory(card) {
   saveHistory();
   updateHistoryPanel();
   updateChallengeBadge();
+  updateSessionInfo();
 }
 
 function getStats() {
@@ -634,6 +688,27 @@ function prefersReducedMotion() {
 
 function initAudio() {
   audioContext = new (window.AudioContext || window.webkitAudioContext)();
+}
+
+// Short synthesized tick — played when a reel tile crosses the pointer
+function playTick() {
+  if (!settings.soundEnabled) return;
+  if (!audioContext) initAudio();
+  if (audioContext.state !== 'running') return;
+
+  const t = audioContext.currentTime;
+  const osc = audioContext.createOscillator();
+  osc.type = 'square';
+  osc.frequency.setValueAtTime(2200, t);
+
+  const gain = audioContext.createGain();
+  gain.gain.setValueAtTime(0.08, t);
+  gain.gain.exponentialRampToValueAtTime(0.001, t + 0.03);
+
+  osc.connect(gain);
+  gain.connect(audioContext.destination);
+  osc.start(t);
+  osc.stop(t + 0.03);
 }
 
 function playDrumroll(duration = 1500) {
@@ -751,6 +826,7 @@ function init() {
   updateHistoryPanel();
   updateChallengeBadge();
   renderDishOfDay();
+  updateSessionInfo();
   
   // Handle PWA shortcuts
   handleUrlParams();
@@ -925,6 +1001,13 @@ function shuffleArray(arr) {
 function renderDeck(withAnimation = false) {
   const container = document.getElementById('deck');
   container.innerHTML = '';
+
+  // Empty pool — tell the user to relax filters instead of a blank board
+  if (deck.length === 0) {
+    container.innerHTML = '<p class="empty-deck" role="status">Không còn lá nào phù hợp bộ lọc. Hãy nới bộ lọc hoặc thêm món.</p>';
+    updateRemaining();
+    return;
+  }
 
   deck.forEach((card, index) => {
     const el = document.createElement('div');
@@ -1144,8 +1227,12 @@ async function resetGame() {
 
 function setMode(multi) {
   isMultiPlayer = multi;
-  document.getElementById('singleMode').classList.toggle('active', !multi);
-  document.getElementById('multiMode').classList.toggle('active', multi);
+  const singleBtn = document.getElementById('singleMode');
+  const multiBtn = document.getElementById('multiMode');
+  singleBtn.classList.toggle('active', !multi);
+  multiBtn.classList.toggle('active', multi);
+  singleBtn.setAttribute('aria-pressed', String(!multi));
+  multiBtn.setAttribute('aria-pressed', String(multi));
 
   if (multi) {
     // Show multiplayer modal for setup
@@ -1516,11 +1603,35 @@ function closeReelModal() {
   document.getElementById('reelModal').classList.remove('show');
 }
 
+// Spin profile — randomized per roll so each opening feels different
+// (ported from truanayangi's CS:GO Panorama reconstruction)
+function createSpinProfile(random = Math.random, reducedMotion = false) {
+  if (reducedMotion) {
+    return { durationMs: 800 + Math.floor(random() * 400), friction: 2.7 + random() * 0.6 };
+  }
+  return { durationMs: 5200 + Math.floor(random() * 1800), friction: 2.7 + random() * 0.6 };
+}
+
+function spinProgress(progress, friction) {
+  const p = Math.max(0, Math.min(1, progress));
+  return 1 - Math.pow(1 - p, friction);
+}
+
 function buildReelStrip() {
   const winner = reelDishes[Math.floor(Math.random() * reelDishes.length)];
   reelStrip = [];
+  const recent = [];
   for (let i = 0; i < REEL_LEN; i++) {
-    reelStrip.push(i === REEL_WIN_AT ? winner : reelDishes[Math.floor(Math.random() * reelDishes.length)]);
+    if (i === REEL_WIN_AT) {
+      reelStrip.push(winner);
+      continue;
+    }
+    // Avoid repeating the same dish back-to-back like truanayangi's reel
+    const alternatives = reelDishes.filter(d => !recent.includes(d));
+    const pick = (alternatives.length ? alternatives : reelDishes)[Math.floor(Math.random() * (alternatives.length ? alternatives : reelDishes).length)];
+    reelStrip.push(pick);
+    recent.push(pick);
+    if (recent.length > 6) recent.shift();
   }
   reelWinnerIndex = REEL_WIN_AT;
 
@@ -1549,15 +1660,26 @@ function spinReel() {
   const jitter = (Math.random() - 0.5) * (REEL_TILE_W - 24);
   const targetX = -(REEL_WIN_AT * REEL_TILE_W + REEL_TILE_W / 2) + window_.clientWidth / 2 + jitter;
 
-  const duration = reduceMotion ? 900 : 5200;
+  const profile = createSpinProfile(Math.random, reduceMotion);
+  const duration = profile.durationMs;
   const startTime = performance.now();
 
   if (settings.soundEnabled) playDrumroll(Math.min(duration, 3000));
 
+  // Tick when a tile crosses the pointer (CS:GO scroll tick)
+  let lastCell = Math.floor(-targetX / REEL_TILE_W);
+
   function frame(now) {
     const p = Math.min((now - startTime) / duration, 1);
-    const ease = 1 - Math.pow(1 - p, 4); // strong deceleration
-    strip.style.transform = `translateX(${targetX * ease}px)`;
+    const ease = spinProgress(p, profile.friction);
+    const currentX = targetX * ease;
+    strip.style.transform = `translateX(${currentX}px)`;
+
+    const cell = Math.floor((-currentX + window_.clientWidth / 2) / REEL_TILE_W);
+    if (cell !== lastCell) {
+      playTick();
+      lastCell = cell;
+    }
 
     if (p < 1) {
       requestAnimationFrame(frame);
@@ -1710,6 +1832,25 @@ function getDishOfDay() {
 function renderDishOfDay() {
   const el = document.getElementById('dishOfDayName');
   if (el) el.textContent = getDishOfDay().dish;
+}
+
+// "Last choice" + local pick counter — ported from truanayangi's local-counter
+function updateSessionInfo() {
+  const lastWrap = document.getElementById('lastChoiceWrap');
+  const lastName = document.getElementById('lastChoiceName');
+  const countWrap = document.getElementById('pickCountWrap');
+  const countEl = document.getElementById('pickCount');
+  if (!lastWrap || !countWrap) return;
+
+  if (history.length > 0 && lastName) {
+    const last = history[history.length - 1];
+    lastName.textContent = last.dish || '';
+    lastWrap.hidden = !last.dish;
+  }
+  if (history.length > 0 && countEl) {
+    countEl.textContent = String(history.length);
+    countWrap.hidden = false;
+  }
 }
 
 function openSettings() {
@@ -2060,6 +2201,17 @@ function setupEvents() {
   document.body.addEventListener('click', () => {
     if (!audioContext) initAudio();
   }, { once: true });
+
+  // Suspend audio when the tab is hidden, resume when it returns
+  // (truanayangi pauses its audio engine on visibilitychange)
+  document.addEventListener('visibilitychange', () => {
+    if (!audioContext) return;
+    if (document.hidden) {
+      audioContext.suspend().catch(() => {});
+    } else if (settings.soundEnabled) {
+      audioContext.resume().catch(() => {});
+    }
+  });
 }
 
 if (typeof document !== 'undefined') {
