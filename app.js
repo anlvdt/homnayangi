@@ -252,10 +252,20 @@ function saveSettings() {
   persist('homnayangi_settings', settings);
 }
 
+// Keep the PWA/theme chrome color in sync with the felt background
+// (light: --felt-2 light #0b3d24, dark: --felt-2 dark #041a0f)
+function updateThemeColor() {
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) {
+    meta.setAttribute('content', settings.darkMode ? '#041a0f' : '#0b3d24');
+  }
+}
+
 function applySettings() {
   // Dark mode
   document.body.classList.toggle('dark-mode', settings.darkMode);
   document.getElementById('darkModeToggle').checked = settings.darkMode;
+  updateThemeColor();
 
   // Sound
   document.getElementById('soundToggle').checked = settings.soundEnabled;
@@ -1083,15 +1093,44 @@ function renderDeck(withAnimation = false) {
     if (flippedCards.includes(index)) {
       el.classList.add('flipped');
       el.innerHTML = createCardFront(card);
+      el.setAttribute('aria-label', card.dish + ' (đã bốc)');
     } else {
       el.innerHTML = `<div class="back"></div>`;
+      el.tabIndex = 0;
+      el.setAttribute('role', 'button');
+      el.setAttribute('aria-label', 'Lá bài úp số ' + (index + 1) + ' — nhấn Enter để bốc');
       el.addEventListener('click', () => pickCard(index));
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          pickCard(index);
+        }
+      });
     }
 
     container.appendChild(el);
   });
 
   updateRemaining();
+}
+
+// Bring a freshly flipped card into view when it sits off-screen
+// (small viewports can leave the picked card below the fold)
+function scrollCardIntoView(cardEl) {
+  if (!cardEl || typeof cardEl.getBoundingClientRect !== 'function') return;
+  const rect = cardEl.getBoundingClientRect();
+  if (rect.top < 0 || rect.bottom > window.innerHeight) {
+    cardEl.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'nearest' });
+  }
+}
+
+// A flipped card is no longer interactive — drop button semantics
+// and announce the revealed dish instead
+function markCardElFlipped(cardEl, card) {
+  if (!cardEl) return;
+  cardEl.removeAttribute('tabindex');
+  cardEl.removeAttribute('role');
+  cardEl.setAttribute('aria-label', card.dish + ' (đã bốc)');
 }
 
 // Folk card skin — category glyphs instead of suit symbols,
@@ -1211,6 +1250,8 @@ async function pickCard(index) {
   await sleep(100);
   cardEl.classList.add('flipped');
   cardEl.innerHTML = createCardFront(card);
+  markCardElFlipped(cardEl, card);
+  scrollCardIntoView(cardEl);
 
   await sleep(400);
   cardEl.classList.remove('revealing');
@@ -1231,8 +1272,8 @@ function showResult(card) {
 
   resultCard.className = 'result-card ' + (card.isRed ? 'red' : 'black');
   resultCard.innerHTML = `
-    <button class="fav-btn ${isFav ? 'active' : ''}" id="favBtn" title="${isFav ? 'Bỏ yêu thích' : 'Yêu thích'}">
-      <svg viewBox="0 0 24 24" fill="${isFav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
+    <button class="fav-btn ${isFav ? 'active' : ''}" id="favBtn" title="${isFav ? 'Bỏ yêu thích' : 'Yêu thích'}" aria-label="${isFav ? 'Bỏ yêu thích' : 'Yêu thích'}">
+      <svg viewBox="0 0 24 24" fill="${isFav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
       </svg>
     </button>
@@ -1258,7 +1299,8 @@ function showResult(card) {
     const nowFav = isFavorite(card.dish);
     btn.classList.toggle('active', nowFav);
     btn.title = nowFav ? 'Bỏ yêu thích' : 'Yêu thích';
-    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="${nowFav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
+    btn.setAttribute('aria-label', btn.title);
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="${nowFav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" aria-hidden="true">
       <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
     </svg>`;
   });
@@ -1841,7 +1883,9 @@ function renderBattleMatch() {
     `So Găng — ${battleRoundLabel(battleRoundSize)}`;
 
   for (const [id, d] of [['battleCardA', a], ['battleCardB', b]]) {
-    document.getElementById(id).innerHTML = `
+    const btn = document.getElementById(id);
+    btn.setAttribute('aria-label', d.dish);
+    btn.innerHTML = `
       <img src="${escapeHtml(d.imageUrl)}" alt="${escapeHtml(d.dish)}" loading="lazy" decoding="async" onerror="this.style.display='none'">
       <span class="battle-dish">${escapeHtml(d.dish)}</span>
     `;
@@ -1984,6 +2028,8 @@ function completePick(card) {
     if (cardEl) {
       cardEl.classList.add('flipped');
       cardEl.innerHTML = createCardFront(card);
+      markCardElFlipped(cardEl, card);
+      scrollCardIntoView(cardEl);
     }
   }
   showResult(card);
@@ -2594,6 +2640,7 @@ function setupEvents() {
   document.getElementById('darkModeToggle').addEventListener('change', (e) => {
     settings.darkMode = e.target.checked;
     document.body.classList.toggle('dark-mode', settings.darkMode);
+    updateThemeColor();
     saveSettings();
   });
 

@@ -51,6 +51,7 @@
 }
 
 body.dark-mode {
+  color-scheme: dark;
   --felt-1: #0c3a24;
   --felt-2: #041a0f;
   --card-cream: #1d2a20;
@@ -80,6 +81,8 @@ html {
   /* Fluid root size: 16px up to 1600px, then scales with viewport,
      capped at 20px so hi-res/ultra-wide screens feel proportionate */
   font-size: clamp(16px, 1vw, 20px);
+  /* Render built-in UI (scrollbars, form controls) in light mode by default */
+  color-scheme: light;
 }
 
 body {
@@ -114,6 +117,12 @@ button {
 
 input, select {
   font-family: inherit;
+}
+
+/* Kill the 300ms double-tap-zoom delay on tap targets.
+   (#scratchCanvas keeps touch-action: none — it needs raw pointer moves.) */
+.btn, .card, button, select {
+  touch-action: manipulation;
 }
 
 img {
@@ -240,7 +249,7 @@ header p {
   font-size: 0.82rem;
   font-weight: 600;
   color: var(--ink-on-felt-soft);
-  transition: all 0.18s ease;
+  transition: background-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
   min-height: 38px;
 }
 
@@ -297,7 +306,7 @@ header p {
   background: rgba(0, 0, 0, 0.22);
   border: 1px solid var(--glass-border);
   color: var(--ink-on-felt);
-  transition: all 0.15s ease;
+  transition: background-color 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
 }
 
 .icon-btn {
@@ -430,7 +439,9 @@ header p {
   cursor: pointer;
   perspective: 600px;
   content-visibility: auto;
-  contain-intrinsic-size: auto 60px auto 84px;
+  /* Closer to real card size (~80×112 mid-viewport) so off-screen
+     estimates don't cause a scroll jump when cards render in */
+  contain-intrinsic-size: auto 80px auto 112px;
 }
 
 .card .back {
@@ -598,6 +609,12 @@ header p {
 .card.flipped {
   cursor: default;
   animation: popIn 0.35s ease;
+}
+
+/* Desaturate opened cards so they read as "spent" vs the live deck.
+   Applied to .front (not .card) so the drop shadow stays crisp. */
+.card.flipped .front {
+  filter: saturate(0.45) brightness(0.85);
 }
 
 .card.dimmed {
@@ -925,7 +942,7 @@ header p {
   font-weight: 700;
   color: var(--ink);
   border: 2px solid transparent;
-  transition: all 0.15s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
 .count-btn.active {
@@ -973,7 +990,6 @@ header p {
 }
 
 .player-input-row input:focus {
-  outline: none;
   border-color: var(--gold);
 }
 
@@ -1071,7 +1087,7 @@ header p {
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--ink-soft);
-  transition: all 0.15s ease;
+  transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .nav-btn.active {
@@ -1694,7 +1710,6 @@ header p {
 }
 
 .form-group input:focus, .form-group select:focus {
-  outline: none;
   border-color: var(--gold);
 }
 
@@ -1783,7 +1798,7 @@ header p {
   display: grid;
   place-items: center;
   flex-shrink: 0;
-  transition: all 0.15s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
 .exclude-checkbox svg {
@@ -1965,7 +1980,7 @@ header p {
   border-radius: 50%;
   background: var(--surface-2);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease, width 0.2s ease, border-radius 0.2s ease;
 }
 
 .onboarding-dots .dot.active {
@@ -2013,7 +2028,7 @@ header p {
   color: var(--ink-on-felt-soft);
   font-size: 0.8rem;
   font-weight: 600;
-  transition: all 0.15s ease;
+  transition: background-color 0.15s ease, transform 0.15s ease;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
@@ -2107,8 +2122,34 @@ header p {
 
 .play-modes {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Grouped play modes — label + pill row per section.
+   flex-basis: 100% keeps each section on its own row while .play-modes
+   stays a wrapping flex container (also fine if bare pills remain). */
+.mode-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-basis: 100%;
+  align-items: center;
+}
+
+.mode-section-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-on-felt-soft);
+}
+
+.mode-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
   justify-content: center;
 }
 
@@ -2124,7 +2165,7 @@ header p {
   font-size: 0.82rem;
   font-weight: 700;
   min-height: 40px;
-  transition: all 0.15s ease;
+  transition: background-color 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
 }
 
 .mode-pill svg {
@@ -2421,7 +2462,7 @@ header p {
   font-size: 0.82rem;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
 .mam-chip.selected {
@@ -2477,7 +2518,7 @@ header p {
   place-items: center;
   cursor: pointer;
   color: var(--ink-soft);
-  transition: all 0.15s ease;
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
 }
 
 .mam-reroll:hover {
@@ -2895,6 +2936,18 @@ header p {
   }
 }
 
+/* Very narrow phones — stack selects full-width so labels don't truncate */
+@media (max-width: 380px) {
+  .filter-group {
+    flex-direction: column;
+  }
+
+  .filter-select {
+    flex: none;
+    width: 100%;
+  }
+}
+
 /* ========================================
    TABLET (601–1023px)
    ======================================== */
@@ -2907,6 +2960,20 @@ header p {
 
   header h1 { font-size: 1.6rem; }
   header p { font-size: 0.85rem; }
+
+  /* Predictable wrapping — selects share space evenly (min ~140px each)
+     instead of sizing to content; action icons keep their own slot */
+  .filter-group {
+    flex-wrap: wrap;
+  }
+
+  .filter-select {
+    flex: 1 1 140px;
+  }
+
+  .action-group {
+    flex-shrink: 0;
+  }
 
   .deck {
     grid-template-columns: repeat(auto-fill, minmax(68px, 1fr));
@@ -2933,6 +3000,9 @@ header p {
     gap: 18px 28px;
     align-items: start;
     padding-top: 24px;
+    /* Fill the viewport so the deck can center vertically on tall screens */
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 
   header {
@@ -3009,6 +3079,18 @@ header p {
 
   .play-modes {
     flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Sidebar sections left-align; pill rows wrap under their label */
+  .mode-section {
+    align-items: flex-start;
+    flex-basis: auto;
+    gap: 8px;
+  }
+
+  .mode-pills {
+    justify-content: flex-start;
     gap: 8px;
   }
 
@@ -3029,13 +3111,17 @@ header p {
     justify-content: center;
   }
 
-  /* Deck column — 13 cards per row = 4 rows of a real 52-card deck */
+  /* Deck column — 13 cards per row = 4 rows of a real 52-card deck.
+     min-height + align-content center the card rows in the leftover
+     viewport space instead of letting them hug the top. */
   .deck {
     grid-column: 2;
     grid-row: 2 / span 20;
     grid-template-columns: repeat(13, 1fr);
     gap: 10px;
-    align-content: start;
+    align-content: center;
+    min-height: calc(100vh - 160px);
+    min-height: calc(100dvh - 160px);
   }
 
   .card .back::after { font-size: 1.25rem; }
@@ -3101,8 +3187,10 @@ header p {
   .quick-pick-btn { font-size: 1rem; padding: 14px; }
 
   .front .food { font-size: 0.72rem; }
+  .front .corner-tl, .front .corner-br { font-size: 0.72rem; }
   .front .num { font-size: 0.85rem; }
   .front .suit { font-size: 0.78rem; }
+  .card .back::after { font-size: 1.4rem; }
 
   .result-card { width: 420px; }
   .mam-content { max-width: 760px; }
@@ -3112,12 +3200,19 @@ header p {
 /* Ultra-wide / 4K+ (≥2560px) — keep cards readable, not tiny */
 @media (min-width: 2560px) {
   .container {
-    max-width: min(2400px, 92vw);
+    max-width: min(2700px, 92vw);
     grid-template-columns: 440px 1fr;
     gap: 28px 56px;
   }
 
   .deck { gap: 18px; }
+
+  /* Cards are ~150–180px wide here — scale corner glyphs + labels up */
+  .front .corner-tl, .front .corner-br { font-size: 0.82rem; }
+  .front .num { font-size: 1rem; }
+  .front .suit { font-size: 0.9rem; }
+  .front .food { font-size: 0.82rem; }
+  .card .back::after { font-size: 1.6rem; }
 
   .controls { padding: 22px; gap: 16px; }
   .icon-btn { width: 52px; height: 52px; }
@@ -3127,6 +3222,27 @@ header p {
   .reel-content { max-width: 900px; }
   .reel-window { height: 200px; }
   .mam-content { max-width: 860px; }
+}
+
+/* ========================================
+   SHORT VIEWPORTS — landscape phones, short windows.
+   Compress header + section spacing so the deck stays reachable.
+   ======================================== */
+@media (max-height: 560px) and (min-width: 600px) {
+  .container {
+    padding-top: 8px;
+    row-gap: 8px;
+  }
+
+  header { padding: 2px; }
+  .header-logo { width: 34px; height: 34px; border-radius: 10px; }
+  header h1 { font-size: 1.1rem; }
+  header p { display: none; }
+
+  .sidebar { gap: 8px; }
+  .controls { gap: 8px; padding: 10px; }
+  .play-actions { gap: 6px; }
+  .play-modes { gap: 6px; }
 }
 
 /* ========================================
