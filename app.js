@@ -1996,6 +1996,13 @@ function updateSessionInfo() {
     visitsEl.textContent = new Intl.NumberFormat('vi-VN').format(visitCount);
     visitsWrap.hidden = false;
   }
+
+  // Hide the whole strip when nothing has data yet
+  const strip = document.getElementById('sessionInfo');
+  if (strip) {
+    const anyVisible = [...strip.querySelectorAll('.session-item')].some(el => !el.hidden);
+    strip.hidden = !anyVisible;
+  }
 }
 
 function openSettings() {

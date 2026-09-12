@@ -138,6 +138,12 @@ img {
   gap: 14px;
 }
 
+/* Sidebar wrapper — transparent on small screens so children flow
+   exactly as before; becomes a single sticky column on desktop. */
+.sidebar {
+  display: contents;
+}
+
 /* ========================================
    HEADER
    ======================================== */
@@ -2545,9 +2551,21 @@ header p {
     padding: 8px 16px;
   }
 
-  /* Sidebar column */
-  .controls, .dish-of-day, .play-actions, .player-bar {
+  /* Sidebar column — one sticky unit so nothing scrolls underneath */
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
     grid-column: 1;
+    position: sticky;
+    top: 20px;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+
+  .sidebar::-webkit-scrollbar {
+    display: none;
   }
 
   .controls {
@@ -2555,8 +2573,6 @@ header p {
     align-items: stretch;
     gap: 12px;
     padding: 14px;
-    position: sticky;
-    top: 20px;
   }
 
   .mode-group { width: 100%; }
