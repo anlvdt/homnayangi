@@ -572,7 +572,8 @@ header p {
    RESULT MODAL
    ======================================== */
 .modal, .settings-modal, .multiplayer-modal, .planner-modal,
-.custom-dish-modal, .excludes-modal, .wheel-modal, .results-panel {
+.custom-dish-modal, .excludes-modal, .wheel-modal, .reel-modal,
+.battle-modal, .results-panel {
   position: fixed;
   inset: 0;
   z-index: 100;
@@ -583,12 +584,13 @@ header p {
 }
 
 .modal.show, .settings-modal.show, .multiplayer-modal.show, .planner-modal.show,
-.custom-dish-modal.show, .excludes-modal.show, .wheel-modal.show, .results-panel.show {
+.custom-dish-modal.show, .excludes-modal.show, .wheel-modal.show, .reel-modal.show,
+.battle-modal.show, .results-panel.show {
   display: flex;
 }
 
 .modal-bg, .settings-bg, .multiplayer-bg, .planner-bg,
-.custom-dish-bg, .excludes-bg, .wheel-bg, .results-panel-bg {
+.custom-dish-bg, .excludes-bg, .wheel-bg, .reel-bg, .battle-bg, .results-panel-bg {
   position: absolute;
   inset: 0;
   background: var(--overlay);
@@ -775,6 +777,7 @@ header p {
    ======================================== */
 .settings-content, .multiplayer-content, .planner-content,
 .custom-dish-content, .excludes-content, .wheel-content,
+.reel-content, .battle-content,
 .results-panel-content {
   position: relative;
   width: 100%;
@@ -1822,6 +1825,322 @@ header p {
 }
 
 /* ========================================
+   DISH OF THE DAY + PLAY ACTIONS
+   ======================================== */
+.dish-of-day {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: center;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  color: var(--ink-on-felt-soft);
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: all 0.15s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.dish-of-day svg {
+  width: 15px;
+  height: 15px;
+  color: var(--gold);
+}
+
+.dish-of-day strong {
+  color: var(--gold-soft);
+  font-weight: 800;
+}
+
+.dish-of-day:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.dish-of-day:active {
+  transform: scale(0.97);
+}
+
+.play-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.play-modes {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.mode-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  color: var(--ink-on-felt);
+  font-size: 0.82rem;
+  font-weight: 700;
+  min-height: 40px;
+  transition: all 0.15s ease;
+}
+
+.mode-pill svg {
+  width: 15px;
+  height: 15px;
+  color: var(--gold);
+}
+
+.mode-pill:hover {
+  background: rgba(255, 255, 255, 0.16);
+  transform: translateY(-1px);
+}
+
+.mode-pill:active {
+  transform: scale(0.96);
+}
+
+/* ========================================
+   FOOD LINKS — Maps / GrabFood / ShopeeFood / beFood
+   ======================================== */
+.food-links {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 340px;
+}
+
+.food-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-decoration: none;
+  min-height: 40px;
+  transition: transform 0.1s ease, filter 0.15s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.food-link svg {
+  width: 14px;
+  height: 14px;
+}
+
+.food-link:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.food-link:active {
+  transform: translateY(1px);
+}
+
+.link-maps {
+  background: #fff;
+  color: #1a73e8;
+}
+
+.link-grab {
+  background: #00b14f;
+  color: #fff;
+}
+
+.link-shopee {
+  background: #ee4d2d;
+  color: #fff;
+}
+
+.link-be {
+  background: #ffdd00;
+  color: #1a1a1a;
+}
+
+/* ========================================
+   REEL — Quay Hòm
+   ======================================== */
+.reel-content {
+  max-width: 560px;
+}
+
+.reel-window {
+  position: relative;
+  overflow: hidden;
+  height: 132px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 2px solid var(--surface-2);
+  margin-bottom: 16px;
+}
+
+.reel-marker {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 3px;
+  transform: translateX(-50%);
+  background: var(--gold);
+  z-index: 2;
+  box-shadow: 0 0 12px rgba(240, 180, 41, 0.8);
+}
+
+.reel-marker::before, .reel-marker::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+}
+
+.reel-marker::before {
+  top: 0;
+  border-top: 10px solid var(--gold);
+}
+
+.reel-marker::after {
+  bottom: 0;
+  border-bottom: 10px solid var(--gold);
+}
+
+.reel-strip {
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  height: 100%;
+  will-change: transform;
+}
+
+.reel-tile {
+  flex: 0 0 96px;
+  width: 96px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--surface-2);
+  display: flex;
+  flex-direction: column;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.reel-tile img {
+  width: 100%;
+  height: 72px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.reel-tile span {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.15;
+  color: var(--ink);
+  overflow: hidden;
+}
+
+.reel-tile.winner {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px var(--gold), 0 0 20px rgba(240, 180, 41, 0.6);
+}
+
+/* ========================================
+   BATTLE — So Găng
+   ======================================== */
+.battle-content {
+  max-width: 460px;
+}
+
+.battle-hint {
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+}
+
+.battle-arena {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.battle-card {
+  flex: 1;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--surface-2);
+  border: 3px solid transparent;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+}
+
+.battle-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--gold);
+  box-shadow: 0 8px 24px rgba(240, 180, 41, 0.25);
+}
+
+.battle-card:active {
+  transform: scale(0.96);
+}
+
+.battle-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.battle-dish {
+  padding: 12px 8px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-align: center;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.battle-vs {
+  align-self: center;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--gold-deep);
+  background: var(--surface-2);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.battle-progress {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+/* ========================================
    CONFETTI
    ======================================== */
 .confetti {
@@ -1949,6 +2268,7 @@ header p {
   /* Bottom-sheet modals on mobile */
   .settings-content, .multiplayer-content, .planner-content,
   .custom-dish-content, .excludes-content, .wheel-content,
+  .reel-content, .battle-content,
   .results-panel-content {
     align-self: flex-end;
     max-width: 100%;
@@ -1960,7 +2280,8 @@ header p {
   }
 
   .settings-modal, .multiplayer-modal, .planner-modal,
-  .custom-dish-modal, .excludes-modal, .wheel-modal, .results-panel {
+  .custom-dish-modal, .excludes-modal, .wheel-modal, .reel-modal,
+  .battle-modal, .results-panel {
     padding: 0;
     align-items: flex-end;
   }

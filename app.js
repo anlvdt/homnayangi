@@ -750,6 +750,7 @@ function init() {
   setupEvents();
   updateHistoryPanel();
   updateChallengeBadge();
+  renderDishOfDay();
   
   // Handle PWA shortcuts
   handleUrlParams();
@@ -1094,6 +1095,15 @@ function showResult(card) {
       <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
     </svg>`;
   });
+
+  // Food delivery / map links (same pattern as truanayangi)
+  const dishQ = encodeURIComponent(card.dish);
+  document.getElementById('linkMaps').href =
+    `https://www.google.com/maps/search/${encodeURIComponent(card.dish + ' gần đây')}`;
+  document.getElementById('linkGrab').href =
+    `https://food.grab.com/vn/vi/restaurants?${new URLSearchParams({ search: card.dish, 'support-deeplink': 'true', searchParameter: card.dish })}`;
+  document.getElementById('linkShopee').href = `https://shopeefood.vn/search?keyword=${dishQ}`;
+  document.getElementById('linkBe').href = `https://food.be.com.vn/search?q=${dishQ}`;
 
   document.getElementById('nextBtn').classList.toggle('show', isMultiPlayer);
   modal.classList.add('show');
@@ -1478,6 +1488,230 @@ function spinWheel() {
   requestAnimationFrame(animate);
 }
 
+// ========================================
+// REEL MODE — CS:GO-style horizontal case opening
+// ========================================
+let reelDishes = [];
+let reelStrip = [];
+let isReelSpinning = false;
+let reelWinnerIndex = -1;
+
+const REEL_TILE_W = 104; // px, must match CSS
+const REEL_LEN = 42;
+const REEL_WIN_AT = 36;
+
+function openReelModal() {
+  const available = deck.filter((_, i) => !flippedCards.includes(i));
+  if (available.length === 0) {
+    alert('Hết lá rồi! Hãy chia lại bộ bài.');
+    return;
+  }
+  reelDishes = available;
+  buildReelStrip();
+  document.getElementById('reelModal').classList.add('show');
+  document.getElementById('spinReelBtn').disabled = false;
+}
+
+function closeReelModal() {
+  document.getElementById('reelModal').classList.remove('show');
+}
+
+function buildReelStrip() {
+  const winner = reelDishes[Math.floor(Math.random() * reelDishes.length)];
+  reelStrip = [];
+  for (let i = 0; i < REEL_LEN; i++) {
+    reelStrip.push(i === REEL_WIN_AT ? winner : reelDishes[Math.floor(Math.random() * reelDishes.length)]);
+  }
+  reelWinnerIndex = REEL_WIN_AT;
+
+  const strip = document.getElementById('reelStrip');
+  strip.style.transition = 'none';
+  strip.style.transform = 'translateX(0)';
+  strip.innerHTML = reelStrip.map(d => `
+    <div class="reel-tile">
+      <img src="${escapeHtml(d.imageUrl)}" alt="${escapeHtml(d.dish)}" loading="lazy" decoding="async" onerror="this.style.display='none'">
+      <span>${escapeHtml(d.dish)}</span>
+    </div>
+  `).join('');
+}
+
+function spinReel() {
+  if (isReelSpinning || reelStrip.length === 0) return;
+  isReelSpinning = true;
+  document.getElementById('spinReelBtn').disabled = true;
+
+  const reduceMotion = prefersReducedMotion();
+  const window_ = document.querySelector('.reel-window');
+  const strip = document.getElementById('reelStrip');
+
+  // Offset so the winner tile's center lands on the window's center,
+  // with a small random jitter within the tile for realism
+  const jitter = (Math.random() - 0.5) * (REEL_TILE_W - 24);
+  const targetX = -(REEL_WIN_AT * REEL_TILE_W + REEL_TILE_W / 2) + window_.clientWidth / 2 + jitter;
+
+  const duration = reduceMotion ? 900 : 5200;
+  const startTime = performance.now();
+
+  if (settings.soundEnabled) playDrumroll(Math.min(duration, 3000));
+
+  function frame(now) {
+    const p = Math.min((now - startTime) / duration, 1);
+    const ease = 1 - Math.pow(1 - p, 4); // strong deceleration
+    strip.style.transform = `translateX(${targetX * ease}px)`;
+
+    if (p < 1) {
+      requestAnimationFrame(frame);
+    } else {
+      isReelSpinning = false;
+      const winner = reelStrip[reelWinnerIndex];
+      const tile = strip.children[reelWinnerIndex];
+      if (tile) tile.classList.add('winner');
+      playRevealSound();
+
+      setTimeout(() => {
+        const deckIndex = deck.findIndex(c => c.id === winner.id);
+        if (deckIndex !== -1) {
+          flippedCards.push(deckIndex);
+          const cardEl = document.querySelector(`[data-index="${deckIndex}"]`);
+          if (cardEl) {
+            cardEl.classList.add('flipped');
+            cardEl.innerHTML = createCardFront(winner);
+          }
+        }
+        closeReelModal();
+        showResult(winner);
+        addToHistory(winner);
+        if (isMultiPlayer) {
+          gameResults.push({ player: currentPlayer, dish: winner.dish, imageUrl: winner.imageUrl });
+          updateResultsPanel();
+        }
+        createConfetti();
+        updateRemaining();
+      }, 700);
+    }
+  }
+
+  requestAnimationFrame(frame);
+}
+
+// ========================================
+// BATTLE MODE — So Găng: 8-dish head-to-head bracket
+// ========================================
+let battleRound = [];
+let battleNextRound = [];
+let battleRoundSize = 0;
+
+function openBattleModal() {
+  const available = deck.filter((_, i) => !flippedCards.includes(i));
+  if (available.length < 2) {
+    alert('Cần ít nhất 2 lá để so găng! Hãy chia lại bộ bài.');
+    return;
+  }
+
+  const shuffled = [...available].sort(() => Math.random() - 0.5);
+  battleRound = shuffled.slice(0, Math.min(8, shuffled.length));
+  battleRoundSize = battleRound.length;
+  battleNextRound = [];
+
+  document.getElementById('battleModal').classList.add('show');
+  renderBattleMatch();
+}
+
+function closeBattleModal() {
+  document.getElementById('battleModal').classList.remove('show');
+}
+
+function battleRoundLabel(size) {
+  if (size <= 2) return 'Chung kết';
+  if (size <= 4) return 'Bán kết';
+  return 'Tứ kết';
+}
+
+function renderBattleMatch() {
+  const a = battleRound[0];
+  const b = battleRound[1];
+
+  document.getElementById('battleTitle').textContent =
+    `So Găng — ${battleRoundLabel(battleRoundSize)}`;
+
+  for (const [id, d] of [['battleCardA', a], ['battleCardB', b]]) {
+    document.getElementById(id).innerHTML = `
+      <img src="${escapeHtml(d.imageUrl)}" alt="${escapeHtml(d.dish)}" loading="lazy" decoding="async" onerror="this.style.display='none'">
+      <span class="battle-dish">${escapeHtml(d.dish)}</span>
+    `;
+  }
+
+  document.getElementById('battleProgress').textContent =
+    `Còn ${battleRound.length} món vòng này`;
+}
+
+function pickBattleSide(side) {
+  const winner = battleRound[side];
+  battleNextRound.push(winner);
+  battleRound.splice(0, 2);
+
+  if (battleRound.length === 0) {
+    battleRound = battleNextRound;
+    battleNextRound = [];
+    battleRoundSize = battleRound.length;
+
+    if (battleRound.length === 1) {
+      const champion = battleRound[0];
+      closeBattleModal();
+
+      const deckIndex = deck.findIndex(c => c.id === champion.id);
+      if (deckIndex !== -1) {
+        flippedCards.push(deckIndex);
+        const cardEl = document.querySelector(`[data-index="${deckIndex}"]`);
+        if (cardEl) {
+          cardEl.classList.add('flipped');
+          cardEl.innerHTML = createCardFront(champion);
+        }
+      }
+
+      showResult(champion);
+      addToHistory(champion);
+      if (isMultiPlayer) {
+        gameResults.push({ player: currentPlayer, dish: champion.dish, imageUrl: champion.imageUrl });
+        updateResultsPanel();
+      }
+      createConfetti();
+      updateRemaining();
+      return;
+    }
+  }
+
+  renderBattleMatch();
+}
+
+// ========================================
+// DISH OF THE DAY — deterministic daily suggestion
+// ========================================
+function getDishOfDay() {
+  const all = [];
+  for (const suit of SUITS) {
+    DISHES[suit].forEach((dish, i) => {
+      all.push({
+        value: VALUES[i],
+        suit,
+        dish,
+        pairing: PAIRINGS[suit][i],
+        imageUrl: IMAGES[suit][i],
+        isRed: suit === '♥' || suit === '♦',
+        region: REGIONS[suit][i]
+      });
+    });
+  }
+  const d = new Date();
+  const seed = d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
+  return all[seed % all.length];
+}
+
+function renderDishOfDay() {
+  const el = document.getElementById('dishOfDayName');
+  if (el) el.textContent = getDishOfDay().dish;
+}
+
 function openSettings() {
   document.getElementById('settingsModal').classList.add('show');
 }
@@ -1653,6 +1887,24 @@ function setupEvents() {
   document.getElementById('closeWheelX')?.addEventListener('click', closeWheelModal);
   document.getElementById('wheelBg')?.addEventListener('click', closeWheelModal);
   document.getElementById('spinWheelBtn')?.addEventListener('click', spinWheel);
+
+  // Reel (Quay Hòm)
+  document.getElementById('reelBtn')?.addEventListener('click', openReelModal);
+  document.getElementById('closeReelX')?.addEventListener('click', closeReelModal);
+  document.getElementById('reelBg')?.addEventListener('click', closeReelModal);
+  document.getElementById('spinReelBtn')?.addEventListener('click', spinReel);
+
+  // Battle (So Găng)
+  document.getElementById('battleBtn')?.addEventListener('click', openBattleModal);
+  document.getElementById('closeBattleX')?.addEventListener('click', closeBattleModal);
+  document.getElementById('battleBg')?.addEventListener('click', closeBattleModal);
+  document.getElementById('battleCardA')?.addEventListener('click', () => pickBattleSide(0));
+  document.getElementById('battleCardB')?.addEventListener('click', () => pickBattleSide(1));
+
+  // Dish of the day
+  document.getElementById('dishOfDay')?.addEventListener('click', () => {
+    showResult(getDishOfDay());
+  });
 
   // Onboarding
   document.getElementById('skipOnboarding')?.addEventListener('click', hideOnboarding);

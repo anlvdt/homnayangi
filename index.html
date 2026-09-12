@@ -56,13 +56,6 @@
         </select>
       </div>
       <div class="action-group">
-        <button class="btn icon-btn" id="wheelBtn" title="Vòng quay may mắn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10" />
-            <path d="M12 2v4M12 18v4M2 12h4M18 12h4M12 12l4.5-4.5" />
-            <circle cx="12" cy="12" r="2" />
-          </svg>
-        </button>
         <button class="btn icon-btn" id="resetBtn" title="Chia lại bộ bài">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
@@ -79,13 +72,57 @@
       </div>
     </div>
 
-    <button class="btn quick-pick-btn" id="quickPickBtn">
+    <button class="dish-of-day" id="dishOfDay" title="Món gợi ý cho hôm nay">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="13" height="17" rx="2" />
-        <path d="M16 8l3.5 1.5a2 2 0 0 1 1 2.6l-3 7a2 2 0 0 1-2.6 1L13 19.5" />
+        <circle cx="12" cy="12" r="5" />
+        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
       </svg>
-      Bốc ngẫu nhiên
+      Món của ngày: <strong id="dishOfDayName"></strong>
     </button>
+
+    <div class="play-actions">
+      <button class="btn quick-pick-btn" id="quickPickBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="13" height="17" rx="2" />
+          <path d="M16 8l3.5 1.5a2 2 0 0 1 1 2.6l-3 7a2 2 0 0 1-2.6 1L13 19.5" />
+        </svg>
+        Bốc ngẫu nhiên
+      </button>
+      <div class="play-modes">
+        <button class="btn mode-pill" id="wheelBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 2v4M12 18v4M2 12h4M18 12h4M12 12l4.5-4.5" />
+            <circle cx="12" cy="12" r="2" />
+          </svg>
+          Vòng quay
+        </button>
+        <button class="btn mode-pill" id="reelBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="6" width="20" height="12" rx="2" />
+            <line x1="8" y1="6" x2="8" y2="18" />
+            <line x1="16" y1="6" x2="16" y2="18" />
+            <circle cx="5" cy="12" r="1" fill="currentColor" />
+            <circle cx="12" cy="12" r="1" fill="currentColor" />
+            <circle cx="19" cy="12" r="1" fill="currentColor" />
+          </svg>
+          Quay hòm
+        </button>
+        <button class="btn mode-pill" id="battleBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14.5 17.5L3 6V3h3l11.5 11.5" />
+            <path d="M13 19l6-6" />
+            <path d="M16 16l4 4" />
+            <path d="M19 21l2-2" />
+            <path d="M14.5 6.5L18 3h3v3l-3.5 3.5" />
+            <path d="M5 14l4 4" />
+            <path d="M7 17l-4 4" />
+            <path d="M3 19l2 2" />
+          </svg>
+          So găng
+        </button>
+      </div>
+    </div>
 
     <div class="player-bar" id="playerBar">
       <div class="current-player">
@@ -173,6 +210,18 @@
       <div class="modal-bg" id="modalBg"></div>
       <div class="modal-card">
         <div class="result-card" id="resultCard"></div>
+        <div class="food-links" id="foodLinks">
+          <a class="food-link link-maps" id="linkMaps" target="_blank" rel="noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2a8 8 0 0 0-8 8c0 5.4 7 11 8 12 1-1 8-6.6 8-12a8 8 0 0 0-8-8z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+            Bản đồ
+          </a>
+          <a class="food-link link-grab" id="linkGrab" target="_blank" rel="noreferrer">GrabFood</a>
+          <a class="food-link link-shopee" id="linkShopee" target="_blank" rel="noreferrer">ShopeeFood</a>
+          <a class="food-link link-be" id="linkBe" target="_blank" rel="noreferrer">beFood</a>
+        </div>
         <div class="modal-buttons">
           <button class="btn close-btn" id="closeBtn">Đóng</button>
           <button class="btn next-btn" id="nextBtn">Người tiếp theo</button>
@@ -502,6 +551,54 @@
           </svg>
           Quay
         </button>
+      </div>
+    </div>
+
+    <!-- Reel (Quay Hòm) Modal -->
+    <div class="reel-modal" id="reelModal">
+      <div class="reel-bg" id="reelBg"></div>
+      <div class="reel-content">
+        <div class="modal-header">
+          <h2>Quay Hòm</h2>
+          <button class="close-x" id="closeReelX">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div class="reel-window">
+          <div class="reel-marker"></div>
+          <div class="reel-strip" id="reelStrip"></div>
+        </div>
+        <button class="btn spin-wheel-btn" id="spinReelBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12a9 9 0 1 1-9-9" />
+            <polyline points="21 3 21 9 15 9" />
+          </svg>
+          Quay hòm
+        </button>
+      </div>
+    </div>
+
+    <!-- Battle (So Găng) Modal -->
+    <div class="battle-modal" id="battleModal">
+      <div class="battle-bg" id="battleBg"></div>
+      <div class="battle-content">
+        <div class="modal-header">
+          <h2 id="battleTitle">So Găng — Tứ kết</h2>
+          <button class="close-x" id="closeBattleX">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <p class="battle-hint">Chọn món bạn thích hơn</p>
+        <div class="battle-arena" id="battleArena">
+          <button class="battle-card" id="battleCardA"></button>
+          <div class="battle-vs">VS</div>
+          <button class="battle-card" id="battleCardB"></button>
+        </div>
+        <div class="battle-progress" id="battleProgress"></div>
       </div>
     </div>
   </div>
