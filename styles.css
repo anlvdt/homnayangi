@@ -6,15 +6,15 @@
 :root {
   --anim-speed: 1;
 
-  /* Felt table */
-  --felt-1: #17714a;
-  --felt-2: #0b3d24;
-  --felt-edge: rgba(0, 0, 0, 0.45);
+  /* Felt table — xanh lá mạ tươi, sáng & nhẹ hơn mặt nỉ cũ */
+  --felt-1: #2f9c64;
+  --felt-2: #155232;
+  --felt-edge: rgba(0, 0, 0, 0.38);
 
-  /* Surfaces */
-  --card-cream: #fffdf4;
-  --surface: rgba(255, 253, 244, 0.94);
-  --surface-solid: #fffdf4;
+  /* Surfaces — tông giấy dó/giấy điệp ấm */
+  --card-cream: #fdf6e4;
+  --surface: rgba(253, 246, 228, 0.95);
+  --surface-solid: #fdf6e4;
   --surface-2: #f5efdc;
   --overlay: rgba(4, 20, 12, 0.72);
   --glass: rgba(255, 255, 255, 0.1);
@@ -36,6 +36,18 @@
   --green-btn-deep: #157347;
   --danger: #d92d20;
 
+  /* Bảng màu làng quê: chàm (áo nâu sồng - vải chàm), nâu đất (tre gỗ),
+     điểm nhấn ấm kích thích vị giác (gạch nung, ớt, vàng nghệ). */
+  --indigo: #35526f;
+  --indigo-deep: #24384d;
+  --earth: #6f4a29;
+  --earth-deep: #4f3319;
+  --terracotta: #c85a3c;
+  --chili: #d43a24;
+
+  /* Chiều cao "sân làng" — dải cảnh quê chừa dưới chân bàn bài */
+  --scene-reveal: 104px;
+
   /* Shape */
   --r-sm: 10px;
   --r-md: 14px;
@@ -48,6 +60,8 @@
   --press-offset: 3px;
 
   --font: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* Phông thư pháp cho tiêu đề — gợi nét bút lông, chất mộc dân gian */
+  --font-display: 'Dancing Script', 'Be Vietnam Pro', cursive;
 }
 
 body.dark-mode {
@@ -78,24 +92,50 @@ body.dark-mode {
 }
 
 html {
-  /* Fluid root size: 16px up to 1600px, then scales with viewport,
-     capped at 20px so hi-res/ultra-wide screens feel proportionate */
-  font-size: clamp(16px, 1vw, 20px);
+  /* Cỡ chữ gốc co giãn theo CẢ chiều ngang và chiều cao khung nhìn.
+     Cửa sổ thấp (laptop 13", chia đôi màn hình, xoay ngang điện thoại)
+     sẽ tự thu nhỏ chữ để mọi thứ vẫn nằm gọn trong một màn. */
+  font-size: clamp(13px, min(1vw, 2.1vh), 20px);
   /* Render built-in UI (scrollbars, form controls) in light mode by default */
   color-scheme: light;
+  height: 100%;
 }
 
 body {
   font-family: var(--font);
   color: var(--ink-on-felt);
+  height: 100%;
   min-height: 100vh;
   min-height: 100dvh;
-  background:
-    radial-gradient(ellipse 120% 90% at 50% 0%, var(--felt-1) 0%, var(--felt-2) 70%),
-    var(--felt-2);
+  /* Nền "làng quê": hoạ tiết vải thổ cẩm / trống đồng chìm phủ lên mặt nỉ,
+     gợi chiếu hoa - khăn gấm chứ không còn thuần mặt bàn casino. */
+  background-color: var(--felt-2);
+  background-image:
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='72'%20height='72'%3E%3Cg%20fill='none'%20stroke='%23f6e7bf'%20stroke-opacity='0.13'%20stroke-width='1.6'%3E%3Cpath%20d='M36%205%2061%2036%2036%2067%2011%2036Z'/%3E%3Cpath%20d='M36%2019%2051%2036%2036%2053%2021%2036Z'%20stroke-opacity='0.09'/%3E%3C/g%3E%3Cg%20fill='%23f6e7bf'%3E%3Ccircle%20cx='36'%20cy='36'%20r='2.6'%20fill-opacity='0.14'/%3E%3Ccircle%20cx='0'%20cy='36'%20r='2.6'%20fill-opacity='0.11'/%3E%3Ccircle%20cx='72'%20cy='36'%20r='2.6'%20fill-opacity='0.11'/%3E%3Ccircle%20cx='36'%20cy='0'%20r='2.6'%20fill-opacity='0.11'/%3E%3Ccircle%20cx='36'%20cy='72'%20r='2.6'%20fill-opacity='0.11'/%3E%3C/g%3E%3C/svg%3E"),
+    radial-gradient(ellipse 120% 90% at 50% 0%, var(--felt-1) 0%, var(--felt-2) 72%);
+  background-size: 72px 72px, 100% 100%;
   background-attachment: fixed;
-  overflow-x: hidden;
-  transition: background 0.4s ease;
+  overflow: hidden;
+  transition: background-color 0.4s ease;
+}
+
+/* Modal đang mở thì khoá cuộn nền — trước đây nền vẫn cuộn sau lớp phủ */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* Chỉ dành cho trình đọc màn hình */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 
 body::before {
@@ -105,6 +145,35 @@ body::before {
   pointer-events: none;
   background: radial-gradient(ellipse 90% 70% at 50% 40%, transparent 55%, var(--felt-edge) 100%);
   z-index: 0;
+}
+
+/* Cảnh làng quê chạy ngang dưới chân màn hình: luỹ tre, mái đình, con trâu,
+   người đội nón, cây chuối, rặng cây, đàn cò, đồng lúa — dựng cả app thành
+   một khoảnh sân quê. Nằm sau nội dung (z-index 0), không chắn thao tác. */
+body::after {
+  content: '';
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(var(--scene-reveal) + 34px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.9;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 viewBox%3D%220 0 1440 280%22 width%3D%221440%22 height%3D%22280%22%3E %3Cg fill%3D%22%2306251a%22%3E %3Cpath d%3D%22M0 232 Q 300 210 620 226 T 1160 224 T 1440 228 L1440 280 L0 280 Z%22%2F%3E %3Cg%3E %3Crect x%3D%2270%22 y%3D%22120%22 width%3D%224%22 height%3D%22112%22%2F%3E %3Crect x%3D%2292%22 y%3D%2296%22 width%3D%224%22 height%3D%22136%22%2F%3E %3Crect x%3D%22114%22 y%3D%22130%22 width%3D%224%22 height%3D%22102%22%2F%3E %3Crect x%3D%22132%22 y%3D%22108%22 width%3D%223.5%22 height%3D%22124%22%2F%3E %3Cpath d%3D%22M72 120 q -22 -10 -34 -30 q 24 6 36 24 z%22%2F%3E %3Cpath d%3D%22M72 132 q 22 -8 36 -26 q -12 22 -34 30 z%22%2F%3E %3Cpath d%3D%22M94 96 q -24 -10 -36 -32 q 26 6 38 26 z%22%2F%3E %3Cpath d%3D%22M94 108 q 24 -8 38 -28 q -14 24 -36 32 z%22%2F%3E %3Cpath d%3D%22M116 130 q -20 -8 -30 -26 q 22 4 32 22 z%22%2F%3E %3Cpath d%3D%22M133 108 q 22 -8 34 -26 q -12 22 -32 30 z%22%2F%3E %3C%2Fg%3E %3Cg%3E %3Crect x%3D%22262%22 y%3D%22176%22 width%3D%2296%22 height%3D%2256%22%2F%3E %3Cpath d%3D%22M244 176 L310 132 L376 176 Z%22%2F%3E %3Cpath d%3D%22M244 176 q 66 -14 132 0 l -6 -8 q -60 -12 -120 0 z%22%2F%3E %3Crect x%3D%22298%22 y%3D%22200%22 width%3D%2222%22 height%3D%2232%22%2F%3E %3C%2Fg%3E %3Cg%3E %3Crect x%3D%22388%22 y%3D%22192%22 width%3D%2264%22 height%3D%2240%22%2F%3E %3Cpath d%3D%22M376 192 L420 160 L464 192 Z%22%2F%3E %3C%2Fg%3E %3Cg%3E %3Cellipse cx%3D%22672%22 cy%3D%22196%22 rx%3D%2258%22 ry%3D%2226%22%2F%3E %3Cpath d%3D%22M726 190 q 26 -4 34 -20 q 4 18 -10 28 q -12 8 -24 4 z%22%2F%3E %3Cpath d%3D%22M752 172 q 14 -18 4 -34 q 16 8 12 30 z%22%2F%3E %3Cpath d%3D%22M766 172 q 18 -14 16 -34 q 10 12 -2 32 z%22%2F%3E %3Crect x%3D%22636%22 y%3D%22214%22 width%3D%227%22 height%3D%2226%22%2F%3E %3Crect x%3D%22656%22 y%3D%22214%22 width%3D%227%22 height%3D%2226%22%2F%3E %3Crect x%3D%22690%22 y%3D%22214%22 width%3D%227%22 height%3D%2226%22%2F%3E %3Crect x%3D%22710%22 y%3D%22214%22 width%3D%227%22 height%3D%2226%22%2F%3E %3Cpath d%3D%22M616 196 q -16 4 -20 22 q 10 -8 22 -14 z%22%2F%3E %3C%2Fg%3E %3Cg%3E %3Crect x%3D%22600%22 y%3D%22176%22 width%3D%229%22 height%3D%2246%22%2F%3E %3Ccircle cx%3D%22604.5%22 cy%3D%22168%22 r%3D%228%22%2F%3E %3Cpath d%3D%22M586 162 q 18 -22 38 0 q -19 -8 -38 0 z%22%2F%3E %3Crect x%3D%22597%22 y%3D%22196%22 width%3D%227%22 height%3D%2226%22 transform%3D%22rotate(12 600 200)%22%2F%3E %3C%2Fg%3E %3Cg%3E %3Crect x%3D%22908%22 y%3D%22150%22 width%3D%228%22 height%3D%2284%22%2F%3E %3Cpath d%3D%22M912 150 q -6 -34 -40 -44 q 26 30 34 46 z%22%2F%3E %3Cpath d%3D%22M912 150 q 6 -36 44 -44 q -30 30 -38 46 z%22%2F%3E %3Cpath d%3D%22M912 156 q -30 -12 -56 -6 q 30 -14 58 -2 z%22%2F%3E %3Cpath d%3D%22M912 156 q 30 -12 58 -4 q -32 -12 -60 0 z%22%2F%3E %3Cpath d%3D%22M912 168 q -22 6 -40 24 q 20 -6 42 -12 z%22%2F%3E %3Cpath d%3D%22M912 168 q 24 6 42 24 q -22 -6 -44 -12 z%22%2F%3E %3C%2Fg%3E %3Cg%3E %3Crect x%3D%221150%22 y%3D%22168%22 width%3D%2210%22 height%3D%2266%22%2F%3E %3Ccircle cx%3D%221155%22 cy%3D%22150%22 r%3D%2240%22%2F%3E %3Ccircle cx%3D%221120%22 cy%3D%22164%22 r%3D%2230%22%2F%3E %3Ccircle cx%3D%221192%22 cy%3D%22162%22 r%3D%2232%22%2F%3E %3C%2Fg%3E %3Cg%3E %3Cpath d%3D%22M40 262 l6 -20 M60 264 l6 -22 M80 262 l5 -20 M120 264 l6 -22 M160 262 l6 -20 M210 264 l6 -22 M470 262 l6 -20 M510 264 l6 -22 M560 262 l6 -20 M820 262 l6 -20 M860 264 l6 -22 M1000 262 l6 -20 M1040 264 l6 -22 M1240 262 l6 -20 M1290 264 l6 -22 M1340 262 l6 -20%22 stroke%3D%22%2306251a%22 stroke-width%3D%224%22 stroke-linecap%3D%22round%22%2F%3E %3C%2Fg%3E %3C%2Fg%3E %3Cg fill%3D%22none%22 stroke%3D%22%230b3524%22 stroke-width%3D%224%22 stroke-linecap%3D%22round%22%3E %3Cpath d%3D%22M360 70 q 16 -14 32 0 q 16 -14 32 0%22%2F%3E %3Cpath d%3D%22M470 52 q 14 -12 28 0 q 14 -12 28 0%22%2F%3E %3Cpath d%3D%22M560 78 q 12 -10 24 0 q 12 -10 24 0%22%2F%3E %3Cpath d%3D%22M1010 60 q 14 -12 28 0 q 14 -12 28 0%22%2F%3E %3Cpath d%3D%22M1090 82 q 12 -10 24 0 q 12 -10 24 0%22%2F%3E %3C%2Fg%3E %3C%2Fsvg%3E"),
+    linear-gradient(0deg, rgba(214, 142, 58, 0.20) 0%, rgba(214, 142, 58, 0.08) 42%, transparent 80%);
+  background-repeat: repeat-x, no-repeat;
+  background-position: center bottom, center bottom;
+  background-size: auto 100%, 100% 100%;
+}
+
+/* Dải cảnh quê co theo màn hình để không lấn chỗ bộ bài */
+@media (max-width: 600px) { :root { --scene-reveal: 74px; } }
+@media (max-height: 700px) { :root { --scene-reveal: 66px; } }
+@media (max-height: 560px) {
+  :root { --scene-reveal: 14px; }
+  body::after { display: none; }
 }
 
 button {
@@ -141,18 +210,55 @@ img {
 .container {
   position: relative;
   z-index: 1;
-  max-width: 720px;
+  width: 100%;
+  max-width: 760px;
   margin: 0 auto;
-  padding: calc(12px + env(safe-area-inset-top)) 16px calc(32px + env(safe-area-inset-bottom));
+  padding:
+    calc(18px + env(safe-area-inset-top))
+    max(16px, env(safe-area-inset-right))
+    calc(var(--scene-reveal) + env(safe-area-inset-bottom))
+    max(16px, env(safe-area-inset-left));
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: clamp(8px, 1.4vh, 16px);
+  /* App shell: khung ứng dụng luôn bằng đúng một màn hình, chỉ khu vực
+     bộ bài mới cuộn khi thật sự không đủ chỗ. */
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
 }
 
 /* Sidebar wrapper — transparent on small screens so children flow
-   exactly as before; becomes a single sticky column on desktop. */
+   exactly as before; becomes its own scrollable column on desktop. */
 .sidebar {
   display: contents;
+}
+
+/* Khu vực chứa bộ bài — nhận toàn bộ chỗ trống còn lại và tự căn giữa.
+   JS đo đúng ô này để tính cỡ lá bài, nên không cần đoán chiều cao. */
+.deck-area {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  /* Khung "khay/mẹt tre" bao quanh bộ bài — dùng border (không phải padding)
+     vì JS đo clientWidth/Height đã trừ sẵn border, cỡ lá bài vẫn tính đúng.
+     Nan gỗ chuyển màu + đường mây sáng bên trong cho ra chất tre đan. */
+  border: 12px solid #6f4a29;
+  border-radius: 18px;
+  /* Chừa khoảng thở giữa lá bài và khung tre (fitDeck đã trừ padding này) */
+  padding: 14px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.14), rgba(0, 0, 0, 0.04));
+  box-shadow:
+    inset 0 0 0 2px rgba(246, 231, 191, 0.35),
+    inset 0 0 0 12px rgba(111, 74, 41, 0.001),
+    inset 0 8px 22px rgba(0, 0, 0, 0.34),
+    0 6px 18px rgba(0, 0, 0, 0.32);
 }
 
 /* ========================================
@@ -179,11 +285,13 @@ header {
 }
 
 header h1 {
-  font-size: 1.35rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--ink-on-felt);
-  line-height: 1.15;
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--gold-soft);
+  line-height: 1.05;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
 }
 
 header p {
@@ -205,8 +313,6 @@ header p {
   font-weight: 700;
   color: var(--gold-soft);
   flex-shrink: 0;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
 }
 
 .challenge-badge svg {
@@ -229,10 +335,9 @@ header p {
   flex-wrap: wrap;
   padding: 10px;
   border-radius: var(--r-lg);
-  background: var(--glass);
-  border: 1px solid var(--glass-border);
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  /* Panel phẳng, matte (không kính mờ) cho hợp chất mộc dân dã */
+  background: rgba(9, 42, 26, 0.5);
+  border: 1px solid rgba(246, 231, 191, 0.16);
 }
 
 .mode-group {
@@ -348,8 +453,8 @@ header p {
   font-weight: 800;
   letter-spacing: 0.01em;
   box-shadow:
-    0 4px 0 #8a6104,
-    0 10px 28px rgba(240, 180, 41, 0.35);
+    0 3px 0 #8a6104,
+    0 6px 16px rgba(0, 0, 0, 0.28);
   transition: transform 0.1s ease, box-shadow 0.1s ease;
   min-height: 52px;
 }
@@ -366,7 +471,7 @@ header p {
 
 .quick-pick-btn:active {
   transform: translateY(3px);
-  box-shadow: 0 1px 0 #8a6104, 0 4px 12px rgba(240, 180, 41, 0.3);
+  box-shadow: 0 0 0 #8a6104, 0 3px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* ========================================
@@ -426,14 +531,29 @@ header p {
 /* ========================================
    DECK — card grid
    ======================================== */
+/* Lưới bài dùng flex-wrap chứ không phải grid: hàng cuối lẻ vẫn được căn
+   giữa thay vì dồn về trái. Bề rộng lá bài (--card-w) và bề rộng cả cỗ bài
+   (--deck-w, quyết định số lá mỗi hàng) do fitDeck() tính lại mỗi lần
+   khung nhìn đổi kích thước. */
 .deck {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(62px, 1fr));
-  gap: 8px;
+  --deck-gap: clamp(4px, 0.7vmin, 12px);
+  --card-min: 44px;
+  --card-max: 150px;
+  --card-w: 64px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  gap: var(--deck-gap);
+  width: var(--deck-w, 100%);
+  max-width: 100%;
+  margin: auto;
 }
 
 .card {
   position: relative;
+  flex: 0 0 auto;
+  width: var(--card-w);
   aspect-ratio: 5 / 7;
   border-radius: 8px;
   cursor: pointer;
@@ -441,10 +561,6 @@ header p {
   /* Container query host — children size in cqw (1cqw = 1% of card width),
      so every card face scales itself at any breakpoint */
   container-type: inline-size;
-  content-visibility: auto;
-  /* Closer to real card size (~80×112 mid-viewport) so off-screen
-     estimates don't cause a scroll jump when cards render in */
-  contain-intrinsic-size: auto 80px auto 112px;
 }
 
 .card .back {
@@ -535,6 +651,18 @@ header p {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* Lá bài quá nhỏ (màn hình chật) thì bỏ chữ, để ảnh món chiếm trọn —
+   tên món ở cỡ đó chỉ còn ~3px, vừa không đọc được vừa làm rối mặt bài. */
+@container (max-width: 58px) {
+  .front .food { display: none; }
+  .front .card-head { padding-bottom: 1cqw; }
+}
+
+@container (max-width: 42px) {
+  .front .card-head { display: none; }
+  .front { padding: 2cqw; }
 }
 
 .front .food {
@@ -779,6 +907,50 @@ header p {
   letter-spacing: -0.02em;
   color: var(--ink);
   line-height: 1.2;
+}
+
+/* Thẻ thông tin nhanh: vùng miền · khoảng giá · hợp buổi nào */
+.dish-facts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  margin: 6px 0 2px;
+}
+
+.dish-fact {
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.66rem;
+  font-weight: 700;
+  line-height: 1.5;
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--ink-soft);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+body.dark-mode .dish-fact {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.dish-fact.fact-region {
+  background: rgba(31, 157, 92, 0.14);
+  border-color: rgba(31, 157, 92, 0.3);
+  color: var(--green-btn-deep);
+}
+
+.dish-fact.fact-price {
+  background: rgba(240, 180, 41, 0.18);
+  border-color: rgba(240, 180, 41, 0.4);
+  color: var(--gold-deep);
+}
+
+.dish-fact.fact-time {
+  background: rgba(217, 45, 32, 0.12);
+  border-color: rgba(217, 45, 32, 0.28);
+  color: var(--red);
 }
 
 .food-pairing {
@@ -1773,6 +1945,22 @@ header p {
   margin-bottom: 14px;
 }
 
+.excludes-search {
+  width: 100%;
+  padding: 10px 14px;
+  margin-bottom: 10px;
+  border-radius: var(--r-sm);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: var(--surface-2);
+  color: var(--ink);
+  font-size: 0.9rem;
+}
+
+.excludes-search:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
 .excludes-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1785,6 +1973,11 @@ header p {
   gap: 8px;
   padding: 10px;
   border-radius: 10px;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  color: var(--ink);
   background: var(--surface-2);
   cursor: pointer;
   transition: background 0.15s ease;
@@ -1836,13 +2029,13 @@ header p {
    WHEEL
    ======================================== */
 .wheel-content {
-  max-width: 380px;
+  max-width: 440px;
   text-align: center;
 }
 
 .wheel-stage {
   position: relative;
-  width: 320px;
+  width: 380px;
   max-width: 100%;
   margin: 0 auto 16px;
 }
@@ -2055,7 +2248,7 @@ header p {
 
 /* Empty deck state — filters removed every card */
 .empty-deck {
-  grid-column: 1 / -1;
+  width: 100%;
   text-align: center;
   padding: 32px 20px;
   color: var(--ink-on-felt-soft);
@@ -2160,23 +2353,24 @@ header p {
   gap: 7px;
   padding: 9px 16px;
   border-radius: 999px;
-  background: var(--glass);
-  border: 1px solid var(--glass-border);
+  background: linear-gradient(180deg, rgba(53, 82, 111, 0.34), rgba(79, 51, 25, 0.36));
+  border: 1px solid rgba(246, 231, 191, 0.30);
   color: var(--ink-on-felt);
   font-size: 0.82rem;
   font-weight: 700;
   min-height: 40px;
-  transition: background-color 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+  transition: background-color 0.15s ease, transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .mode-pill svg {
   width: 15px;
   height: 15px;
-  color: var(--gold);
+  color: var(--gold-soft);
 }
 
 .mode-pill:hover {
-  background: rgba(255, 255, 255, 0.16);
+  background: linear-gradient(180deg, rgba(53, 82, 111, 0.5), rgba(79, 51, 25, 0.5));
+  border-color: rgba(246, 231, 191, 0.5);
   transform: translateY(-1px);
 }
 
@@ -2187,17 +2381,19 @@ header p {
 /* ========================================
    FOOD LINKS — Maps / GrabFood / ShopeeFood / beFood
    ======================================== */
+/* Bốn nút đặt món xếp lưới 2×2 — trước đây dùng flex-wrap nên nút thứ tư
+   thường rớt xuống một mình, nhìn lệch hẳn so với thẻ bài. */
 .food-links {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
-  flex-wrap: wrap;
-  justify-content: center;
-  max-width: 340px;
+  width: min(340px, 100%);
 }
 
 .food-link {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   padding: 9px 14px;
   border-radius: 999px;
@@ -2673,10 +2869,23 @@ header p {
   color: #5a2a18;
 }
 
+.xam-tier {
+  padding: 2px 12px;
+  border-radius: 999px;
+  background: #b04a3a;
+  color: #fdf6e3;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+/* Lời xăm là hai câu lục bát — giữ nguyên xuống dòng để đúng nhịp thơ */
 .xam-verse {
-  font-size: 0.75rem;
+  font-size: 0.78rem;
+  line-height: 1.7;
   color: #8a6a4a;
   font-style: italic;
+  white-space: pre-line;
 }
 
 /* ========================================
@@ -2861,17 +3070,21 @@ header p {
 }
 
 /* ========================================
-   RESPONSIVE
+   RESPONSIVE — app shell fit mọi khung nhìn
+   Nguyên tắc: khung ứng dụng luôn cao đúng một màn (100dvh). Phần chrome
+   (header, bộ lọc, nút chơi) co lại theo chiều cao khung nhìn, phần còn lại
+   dành hết cho bộ bài; fitDeck() trong app.js tính cỡ lá bài để lấp vừa khít.
    ======================================== */
+
+/* ---------- ĐIỆN THOẠI (≤600px) ---------- */
 @media (max-width: 600px) {
   .container {
-    padding-left: 12px;
-    padding-right: 12px;
-    gap: 12px;
+    gap: clamp(6px, 1.1vh, 12px);
   }
 
   .controls {
     gap: 8px;
+    padding: 8px;
   }
 
   .mode-group {
@@ -2892,10 +3105,11 @@ header p {
   .filter-group {
     order: 2;
     flex-basis: 100%;
+    flex-wrap: nowrap;
   }
 
   .filter-select {
-    flex: 1;
+    flex: 1 1 0;
     min-width: 0;
     font-size: 0.78rem;
     padding-left: 10px;
@@ -2903,9 +3117,16 @@ header p {
   }
 
   .deck {
-    grid-template-columns: repeat(auto-fill, minmax(54px, 1fr));
-    gap: 6px;
+    --card-min: 40px;
+    --card-max: 96px;
   }
+
+  .header-logo { width: 38px; height: 38px; border-radius: 11px; }
+  header h1 { font-size: 1.55rem; }
+  header p { font-size: 0.74rem; }
+
+  /* Khung gỗ mảnh hơn trên điện thoại để nhường chỗ cho lá bài */
+  .deck-area { border-width: 7px; border-radius: 13px; padding: 9px; }
 
   /* Bottom-sheet modals on mobile */
   .settings-content, .multiplayer-content, .planner-content,
@@ -2916,8 +3137,8 @@ header p {
     max-width: 100%;
     width: 100%;
     border-radius: 24px 24px 0 0;
-    max-height: 82vh;
-    max-height: 82dvh;
+    max-height: 86vh;
+    max-height: 86dvh;
     padding-bottom: calc(20px + env(safe-area-inset-bottom));
   }
 
@@ -2937,48 +3158,80 @@ header p {
   }
 }
 
-/* Very narrow phones — stack selects full-width so labels don't truncate */
-@media (max-width: 380px) {
-  .filter-group {
-    flex-direction: column;
-  }
-
-  .filter-select {
-    flex: none;
-    width: 100%;
-  }
-}
-
-/* ========================================
-   TABLET (601–1023px)
-   ======================================== */
-@media (min-width: 601px) and (max-width: 1023px) {
-  .container {
-    max-width: 860px;
-    padding-top: 20px;
-    gap: 16px;
-  }
-
-  header h1 { font-size: 1.6rem; }
-  header p { font-size: 0.85rem; }
-
-  /* Predictable wrapping — selects share space evenly (min ~140px each)
-     instead of sizing to content; action icons keep their own slot */
+/* Máy rất hẹp NHƯNG còn cao — mới cho bộ lọc xuống dòng để chữ khỏi bị cắt.
+   Trên máy hẹp mà thấp, ba ô lọc xếp chồng ngốn ~120px, bộ bài không còn chỗ. */
+@media (max-width: 380px) and (min-height: 700px) {
   .filter-group {
     flex-wrap: wrap;
   }
 
   .filter-select {
-    flex: 1 1 140px;
+    flex: 1 1 100%;
+  }
+}
+
+/* ---------- DƯỚI DESKTOP: dải nút chơi cuộn ngang ----------
+   Ba nhóm chế độ xếp dọc chiếm ~150px chiều cao — trên điện thoại đó là
+   nửa chỗ dành cho bộ bài. Gộp thành một dải cuộn ngang, vẫn giữ nhãn nhóm
+   làm mốc phân cách. */
+@media (max-width: 1023px) {
+  .play-modes {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    padding-inline: 2px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
   }
 
-  .action-group {
-    flex-shrink: 0;
+  .play-modes::-webkit-scrollbar { display: none; }
+
+  .mode-section {
+    flex: 0 0 auto;
+    flex-basis: auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
   }
+
+  .mode-section-label {
+    white-space: nowrap;
+    opacity: 0.75;
+  }
+
+  .mode-pills {
+    flex-wrap: nowrap;
+  }
+
+  .mode-pill {
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+  }
+
+  /* Thông tin phiên là phụ — nhường chỗ khi màn hình thấp */
+  .session-info { font-size: 0.7rem; }
+}
+
+/* ---------- TABLET (601–1023px) ---------- */
+@media (min-width: 601px) and (max-width: 1023px) {
+  .container {
+    /* Nới gần hết bề ngang để bớt lề trái/phải thừa ở cửa sổ ~900–1023px */
+    max-width: min(1200px, 96vw);
+    gap: clamp(8px, 1.4vh, 16px);
+  }
+
+  header h1 { font-size: 1.5rem; }
+  header p { font-size: 0.85rem; }
+
+  .filter-select { flex: 1 1 140px; }
+  .action-group { flex-shrink: 0; }
 
   .deck {
-    grid-template-columns: repeat(auto-fill, minmax(74px, 1fr));
-    gap: 10px;
+    --card-min: 52px;
+    --card-max: 118px;
   }
 
   .settings-content, .multiplayer-content, .planner-content,
@@ -2990,29 +3243,29 @@ header p {
   .reel-content { max-width: 640px; }
 }
 
-/* ========================================
-   DESKTOP (≥1024px) — sidebar + deck layout
-   ======================================== */
+/* ---------- DESKTOP (≥1024px) — cột điều khiển + bàn bài ---------- */
 @media (min-width: 1024px) {
   .container {
-    max-width: 1280px;
+    max-width: min(1760px, 95vw);
     display: grid;
-    grid-template-columns: 300px 1fr;
-    gap: 18px 28px;
-    align-items: start;
-    padding-top: 24px;
-    /* Fill the viewport so the deck can center vertically on tall screens */
-    min-height: 100vh;
-    min-height: 100dvh;
+    grid-template-columns: clamp(240px, 21vw, 360px) minmax(0, 1fr);
+    /* Hàng 1: header. Hàng 2: chiếm hết phần còn lại — không có hàng ma.
+       (Bản cũ dùng grid-row: 2 / span 20 nên sinh 19 khoảng cách rỗng,
+       đẩy trang dài thêm ~700px và luôn phải cuộn.) */
+    grid-template-rows: auto minmax(0, 1fr);
+    column-gap: clamp(18px, 2.2vw, 44px);
+    row-gap: clamp(10px, 1.6vh, 20px);
+    align-items: stretch;
+    padding-top: calc(16px + env(safe-area-inset-top));
   }
 
   header {
     grid-column: 1 / -1;
-    padding: 8px 4px;
+    padding: 4px;
   }
 
-  .header-logo { width: 52px; height: 52px; border-radius: 14px; }
-  header h1 { font-size: 1.8rem; }
+  .header-logo { width: 50px; height: 50px; border-radius: 14px; }
+  header h1 { font-size: 1.75rem; }
   header p { font-size: 0.88rem; }
 
   .challenge-badge {
@@ -3020,28 +3273,27 @@ header p {
     padding: 8px 16px;
   }
 
-  /* Sidebar column — one sticky unit so nothing scrolls underneath */
+  /* Cột trái cuộn riêng, không kéo cả trang */
   .sidebar {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: clamp(8px, 1.3vh, 14px);
     grid-column: 1;
-    position: sticky;
-    top: 20px;
-    max-height: calc(100vh - 40px);
+    grid-row: 2;
+    min-height: 0;
     overflow-y: auto;
+    overscroll-behavior: contain;
     scrollbar-width: none;
+    padding-right: 2px;
   }
 
-  .sidebar::-webkit-scrollbar {
-    display: none;
-  }
+  .sidebar::-webkit-scrollbar { display: none; }
 
   .controls {
     flex-direction: column;
     align-items: stretch;
-    gap: 12px;
-    padding: 14px;
+    gap: 10px;
+    padding: 12px;
   }
 
   .mode-group { width: 100%; }
@@ -3059,35 +3311,32 @@ header p {
     gap: 10px;
   }
 
-  .icon-btn { width: 44px; height: 44px; }
-  .icon-btn svg { width: 19px; height: 19px; }
+  .icon-btn { width: 42px; height: 42px; }
+  .icon-btn svg { width: 18px; height: 18px; }
 
   .dish-of-day {
     align-self: stretch;
     justify-content: center;
-    padding: 12px;
-    font-size: 0.85rem;
+    padding: 10px 12px;
+    font-size: 0.84rem;
   }
 
   .play-actions {
     align-items: stretch;
-    gap: 12px;
+    gap: 10px;
   }
 
-  .quick-pick-btn {
-    width: 100%;
-  }
+  .quick-pick-btn { width: 100%; }
 
   .play-modes {
     flex-direction: column;
     gap: 10px;
   }
 
-  /* Sidebar sections left-align; pill rows wrap under their label */
   .mode-section {
     align-items: flex-start;
     flex-basis: auto;
-    gap: 8px;
+    gap: 6px;
   }
 
   .mode-pills {
@@ -3097,8 +3346,8 @@ header p {
 
   .mode-pill {
     justify-content: center;
-    padding: 12px;
-    font-size: 0.88rem;
+    padding: 10px 14px;
+    font-size: 0.86rem;
   }
 
   .player-bar {
@@ -3108,29 +3357,21 @@ header p {
     text-align: center;
   }
 
-  .player-bar .game-info {
-    justify-content: center;
-  }
+  .player-bar .game-info { justify-content: center; }
 
-  /* Deck column — 13 cards per row = 4 rows of a real 52-card deck.
-     min-height + align-content center the card rows in the leftover
-     viewport space instead of letting them hug the top. */
-  .deck {
+  .deck-area {
     grid-column: 2;
-    grid-row: 2 / span 20;
-    grid-template-columns: repeat(13, 1fr);
-    gap: 10px;
-    align-content: center;
-    min-height: calc(100vh - 160px);
-    min-height: calc(100dvh - 160px);
+    grid-row: 2;
   }
 
-  .card .back::after { font-size: 1.25rem; }
-
-  /* Roomier modals on desktop */
-  .result-card {
-    width: 360px;
+  .deck {
+    --card-min: 54px;
+    --card-max: 150px;
   }
+
+  .card .back::after { font-size: 1.2rem; }
+
+  .result-card { width: 360px; }
 
   .settings-content, .multiplayer-content, .planner-content,
   .custom-dish-content, .excludes-content, .wheel-content,
@@ -3142,45 +3383,25 @@ header p {
   .reel-window { height: 160px; }
   .reel-tile img { height: 88px; }
 
-  .excludes-list {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .week-grid {
-    grid-template-columns: repeat(7, 1fr);
-  }
+  .excludes-list { grid-template-columns: repeat(3, 1fr); }
+  .week-grid { grid-template-columns: repeat(7, 1fr); }
 }
 
-/* Very large screens — scale fluidly with the viewport */
+/* Màn lớn — chỉ nới cột điều khiển và trần cỡ lá bài, phần fit do JS lo */
 @media (min-width: 1440px) {
-  .container {
-    max-width: min(1500px, 94vw);
-    grid-template-columns: 340px 1fr;
-    gap: 20px 36px;
-  }
-  .deck { gap: 12px; }
-
-  header h1 { font-size: 2rem; }
-
+  header h1 { font-size: 1.95rem; }
+  .deck { --card-max: 168px; }
   .mam-tray { grid-template-columns: repeat(4, 1fr); }
   .mam-content { max-width: 680px; }
 }
 
-/* High-res (≥1920px) — more width, bigger hit areas */
 @media (min-width: 1920px) {
-  .container {
-    max-width: min(1900px, 94vw);
-    grid-template-columns: 380px 1fr;
-    gap: 24px 44px;
-  }
-
-  .deck { gap: 14px; }
-
-  .controls { padding: 18px; gap: 14px; }
+  .controls { padding: 16px; gap: 12px; }
   .filter-select { font-size: 0.9rem; }
   .mode-btn, .mode-pill { font-size: 0.92rem; }
   .quick-pick-btn { font-size: 1rem; padding: 14px; }
 
+  .deck { --card-max: 190px; }
   .card .back::after { font-size: 1.4rem; }
 
   .result-card { width: 420px; }
@@ -3188,21 +3409,14 @@ header p {
   .mam-dish { font-size: 1.05rem; }
 }
 
-/* Ultra-wide / 4K+ (≥2560px) — keep cards readable, not tiny */
 @media (min-width: 2560px) {
-  .container {
-    max-width: min(2700px, 92vw);
-    grid-template-columns: 440px 1fr;
-    gap: 28px 56px;
-  }
-
-  .deck { gap: 18px; }
-
+  .container { max-width: min(2600px, 92vw); }
+  .deck { --card-max: 230px; }
   .card .back::after { font-size: 1.6rem; }
 
-  .controls { padding: 22px; gap: 16px; }
-  .icon-btn { width: 52px; height: 52px; }
-  .icon-btn svg { width: 24px; height: 24px; }
+  .controls { padding: 20px; gap: 14px; }
+  .icon-btn { width: 50px; height: 50px; }
+  .icon-btn svg { width: 22px; height: 22px; }
 
   .result-card { width: 480px; }
   .reel-content { max-width: 900px; }
@@ -3210,25 +3424,45 @@ header p {
   .mam-content { max-width: 860px; }
 }
 
-/* ========================================
-   SHORT VIEWPORTS — landscape phones, short windows.
-   Compress header + section spacing so the deck stays reachable.
-   ======================================== */
-@media (max-height: 560px) and (min-width: 600px) {
-  .container {
-    padding-top: 8px;
-    row-gap: 8px;
-  }
+/* ---------- KHUNG NHÌN THẤP — điện thoại nằm ngang, cửa sổ dẹt ----------
+   Ẩn dần những thứ trang trí để bộ bài luôn còn chỗ thở. */
+/* Khung nhìn thấp: hạ sàn cỡ lá bài xuống. Sàn cao khiến thuật toán bỏ
+   phương án vừa khít và rơi về chế độ "xếp kín bề ngang rồi cuộn" — nghịch lý
+   là bài lại to hơn nhưng phải cuộn. Sàn thấp cho phép chọn lưới nhiều cột,
+   ít hàng, vừa vặn màn hình mà kích thước thực tế vẫn ~45px. */
+@media (max-height: 700px) {
+  .deck { --card-min: 32px; }
+}
 
-  header { padding: 2px; }
-  .header-logo { width: 34px; height: 34px; border-radius: 10px; }
-  header h1 { font-size: 1.1rem; }
+@media (max-height: 600px) {
+  .deck { --card-min: 26px; }
+}
+
+@media (max-height: 640px) {
   header p { display: none; }
+  .filter-group { flex-wrap: nowrap; }
+  .filter-select { flex: 1 1 0; min-width: 0; }
+  .header-logo { width: 34px; height: 34px; border-radius: 10px; }
+  header h1 { font-size: 1.35rem; }
+  header { padding: 0 2px; }
+  .deck-area { border-width: 7px; border-radius: 12px; padding: 8px; }
+  .session-info { display: none; }
+  .quick-pick-btn { min-height: 44px; padding: 10px 24px; font-size: 0.95rem; }
+  .controls { padding: 7px; gap: 7px; }
+  .mode-btn, .filter-select { min-height: 34px; }
+  .icon-btn { width: 34px; height: 34px; }
+  .mode-pill { min-height: 34px; padding: 6px 12px; font-size: 0.78rem; }
+  .dish-of-day { padding: 6px 12px; font-size: 0.74rem; }
+}
 
-  .sidebar { gap: 8px; }
-  .controls { gap: 8px; padding: 10px; }
-  .play-actions { gap: 6px; }
-  .play-modes { gap: 6px; }
+@media (max-height: 560px) {
+  .dish-of-day { display: none; }
+}
+
+@media (max-height: 480px) {
+  .mode-section-label { display: none; }
+  header h1 { font-size: 1.2rem; }
+  .header-logo { width: 28px; height: 28px; }
 }
 
 /* ========================================

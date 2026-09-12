@@ -10,24 +10,35 @@
   <meta name="theme-color" content="#0b3d24">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
   <div class="container">
     <header>
-      <img src="icons/icon-192.png" alt="Logo" class="header-logo">
+      <svg class="header-logo" viewBox="0 0 48 48" role="img" aria-label="Logo Hôm Nay Ăn Gì">
+        <defs><linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#c8623a"/><stop offset="1" stop-color="#8f3f22"/></linearGradient></defs>
+        <rect width="48" height="48" rx="13" fill="url(#logoGrad)"/>
+        <g fill="none" stroke="#f7ecd5" stroke-width="2" stroke-linecap="round" opacity="0.8">
+          <path d="M20 12 q -3 -4 0 -8"/><path d="M27 12 q 3 -4 0 -8"/></g>
+        <g stroke="#f2c14e" stroke-width="2.4" stroke-linecap="round">
+          <path d="M33 10 L21 26"/><path d="M37 13 L25 27"/></g>
+        <path d="M11 24 h26 a13 13 0 0 1 -26 0 z" fill="#f7ecd5"/>
+        <ellipse cx="24" cy="24" rx="13" ry="2.6" fill="#fff6e6"/>
+        <path d="M20 37 h8 l-1.4 3 h-5.2 z" fill="#eaddbf"/>
+      </svg>
       <div class="header-text">
         <h1>Hôm Nay Ăn Gì?</h1>
-        <p>Chọn một lá bài để xem món ăn của bạn</p>
+        <p id="headerGreeting">Hôm nay ăn gì?</p>
       </div>
-      <span class="challenge-badge" id="challengeBadge" title="Số món đã thử">
+      <span class="challenge-badge" id="challengeBadge" title="Số món đã thử" role="img" aria-label="Đã thử 0 trong 52 món">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0V4z" />
           <path d="M7 6H4a2 2 0 0 0 0 4h3M17 6h3a2 2 0 0 1 0 4h-3" />
         </svg>
-        <span id="triedCount">0</span>/52
+        <span id="triedCount">0</span>/<span id="totalDishes">52</span>
       </span>
     </header>
 
@@ -40,16 +51,24 @@
       <div class="filter-group">
         <select class="filter-select" id="categoryFilter" aria-label="Lọc loại món">
           <option value="all">Tất cả</option>
-          <option value="♥">Bún/Phở</option>
+          <option value="♥">Bún · Phở · Mì</option>
           <option value="♦">Cơm</option>
-          <option value="♣">Bánh/Xôi</option>
-          <option value="♠">Món khác</option>
+          <option value="♣">Bánh · Xôi</option>
+          <option value="♠">Món mặn · Nhậu</option>
         </select>
         <select class="filter-select" id="regionFilter" aria-label="Lọc vùng miền">
           <option value="all">Cả nước</option>
           <option value="B">Miền Bắc</option>
           <option value="T">Miền Trung</option>
           <option value="N">Miền Nam</option>
+        </select>
+        <select class="filter-select" id="mealFilter" aria-label="Lọc buổi ăn">
+          <option value="all">Mọi buổi</option>
+          <option value="sang">Bữa sáng</option>
+          <option value="trua">Bữa trưa</option>
+          <option value="chieu">Xế chiều</option>
+          <option value="toi">Bữa tối</option>
+          <option value="khuya">Ăn khuya</option>
         </select>
         <select class="filter-select filter-fav" id="favFilter" aria-label="Lọc yêu thích">
           <option value="all">Tất cả món</option>
@@ -263,7 +282,9 @@
       </div>
     </div>
 
-    <div class="deck" id="deck"></div>
+    <div class="deck-area" id="deckArea">
+      <div class="deck" id="deck" role="group" aria-label="Bộ bài"></div>
+    </div>
 
     <div class="modal" id="modal">
       <div class="modal-bg" id="modalBg"></div>
@@ -358,7 +379,7 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
               </svg>
-              <span>Tốc độ animation</span>
+              <span>Tốc độ hiệu ứng</span>
             </div>
             <select id="animSpeedSelect">
               <option value="slow">Chậm</option>
@@ -457,15 +478,16 @@
             </div>
           </div>
 
-          <p class="about-desc">Bộ bài 52 món Việt kết hợp cơ chế quay thưởng — chơi một mình, so găng
-            với bạn bè, gieo mâm cơm gia đình ba miền, hay xin xăm, hái hoa, cào vé số.
+          <p class="about-desc">Kho hơn trăm món — từ phở bò, cơm tấm, bánh xèo tới gà rán, mì cay,
+            sushi — mỗi ván chia ra 52 lá khác nhau. Chơi một mình, so găng với bạn bè,
+            gieo mâm cơm gia đình ba miền, hay xin xăm, hái hoa, cào vé số.
             Chạy hoàn toàn trên trình duyệt, cài được như app, không cần tài khoản.</p>
 
           <div class="about-stats">
-            <div class="about-stat"><strong>52</strong><span>lá bài món ăn</span></div>
-            <div class="about-stat"><strong>8</strong><span>cách chơi</span></div>
+            <div class="about-stat"><strong id="aboutTotalDishes">113</strong><span>món trong kho</span></div>
+            <div class="about-stat"><strong>52</strong><span>lá mỗi ván</span></div>
+            <div class="about-stat"><strong>8</strong><span>cách chọn món</span></div>
             <div class="about-stat"><strong>3</strong><span>miền mâm cơm</span></div>
-            <div class="about-stat"><strong>4</strong><span>app đặt món</span></div>
           </div>
 
           <div class="about-credit">
@@ -582,16 +604,16 @@
         <div class="form-group">
           <label>Loại</label>
           <select id="customDishCategory">
-            <option value="♥">Bún/Phở</option>
+            <option value="♥">Bún · Phở · Mì</option>
             <option value="♦">Cơm</option>
-            <option value="♣">Bánh/Xôi</option>
-            <option value="♠">Món khác</option>
+            <option value="♣">Bánh · Xôi</option>
+            <option value="♠">Món mặn · Nhậu</option>
           </select>
         </div>
 
         <div class="form-group">
-          <label>Hình ảnh (URL)</label>
-          <input type="text" id="customDishImage" placeholder="https://…">
+          <label>Link ảnh (nếu có)</label>
+          <input type="text" id="customDishImage" placeholder="Dán link ảnh, để trống cũng được">
         </div>
 
         <div class="custom-dish-buttons">
@@ -619,6 +641,7 @@
           </button>
         </div>
         <p class="excludes-desc">Chọn món bạn không muốn xuất hiện khi bốc bài</p>
+        <input type="search" class="excludes-search" id="excludesSearch" placeholder="Tìm món…" aria-label="Tìm món để loại trừ">
         <div class="excludes-list" id="excludesList"></div>
       </div>
     </div>
@@ -636,7 +659,7 @@
           </button>
         </div>
         <div class="wheel-stage">
-          <canvas id="wheelCanvas" width="320" height="320"></canvas>
+          <canvas id="wheelCanvas" width="380" height="380"></canvas>
           <div class="wheel-pointer"></div>
         </div>
         <button class="btn spin-wheel-btn" id="spinWheelBtn">
@@ -699,6 +722,7 @@
 
     <!-- Family Meal (Mâm Cơm) Modal -->
     <div class="reel-modal" id="mamModal">
+      <div class="reel-bg" data-close="mamModal"></div>
       <div class="reel-content mam-content">
         <div class="modal-header">
           <h2>Mâm Cơm Gia Đình</h2>
@@ -727,6 +751,7 @@
 
     <!-- Xin Xăm Modal -->
     <div class="reel-modal" id="xamModal">
+      <div class="reel-bg" data-close="xamModal"></div>
       <div class="reel-content xam-content">
         <div class="modal-header">
           <h2>Xin Xăm Ăn Uống</h2>
@@ -747,6 +772,7 @@
           <div class="xam-fortune" id="xamFortune" hidden>
             <div class="xam-paper">
               <span class="xam-que-label">LỜI XĂM</span>
+              <span class="xam-tier" id="xamTier"></span>
               <strong class="xam-dish" id="xamDish"></strong>
               <span class="xam-verse" id="xamVerse"></span>
             </div>
@@ -763,6 +789,7 @@
 
     <!-- Hái Hoa Dân Chủ Modal -->
     <div class="reel-modal" id="hoaModal">
+      <div class="reel-bg" data-close="hoaModal"></div>
       <div class="reel-content hoa-content">
         <div class="modal-header">
           <h2>Hái Hoa Ăn Gì?</h2>
@@ -779,6 +806,7 @@
 
     <!-- Cào Vé Số Modal -->
     <div class="reel-modal" id="vesoModal">
+      <div class="reel-bg" data-close="vesoModal"></div>
       <div class="reel-content veso-content">
         <div class="modal-header">
           <h2>Cào Vé Số</h2>
@@ -807,45 +835,48 @@
       <div class="onboarding-slide active" data-slide="1">
         <div class="onboarding-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <rect x="2" y="2" width="20" height="20" rx="3" />
-            <path d="M12 8v8M8 12h8" />
+            <rect x="3" y="2" width="13" height="18" rx="2" />
+            <path d="M16 7l4 1.7a2 2 0 0 1 1.1 2.6l-3.4 8a2 2 0 0 1-2.6 1.1L13 19.4" />
           </svg>
         </div>
-        <h2>Chào mừng đến với<br>Hôm Nay Ăn Gì?</h2>
-        <p>Ứng dụng giúp bạn chọn món ăn mỗi ngày một cách thú vị với bộ bài 52 lá!</p>
+        <h2>Trưa nay ăn gì?</h2>
+        <p>Câu hỏi khó nhất trong ngày. Bốc một lá bài, để bộ bài trả lời giúp bạn.</p>
       </div>
 
       <div class="onboarding-slide" data-slide="2">
         <div class="onboarding-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <rect x="3" y="3" width="7" height="10" rx="1" />
-            <path d="M14 5h4M14 9h4M14 13h2" />
+            <path d="M4 12h16" />
+            <path d="M6 12a6 6 0 0 1 12 0" />
+            <path d="M4 12a8 8 0 0 0 16 0" />
+            <path d="M9 6c0-1.5 1.5-1.5 1.5-3M13.5 6c0-1.5 1.5-1.5 1.5-3" />
           </svg>
         </div>
-        <h2>Bốc bài ngẫu nhiên</h2>
-        <p>Chạm vào bất kỳ lá bài nào để xem món ăn may mắn của bạn hôm nay!</p>
+        <h2>Hơn trăm món, đủ ba miền</h2>
+        <p>Phở bò Hà Nội, bún bò Huế, cơm tấm Sài Gòn, cả gà rán với mì cay. Mỗi ván chia 52 lá khác nhau, kèm ảnh món, gợi ý ăn kèm và khoảng giá.</p>
       </div>
 
       <div class="onboarding-slide" data-slide="3">
         <div class="onboarding-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <circle cx="12" cy="10" r="3" />
-            <path d="M12 2a8 8 0 0 0-8 8c0 5.4 7 11 8 12 1-1 8-6.6 8-12a8 8 0 0 0-8-8z" />
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 3v4M12 17v4M3 12h4M17 12h4M12 12l5-5" />
+            <circle cx="12" cy="12" r="1.6" />
           </svg>
         </div>
-        <h2>Lọc theo vùng miền</h2>
-        <p>Chọn món ăn theo vùng miền Bắc, Trung, Nam phù hợp với khẩu vị của bạn!</p>
+        <h2>Tám kiểu chọn món</h2>
+        <p>Chán bốc bài thì quay vòng quay, cào vé số, xin xăm, hái hoa, so găng — hoặc gieo cả mâm cơm gia đình bốn món.</p>
       </div>
 
       <div class="onboarding-slide" data-slide="4">
         <div class="onboarding-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <path
-              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+            <path d="M12 2a8 8 0 0 0-8 8c0 5.4 7 11 8 12 1-1 8-6.6 8-12a8 8 0 0 0-8-8z" />
+            <circle cx="12" cy="10" r="3" />
           </svg>
         </div>
-        <h2>Yêu thích & Loại trừ</h2>
-        <p>Đánh dấu món yêu thích và loại bỏ món không thích để bốc bài theo ý muốn!</p>
+        <h2>Lọc theo ý bạn</h2>
+        <p>Chọn miền Bắc – Trung – Nam, thả tim món ruột, gạch tên món không hợp khẩu vị. App nhớ hết cho lần sau.</p>
       </div>
 
       <div class="onboarding-slide" data-slide="5">
@@ -856,8 +887,8 @@
             <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
           </svg>
         </div>
-        <h2>Chơi cùng bạn bè</h2>
-        <p>Chế độ nhiều người cho phép cả nhóm cùng bốc bài và xem ai được món ngon nhất!</p>
+        <h2>Cả hội cùng bốc</h2>
+        <p>Bật chế độ nhiều người để cả phòng cùng rút, xem ai trúng món ngon nhất. Ra món rồi thì mở Grab, Shopee hay Google Maps ngay trên thẻ kết quả.</p>
       </div>
 
       <div class="onboarding-dots">
