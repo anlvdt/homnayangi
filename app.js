@@ -1,105 +1,336 @@
-// Homnayangi - Food Card Game
-// With dramatic suspense effects and sounds
+// Homnayangi — Bốc bài chọn món ăn Việt
+// Suspense animation + âm thanh tổng hợp, chạy hoàn toàn offline.
 
 // ========================================
 // DATA
 // ========================================
 const SUITS = ['♥', '♦', '♣', '♠'];
 const VALUES = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
-const EMOJIS = { '♥': '', '♦': '', '♣': '', '♠': '' };
 
-const DISHES = {
-  '♥': ['Phở bò', 'Phở gà', 'Bún bò Huế', 'Bún chả', 'Bún riêu', 'Bún đậu', 'Bún thịt nướng', 'Hủ tiếu', 'Mì Quảng', 'Bún cá', 'Cao lầu', 'Miến gà', 'Phở xào'],
-  '♦': ['Cơm tấm', 'Cơm sườn', 'Cơm gà', 'Cơm rang', 'Cơm chiên', 'Cơm cá kho', 'Cơm thịt kho', 'Cơm trứng', 'Cơm canh', 'Cơm hến', 'Cơm niêu', 'Cơm lam', 'Cơm cháy'],
-  '♣': ['Bánh mì', 'Bánh cuốn', 'Bánh xèo', 'Bánh canh', 'Xôi xéo', 'Bánh bèo', 'Bánh khọt', 'Bánh bột lọc', 'Bánh giò', 'Xôi gà', 'Bánh tráng', 'Bánh ướt', 'Xôi mặn'],
-  '♠': ['Gỏi cuốn', 'Chả giò', 'Nem nướng', 'Bò lá lốt', 'Lẩu thái', 'Cháo', 'Gà nướng', 'Hải sản', 'BBQ', 'Ốc', 'Lẩu gà', 'Vịt quay', 'Bò kho']
+// Tên nhóm hiển thị — dùng chung cho bộ lọc, form thêm món và thẻ kết quả
+const CATEGORY_NAMES = {
+  '♥': 'Bún · Phở · Mì',
+  '♦': 'Cơm',
+  '♣': 'Bánh · Xôi',
+  '♠': 'Món mặn · Nhậu'
 };
 
-// Region data: B = Bắc, T = Trung, N = Nam, A = All (phổ biến cả nước)
-const REGIONS = {
-  '♥': ['B', 'B', 'T', 'B', 'B', 'B', 'N', 'N', 'T', 'T', 'T', 'B', 'A'],
-  '♦': ['N', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'T', 'N', 'T', 'B'],
-  '♣': ['A', 'B', 'N', 'T', 'B', 'T', 'N', 'T', 'B', 'A', 'N', 'T', 'B'],
-  '♠': ['N', 'N', 'T', 'N', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'B', 'A']
+// Số lá mỗi ván — giữ đúng hình ảnh "bộ bài 52 lá" dù kho món lớn hơn nhiều
+const DECK_SIZE = 52;
+
+// Kho món — không giới hạn ở 52. Mỗi ván chỉ chia 52 lá rút ngẫu nhiên từ
+// kho này, nên "chia lại bộ bài" thật sự cho ra một bộ khác.
+//
+// meals:  buổi ăn hợp — sang | trua | chieu | toi | khuya
+// price:  khoảng giá tham khảo, đơn vị nghìn đồng (một suất bình dân ở VN)
+// region: B = Bắc, T = Trung, N = Nam, A = phổ biến cả nước
+// img:    ảnh trong thư mục images/, đã đối chiếu đúng từng món.
+//         null = chưa có ảnh chụp, sẽ dùng thẻ hoạ tiết theo nhóm món.
+const DISH_DB = {
+  // ♥ BÚN · PHỞ · MÌ — món nước, món sợi
+  '♥': [
+    { name: 'Phở bò',              region: 'B', img: 'pho_bo_1769851159194.webp',        pair: 'Quẩy, giá trần, tương ớt',            price: [40, 75],  meals: ['sang', 'trua', 'toi', 'khuya'] },
+    { name: 'Phở gà',              region: 'B', img: 'pho_ga.webp',                      pair: 'Hành lá, lá chanh, tiêu bắc',         price: [35, 65],  meals: ['sang', 'trua', 'toi'] },
+    { name: 'Bún bò Huế',          region: 'T', img: 'bun_bo_hue_1769851174568.webp',    pair: 'Rau sống, mắm ruốc, chanh ớt',        price: [40, 70],  meals: ['sang', 'trua', 'toi'] },
+    { name: 'Bún chả',             region: 'B', img: 'bun_cha_1769851878488.webp',       pair: 'Chả nướng, nem rán, rau sống',        price: [40, 70],  meals: ['trua'] },
+    { name: 'Bún riêu cua',        region: 'B', img: 'bun_rieu_1769851188904.webp',      pair: 'Rau muống chẻ, đậu rán, mắm tôm',     price: [30, 55],  meals: ['sang', 'trua'] },
+    { name: 'Bún đậu mắm tôm',     region: 'B', img: 'bun_dau_mam_tom_1769851860469.webp', pair: 'Đậu rán, chả cốm, kinh giới',       price: [45, 90],  meals: ['trua', 'chieu', 'toi'] },
+    { name: 'Bún thịt nướng',      region: 'N', img: 'bun_thit_nuong.webp',              pair: 'Đồ chua, đậu phộng, mắm chua ngọt',   price: [35, 60],  meals: ['trua', 'toi'] },
+    { name: 'Hủ tiếu Nam Vang',    region: 'N', img: 'hu_tieu_1769851204224.webp',       pair: 'Giá, hẹ, tóp mỡ, chanh ớt',           price: [35, 65],  meals: ['sang', 'trua', 'khuya'] },
+    { name: 'Mì Quảng',            region: 'T', img: 'mi_quang_1769851314324.webp',      pair: 'Bánh tráng mè, đậu phộng, rau sống',  price: [35, 60],  meals: ['sang', 'trua', 'toi'] },
+    { name: 'Bún chả cá',          region: 'T', img: 'bun_cha_ca_1769851349249.webp',    pair: 'Rau sống, ớt xanh, mắm ruốc',         price: [30, 55],  meals: ['sang', 'trua'] },
+    { name: 'Bún mắm',             region: 'N', img: 'bun_mam_1769851373054.webp',       pair: 'Rau đắng, bông súng, cà tím',         price: [40, 70],  meals: ['trua', 'toi'] },
+    { name: 'Bún thang',           region: 'B', img: 'bun_thang_1769851298396.webp',     pair: 'Trứng tráng, giò lụa, ruốc tôm',      price: [40, 70],  meals: ['sang', 'trua'] },
+    { name: 'Bún mọc',             region: 'B', img: 'bun_moc_1769851279926.webp',       pair: 'Mọc viên, măng khô, hành lá',         price: [30, 55],  meals: ['sang', 'trua'] },
+    { name: 'Bún cá',              region: 'B', img: 'bun_ca_1769851333627.webp',        pair: 'Thì là, dọc mùng, cà chua',           price: [30, 55],  meals: ['sang', 'trua'] },
+    { name: 'Miến gà',             region: 'B', img: 'mien_ga_1769851220414.webp',       pair: 'Hành phi, măng khô, tiêu',            price: [35, 60],  meals: ['sang', 'toi', 'khuya'] },
+    { name: 'Bánh canh cua',       region: 'T', img: 'banh_canh_1769851264800.webp',     pair: 'Chả cua, hành ngò, tiêu',             price: [35, 65],  meals: ['sang', 'trua', 'toi'] },
+    { name: 'Mì xào giòn',         region: 'A', img: 'mi_xao.webp',                      pair: 'Cải ngọt, tim cật, nước sốt sánh',    price: [35, 65],  meals: ['trua', 'toi'] },
+    { name: 'Bánh đa cua',         region: 'B', img: null,                               pair: 'Chả lá lốt, rau rút, gạch cua',       price: [30, 55],  meals: ['sang', 'trua'] },
+    { name: 'Bún ốc',              region: 'B', img: null,                               pair: 'Tía tô, giấm bỗng, ớt chưng',         price: [30, 55],  meals: ['sang', 'trua', 'chieu'] },
+    { name: 'Mì vằn thắn',         region: 'B', img: null,                               pair: 'Sủi cảo, trứng, gan heo',             price: [40, 70],  meals: ['toi', 'khuya'] },
+    { name: 'Phở khô Gia Lai',     region: 'T', img: null,                               pair: 'Tương đen, rau sống, chén nước lèo',  price: [35, 60],  meals: ['sang', 'trua'] },
+    { name: 'Bún nước lèo',        region: 'N', img: null,                               pair: 'Rau ghém, heo quay, mắm bò hóc',      price: [30, 55],  meals: ['sang', 'trua'] },
+    { name: 'Hủ tiếu gõ',          region: 'N', img: null,                               pair: 'Giá trụng, hành phi, tóp mỡ',         price: [20, 35],  meals: ['toi', 'khuya'] },
+    { name: 'Mì cay Hàn Quốc',     region: 'A', img: null,                               pair: 'Kimchi, phô mai, cấp độ tuỳ gan',     price: [50, 90],  meals: ['trua', 'toi'] },
+    { name: 'Ramen Nhật',          region: 'A', img: null,                               pair: 'Trứng lòng đào, chashu, rong biển',   price: [80, 160], meals: ['trua', 'toi'] },
+    { name: 'Mì Ý sốt bò bằm',     region: 'A', img: null,                               pair: 'Phô mai bào, bánh mì bơ tỏi',         price: [60, 130], meals: ['trua', 'toi'] },
+    { name: 'Phở cuốn',            region: 'B', img: null,                               pair: 'Thịt bò xào, rau thơm, nước chấm',    price: [40, 70],  meals: ['chieu', 'toi'] },
+    { name: 'Bún măng vịt',        region: 'N', img: null,                               pair: 'Măng khô, rau răm, mắm gừng',         price: [35, 65],  meals: ['trua', 'toi'] },
+    { name: 'Miến lươn',           region: 'B', img: null,                               pair: 'Lươn giòn, hành phi, rau răm',        price: [35, 60],  meals: ['sang', 'trua'] },
+    { name: 'Cao lầu',             region: 'T', img: null,                               pair: 'Tóp mỡ, rau sống Trà Quế, bánh tráng', price: [30, 55], meals: ['trua', 'toi'] },
+    { name: 'Hủ tiếu Mỹ Tho',      region: 'N', img: null,                               pair: 'Tôm, gan, giá hẹ, tương đen',         price: [30, 55],  meals: ['sang', 'trua'] },
+    { name: 'Bún riêu ốc',         region: 'B', img: null,                               pair: 'Ốc bươu, đậu rán, giấm bỗng',         price: [30, 55],  meals: ['sang', 'trua'] },
+    { name: 'Phở xào bò',          region: 'A', img: null,                               pair: 'Cải ngồng, hành tây, tương ớt',       price: [35, 60],  meals: ['trua', 'toi'] },
+    { name: 'Mì tôm trứng',        region: 'A', img: null,                               pair: 'Trứng chần, hành lá, rau cải',        price: [10, 25],  meals: ['sang', 'khuya'] },
+    { name: 'Pad Thái',            region: 'A', img: null,                               pair: 'Đậu phộng, giá, tôm, chanh',          price: [50, 95],  meals: ['trua', 'toi'] },
+    { name: 'Bún cá rô đồng',      region: 'B', img: null,                               pair: 'Thì là, rau cải, cà chua',            price: [30, 55],  meals: ['sang', 'trua'] }
+  ],
+  // ♦ CƠM — cơm quán, cơm nhà, cơm ngoại
+  '♦': [
+    { name: 'Cơm tấm sườn',        region: 'N', img: 'com_tam_1769851390923.webp',       pair: 'Bì, chả trứng, đồ chua, mỡ hành',     price: [35, 65],  meals: ['sang', 'trua', 'toi'] },
+    { name: 'Cơm sườn nướng',      region: 'A', img: 'com_suon_1769851423572.webp',      pair: 'Dưa leo, cà chua, canh rau',          price: [35, 65],  meals: ['trua', 'toi'] },
+    { name: 'Cơm gà Hội An',       region: 'T', img: 'com_ga_1769851406663.webp',        pair: 'Gỏi hành, rau răm, mắm gừng',         price: [35, 60],  meals: ['trua', 'toi'] },
+    { name: 'Cơm gà xối mỡ',       region: 'N', img: 'com_ga_xoi_mo_1769851512591.webp', pair: 'Dưa leo, cà chua, canh rong biển',    price: [40, 70],  meals: ['trua', 'toi'] },
+    { name: 'Cơm gà luộc',         region: 'B', img: 'com_ga_luoc.webp',                 pair: 'Muối tiêu chanh, lá chanh, canh xương', price: [40, 70], meals: ['trua', 'toi'] },
+    { name: 'Cơm rang dưa bò',     region: 'B', img: 'com_rang_dua_bo.webp',             pair: 'Dưa chua, hành lá, tương ớt',         price: [35, 60],  meals: ['trua', 'toi'] },
+    { name: 'Cơm chiên Dương Châu', region: 'N', img: 'com_chien_1769851438643.webp',    pair: 'Lạp xưởng, trứng, đậu Hà Lan',        price: [35, 65],  meals: ['trua', 'toi'] },
+    { name: 'Cơm cá kho tộ',       region: 'N', img: 'com_ca_kho_1769851495798.webp',    pair: 'Canh chua, rau luộc, dưa giá',        price: [35, 60],  meals: ['trua', 'toi'] },
+    { name: 'Cơm cá chiên',        region: 'A', img: 'com_ca_chien.webp',                pair: 'Nước mắm gừng, dưa leo, canh cải',    price: [30, 55],  meals: ['trua', 'toi'] },
+    { name: 'Cơm thịt kho trứng',  region: 'N', img: 'com_thit_kho_1769851603858.webp',  pair: 'Dưa giá, canh khổ qua nhồi thịt',     price: [30, 55],  meals: ['trua', 'toi'] },
+    { name: 'Cơm thịt luộc',       region: 'B', img: 'com_thit_luoc.webp',               pair: 'Mắm tép, cà pháo, rau luộc',          price: [30, 50],  meals: ['trua', 'toi'] },
+    { name: 'Cơm thịt xào',        region: 'A', img: 'com_thit_xao.webp',                pair: 'Hành tây, cần tỏi, canh rau',         price: [30, 50],  meals: ['trua', 'toi'] },
+    { name: 'Cơm trứng chiên',     region: 'A', img: 'com_trung_chien.webp',             pair: 'Nước tương, dưa leo, canh rau',       price: [25, 45],  meals: ['sang', 'trua', 'toi'] },
+    { name: 'Cơm bò lúc lắc',      region: 'N', img: 'com_bo_luc_lac_1769851454953.webp', pair: 'Xà lách, cà chua, muối tiêu chanh',  price: [50, 90],  meals: ['trua', 'toi'] },
+    { name: 'Cơm cà ri gà',        region: 'N', img: 'com_ca_ri_1769851559778.webp',     pair: 'Bánh mì, rau răm, muối ớt chanh',     price: [40, 70],  meals: ['trua', 'toi'] },
+    { name: 'Cơm vịt quay',        region: 'B', img: 'com_vit_1769851588657.webp',       pair: 'Xì dầu tỏi ớt, dưa góp',              price: [45, 80],  meals: ['trua', 'toi'] },
+    { name: 'Cơm niêu',            region: 'N', img: 'com_nieu_1769851480399.webp',      pair: 'Cá kho tộ, canh chua, rau luộc',      price: [60, 120], meals: ['trua', 'toi'] },
+    { name: 'Cơm cháy Ninh Bình',  region: 'B', img: 'com_chay_1769851545278.webp',      pair: 'Ruốc thịt, sốt dê, hành phi',         price: [30, 60],  meals: ['chieu', 'toi'] },
+    { name: 'Cơm đậu hũ chay',     region: 'A', img: 'com_dau_hu.webp',                  pair: 'Rau luộc, nấm kho, canh chay',        price: [25, 45],  meals: ['trua', 'toi'] },
+    { name: 'Cơm trộn',            region: 'A', img: 'com_tron_1769851528327.webp',      pair: 'Trứng ốp la, rau củ, tương ớt Hàn',   price: [45, 85],  meals: ['trua', 'toi'] },
+    { name: 'Cơm hến',             region: 'T', img: null,                               pair: 'Mắm ruốc, tóp mỡ, bánh tráng, đậu phộng', price: [20, 40], meals: ['sang', 'trua'] },
+    { name: 'Cơm lam',             region: 'B', img: null,                               pair: 'Muối vừng, gà nướng, măng rừng',      price: [25, 50],  meals: ['trua', 'toi'] },
+    { name: 'Cơm âm phủ',          region: 'T', img: null,                               pair: 'Nem chua, tôm, trứng, rau thái sợi',  price: [40, 70],  meals: ['trua', 'toi'] },
+    { name: 'Cơm gà Hải Nam',      region: 'A', img: null,                               pair: 'Nước sốt gừng, canh gà, dưa leo',     price: [50, 90],  meals: ['trua', 'toi'] },
+    { name: 'Cơm bò Nhật',         region: 'A', img: null,                               pair: 'Hành tây, trứng lòng đào, gừng đỏ',   price: [60, 110], meals: ['trua', 'toi'] },
+    { name: 'Cơm rang hải sản',    region: 'A', img: null,                               pair: 'Tôm mực, đậu Hà Lan, tương ớt',       price: [45, 85],  meals: ['trua', 'toi'] },
+    { name: 'Cơm sườn Hàn Quốc',   region: 'A', img: null,                               pair: 'Kimchi, rong biển, trứng chiên',      price: [60, 110], meals: ['trua', 'toi'] },
+    { name: 'Cơm heo quay',        region: 'N', img: null,                               pair: 'Bánh hỏi, mắm nêm, dưa leo',          price: [40, 75],  meals: ['trua', 'toi'] },
+    { name: 'Cơm gà nướng',        region: 'A', img: null,                               pair: 'Dưa góp, muối ớt, canh rau',          price: [40, 70],  meals: ['trua', 'toi'] },
+    { name: 'Cơm chiên trứng',     region: 'A', img: null,                               pair: 'Nước tương, dưa leo, tương ớt',       price: [20, 40],  meals: ['sang', 'trua', 'toi'] },
+    { name: 'Cơm gà Tam Kỳ',       region: 'T', img: null,                               pair: 'Gỏi đu đủ, rau răm, mắm gừng',        price: [35, 60],  meals: ['trua', 'toi'] },
+    { name: 'Cơm sườn bì chả',     region: 'N', img: null,                               pair: 'Đồ chua, mỡ hành, canh rau',          price: [35, 65],  meals: ['sang', 'trua', 'toi'] },
+    { name: 'Cơm bò xào cần tỏi',  region: 'A', img: null,                               pair: 'Cần tây, tỏi, canh rau',              price: [35, 60],  meals: ['trua', 'toi'] },
+    { name: 'Cơm cà ri Ấn',        region: 'A', img: null,                               pair: 'Bánh naan, rau củ, sữa chua',         price: [55, 110], meals: ['trua', 'toi'] },
+    { name: 'Cơm bò Hàn Quốc',     region: 'A', img: null,                               pair: 'Kim chi, rau trộn, trứng ốp la',      price: [55, 100], meals: ['trua', 'toi'] },
+    { name: 'Cơm dừa Bến Tre',     region: 'N', img: null,                               pair: 'Tôm rang, thịt kho, dừa nạo',         price: [35, 65],  meals: ['trua', 'toi'] }
+  ],
+  // ♣ BÁNH · XÔI — ăn sáng, ăn xế, ăn vặt
+  '♣': [
+    { name: 'Bánh mì thịt',        region: 'A', img: 'banh_mi_1769851625130.webp',       pair: 'Pate, chả lụa, đồ chua, rau mùi',     price: [15, 35],  meals: ['sang', 'chieu', 'khuya'] },
+    { name: 'Bánh mì trứng',       region: 'A', img: 'banh_mi_trung.webp',               pair: 'Trứng ốp la, pate, tương ớt',         price: [15, 30],  meals: ['sang'] },
+    { name: 'Bánh cuốn',           region: 'B', img: 'banh_cuon_1769851655972.webp',     pair: 'Chả quế, hành phi, nước mắm pha',     price: [25, 45],  meals: ['sang', 'chieu'] },
+    { name: 'Bánh ướt',            region: 'T', img: 'banh_uot_1769851715272.webp',      pair: 'Chả lụa, giá trụng, mắm nêm',         price: [20, 40],  meals: ['sang', 'chieu'] },
+    { name: 'Bánh xèo miền Tây',   region: 'N', img: 'banh_xeo.webp',                    pair: 'Rau sống, cải xanh, mắm chua ngọt',   price: [25, 60],  meals: ['chieu', 'toi'] },
+    { name: 'Bánh xèo miền Trung', region: 'T', img: 'banh_xeo_1769851641773.webp',      pair: 'Bánh tráng cuốn, rau sống, mắm nêm',  price: [25, 50],  meals: ['chieu', 'toi'] },
+    { name: 'Bánh khọt',           region: 'N', img: 'banh_khot_1769851670592.webp',     pair: 'Tôm cháy, rau sống, mắm nêm',         price: [30, 60],  meals: ['chieu', 'toi'] },
+    { name: 'Bánh bèo',            region: 'T', img: 'banh_beo_1769851730342.webp',      pair: 'Tôm chấy, tóp mỡ, mắm ngọt',          price: [20, 45],  meals: ['chieu'] },
+    { name: 'Bánh bột lọc',        region: 'T', img: 'banh_bot_loc_1769851828366.webp',  pair: 'Tôm thịt, mỡ hành, mắm ớt',           price: [20, 45],  meals: ['chieu', 'toi'] },
+    { name: 'Bánh căn',            region: 'T', img: 'banh_can_1769851698678.webp',      pair: 'Xíu mại, mỡ hành, mắm nêm',           price: [25, 50],  meals: ['sang', 'chieu'] },
+    { name: 'Bánh giò',            region: 'B', img: 'banh_gio.webp',                    pair: 'Giò lụa, dưa góp, tương ớt',          price: [15, 30],  meals: ['sang', 'chieu'] },
+    { name: 'Bánh đúc nóng',       region: 'B', img: 'banh_duc_1769851745434.webp',      pair: 'Thịt băm, mộc nhĩ, hành phi',         price: [15, 30],  meals: ['chieu', 'toi'] },
+    { name: 'Bánh hỏi thịt nướng', region: 'N', img: 'banh_hoi_1769851762429.webp',      pair: 'Mỡ hành, rau sống, mắm nêm',          price: [30, 60],  meals: ['sang', 'trua'] },
+    { name: 'Bánh bao',            region: 'A', img: 'banh_bao_1769851844328.webp',      pair: 'Trứng cút, lạp xưởng, tương ớt',      price: [15, 30],  meals: ['sang', 'chieu', 'khuya'] },
+    { name: 'Bánh tráng nướng',    region: 'T', img: 'banh_trang_nuong_1769851778904.webp', pair: 'Trứng cút, khô bò, tương ớt',      price: [15, 35],  meals: ['chieu', 'toi', 'khuya'] },
+    { name: 'Bánh tráng trộn',     region: 'N', img: 'banh_trang_tron_1769851813225.webp', pair: 'Khô bò, xoài xanh, rau răm, tắc',   price: [15, 35],  meals: ['chieu', 'toi'] },
+    { name: 'Xôi xéo',             region: 'B', img: 'xoi_xeo.webp',                     pair: 'Đậu xanh, hành phi, mỡ gà',           price: [15, 30],  meals: ['sang'] },
+    { name: 'Xôi gà',              region: 'A', img: 'xoi_ga.webp',                      pair: 'Gà xé, lạp xưởng, hành phi',          price: [25, 45],  meals: ['sang', 'toi'] },
+    { name: 'Xôi mặn',             region: 'N', img: 'xoi_man.webp',                     pair: 'Lạp xưởng, chà bông, mỡ hành',        price: [20, 40],  meals: ['sang', 'khuya'] },
+    { name: 'Bánh gối',            region: 'B', img: null,                               pair: 'Rau sống, nước chấm chua ngọt',       price: [15, 30],  meals: ['chieu'] },
+    { name: 'Bánh tôm Hồ Tây',     region: 'B', img: null,                               pair: 'Rau sống, đu đủ ngâm, nước chấm',     price: [30, 60],  meals: ['chieu'] },
+    { name: 'Bánh khoái',          region: 'T', img: null,                               pair: 'Nước lèo đậu phộng, vả, rau sống',    price: [25, 50],  meals: ['chieu', 'toi'] },
+    { name: 'Bánh mì chảo',        region: 'A', img: null,                               pair: 'Pate, xúc xích, trứng, bò né',        price: [35, 70],  meals: ['sang', 'trua'] },
+    { name: 'Xôi lạc',             region: 'B', img: null,                               pair: 'Muối vừng, ruốc, hành phi',           price: [10, 25],  meals: ['sang'] },
+    { name: 'Bánh giầy giò',       region: 'B', img: null,                               pair: 'Giò lụa, tương ớt',                   price: [10, 25],  meals: ['sang', 'chieu'] },
+    { name: 'Pizza',               region: 'A', img: null,                               pair: 'Phô mai kéo sợi, tương ớt, oregano',  price: [90, 250], meals: ['trua', 'toi'] },
+    { name: 'Hamburger',           region: 'A', img: null,                               pair: 'Khoai tây chiên, sốt mayonnaise',     price: [50, 120], meals: ['trua', 'chieu', 'toi'] },
+    { name: 'Bánh mì xíu mại',     region: 'T', img: null,                               pair: 'Xíu mại sốt cà, ngò, ớt',             price: [15, 35],  meals: ['sang', 'chieu'] },
+    { name: 'Xôi gấc',             region: 'B', img: null,                               pair: 'Chả lụa, đường, dừa nạo',             price: [10, 25],  meals: ['sang'] },
+    { name: 'Bánh chưng rán',      region: 'B', img: null,                               pair: 'Dưa hành, tương ớt',                  price: [20, 40],  meals: ['sang', 'chieu'] },
+    { name: 'Bánh nậm',            region: 'T', img: null,                               pair: 'Tôm chấy, mỡ hành, mắm ớt',           price: [15, 35],  meals: ['chieu'] },
+    { name: 'Bánh cống',           region: 'N', img: null,                               pair: 'Rau sống, nước mắm chua ngọt',        price: [20, 45],  meals: ['chieu', 'toi'] },
+    { name: 'Bánh flan',           region: 'A', img: null,                               pair: 'Cà phê, nước cốt dừa, đá bào',        price: [10, 25],  meals: ['chieu'] },
+    { name: 'Sandwich',            region: 'A', img: null,                               pair: 'Trứng, rau, sốt mayonnaise',          price: [20, 45],  meals: ['sang', 'chieu'] },
+    { name: 'Kebab Thổ Nhĩ Kỳ',    region: 'A', img: null,                               pair: 'Rau trộn, sốt phô mai, tương ớt',     price: [25, 50],  meals: ['chieu', 'toi', 'khuya'] },
+    { name: 'Bánh mì que',         region: 'T', img: null,                               pair: 'Pate cay, ruốc, tương ớt',            price: [10, 25],  meals: ['sang', 'chieu'] }
+  ],
+  // ♠ MÓN MẶN · NHẬU — cơm nhà, lẩu nướng, hải sản, món ngoại
+  '♠': [
+    { name: 'Gỏi cuốn',            region: 'N', img: 'goi_cuon_1769851929695.webp',      pair: 'Tương hột, đậu phộng rang',           price: [25, 50],  meals: ['chieu', 'toi'] },
+    { name: 'Chả giò',             region: 'N', img: 'cha_gio_1769851944525.webp',       pair: 'Rau sống, bún, mắm chua ngọt',        price: [30, 60],  meals: ['trua', 'chieu', 'toi'] },
+    { name: 'Nem rán',             region: 'B', img: 'nem_ran.webp',                     pair: 'Bún, rau sống, nước chấm chua ngọt',  price: [30, 60],  meals: ['trua', 'toi'] },
+    { name: 'Nem nướng Nha Trang', region: 'T', img: 'nem_nuong_1769851901613.webp',     pair: 'Bánh tráng, rau sống, tương chấm',    price: [40, 75],  meals: ['chieu', 'toi'] },
+    { name: 'Cá kho tộ',           region: 'N', img: 'ca_kho_to.webp',                   pair: 'Cơm trắng, canh chua, dưa giá',       price: [40, 80],  meals: ['trua', 'toi'] },
+    { name: 'Thịt kho trứng',      region: 'N', img: 'thit_kho_trung.webp',              pair: 'Dưa giá, cơm trắng, canh khổ qua',    price: [35, 70],  meals: ['trua', 'toi'] },
+    { name: 'Thịt luộc mắm tôm',   region: 'B', img: 'thit_luoc.webp',                   pair: 'Bún, rau kinh giới, mắm tôm chanh',   price: [40, 80],  meals: ['trua', 'toi'] },
+    { name: 'Gà kho gừng',         region: 'A', img: 'ga_kho_gung.webp',                 pair: 'Cơm nóng, dưa cải, canh rau',         price: [40, 80],  meals: ['trua', 'toi'] },
+    { name: 'Sườn xào chua ngọt',  region: 'A', img: 'suon_xao_chua_ngot.webp',          pair: 'Cơm trắng, dưa leo, canh rau',        price: [40, 80],  meals: ['trua', 'toi'] },
+    { name: 'Đậu hũ sốt cà',       region: 'A', img: 'dau_hu_sot_ca.webp',               pair: 'Cơm trắng, rau luộc, canh rau',       price: [20, 40],  meals: ['trua', 'toi'] },
+    { name: 'Rau xào tỏi',         region: 'A', img: 'rau_xao.webp',                     pair: 'Cơm trắng, nước mắm ớt',              price: [15, 35],  meals: ['trua', 'toi'] },
+    { name: 'Canh chua cá',        region: 'N', img: 'canh_chua.webp',                   pair: 'Cá kho tộ, cơm trắng, rau thơm',      price: [35, 70],  meals: ['trua', 'toi'] },
+    { name: 'Canh mồng tơi',       region: 'B', img: 'canh_mong_toi.webp',               pair: 'Cà pháo, thịt kho, cơm trắng',        price: [15, 30],  meals: ['trua', 'toi'] },
+    { name: 'Cháo sườn',           region: 'B', img: 'chao_suon_1769851239545.webp',     pair: 'Quẩy, ruốc, tiêu, hành',              price: [15, 35],  meals: ['sang', 'chieu', 'khuya'] },
+    { name: 'Cháo gà',             region: 'A', img: 'chao_ga.webp',                     pair: 'Gỏi gà, hành răm, tiêu',              price: [25, 50],  meals: ['sang', 'toi', 'khuya'] },
+    { name: 'Gà nướng muối ớt',    region: 'A', img: 'ga_nuong_1769852050721.webp',      pair: 'Muối ớt xanh, cơm lam, rau rừng',     price: [120, 250], meals: ['toi'] },
+    { name: 'Thịt nướng BBQ',      region: 'A', img: 'bbq_nuong_1769852036308.webp',     pair: 'Kim chi, rau xà lách, muối ớt chanh', price: [150, 350], meals: ['toi'] },
+    { name: 'Hải sản nướng',       region: 'A', img: 'hai_san_1769852083065.webp',       pair: 'Mỡ hành, muối ớt xanh, rau răm',      price: [150, 400], meals: ['toi', 'khuya'] },
+    { name: 'Lẩu Thái',            region: 'A', img: 'lau_thai_1769851977079.webp',      pair: 'Hải sản, nấm, rau muống, bún',        price: [150, 350], meals: ['toi'] },
+    { name: 'Lẩu bò',              region: 'A', img: 'lau_bo_1769851992471.webp',        pair: 'Cải cúc, mì tôm, sa tế',              price: [150, 350], meals: ['toi'] },
+    { name: 'Lẩu hải sản',         region: 'A', img: 'lau_hai_san_1769852007068.webp',   pair: 'Nghêu, mực, rau nhúng, bún tươi',     price: [200, 450], meals: ['toi'] },
+    { name: 'Ốc các loại',         region: 'A', img: 'oc_cac_loai_1769851960829.webp',   pair: 'Rau răm, muối tiêu chanh, sả ớt',     price: [50, 150],  meals: ['chieu', 'toi', 'khuya'] },
+    { name: 'Vịt quay Lạng Sơn',   region: 'B', img: 'vit_quay_1769852066805.webp',      pair: 'Măng ớt, bánh hỏi, xì dầu',           price: [60, 140],  meals: ['trua', 'toi'] },
+    { name: 'Gà rán',              region: 'A', img: null,                               pair: 'Khoai tây chiên, tương cà, sốt phô mai', price: [50, 120], meals: ['trua', 'chieu', 'toi'] },
+    { name: 'Bò né',               region: 'N', img: null,                               pair: 'Bánh mì, pate, trứng ốp la',          price: [40, 80],   meals: ['sang', 'trua'] },
+    { name: 'Lẩu gà lá é',         region: 'T', img: null,                               pair: 'Lá é, nấm, bún tươi, muối ớt xanh',   price: [180, 350], meals: ['toi'] },
+    { name: 'Phá lấu',             region: 'N', img: null,                               pair: 'Bánh mì, nước cốt dừa, mắm me',       price: [25, 60],   meals: ['chieu', 'toi', 'khuya'] },
+    { name: 'Sushi',               region: 'A', img: null,                               pair: 'Wasabi, gừng hồng, xì dầu',           price: [100, 300], meals: ['trua', 'toi'] },
+    { name: 'Dimsum',              region: 'A', img: null,                               pair: 'Xì dầu, tương ớt, trà nóng',          price: [60, 150],  meals: ['sang', 'trua'] },
+    { name: 'Bò kho',              region: 'N', img: null,                               pair: 'Bánh mì, rau quế, tương ớt',          price: [35, 70],   meals: ['sang', 'trua', 'toi'] },
+    { name: 'Bò lá lốt',           region: 'N', img: null,                               pair: 'Bánh hỏi, rau sống, mắm nêm',         price: [40, 90],   meals: ['chieu', 'toi'] },
+    { name: 'Trứng vịt lộn',       region: 'A', img: null,                               pair: 'Rau răm, muối tiêu chanh, gừng',      price: [10, 25],   meals: ['chieu', 'toi', 'khuya'] },
+    { name: 'Nem chua rán',        region: 'B', img: null,                               pair: 'Tương ớt, dưa leo, rau thơm',         price: [25, 50],   meals: ['chieu', 'toi', 'khuya'] },
+    { name: 'Chân gà sả tắc',      region: 'A', img: null,                               pair: 'Xoài xanh, sả, tắc, ớt',              price: [30, 60],   meals: ['chieu', 'toi', 'khuya'] },
+    { name: 'Cánh gà chiên mắm',   region: 'A', img: null,                               pair: 'Cơm trắng, dưa leo, tương ớt',        price: [30, 60],   meals: ['trua', 'toi'] },
+    { name: 'Mực nướng sa tế',     region: 'A', img: null,                               pair: 'Muối ớt xanh, rau răm, bia',          price: [70, 180],  meals: ['toi', 'khuya'] },
+    { name: 'Lẩu mắm',             region: 'N', img: null,                               pair: 'Cá, heo quay, rau đồng, bún',         price: [180, 400], meals: ['toi'] },
+    { name: 'Chả cá Lã Vọng',      region: 'B', img: null,                               pair: 'Bún, thì là, mắm tôm, đậu phộng',     price: [90, 200],  meals: ['trua', 'toi'] },
+    { name: 'Tokbokki',            region: 'A', img: null,                               pair: 'Chả cá, trứng luộc, phô mai',         price: [40, 80],   meals: ['chieu', 'toi'] },
+    { name: 'Cà ri dê',            region: 'N', img: null,                               pair: 'Bánh mì, rau quế, muối ớt',           price: [60, 130],  meals: ['toi'] },
+    { name: 'Ếch xào lăn',         region: 'N', img: null,                               pair: 'Bánh mì, cơm, đậu phộng, nước cốt dừa', price: [50, 110], meals: ['toi'] }
+  ]
 };
+
+// Bảng phái sinh — giữ nguyên hình dạng cũ để phần còn lại của app và test dùng lại.
+// Mọi thứ index theo cùng một mảng nguồn nên ảnh/vùng miền/ăn kèm không thể lệch nhau.
+const DISHES = {};
+const PAIRINGS = {};
+const REGIONS = {};
+const IMAGES = {};
+const DISH_META = {}; // name -> { suit, region, price, meals, imageUrl }
+
+// Hoạ tiết thay ảnh cho món chưa có hình chụp. Sinh sẵn dạng data-URI nên mọi
+// nơi đang dùng imageUrl (thẻ bài, lịch sử, băng chuyền, so găng, vé số, ảnh
+// chia sẻ) chạy y hệt như với ảnh thật, không phải rẽ nhánh ở từng chỗ.
+const CATEGORY_ART = {
+  '♥': { from: '#d4603f', to: '#8f3221', glyph: 'M4 13h16a8 8 0 0 1-16 0zM9 10c0-2.2 2-2.2 2-4.5M13 10c0-2.2 2-2.2 2-4.5' },
+  '♦': { from: '#e3ad4a', to: '#a8741f', glyph: 'M4 14h16a8 8 0 0 1-16 0zM7 14a5 4 0 0 1 10 0' },
+  '♣': { from: '#6aa86f', to: '#35683f', glyph: 'M6 5h12v14H6zM12 5v14M6 12h12' },
+  '♠': { from: '#a8814f', to: '#5a4029', glyph: 'M7 5l7 15M12 5l7 15' }
+};
+
+// Vẽ nền hoạ tiết giống mặt lưng lá bài: nan chéo + vệt sáng giữa + biểu
+// tượng nhóm món, để lá không ảnh vẫn ra chất bộ bài chứ không như ảnh lỗi.
+function categoryArt(suit) {
+  const art = CATEGORY_ART[suit] || CATEGORY_ART['♠'];
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">`
+    + `<defs>`
+    + `<linearGradient id="g" x1="0" y1="0" x2="1" y2="1">`
+    + `<stop offset="0" stop-color="${art.from}"/><stop offset="1" stop-color="${art.to}"/></linearGradient>`
+    + `<radialGradient id="h" cx="0.5" cy="0.42" r="0.62">`
+    + `<stop offset="0" stop-color="#fff" stop-opacity="0.22"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>`
+    + `<pattern id="w" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">`
+    + `<rect width="26" height="26" fill="none"/>`
+    + `<path d="M0 0v26" stroke="#fff" stroke-opacity="0.07" stroke-width="9"/></pattern>`
+    + `</defs>`
+    + `<rect width="512" height="512" fill="url(#g)"/>`
+    + `<rect width="512" height="512" fill="url(#w)"/>`
+    + `<rect width="512" height="512" fill="url(#h)"/>`
+    + `<g transform="translate(140 140) scale(9.33)" fill="none" stroke="#fff" stroke-opacity="0.72"`
+    + ` stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="${art.glyph}"/></g>`
+    + `</svg>`;
+  return 'data:image/svg+xml,' + encodeURIComponent(svg);
+}
+
+// Bỏ dấu để dò tên món không phụ thuộc dấu tiếng Việt.
+function noAccent(s) {
+  return s.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/gi, 'd').toLowerCase();
+}
+
+// Bảng chọn biểu tượng món theo TỪ KHOÁ trong tên — dò theo thứ tự, khớp
+// trước thắng. Đặt món ghép/ngoại lai và "bánh …" cụ thể lên trước các từ
+// chung (bún/phở/cơm/gà/bò…) để không bị bắt nhầm.
+const DISH_EMOJI = [
+  ['ca ri', '🍛'], ['pad thai', '🍜'], ['mi y', '🍝'], ['ramen', '🍜'], ['sushi', '🍣'],
+  ['dimsum', '🥟'], ['pizza', '🍕'], ['hamburger', '🍔'], ['sandwich', '🥪'], ['kebab', '🥙'],
+  ['tokbokki', '🍢'], ['pha lau', '🍢'], ['trung vit', '🥚'],
+  ['banh mi', '🥖'], ['banh bao', '🥟'], ['banh cuon', '🍥'], ['banh uot', '🍥'],
+  ['banh xeo', '🥞'], ['banh khot', '🥞'], ['banh can', '🥞'], ['banh khoai', '🥞'],
+  ['banh beo', '🍥'], ['banh bot loc', '🥟'], ['banh nam', '🍥'], ['banh hoi', '🍜'],
+  ['banh giay', '🍡'], ['banh gio', '🍙'], ['banh duc', '🍮'], ['banh cong', '🧆'],
+  ['banh chung', '🍙'], ['banh trang', '🫓'], ['banh goi', '🥟'], ['banh tom', '🍤'],
+  ['banh flan', '🍮'], ['banh canh', '🍜'], ['banh da', '🍜'], ['banh', '🥮'],
+  ['xoi', '🍙'],
+  ['pho', '🍜'], ['bun', '🍜'], ['mien', '🍜'], ['hu tieu', '🍜'], ['cao lau', '🍜'],
+  ['nui', '🍝'], ['mi ', '🍜'],
+  ['lau', '🍲'], ['chao', '🥣'],
+  ['goi cuon', '🌯'], ['cha gio', '🥟'], ['nem', '🍢'],
+  ['chan ga', '🍗'], ['canh ga', '🍗'], ['ga ', '🍗'], ['ga', '🍗'],
+  ['vit', '🦆'], ['de', '🍖'], ['ech', '🐸'], ['bo', '🥩'], ['heo', '🥓'],
+  ['suon', '🍖'], ['thit', '🥩'],
+  ['ca kho', '🐟'], ['ca chien', '🐟'], ['canh chua', '🍲'], ['ca ', '🐟'],
+  ['tom', '🦐'], ['muc', '🦑'], ['oc', '🐌'], ['cua', '🦀'], ['ghe', '🦀'],
+  ['hai san', '🦐'], ['so ', '🦪'],
+  ['trung vit', '🥚'], ['trung', '🍳'],
+  ['dau hu', '🍲'], ['rau', '🥬'], ['nam', '🍄'], ['canh', '🍲'],
+  ['bbq', '🍖'], ['nuong', '🍢']
+];
+
+function pickDishEmoji(name, suit) {
+  const n = noAccent(name);
+  for (const [key, emoji] of DISH_EMOJI) {
+    if (n.includes(key)) return emoji;
+  }
+  return { '♥': '🍜', '♦': '🍚', '♣': '🥮', '♠': '🍲' }[suit] || '🍽️';
+}
+
+// Thẻ minh hoạ cho món chưa có ảnh chụp: đĩa dân gian trên nền giấy dó, khung
+// kép màu theo nhóm và biểu tượng món ở giữa — mỗi món một vẻ, không còn cảnh
+// hàng chục lá giống hệt nhau như hoạ tiết nhóm cũ.
+function dishArt(suit, name) {
+  const art = CATEGORY_ART[suit] || CATEGORY_ART['♠'];
+  const emoji = pickDishEmoji(name, suit);
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">`
+    + `<defs>`
+    + `<linearGradient id="p" x1="0" y1="0" x2="1" y2="1">`
+    + `<stop offset="0" stop-color="#f7ead0"/><stop offset="1" stop-color="#e6cd9c"/></linearGradient>`
+    + `<radialGradient id="pl" cx="0.5" cy="0.44" r="0.58">`
+    + `<stop offset="0" stop-color="#fffaf0"/><stop offset="0.8" stop-color="#f4ead2"/><stop offset="1" stop-color="#e9d8b4"/></radialGradient>`
+    + `<pattern id="wv" width="30" height="30" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">`
+    + `<path d="M0 0v30" stroke="${art.to}" stroke-opacity="0.06" stroke-width="11"/></pattern>`
+    + `</defs>`
+    + `<rect width="512" height="512" fill="url(#p)"/>`
+    + `<rect width="512" height="512" fill="url(#wv)"/>`
+    + `<rect x="16" y="16" width="480" height="480" rx="26" fill="none" stroke="${art.from}" stroke-opacity="0.55" stroke-width="7"/>`
+    + `<rect x="29" y="29" width="454" height="454" rx="19" fill="none" stroke="${art.to}" stroke-opacity="0.4" stroke-width="2.5"/>`
+    + `<circle cx="256" cy="244" r="150" fill="url(#pl)" stroke="${art.from}" stroke-opacity="0.5" stroke-width="5"/>`
+    + `<circle cx="256" cy="244" r="126" fill="none" stroke="${art.to}" stroke-opacity="0.3" stroke-width="2"/>`
+    + `<text x="256" y="256" font-size="184" text-anchor="middle" dominant-baseline="central">${emoji}</text>`
+    + `<g transform="translate(234 432) scale(2)" fill="none" stroke="${art.to}" stroke-opacity="0.65"`
+    + ` stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="${art.glyph}"/></g>`
+    + `</svg>`;
+  return 'data:image/svg+xml,' + encodeURIComponent(svg);
+}
+
+const ART_CACHE = {};
+
+function dishImageUrl(suit, img, name) {
+  if (img) return 'images/' + img;
+  const key = suit + '|' + (name || '');
+  return ART_CACHE[key] || (ART_CACHE[key] = dishArt(suit, name || ''));
+}
+
+for (const suit of SUITS) {
+  DISHES[suit] = DISH_DB[suit].map(d => d.name);
+  PAIRINGS[suit] = DISH_DB[suit].map(d => d.pair);
+  REGIONS[suit] = DISH_DB[suit].map(d => d.region);
+  IMAGES[suit] = DISH_DB[suit].map(d => dishImageUrl(suit, d.img, d.name));
+  DISH_DB[suit].forEach(d => {
+    d.imageUrl = dishImageUrl(suit, d.img, d.name);
+    d.hasPhoto = Boolean(d.img);
+    DISH_META[d.name] = {
+      suit, region: d.region, price: d.price, meals: d.meals,
+      imageUrl: d.imageUrl, hasPhoto: d.hasPhoto
+    };
+  });
+}
+
+const TOTAL_DISHES = SUITS.reduce((n, suit) => n + DISH_DB[suit].length, 0);
 
 const REGION_NAMES = {
   'A': 'Cả nước',
   'B': 'Miền Bắc',
-  'T': 'Miền Trung', 
+  'T': 'Miền Trung',
   'N': 'Miền Nam'
-};
-
-// Side dish / pairing suggestions
-const PAIRINGS = {
-  '♥': ['Quẩy, giá đỗ', 'Hành lá, tiêu', 'Rau sống, mắm ruốc', 'Bún, rau thơm', 'Rau muống, đậu phụ', 'Mắm tôm, rau kinh giới', 'Nước mắm, đồ chua', 'Giá, hẹ', 'Bánh tráng, đậu phộng', 'Rau sống, bún', 'Rau sống, bánh đa', 'Hành phi, tiêu', 'Rau cải, giá'],
-  '♦': ['Bì, chả, trứng', 'Dưa chua, canh', 'Rau luộc, nước mắm', 'Dưa leo, cà chua', 'Xá xíu, trứng', 'Canh chua, rau', 'Trứng kho, dưa góp', 'Canh, rau xào', 'Rau luộc, đậu', 'Rau thơm, nước mắm', 'Thịt kho, trứng', 'Thịt gà, muối', 'Tóp mỡ, hành'],
-  '♣': ['Chả lụa, pate', 'Nước mắm, hành phi', 'Rau sống, nước mắm', 'Chả cá, tiêu', 'Hành phi, đậu xanh', 'Nước mắm, hành', 'Nước mắm ớt', 'Nước mắm, tôm khô', 'Nước mắm, hành', 'Muối tiêu, rau răm', 'Mỡ hành, đậu', 'Chả lụa, dưa leo', 'Ruốc, hành phi'],
-  '♠': ['Nước mắm, tỏi ớt', 'Nước mắm, rau thơm', 'Nước chấm đặc biệt', 'Mỡ hành, đậu', 'Rau sống, bún', 'Hành, gừng, quẩy', 'Muối ớt, rau răm', 'Mù tạt, chanh', 'Nước sốt, rau', 'Me, sả, ớt', 'Mì, rau sống', 'Bánh hỏi, mắm', 'Bánh mì, rau']
-};
-
-// Local image file paths
-const IMAGES = {
-  '♥': [
-    'images/pho_bo_1769851159194.webp',
-    'images/pho_ga.webp',
-    'images/bun_bo_hue_1769851174568.webp',
-    'images/bun_cha_1769851878488.webp',
-    'images/bun_rieu_1769851188904.webp',
-    'images/bun_dau_mam_tom_1769851860469.webp',
-    'images/bun_thit_nuong.webp',
-    'images/hu_tieu_1769851204224.webp',
-    'images/mi_quang_1769851314324.webp',
-    'images/bun_ca_1769851333627.webp',
-    'images/bun_mam_1769851373054.webp',
-    'images/mien_ga_1769851220414.webp',
-    'images/mi_xao.webp'
-  ],
-  '♦': [
-    'images/com_tam_1769851390923.webp',
-    'images/com_suon_1769851423572.webp',
-    'images/com_ga_1769851406663.webp',
-    'images/com_rang_dua_bo.webp',
-    'images/com_chien_1769851438643.webp',
-    'images/com_ca_kho_1769851495798.webp',
-    'images/com_thit_kho_1769851603858.webp',
-    'images/com_trung_chien.webp',
-    'images/canh_chua.webp',
-    'images/com_vit_1769851588657.webp',
-    'images/com_nieu_1769851480399.webp',
-    'images/com_ga_luoc.webp',
-    'images/com_chay_1769851545278.webp'
-  ],
-  '♣': [
-    'images/banh_mi_1769851625130.webp',
-    'images/banh_cuon_1769851655972.webp',
-    'images/banh_xeo.webp',
-    'images/banh_canh_1769851264800.webp',
-    'images/xoi_xeo.webp',
-    'images/banh_beo_1769851730342.webp',
-    'images/banh_khot_1769851670592.webp',
-    'images/banh_bot_loc_1769851828366.webp',
-    'images/banh_gio.webp',
-    'images/xoi_ga.webp',
-    'images/banh_trang_nuong_1769851778904.webp',
-    'images/banh_uot_1769851715272.webp',
-    'images/xoi_man.webp'
-  ],
-  '♠': [
-    'images/goi_cuon_1769851929695.webp',
-    'images/cha_gio_1769851944525.webp',
-    'images/nem_nuong_1769851901613.webp',
-    'images/nem_ran.webp',
-    'images/lau_thai_1769851977079.webp',
-    'images/chao_ga.webp',
-    'images/ga_nuong_1769852050721.webp',
-    'images/hai_san_1769852083065.webp',
-    'images/bbq_nuong_1769852036308.webp',
-    'images/oc_cac_loai_1769851960829.webp',
-    'images/lau_bo_1769851992471.webp',
-    'images/vit_quay_1769852066805.webp',
-    'images/ca_kho_to.webp'
-  ]
 };
 
 // ========================================
@@ -156,33 +387,35 @@ let settings = {
   cardStyle: 'folk' // folk (dân gian), classic (bài tây)
 };
 
-// Time-based filter
-function getTimePeriod() {
-  const hour = new Date().getHours();
-  if (hour >= 5 && hour < 11) return 'morning';
-  if (hour >= 11 && hour < 15) return 'noon';
-  if (hour >= 15 && hour < 22) return 'evening';
-  return 'night';
+// Buổi trong ngày — khớp nhịp ăn của người Việt:
+// sáng (5–10h), trưa (10–14h), xế chiều (14–17h), tối (17–22h), khuya (22–5h)
+const MEAL_LABELS = { sang: 'Bữa sáng', trua: 'Bữa trưa', chieu: 'Xế chiều', toi: 'Bữa tối', khuya: 'Ăn khuya' };
+const MEAL_GREETINGS = {
+  sang: 'Chào buổi sáng — sáng nay ăn gì?',
+  trua: 'Trưa rồi — trưa nay ăn gì?',
+  chieu: 'Xế chiều — làm gì lót dạ?',
+  toi: 'Chiều tối rồi — tối nay ăn gì?',
+  khuya: 'Khuya rồi — đói bụng hả?'
+};
+
+function getTimePeriod(date = new Date()) {
+  const hour = date.getHours();
+  if (hour >= 5 && hour < 10) return 'sang';
+  if (hour >= 10 && hour < 14) return 'trua';
+  if (hour >= 14 && hour < 17) return 'chieu';
+  if (hour >= 17 && hour < 22) return 'toi';
+  return 'khuya';
 }
 
 function getTimeLabel(period) {
-  const labels = {
-    morning: 'Sáng',
-    noon: 'Trưa',
-    evening: 'Tối',
-    night: 'Đêm'
-  };
-  return labels[period];
+  return MEAL_LABELS[period] || '';
 }
 
-function getTimeSuits(period) {
-  // Return suits to filter by time period
-  return {
-    morning: ['♥', '♣'], // Bún/Phở, Bánh/Xôi
-    noon: ['♥', '♦', '♣', '♠'], // All
-    evening: ['♦', '♠'], // Cơm, Món khác
-    night: ['♣', '♠'] // Bánh nhẹ, Món khác
-  }[period];
+// Món có hợp buổi này không — tra theo nhãn từng món, không còn đoán theo nhóm
+function fitsMeal(dishName, period) {
+  const meta = DISH_META[dishName];
+  if (!meta) return true; // món tự thêm: luôn hợp
+  return meta.meals.includes(period);
 }
 
 // Escape user-controlled strings before injecting into innerHTML
@@ -231,6 +464,22 @@ function persist(key, value) {
       showToast('Không thể lưu dữ liệu. Lựa chọn chỉ giữ trong phiên này.');
     }
   }
+}
+
+// Vùng thông báo cho trình đọc màn hình — kết quả bốc bài trước đây
+// chỉ hiện bằng hình ảnh, người dùng screen reader không biết đã ra món gì.
+function announce(message) {
+  let live = document.getElementById('srLive');
+  if (!live) {
+    live = document.createElement('div');
+    live.id = 'srLive';
+    live.className = 'sr-only';
+    live.setAttribute('role', 'status');
+    live.setAttribute('aria-live', 'polite');
+    document.body.appendChild(live);
+  }
+  live.textContent = '';
+  setTimeout(() => { live.textContent = message; }, 60);
 }
 
 function showToast(message) {
@@ -380,6 +629,8 @@ function isExcluded(dishName) {
 }
 
 function openExcludesModal() {
+  const search = document.getElementById('excludesSearch');
+  if (search) search.value = '';
   renderExcludesList();
   document.getElementById('excludesModal').classList.add('show');
 }
@@ -391,32 +642,50 @@ function closeExcludesModal() {
   renderDeck(true);
 }
 
-function renderExcludesList() {
+// Bỏ dấu tiếng Việt để gõ "bun bo" vẫn ra "Bún bò Huế"
+function normalizeVi(text) {
+  return String(text)
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd')
+    .replace(/Đ/g, 'D')
+    .toLowerCase();
+}
+
+function renderExcludesList(query = '') {
   const container = document.getElementById('excludesList');
-  const allDishes = [];
-  
-  // Get all dishes
-  for (const suit of SUITS) {
-    DISHES[suit].forEach(dish => allDishes.push(dish));
+  if (!container) return;
+
+  // Gồm cả món tự thêm — trước đây chỉ liệt kê 52 món dựng sẵn nên
+  // món do người dùng tạo không có cách nào loại trừ từ giao diện.
+  const allDishes = getAllDishes();
+  const q = normalizeVi(query.trim());
+  const shown = q ? allDishes.filter(d => normalizeVi(d).includes(q)) : allDishes;
+
+  if (!shown.length) {
+    container.innerHTML = '<p class="no-results">Không tìm thấy món nào.</p>';
+    return;
   }
-  
-  container.innerHTML = allDishes.map(dish => `
-    <div class="exclude-item ${isExcluded(dish) ? 'excluded' : ''}" data-dish="${dish}">
-      <div class="exclude-checkbox">
+
+  container.innerHTML = shown.map(dish => `
+    <button type="button" class="exclude-item ${isExcluded(dish) ? 'excluded' : ''}"
+            data-dish="${escapeHtml(dish)}" aria-pressed="${isExcluded(dish)}">
+      <span class="exclude-checkbox" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
           <polyline points="20 6 9 17 4 12"/>
         </svg>
-      </div>
-      <span class="exclude-name">${dish}</span>
-    </div>
+      </span>
+      <span class="exclude-name">${escapeHtml(dish)}</span>
+    </button>
   `).join('');
-  
-  // Add click handlers
+
   container.querySelectorAll('.exclude-item').forEach(item => {
     item.addEventListener('click', () => {
       const dish = item.dataset.dish;
       toggleExclude(dish);
-      item.classList.toggle('excluded', isExcluded(dish));
+      const off = isExcluded(dish);
+      item.classList.toggle('excluded', off);
+      item.setAttribute('aria-pressed', String(off));
     });
   });
 }
@@ -469,11 +738,13 @@ function getUniqueDishCount() {
   return uniqueDishes.size;
 }
 
-function getChallengeLevel(count) {
-  if (count >= 52) return 'platinum';
-  if (count >= 40) return 'gold';
-  if (count >= 25) return 'silver';
-  if (count >= 10) return 'bronze';
+// Mốc huy hiệu tính theo tỉ lệ của cả kho món, không còn cứng ở 52
+function getChallengeLevel(count, total = TOTAL_DISHES) {
+  const ratio = total ? count / total : 0;
+  if (ratio >= 1) return 'platinum';
+  if (ratio >= 0.75) return 'gold';
+  if (ratio >= 0.45) return 'silver';
+  if (ratio >= 0.15) return 'bronze';
   return '';
 }
 
@@ -481,12 +752,15 @@ function updateChallengeBadge() {
   const count = getUniqueDishCount();
   const badge = document.getElementById('challengeBadge');
   const countEl = document.getElementById('triedCount');
+  const totalEl = document.getElementById('totalDishes');
 
-  if (countEl) {
-    countEl.textContent = count;
-  }
+  if (countEl) countEl.textContent = count;
+  if (totalEl) totalEl.textContent = TOTAL_DISHES;
+  const aboutTotal = document.getElementById('aboutTotalDishes');
+  if (aboutTotal) aboutTotal.textContent = TOTAL_DISHES;
 
   if (badge) {
+    badge.setAttribute('aria-label', `Đã thử ${count} trong ${TOTAL_DISHES} món`);
     // Remove old level classes
     badge.classList.remove('level-bronze', 'level-silver', 'level-gold', 'level-platinum');
 
@@ -517,7 +791,8 @@ function saveCustomDishFromForm() {
   const imageUrl = document.getElementById('customDishImage').value.trim();
 
   if (!name) {
-    alert('Vui lòng nhập tên món!');
+    showToast('Bạn chưa nhập tên món.');
+    document.getElementById('customDishName').focus();
     return;
   }
 
@@ -547,11 +822,12 @@ function saveWeekPlan() {
   persist('homnayangi_week_plan', weekPlan);
 }
 
+// Toàn bộ kho món (không chỉ 52 lá đang chia) — dùng cho lịch ăn tuần,
+// danh sách loại trừ và thống kê.
 function getAllDishes() {
-  // Get all dishes from data
   const allDishes = [];
   for (const suit of SUITS) {
-    DISHES[suit].forEach(dish => allDishes.push(dish));
+    DISH_DB[suit].forEach(d => allDishes.push(d.name));
   }
   customDishes.forEach(d => allDishes.push(d.name));
   return allDishes;
@@ -894,10 +1170,12 @@ function init() {
   createDeck();
   renderDeck(true);
   setupEvents();
+  observeDeckSize();
   updateHistoryPanel();
   updateChallengeBadge();
   renderDishOfDay();
   updateSessionInfo();
+  renderGreeting();
   
   // Handle PWA shortcuts
   handleUrlParams();
@@ -968,95 +1246,98 @@ function nextSlide() {
   }
 }
 
+// Rút đều từ nhiều kho — lấy lần lượt mỗi kho một món cho tới khi đủ số lá,
+// nên bộ bài luôn cân giữa các nhóm dù kho món của từng nhóm to nhỏ khác nhau.
+function drawBalanced(pools, limit) {
+  const picked = [];
+  for (let round = 0; picked.length < limit; round++) {
+    let progressed = false;
+    for (const pool of pools) {
+      if (round >= pool.length) continue;
+      picked.push(pool[round]);
+      progressed = true;
+      if (picked.length >= limit) break;
+    }
+    if (!progressed) break;
+  }
+  return picked;
+}
+
+// Kho món của một nhóm sau khi áp bộ lọc, gồm cả món người dùng tự thêm
+function candidatesFor(suit, regionFilter, favFilter, mealFilter = 'all') {
+  const keep = (name, region) => {
+    if (isExcluded(name)) return false;
+    if (favFilter === 'fav' && !isFavorite(name)) return false;
+    if (mealFilter !== 'all' && !fitsMeal(name, mealFilter)) return false;
+    return regionFilter === 'all' || region === 'A' || region === regionFilter;
+  };
+
+  const list = DISH_DB[suit]
+    .filter(d => keep(d.name, d.region))
+    .map(d => ({ suit, name: d.name, pairing: d.pair, region: d.region, imageUrl: d.imageUrl }));
+
+  customDishes
+    .filter(d => d.category === suit && keep(d.name, 'A'))
+    .forEach(d => list.push({
+      suit,
+      name: d.name,
+      pairing: d.pairing || 'Tùy thích',
+      region: 'A',
+      imageUrl: d.imageUrl || dishImageUrl(suit, null, d.name),
+      isCustom: true
+    }));
+
+  return list;
+}
+
 function createDeck() {
   deck = [];
   flippedCards = [];
-  let cardIndex = 0;
 
   const categoryFilter = document.getElementById('categoryFilter')?.value || 'all';
   const regionFilter = document.getElementById('regionFilter')?.value || 'all';
   const favFilter = document.getElementById('favFilter')?.value || 'all';
-  let suitsToUse = categoryFilter === 'all' ? SUITS : [categoryFilter];
+  const mealFilter = document.getElementById('mealFilter')?.value || 'all';
+  const suitsToUse = categoryFilter === 'all' ? SUITS : [categoryFilter];
 
-  // Build deck with all suits based on filter
-  for (const suit of suitsToUse) {
-    for (let i = 0; i < VALUES.length; i++) {
-      const region = REGIONS[suit][i];
-      const dishName = DISHES[suit][i];
-      
-      // Skip excluded dishes
-      if (isExcluded(dishName)) continue;
-      
-      // Filter by favorites
-      if (favFilter === 'fav' && !isFavorite(dishName)) continue;
-      
-      // Filter by region: include if matches or is 'A' (all regions) or filter is 'all'
-      if (regionFilter === 'all' || region === 'A' || region === regionFilter) {
-        deck.push({
-          id: cardIndex++,
-          value: VALUES[i],
-          suit: suit,
-          dish: dishName,
-          pairing: PAIRINGS[suit][i],
-          emoji: EMOJIS[suit],
-          imageUrl: IMAGES[suit][i],
-          isRed: suit === '♥' || suit === '♦',
-          region: region
-        });
-      }
-    }
-  }
-
-  // Add custom dishes
-  const customToAdd = categoryFilter === 'all'
-    ? customDishes
-    : customDishes.filter(d => d.category === categoryFilter);
-
-  const customValues = ['J', 'Q', 'K', 'A', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-  customToAdd.forEach((d, i) => {
-    // Skip excluded custom dishes
-    if (isExcluded(d.name)) return;
-    // Filter by favorites
-    if (favFilter === 'fav' && !isFavorite(d.name)) return;
-    
-    deck.push({
-      id: cardIndex++,
-      value: customValues[i % customValues.length],
-      suit: d.category,
-      dish: d.name,
-      pairing: d.pairing,
-      emoji: EMOJIS[d.category],
-      imageUrl: d.imageUrl,
-      isRed: d.category === '♥' || d.category === '♦',
-      isCustom: true,
-      region: 'A'
-    });
+  const pools = suitsToUse.map(suit => {
+    const list = candidatesFor(suit, regionFilter, favFilter, mealFilter);
+    shuffleArray(list);
+    return list;
   });
 
-  // Apply time-based sorting if enabled (prioritize, not filter)
-  if (settings.timeFilterEnabled && categoryFilter === 'all') {
-    const timeSuits = getTimeSuits(getTimePeriod());
-    // Sort: time-appropriate suits first, then others
-    deck.sort((a, b) => {
-      const aMatch = timeSuits.includes(a.suit) ? 0 : 1;
-      const bMatch = timeSuits.includes(b.suit) ? 0 : 1;
-      return aMatch - bMatch;
-    });
+  let chosen = drawBalanced(pools, DECK_SIZE);
+
+  // Gợi ý theo giờ: món hợp buổi này xếp lên đầu (ưu tiên, không loại bỏ),
+  // hai nhóm đều được xáo riêng nên vẫn ngẫu nhiên trong từng nhóm.
+  if (settings.timeFilterEnabled && mealFilter === 'all') {
+    const period = getTimePeriod();
+    const fit = chosen.filter(c => fitsMeal(c.name, period));
+    const rest = chosen.filter(c => !fitsMeal(c.name, period));
+    shuffleArray(fit);
+    shuffleArray(rest);
+    chosen = [...fit, ...rest];
+  } else {
+    shuffleArray(chosen);
   }
 
-  // Shuffle within groups or entire deck
-  if (settings.timeFilterEnabled && categoryFilter === 'all') {
-    // Shuffle within priority groups
-    const timeSuits = getTimeSuits(getTimePeriod());
-    const priorityCards = deck.filter(c => timeSuits.includes(c.suit));
-    const otherCards = deck.filter(c => !timeSuits.includes(c.suit));
-    shuffleArray(priorityCards);
-    shuffleArray(otherCards);
-    deck = [...priorityCards, ...otherCards];
-  } else {
-    // Normal shuffle
-    shuffleArray(deck);
-  }
+  // Đánh số lá bài (A → K) riêng trong từng nhóm để mặt bài vẫn ra chất cỗ bài
+  const seen = {};
+  deck = chosen.map((d, i) => {
+    const n = seen[d.suit] || 0;
+    seen[d.suit] = n + 1;
+    return {
+      id: i,
+      value: VALUES[n % VALUES.length],
+      suit: d.suit,
+      dish: d.name,
+      pairing: d.pairing,
+      imageUrl: d.imageUrl,
+      isRed: d.suit === '♥' || d.suit === '♦',
+      isCustom: Boolean(d.isCustom),
+      region: d.region
+    };
+  });
 }
 
 function shuffleArray(arr) {
@@ -1075,7 +1356,8 @@ function renderDeck(withAnimation = false) {
 
   // Empty pool — tell the user to relax filters instead of a blank board
   if (deck.length === 0) {
-    container.innerHTML = '<p class="empty-deck" role="status">Không còn lá nào phù hợp bộ lọc. Hãy nới bộ lọc hoặc thêm món.</p>';
+    container.style.removeProperty('--deck-w');
+    container.innerHTML = '<p class="empty-deck" role="status">Không còn món nào khớp bộ lọc. Bạn thử nới bộ lọc hoặc thêm món mới nhé.</p>';
     updateRemaining();
     return;
   }
@@ -1111,7 +1393,105 @@ function renderDeck(withAnimation = false) {
     container.appendChild(el);
   });
 
+  container.setAttribute('aria-label', `Bộ bài ${deck.length} món`);
+  fitDeck();
   updateRemaining();
+}
+
+// ========================================
+// FIT DECK — chọn số lá mỗi hàng sao cho cả bộ bài lấp vừa khít khung
+//
+// Bài toán: xếp N hình chữ nhật tỉ lệ 5:7 vào một ô rộng W cao H sao cho
+// từng lá to nhất có thể. Với mỗi số cột khả dĩ, bề rộng lá bài bị chặn bởi
+// cả chiều ngang lẫn chiều dọc; lấy min của hai chặn rồi chọn cột cho giá
+// trị lớn nhất. Nhờ vậy app vừa khít ở mọi cỡ cửa sổ mà không cần
+// breakpoint thủ công.
+// ========================================
+const CARD_ASPECT = 5 / 7; // rộng / cao
+
+function bestDeckFit(count, boxW, boxH, gap, minW, maxW) {
+  let best = { cols: 1, cardW: 0 };
+
+  let bestScore = 0;
+
+  for (let cols = 1; cols <= count; cols++) {
+    const rows = Math.ceil(count / cols);
+    const byWidth = (boxW - (cols - 1) * gap) / cols;
+    const byHeight = ((boxH - (rows - 1) * gap) / rows) * CARD_ASPECT;
+    const cardW = Math.min(byWidth, byHeight);
+
+    // Phạt nhẹ lưới có hàng cuối thiếu lá, để khi hai phương án xấp xỉ nhau
+    // thì chọn lưới chữ nhật đầy đủ cho gọn mắt.
+    const score = cardW * (1 - 0.5 * (cols * rows - count) / count);
+    if (score > bestScore) {
+      bestScore = score;
+      best = { cols, cardW };
+    }
+  }
+
+  // Bộ bài lớn hơn khung: bỏ ràng buộc chiều cao, xếp kín bề ngang ở cỡ
+  // tối thiểu rồi cho khu vực bài cuộn dọc.
+  if (best.cardW < minW) {
+    const cols = Math.max(1, Math.floor((boxW + gap) / (minW + gap)));
+    return { cols, cardW: Math.max(minW, Math.min(maxW, (boxW - (cols - 1) * gap) / cols)) };
+  }
+
+  return { cols: best.cols, cardW: Math.min(maxW, best.cardW) };
+}
+
+function fitDeck() {
+  const area = document.getElementById('deckArea');
+  const deckEl = document.getElementById('deck');
+  if (!area || !deckEl) return;
+
+  const count = deck.length;
+  if (!count) return;
+
+  const cs = getComputedStyle(deckEl);
+  // Đọc rowGap (giá trị đã tính ra px) chứ không đọc biến --deck-gap:
+  // custom property trả về nguyên văn "clamp(4px, 0.7vmin, 12px)", parseFloat
+  // ra NaN nên trước đó JS tính bằng khoảng cách mặc định, lệch với thực tế.
+  const gap = parseFloat(cs.rowGap) || 8;
+  const minW = parseFloat(cs.getPropertyValue('--card-min')) || 44;
+  const maxW = parseFloat(cs.getPropertyValue('--card-max')) || 150;
+
+  // Chừa 2px hụt: nếu bề rộng cỗ bài bằng đúng bề rộng ô chứa thì sai số
+  // làm tròn dưới pixel khiến lá cuối rơi xuống hàng mới, dôi ra một hàng
+  // và bộ bài lại phải cuộn.
+  // Trừ padding của khung (khoảng cách lá bài ↔ khung tre) khỏi ô đo, nếu
+  // không cỗ bài sẽ tính rộng hơn thực tế và tràn vào khung.
+  const acs = getComputedStyle(area);
+  const padX = (parseFloat(acs.paddingLeft) || 0) + (parseFloat(acs.paddingRight) || 0);
+  const padY = (parseFloat(acs.paddingTop) || 0) + (parseFloat(acs.paddingBottom) || 0);
+  const boxW = area.clientWidth - padX - 2;
+  const boxH = area.clientHeight - padY - 2;
+  if (boxW < 40 || boxH < 40) return;
+
+  const { cols, cardW } = bestDeckFit(count, boxW, boxH, gap, minW, maxW);
+  const w = Math.floor(cardW * 100) / 100;
+
+  deckEl.style.setProperty('--card-w', w + 'px');
+  deckEl.style.setProperty('--deck-w', (cols * w + (cols - 1) * gap) + 'px');
+}
+
+// Gọi lại khi cửa sổ đổi kích thước, xoay máy, hoặc thanh địa chỉ trên
+// di động trượt lên/xuống (dvh thay đổi mà không có sự kiện resize).
+let fitFrame = 0;
+function scheduleFitDeck() {
+  cancelAnimationFrame(fitFrame);
+  fitFrame = requestAnimationFrame(fitDeck);
+}
+
+function observeDeckSize() {
+  const area = document.getElementById('deckArea');
+  if (!area) return;
+  // Chiều cao phần chrome đổi khi web font tải xong — tính lại một lần nữa
+  document.fonts?.ready.then(scheduleFitDeck).catch(() => {});
+  if (typeof ResizeObserver === 'function') {
+    new ResizeObserver(scheduleFitDeck).observe(area);
+  }
+  window.addEventListener('resize', scheduleFitDeck);
+  window.addEventListener('orientationchange', scheduleFitDeck);
 }
 
 // Bring a freshly flipped card into view when it sits off-screen
@@ -1222,14 +1602,15 @@ async function pickCard(index) {
 
   // PHASE 1: Lift card up with glow (800ms)
   cardEl.classList.add('picking');
-  await sleep(reduceMotion ? 150 : 800);
+  await beat(reduceMotion ? 150 : 800);
 
   // PHASE 2: Dramatic shake with drumroll (3000ms = 3 seconds!)
   cardEl.classList.add('shaking');
-  playDrumroll(reduceMotion ? 400 : 3000);
+  const shakeMs = Math.round((reduceMotion ? 400 : 2200) * animSpeedFactor());
+  playDrumroll(shakeMs);
   // Vibrate pattern during shake
   if (!reduceMotion && navigator.vibrate) navigator.vibrate([100, 50, 100, 50, 100, 50, 100, 50, 100]);
-  await sleep(reduceMotion ? 400 : 3000);
+  await sleep(shakeMs);
 
   // PHASE 3: Flash reveal with sound
   cardEl.classList.remove('picking', 'shaking');
@@ -1258,13 +1639,13 @@ async function pickCard(index) {
   createConfetti();
 
   // Then flip the card in background
-  await sleep(100);
+  await beat(100);
   cardEl.classList.add('flipped');
   cardEl.innerHTML = createCardFront(card);
   markCardElFlipped(cardEl, card);
   scrollCardIntoView(cardEl);
 
-  await sleep(400);
+  await beat(400);
   cardEl.classList.remove('revealing');
 
   // Undim other cards
@@ -1273,6 +1654,33 @@ async function pickCard(index) {
   updateRemaining();
 
   isAnimating = false;
+}
+
+// Thẻ thông tin dưới tên món: vùng miền · khoảng giá · buổi hợp.
+// Giá là khoảng tham khảo cho một suất bình dân, có ghi rõ để không ai hiểu nhầm.
+function formatPrice(range) {
+  if (!Array.isArray(range)) return '';
+  const [lo, hi] = range;
+  return lo === hi ? `~${lo}k` : `${lo}–${hi}k`;
+}
+
+function dishFactsHTML(card) {
+  const meta = DISH_META[card.dish];
+  const facts = [];
+
+  const region = REGION_NAMES[card.region || meta?.region];
+  if (region) facts.push({ label: region, cls: 'fact-region' });
+  if (meta?.price) facts.push({ label: formatPrice(meta.price) + '/suất', cls: 'fact-price' });
+
+  const period = getTimePeriod();
+  if (meta?.meals?.includes(period)) {
+    facts.push({ label: 'Hợp ' + getTimeLabel(period).toLowerCase(), cls: 'fact-time' });
+  }
+
+  if (!facts.length) return '';
+  return `<div class="dish-facts">${facts
+    .map(f => `<span class="dish-fact ${f.cls}">${escapeHtml(f.label)}</span>`)
+    .join('')}</div>`;
 }
 
 function showResult(card) {
@@ -1294,9 +1702,12 @@ function showResult(card) {
       <div class="card-image">
         <img src="${escapeHtml(card.imageUrl)}" alt="${escapeHtml(card.dish)}" loading="lazy" decoding="async" onerror="this.style.display='none'">
       </div>
-      <div class="image-disclaimer">Hình ảnh mang tính chất minh họa</div>
+      <div class="image-disclaimer">${DISH_META[card.dish]?.hasPhoto === false
+        ? 'Tranh minh hoạ — món này chưa có ảnh chụp'
+        : 'Hình ảnh mang tính chất minh hoạ'}</div>
       <div class="card-content">
         <div class="food-name">${escapeHtml(card.dish)}</div>
+        ${dishFactsHTML(card)}
         <div class="food-pairing">Ăn kèm: ${escapeHtml(card.pairing)}</div>
       </div>
     </div>
@@ -1327,6 +1738,7 @@ function showResult(card) {
 
   document.getElementById('nextBtn').classList.toggle('show', isMultiPlayer);
   modal.classList.add('show');
+  announce(`Món của bạn: ${card.dish}. Ăn kèm ${card.pairing}.`);
 }
 
 function closeModal() {
@@ -1362,14 +1774,20 @@ async function resetGame() {
   isAnimating = false;
 }
 
-function setMode(multi) {
-  isMultiPlayer = multi;
+// Đồng bộ hai nút chế độ. Các nhánh thoát trước đây chỉ đổi class nên
+// aria-pressed kẹt ở giá trị cũ, trình đọc màn hình báo sai chế độ.
+function syncModeButtons(multi) {
   const singleBtn = document.getElementById('singleMode');
   const multiBtn = document.getElementById('multiMode');
   singleBtn.classList.toggle('active', !multi);
   multiBtn.classList.toggle('active', multi);
   singleBtn.setAttribute('aria-pressed', String(!multi));
   multiBtn.setAttribute('aria-pressed', String(multi));
+}
+
+function setMode(multi) {
+  isMultiPlayer = multi;
+  syncModeButtons(multi);
 
   if (multi) {
     // Show multiplayer modal for setup
@@ -1394,9 +1812,8 @@ function openMultiplayerModal() {
 function closeMultiplayerModal() {
   document.getElementById('multiplayerModal').classList.remove('show');
   // Reset to single mode if cancelled
-  document.getElementById('singleMode').classList.add('active');
-  document.getElementById('multiMode').classList.remove('active');
   isMultiPlayer = false;
+  syncModeButtons(false);
 }
 
 function generatePlayerInputs(count) {
@@ -1439,8 +1856,7 @@ function endMultiplayerGame() {
   
   // Reset to single mode
   isMultiPlayer = false;
-  document.getElementById('singleMode').classList.add('active');
-  document.getElementById('multiMode').classList.remove('active');
+  syncModeButtons(false);
   document.getElementById('playerBar').classList.remove('show');
 }
 
@@ -1508,7 +1924,7 @@ function openWheelModal() {
   // Get available dishes
   const available = deck.filter((_, i) => !flippedCards.includes(i));
   if (available.length === 0) {
-    alert('Hết lá rồi! Hãy chia lại bộ bài.');
+    showToast('Hết lá rồi — bấm nút chia lại bộ bài nhé!');
     return;
   }
 
@@ -1530,8 +1946,11 @@ function drawWheel(highlightIndex = -1) {
   const ctx = canvas.getContext('2d');
   const centerX = canvas.width / 2;
   const centerY = canvas.height / 2;
-  const outerRadius = 145;
-  const innerRadius = 130;
+  // Mọi kích thước vẽ co theo cạnh canvas (gốc thiết kế 320px) để phóng to
+  // vòng quay mà không lệch tỉ lệ hay vỡ nét.
+  const S = canvas.width / 320;
+  const outerRadius = 145 * S;
+  const innerRadius = 130 * S;
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -1549,8 +1968,8 @@ function drawWheel(highlightIndex = -1) {
     const angle = (i * Math.PI * 2) / 24;
     ctx.beginPath();
     ctx.moveTo(
-      centerX + Math.cos(angle) * (outerRadius - 8),
-      centerY + Math.sin(angle) * (outerRadius - 8)
+      centerX + Math.cos(angle) * (outerRadius - 8 * S),
+      centerY + Math.sin(angle) * (outerRadius - 8 * S)
     );
     ctx.lineTo(
       centerX + Math.cos(angle) * outerRadius,
@@ -1588,7 +2007,7 @@ function drawWheel(highlightIndex = -1) {
     ctx.rotate(startAngle + sliceAngle / 2);
     ctx.textAlign = 'center';
     ctx.fillStyle = '#fff';
-    ctx.font = 'bold 13px "Be Vietnam Pro", sans-serif';
+    ctx.font = `bold ${Math.round(13 * S)}px "Be Vietnam Pro", sans-serif`;
     ctx.shadowColor = 'rgba(0,0,0,0.7)';
     ctx.shadowBlur = 4;
     ctx.shadowOffsetX = 1;
@@ -1601,18 +2020,18 @@ function drawWheel(highlightIndex = -1) {
     }
 
     // Position text in middle of slice
-    ctx.fillText(dishName, innerRadius / 2 + 15, 5);
+    ctx.fillText(dishName, innerRadius / 2 + 15 * S, 5 * S);
     ctx.restore();
   });
 
   // Draw center circle with gradient
-  const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, 30);
+  const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, 30 * S);
   gradient.addColorStop(0, '#fbbf24');
   gradient.addColorStop(0.5, '#f59e0b');
   gradient.addColorStop(1, '#d97706');
 
   ctx.beginPath();
-  ctx.arc(centerX, centerY, 28, 0, 2 * Math.PI);
+  ctx.arc(centerX, centerY, 28 * S, 0, 2 * Math.PI);
   ctx.fillStyle = gradient;
   ctx.fill();
   ctx.strokeStyle = '#fff';
@@ -1621,7 +2040,7 @@ function drawWheel(highlightIndex = -1) {
 
   // Draw "?" in center
   ctx.fillStyle = '#1a1a2e';
-  ctx.font = 'bold 24px "Be Vietnam Pro", sans-serif';
+  ctx.font = `bold ${Math.round(24 * S)}px "Be Vietnam Pro", sans-serif`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.shadowColor = 'transparent';
@@ -1639,17 +2058,21 @@ function spinWheel() {
   // Play sound
   if (settings.soundEnabled) playDrumroll(reduceMotion ? 800 : 3000);
 
-  // Random spin: 5-7 full rotations + random final position (longer spin)
-  const totalRotation = (reduceMotion ? 1.5 : 5 + Math.random() * 2) * 2 * Math.PI;
+  const TAU = 2 * Math.PI;
   const winnerIndex = Math.floor(Math.random() * wheelDishes.length);
-  const sliceAngle = (2 * Math.PI) / wheelDishes.length;
+  const sliceAngle = TAU / wheelDishes.length;
 
-  // Calculate final angle to land on winner (pointer at top = -PI/2)
+  // Góc đích để tâm ô thắng nằm dưới kim (kim ở đỉnh = -PI/2).
+  // Số vòng quay phải là SỐ NGUYÊN vòng, nếu không bánh xe sẽ dừng lệch
+  // ngẫu nhiên so với ô được tô sáng.
   const targetAngle = -Math.PI / 2 - (winnerIndex * sliceAngle) - sliceAngle / 2;
-  const finalAngle = wheelAngle + totalRotation + (targetAngle - (wheelAngle % (2 * Math.PI)));
+  const turns = reduceMotion ? 1 : 5 + Math.floor(Math.random() * 3);
+  let delta = (targetAngle - wheelAngle) % TAU;
+  if (delta < 0) delta += TAU;
+  const finalAngle = wheelAngle + turns * TAU + delta;
 
   const startAngle = wheelAngle;
-  const duration = reduceMotion ? 1500 : 6000; // 6 seconds for slower spin
+  const duration = Math.round((reduceMotion ? 1500 : 4500) * animSpeedFactor());
   const startTime = Date.now();
 
   function animate() {
@@ -1727,7 +2150,7 @@ const REEL_WIN_AT = 36;
 function openReelModal() {
   const available = deck.filter((_, i) => !flippedCards.includes(i));
   if (available.length === 0) {
-    alert('Hết lá rồi! Hãy chia lại bộ bài.');
+    showToast('Hết lá rồi — bấm nút chia lại bộ bài nhé!');
     return;
   }
   reelDishes = available;
@@ -1743,10 +2166,11 @@ function closeReelModal() {
 // Spin profile — randomized per roll so each opening feels different
 // (ported from truanayangi's CS:GO Panorama reconstruction)
 function createSpinProfile(random = Math.random, reducedMotion = false) {
+  const factor = animSpeedFactor();
   if (reducedMotion) {
-    return { durationMs: 800 + Math.floor(random() * 400), friction: 2.7 + random() * 0.6 };
+    return { durationMs: Math.round((800 + Math.floor(random() * 400)) * factor), friction: 2.7 + random() * 0.6 };
   }
-  return { durationMs: 5200 + Math.floor(random() * 1800), friction: 2.7 + random() * 0.6 };
+  return { durationMs: Math.round((4200 + Math.floor(random() * 1600)) * factor), friction: 2.7 + random() * 0.6 };
 }
 
 function spinProgress(progress, friction) {
@@ -1863,7 +2287,7 @@ let battleRoundSize = 0;
 function openBattleModal() {
   const available = deck.filter((_, i) => !flippedCards.includes(i));
   if (available.length < 2) {
-    alert('Cần ít nhất 2 lá để so găng! Hãy chia lại bộ bài.');
+    showToast('Cần ít nhất 2 món để so găng — hãy chia lại bộ bài.');
     return;
   }
 
@@ -2063,18 +2487,23 @@ function availableCards() {
 let xamWinner = null;
 let xamShaking = false;
 
+// Lời xăm viết theo nhịp lục bát cho ra chất "quẻ xăm" chứ không phải
+// câu quảng cáo. Có cả quẻ thượng lẫn quẻ hạ để còn có cái mà hồi hộp.
 const XAM_VERSES = [
-  'Trời sinh đã định — hôm nay đổi món này.',
-  'Quẻ tốt nhất nhà — ăn món này no lâu.',
-  'Hữu duyên thiên lý — gặp ngay món ngon.',
-  'Phúc lộc đầy nhà — bữa nay thịnh soạn.',
-  'Xăm này cực kỳ linh — đi ăn liền đi.'
+  { tier: 'Thượng thượng', text: 'Duyên trời đưa đẩy tới đây\nMón này ăn thử, no đầy cả trưa.' },
+  { tier: 'Thượng cát',    text: 'Quẻ này lộc đến tận nơi\nĂn xong nhẹ bụng, thảnh thơi cả ngày.' },
+  { tier: 'Trung bình',    text: 'Không ngon cũng chẳng dở đâu\nĂn cho qua bữa, mai cầu món sang.' },
+  { tier: 'Thượng cát',    text: 'Bụng đang réo gọi từng hồi\nMón này hợp ý, đứng ngồi không yên.' },
+  { tier: 'Trung cát',     text: 'Chọn chi cho mệt cái đầu\nQuán quen góc phố, món đâu cũng vừa.' },
+  { tier: 'Thượng thượng', text: 'Xăm này quả thật rất linh\nĂn vào một miếng, thình lình thấy vui.' },
+  { tier: 'Trung bình',    text: 'Hôm nay chẳng có gì sang\nCơm nhà rau muống, vẫn ngon lạ thường.' },
+  { tier: 'Thượng cát',    text: 'Đói thì đầu gối phải bò\nMón này gần đấy, khỏi lo đường xa.' }
 ];
 
 function openXamModal() {
   const available = availableCards();
   if (!available.length) {
-    alert('Hết lá rồi! Hãy chia lại bộ bài.');
+    showToast('Hết lá rồi — bấm nút chia lại bộ bài nhé!');
     return;
   }
   xamWinner = null;
@@ -2104,8 +2533,11 @@ function shakeXam() {
 
   setTimeout(() => {
     tube.classList.remove('shaking');
+    const verse = XAM_VERSES[Math.floor(Math.random() * XAM_VERSES.length)];
     document.getElementById('xamDish').textContent = xamWinner.dish;
-    document.getElementById('xamVerse').textContent = XAM_VERSES[Math.floor(Math.random() * XAM_VERSES.length)];
+    document.getElementById('xamVerse').textContent = verse.text;
+    const tierEl = document.getElementById('xamTier');
+    if (tierEl) tierEl.textContent = verse.tier;
     document.getElementById('xamFortune').hidden = false;
     playRevealSound();
 
@@ -2125,7 +2557,7 @@ const HOA_COLORS = ['#ff8fa3', '#ffd166', '#b388ff', '#80ed99', '#8ecae6', '#ffb
 function openHoaModal() {
   const available = availableCards();
   if (!available.length) {
-    alert('Hết lá rồi! Hãy chia lại bộ bài.');
+    showToast('Hết lá rồi — bấm nút chia lại bộ bài nhé!');
     return;
   }
   const garden = document.getElementById('hoaGarden');
@@ -2175,7 +2607,7 @@ let scratchDone = false;
 function openVesoModal() {
   const available = availableCards();
   if (!available.length) {
-    alert('Hết lá rồi! Hãy chia lại bộ bài.');
+    showToast('Hết lá rồi — bấm nút chia lại bộ bài nhé!');
     return;
   }
   scratchWinner = available[Math.floor(Math.random() * available.length)];
@@ -2246,12 +2678,30 @@ function setupScratchCanvas() {
   canvas.addEventListener('pointerup', () => { scratching = false; checkScratched(canvas, ctx, w, h); });
 }
 
+// Đo phần đã cào trên một lưới thưa (~60×60 điểm) thay vì đọc toàn bộ
+// canvas theo devicePixelRatio — trên điện thoại retina đó là hàng triệu pixel
+// mỗi lần kiểm tra, đủ để cảm giác cào bị khựng.
+const SCRATCH_SAMPLE = 60;
+
 function checkScratched(canvas, ctx, w, h) {
   if (scratchDone) return;
-  const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+  const sw = Math.min(SCRATCH_SAMPLE, canvas.width);
+  const sh = Math.min(SCRATCH_SAMPLE, canvas.height);
+  const stepX = canvas.width / sw;
+  const stepY = canvas.height / sh;
   let clear = 0, total = 0;
-  for (let i = 3; i < data.length; i += 64) { total++; if (data[i] < 128) clear++; }
-  if (clear / total > 0.45) revealScratch(ctx, w, h);
+
+  for (let y = 0; y < sh; y++) {
+    const py = Math.min(canvas.height - 1, Math.floor(y * stepY));
+    const row = ctx.getImageData(0, py, canvas.width, 1).data;
+    for (let x = 0; x < sw; x++) {
+      const px = Math.min(canvas.width - 1, Math.floor(x * stepX));
+      total++;
+      if (row[px * 4 + 3] < 128) clear++;
+    }
+  }
+
+  if (total && clear / total > 0.45) revealScratch(ctx, w, h);
 }
 
 function revealScratch(ctx, w, h) {
@@ -2278,21 +2728,33 @@ function revealScratchInstant() {
 function getDishOfDay() {
   const all = [];
   for (const suit of SUITS) {
-    DISHES[suit].forEach((dish, i) => {
+    DISH_DB[suit].forEach((d, i) => {
       all.push({
-        value: VALUES[i],
+        value: VALUES[i % VALUES.length],
         suit,
-        dish,
-        pairing: PAIRINGS[suit][i],
-        imageUrl: IMAGES[suit][i],
+        dish: d.name,
+        pairing: d.pair,
+        imageUrl: d.imageUrl,
         isRed: suit === '♥' || suit === '♦',
-        region: REGIONS[suit][i]
+        region: d.region
       });
     });
   }
+  // Băm ngày trước khi lấy chỉ số — nếu dùng thẳng YYYYMMDD thì mỗi ngày
+  // món chỉ nhích lên đúng 1 ô, người dùng đoán được món mai ăn gì.
   const d = new Date();
-  const seed = d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
-  return all[seed % all.length];
+  const day = d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
+  let h = day ^ 0x9e3779b9;
+  h = Math.imul(h ^ (h >>> 16), 0x21f0aaad);
+  h = Math.imul(h ^ (h >>> 15), 0x735a2d97);
+  h = (h ^ (h >>> 15)) >>> 0;
+  return all[h % all.length];
+}
+
+// Lời chào đổi theo buổi — thay câu tĩnh "Chọn một lá bài để xem món ăn"
+function renderGreeting() {
+  const el = document.getElementById('headerGreeting');
+  if (el) el.textContent = MEAL_GREETINGS[getTimePeriod()];
 }
 
 function renderDishOfDay() {
@@ -2380,9 +2842,9 @@ async function shareResult() {
     // Fallback: copy to clipboard
     try {
       await navigator.clipboard.writeText(shareData.text);
-      alert('Đã copy kết quả vào clipboard!');
+      showToast('Đã chép kết quả vào bộ nhớ tạm.');
     } catch (err) {
-      alert('Không thể chia sẻ. Hãy copy thủ công:\n' + shareData.text);
+      showToast('Không chia sẻ được. Bạn hãy chép thủ công nhé.');
     }
   }
 }
@@ -2426,12 +2888,12 @@ async function createShareImage(card) {
     ctx.fill();
   }
 
-  // Suit and value (folk mode: category emoji + sequential number)
+  // Số thứ tự + biểu tượng nhóm món
   ctx.fillStyle = card.isRed ? '#dc2626' : '#1a1a1a';
   ctx.font = 'bold 48px Georgia, serif';
   ctx.fillText(isFolkDeck() ? (FOLK_VALUES[card.value] || card.value) : card.value, 130, 150);
   ctx.font = '36px Georgia, serif';
-  ctx.fillText(isFolkDeck() ? (card.emoji || '🍜') : card.suit, 135, 190);
+  ctx.fillText(card.suit, 135, 190);
 
   // Food name
   ctx.fillStyle = card.isRed ? '#dc2626' : '#1a1a1a';
@@ -2489,6 +2951,144 @@ function quickPick() {
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// Hệ số tốc độ từ mục Cài đặt. Trước đây nó chỉ đổi biến CSS, còn màn bốc
+// bài lại chờ bằng setTimeout cứng — chọn "Nhanh" mà vẫn phải đợi đủ 4 giây.
+const ANIM_SPEED_FACTOR = { slow: 1.5, normal: 1, fast: 0.6 };
+
+function animSpeedFactor() {
+  return ANIM_SPEED_FACTOR[settings.animSpeed] ?? 1;
+}
+
+// Chờ theo nhịp đã nhân hệ số tốc độ
+function beat(ms) {
+  return sleep(Math.round(ms * animSpeedFactor()));
+}
+
+// ========================================
+// MODAL MANAGER — dialog semantics dùng chung cho mọi lớp phủ
+// Mỗi modal trước đây tự bật/tắt class .show, nên Escape chỉ gỡ class mà
+// bỏ qua phần dọn trạng thái của hàm đóng riêng (ví dụ thoát màn hình lập
+// nhóm chơi mà isMultiPlayer vẫn đang bật). Ở đây gom về một chỗ.
+// ========================================
+const MODAL_IDS = [
+  'modal', 'settingsModal', 'multiplayerModal', 'plannerModal', 'customDishModal',
+  'excludesModal', 'wheelModal', 'reelModal', 'battleModal', 'mamModal',
+  'xamModal', 'hoaModal', 'vesoModal', 'resultsPanel', 'onboardingModal'
+];
+
+const PANEL_SELECTOR = [
+  '.modal-card', '.settings-content', '.multiplayer-content', '.planner-content',
+  '.custom-dish-content', '.excludes-content', '.wheel-content', '.reel-content',
+  '.battle-content', '.results-panel-content', '.onboarding-content'
+].join(', ');
+
+const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+let modalEls = [];
+let focusBeforeModal = null;
+
+function modalCloser(id) {
+  return {
+    modal: closeModal,
+    settingsModal: closeSettings,
+    multiplayerModal: closeMultiplayerModal,
+    plannerModal: closePlanner,
+    customDishModal: closeCustomDishModal,
+    excludesModal: closeExcludesModal,
+    wheelModal: closeWheelModal,
+    reelModal: closeReelModal,
+    battleModal: closeBattleModal,
+    mamModal: closeMamComModal,
+    xamModal: closeXamModal,
+    hoaModal: closeHoaModal,
+    vesoModal: closeVesoModal,
+    resultsPanel: () => document.getElementById('resultsPanel').classList.remove('show'),
+    onboardingModal: hideOnboarding
+  }[id];
+}
+
+function openModalStack() {
+  return modalEls.filter(m => m.classList.contains('show'));
+}
+
+function focusablesIn(root) {
+  return [...root.querySelectorAll(FOCUSABLE)]
+    .filter(el => !el.hasAttribute('hidden') && el.offsetParent !== null);
+}
+
+function syncModalState() {
+  const stack = openModalStack();
+  document.body.classList.toggle('modal-open', stack.length > 0);
+
+  if (!stack.length) {
+    if (focusBeforeModal && document.body.contains(focusBeforeModal)) {
+      focusBeforeModal.focus({ preventScroll: true });
+    }
+    focusBeforeModal = null;
+    return;
+  }
+
+  if (!focusBeforeModal) focusBeforeModal = document.activeElement;
+
+  const top = stack[stack.length - 1];
+  if (top.contains(document.activeElement)) return;
+  const panel = top.querySelector(PANEL_SELECTOR) || top;
+  (focusablesIn(panel)[0] || panel).focus({ preventScroll: true });
+}
+
+function initModalManager() {
+  modalEls = MODAL_IDS.map(id => document.getElementById(id)).filter(Boolean);
+
+  modalEls.forEach(m => {
+    const panel = m.querySelector(PANEL_SELECTOR);
+    if (panel) {
+      panel.setAttribute('role', 'dialog');
+      panel.setAttribute('aria-modal', 'true');
+      panel.tabIndex = -1;
+      const heading = panel.querySelector('h2, h3');
+      if (heading) {
+        if (!heading.id) heading.id = m.id + 'Title';
+        panel.setAttribute('aria-labelledby', heading.id);
+      }
+    }
+    // Bấm ra ngoài để đóng — vài modal (mâm cơm, xin xăm, hái hoa, vé số)
+    // trước đây không có lớp nền nên chỉ đóng được bằng nút X.
+    m.addEventListener('mousedown', e => {
+      if (e.target === m) modalCloser(m.id)?.();
+    });
+  });
+
+  const observer = new MutationObserver(syncModalState);
+  modalEls.forEach(m => observer.observe(m, { attributes: true, attributeFilter: ['class'] }));
+
+  document.addEventListener('keydown', e => {
+    const stack = openModalStack();
+    if (!stack.length) return;
+    const top = stack[stack.length - 1];
+
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      const close = modalCloser(top.id);
+      if (close) close();
+      else top.classList.remove('show');
+      return;
+    }
+
+    if (e.key !== 'Tab') return;
+    const items = focusablesIn(top.querySelector(PANEL_SELECTOR) || top);
+    if (items.length < 2) return;
+    const first = items[0];
+    const last = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  });
 }
 
 function setupEvents() {
@@ -2559,6 +3159,12 @@ function setupEvents() {
 
   // Region filter
   document.getElementById('regionFilter').addEventListener('change', () => {
+    createDeck();
+    renderDeck(true);
+  });
+
+  // Meal-time filter — chọn xem món hợp buổi nào (sáng/trưa/xế/tối/khuya)
+  document.getElementById('mealFilter')?.addEventListener('change', () => {
     createDeck();
     renderDeck(true);
   });
@@ -2646,6 +3252,7 @@ function setupEvents() {
   });
 
   document.getElementById('closeExcludesX')?.addEventListener('click', closeExcludesModal);
+  document.getElementById('excludesSearch')?.addEventListener('input', e => renderExcludesList(e.target.value));
   document.getElementById('excludesBg')?.addEventListener('click', closeExcludesModal);
 
   document.getElementById('darkModeToggle').addEventListener('change', (e) => {
@@ -2707,16 +3314,7 @@ function setupEvents() {
     if (!audioContext) initAudio();
   }, { once: true });
 
-  // Escape closes the topmost open modal (dialog semantics)
-  document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape') return;
-    const open = document.querySelector(
-      '.modal.show, .settings-modal.show, .multiplayer-modal.show, .planner-modal.show, ' +
-      '.custom-dish-modal.show, .excludes-modal.show, .wheel-modal.show, .reel-modal.show, ' +
-      '.battle-modal.show, .onboarding-modal.show'
-    );
-    if (open) open.classList.remove('show');
-  });
+  initModalManager();
 
   // Suspend audio when the tab is hidden, resume when it returns
   // (truanayangi pauses its audio engine on visibilitychange)
@@ -2753,7 +3351,7 @@ if (typeof module !== 'undefined' && module.exports) {
       const foods = [];
       for (const suit of SUITS) {
         DISHES[suit].forEach((foodName, i) => {
-          foods.push(this._toFoodItem(SUIT_KEYS[suit], VALUES[i], foodName));
+          foods.push(this._toFoodItem(SUIT_KEYS[suit], VALUES[i % VALUES.length], foodName));
         });
       }
       return foods;
@@ -2766,10 +3364,11 @@ if (typeof module !== 'undefined' && module.exports) {
       return this._toFoodItem(suit, value, DISHES[symbol][index]);
     },
 
+    // Rút trong cả kho món, không dừng ở 13 món đầu mỗi nhóm
     getRandomCard() {
       const suit = SUITS[Math.floor(Math.random() * SUITS.length)];
-      const index = Math.floor(Math.random() * VALUES.length);
-      return this._toFoodItem(SUIT_KEYS[suit], VALUES[index], DISHES[suit][index]);
+      const index = Math.floor(Math.random() * DISHES[suit].length);
+      return this._toFoodItem(SUIT_KEYS[suit], VALUES[index % VALUES.length], DISHES[suit][index]);
     },
 
     _toFoodItem(suit, cardValue, foodName) {
@@ -2813,5 +3412,12 @@ if (typeof module !== 'undefined' && module.exports) {
     }
   };
 
-  module.exports = { FoodDatabase, HistoryManager, CardPicker };
+  module.exports = {
+    FoodDatabase, HistoryManager, CardPicker,
+    // Dữ liệu thô cho bộ test toàn vẹn (dish-data.test.js)
+    DISH_DB, DISH_META, SUITS, VALUES, REGION_NAMES, TOTAL_DISHES, DECK_SIZE,
+    CATEGORY_NAMES, drawBalanced,
+    // Thuật toán thuần, test được mà không cần DOM
+    bestDeckFit, getTimePeriod, fitsMeal
+  };
 }

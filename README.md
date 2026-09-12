@@ -16,20 +16,33 @@ A fun Vietnamese food picker app using a 52-card deck concept. Can't decide what
 
 ## Tính năng / Features
 
-- 52 món ăn Việt Nam chia theo 4 loại: Bún/Phở, Cơm, Bánh/Xôi, Món khác
-- Lọc theo vùng miền: Bắc, Trung, Nam
-- Đánh dấu món yêu thích và loại trừ món không thích
-- Chế độ nhiều người chơi - chơi cùng bạn bè
-- Lên lịch ăn tuần
-- Thêm món ăn tùy chỉnh
-- Hiệu ứng lật bài đẹp mắt với âm thanh
-- Hỗ trợ chế độ tối
-- PWA - Cài đặt trên điện thoại để truy cập nhanh
-- Chia sẻ kết quả lên mạng xã hội
-- Vòng quay may mắn - quay chọn món ngẫu nhiên
-- Bốc ngẫu nhiên một chạm - không cần chọn lá cụ thể
-- Thử thách 52 món - theo dõi số món đã ăn
-- Ảnh món ăn tối ưu WebP, tải lazy, hỗ trợ reduced-motion
+**Bộ món**
+- Gần 150 món chia 4 nhóm: Bún · Phở, Cơm, Bánh · Xôi, Nhậu · Cơm nhà — từ món dân dã tới món ngoại lai quen thuộc; mỗi ván chia 52 lá rút ngẫu nhiên
+- Mỗi món có ảnh riêng, gợi ý ăn kèm, vùng miền, khoảng giá tham khảo và buổi ăn hợp
+- Đủ ba miền Bắc – Trung – Nam trong từng nhóm
+- Thêm món tùy chỉnh của riêng bạn
+
+**Tám cách chọn món**
+- Bốc bài (chạm một lá) và Bốc ngẫu nhiên (một chạm)
+- Vòng quay may mắn · Quay Mâm (băng chuyền) · Cào vé số
+- Xin xăm (quẻ lục bát) · Hái hoa dân chủ · Mâm cơm gia đình ba miền
+- So găng — đấu loại trực tiếp giữa các món
+
+**Cá nhân hoá**
+- Lọc theo nhóm món, vùng miền, **buổi ăn** (sáng · trưa · xế · tối · khuya) và món yêu thích
+- Đánh dấu yêu thích, loại trừ món không hợp khẩu vị (có ô tìm kiếm, bỏ dấu vẫn ra)
+- Gợi ý theo giờ: món hợp buổi hiện tại được xếp lên đầu — phục vụ cả ngày, không chỉ bữa tối
+- Món của ngày, lịch ăn tuần, lịch sử và thống kê món hay ăn
+- Chế độ nhiều người chơi (2–6 người)
+- Chế độ tối, ba mức tốc độ hiệu ứng, hai kiểu mặt bài (Dân gian / Bài tây)
+
+**Kỹ thuật**
+- Giao diện tự co giãn vừa khít mọi khung nhìn — từ 320px đến màn 4K, không cuộn trang
+- Đặt món nhanh qua GrabFood, ShopeeFood, beFood, Google Maps
+- PWA cài được lên điện thoại, chạy offline, không cần tài khoản
+- Chia sẻ kết quả kèm ảnh thẻ bài
+- Ảnh WebP 512×512, tải lazy, tôn trọng `prefers-reduced-motion`
+- Truy cập bàn phím đầy đủ: Escape đóng modal, Tab bị giữ trong modal, có vùng thông báo cho trình đọc màn hình
 
 ---
 
@@ -85,9 +98,25 @@ homnayangi/
 ├── app.js              # Application logic
 ├── sw.js               # Service Worker
 ├── manifest.json       # PWA manifest
+├── app.test.js         # Property-based tests (fast-check)
+├── dish-data.test.js   # Kiểm tra toàn vẹn dữ liệu kho món
 ├── icons/              # App icons
-├── images/             # Food images
+├── images/             # Food images (WebP 512×512)
 └── screenshots/        # Screenshots for README
+```
+
+### Dữ liệu món ăn
+
+Toàn bộ 52 món nằm trong hằng `DISH_DB` ở đầu `app.js`. Mỗi món là một bản ghi
+duy nhất gồm tên, vùng miền, ảnh, gợi ý ăn kèm, khoảng giá và buổi ăn hợp —
+các bảng `DISHES` / `IMAGES` / `REGIONS` / `PAIRINGS` được suy ra từ đó, nên
+không thể xảy ra cảnh tên món một đằng ảnh một nẻo.
+
+`dish-data.test.js` kiểm tra tự động: ảnh tồn tại và khớp tên món, không trùng
+lặp, vùng miền và buổi ăn hợp lệ, khoảng giá tăng dần, mỗi nhóm đủ ba miền.
+
+```bash
+npm test
 ```
 
 ---

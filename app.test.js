@@ -4,7 +4,7 @@
  */
 
 const fc = require('fast-check');
-const { FoodDatabase, HistoryManager, CardPicker } = require('./app.js');
+const { FoodDatabase, HistoryManager, CardPicker, TOTAL_DISHES, DECK_SIZE } = require('./app.js');
 
 // Valid values for generators
 const VALID_SUITS = ['hearts', 'diamonds', 'clubs', 'spades'];
@@ -18,27 +18,27 @@ const cardArb = fc.record({ suit: suitArb, value: valueArb });
 
 /**
  * Property 5: Food Database Completeness
- * For all 4 suits and 13 values, getFoodByCard(suit, value) SHALL return a valid FoodItem
- * with a unique food name. The total count SHALL be exactly 52.
- * 
- * **Validates: Requirements 2.4, 6.1, 6.2, 6.3, 6.4**
+ *
+ * Kho món đã vượt khỏi con số 52 cố định — mỗi ván chỉ chia DECK_SIZE lá rút
+ * từ kho, nên các kiểm tra ở đây chuyển từ "đúng 52" sang "đủ để chia một ván
+ * cân bằng và mọi tên món là duy nhất".
  */
 describe('Property 5: Food Database Completeness', () => {
-  test('getAllFoods() returns exactly 52 items', () => {
+  test('getAllFoods() trả về đúng toàn bộ kho món', () => {
     const allFoods = FoodDatabase.getAllFoods();
-    expect(allFoods.length).toBe(52);
+    expect(allFoods.length).toBe(TOTAL_DISHES);
+    expect(allFoods.length).toBeGreaterThanOrEqual(DECK_SIZE);
   });
 
-  test('all 52 food names are unique', () => {
+  test('mọi tên món trong kho đều duy nhất', () => {
     const allFoods = FoodDatabase.getAllFoods();
     const foodNames = allFoods.map(f => f.foodName);
-    const uniqueNames = new Set(foodNames);
-    expect(uniqueNames.size).toBe(52);
+    expect(new Set(foodNames).size).toBe(foodNames.length);
   });
 
-  test('each suit has exactly 13 foods', () => {
+  test('mỗi nhóm đủ 13 món để chia trọn một chất', () => {
     for (const suit of VALID_SUITS) {
-      expect(FoodDatabase.FOOD_DATA[suit].length).toBe(13);
+      expect(FoodDatabase.FOOD_DATA[suit].length).toBeGreaterThanOrEqual(13);
     }
   });
 
@@ -60,41 +60,31 @@ describe('Property 5: Food Database Completeness', () => {
     );
   });
 
-  // Verify specific foods per requirements 6.1-6.4
-  test('Hearts suit contains correct foods (Req 6.1)', () => {
-    const expectedFoods = [
-      'Phở bò', 'Phở gà', 'Bún bò Huế', 'Bún chả', 'Bún riêu',
-      'Bún đậu', 'Bún thịt nướng', 'Hủ tiếu', 'Mì Quảng',
-      'Bún cá', 'Cao lầu', 'Miến gà', 'Phở xào'
-    ];
-    expect(FoodDatabase.FOOD_DATA.hearts).toEqual(expectedFoods);
-  });
+  // Món tiêu biểu của từng nhóm — kiểm tra phân loại đúng chỗ thay vì khoá
+  // cứng cả danh sách (kho món còn được bổ sung dài dài).
+  const SIGNATURE = {
+    hearts: ['Phở bò', 'Bún bò Huế', 'Mì Quảng', 'Hủ tiếu Nam Vang', 'Mì cay Hàn Quốc'],
+    diamonds: ['Cơm tấm sườn', 'Cơm gà Hội An', 'Cơm hến', 'Cơm chiên Dương Châu', 'Cơm bò Nhật'],
+    clubs: ['Bánh mì thịt', 'Bánh cuốn', 'Bánh khọt', 'Xôi xéo', 'Pizza'],
+    spades: ['Gỏi cuốn', 'Cá kho tộ', 'Lẩu Thái', 'Ốc các loại', 'Gà rán']
+  };
 
-  test('Diamonds suit contains correct foods (Req 6.2)', () => {
-    const expectedFoods = [
-      'Cơm tấm', 'Cơm sườn', 'Cơm gà', 'Cơm rang', 'Cơm chiên',
-      'Cơm cá kho', 'Cơm thịt kho', 'Cơm trứng', 'Cơm canh',
-      'Cơm hến', 'Cơm niêu', 'Cơm lam', 'Cơm cháy'
-    ];
-    expect(FoodDatabase.FOOD_DATA.diamonds).toEqual(expectedFoods);
-  });
+  for (const [suit, dishes] of Object.entries(SIGNATURE)) {
+    test(`nhóm ${suit} chứa các món tiêu biểu`, () => {
+      for (const dish of dishes) {
+        expect(FoodDatabase.FOOD_DATA[suit]).toContain(dish);
+      }
+    });
+  }
 
-  test('Clubs suit contains correct foods (Req 6.3)', () => {
-    const expectedFoods = [
-      'Bánh mì', 'Bánh cuốn', 'Bánh xèo', 'Bánh canh', 'Xôi xéo',
-      'Bánh bèo', 'Bánh khọt', 'Bánh bột lọc', 'Bánh giò',
-      'Xôi gà', 'Bánh tráng', 'Bánh ướt', 'Xôi mặn'
-    ];
-    expect(FoodDatabase.FOOD_DATA.clubs).toEqual(expectedFoods);
-  });
-
-  test('Spades suit contains correct foods (Req 6.4)', () => {
-    const expectedFoods = [
-      'Gỏi cuốn', 'Chả giò', 'Nem nướng', 'Bò lá lốt', 'Lẩu thái',
-      'Cháo', 'Gà nướng', 'Hải sản', 'BBQ', 'Ốc',
-      'Lẩu gà', 'Vịt quay', 'Bò kho'
-    ];
-    expect(FoodDatabase.FOOD_DATA.spades).toEqual(expectedFoods);
+  test('không món nào nằm ở hai nhóm khác nhau', () => {
+    const seen = new Map();
+    for (const suit of VALID_SUITS) {
+      for (const dish of FoodDatabase.FOOD_DATA[suit]) {
+        expect(seen.has(dish)).toBe(false);
+        seen.set(dish, suit);
+      }
+    }
   });
 });
 
