@@ -143,6 +143,27 @@
           </svg>
           Mâm cơm
         </button>
+        <button class="btn mode-pill" id="xamBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="7" y="10" width="10" height="11" rx="2" />
+            <path d="M9 10V4M12 10V3M15 10V5" />
+          </svg>
+          Xin xăm
+        </button>
+        <button class="btn mode-pill" id="hoaBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3" />
+            <path d="M12 9V3M12 15v6M9 12H3M15 12h6M10 10L6 6M14 10l4-4M10 14l-4 4M14 14l4 4" />
+          </svg>
+          Hái hoa
+        </button>
+        <button class="btn mode-pill" id="vesoBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9V6a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v3a3 3 0 0 0 0 6v3a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-3a3 3 0 0 0 0-6z" />
+            <path d="M13 5v2M13 11v2M13 17v2" />
+          </svg>
+          Vé số
+        </button>
       </div>
     </div>
 
@@ -650,6 +671,81 @@
           </svg>
           Gieo mâm khác
         </button>
+      </div>
+    </div>
+
+    <!-- Xin Xăm Modal -->
+    <div class="reel-modal" id="xamModal">
+      <div class="reel-content xam-content">
+        <div class="modal-header">
+          <h2>Xin Xăm Ăn Uống</h2>
+          <button class="close-x" id="closeXamX">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <p class="battle-hint">Lắc ống để nhận quẻ món ăn hôm nay</p>
+        <div class="xam-stage">
+          <div class="xam-tube" id="xamTube" aria-hidden="true">
+            <div class="xam-sticks">
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            </div>
+            <div class="xam-tube-body"></div>
+          </div>
+          <div class="xam-fortune" id="xamFortune" hidden>
+            <div class="xam-paper">
+              <span class="xam-que-label">LỜI XĂM</span>
+              <strong class="xam-dish" id="xamDish"></strong>
+              <span class="xam-verse" id="xamVerse"></span>
+            </div>
+          </div>
+        </div>
+        <button class="btn spin-wheel-btn" id="shakeXamBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M8 3v8M16 3v8M4 13h16l-2 8H6l-2-8z" />
+          </svg>
+          Lắc ống xăm
+        </button>
+      </div>
+    </div>
+
+    <!-- Hái Hoa Dân Chủ Modal -->
+    <div class="reel-modal" id="hoaModal">
+      <div class="reel-content hoa-content">
+        <div class="modal-header">
+          <h2>Hái Hoa Ăn Gì?</h2>
+          <button class="close-x" id="closeHoaX">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <p class="battle-hint">Hái một bông hoa — món ăn giấu trong đó</p>
+        <div class="hoa-garden" id="hoaGarden"></div>
+      </div>
+    </div>
+
+    <!-- Cào Vé Số Modal -->
+    <div class="reel-modal" id="vesoModal">
+      <div class="reel-content veso-content">
+        <div class="modal-header">
+          <h2>Cào Vé Số</h2>
+          <button class="close-x" id="closeVesoX">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <p class="battle-hint">Cào lớp bạc để lộ món ăn may mắn</p>
+        <div class="scratch-wrap">
+          <div class="scratch-prize">
+            <img id="scratchImg" src="" alt="" loading="lazy" decoding="async">
+            <strong id="scratchDish"></strong>
+          </div>
+          <canvas id="scratchCanvas"></canvas>
+        </div>
+        <button class="btn mode-pill veso-reveal" id="revealScratchBtn">Lộ món ngay</button>
       </div>
     </div>
   </div>

@@ -2345,6 +2345,236 @@ header p {
 }
 
 /* ========================================
+   XIN XĂM — fortune-stick tube
+   ======================================== */
+.xam-content {
+  max-width: 420px;
+}
+
+.xam-stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 220px;
+  margin-bottom: 16px;
+}
+
+.xam-tube {
+  position: relative;
+  width: 120px;
+  height: 160px;
+  transform-origin: 50% 90%;
+}
+
+.xam-tube.shaking {
+  animation: xamShake 0.18s ease-in-out infinite;
+}
+
+@keyframes xamShake {
+  0%, 100% { transform: rotate(-7deg); }
+  50% { transform: rotate(7deg) translateY(-4px); }
+}
+
+.xam-sticks {
+  position: absolute;
+  bottom: 64px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.xam-sticks i {
+  width: 7px;
+  border-radius: 3px 3px 0 0;
+  background: linear-gradient(to top, #8a6a3a, #c9a35f);
+  box-shadow: inset 0 2px 2px rgba(255, 255, 255, 0.3);
+}
+
+.xam-sticks i:nth-child(1) { height: 30px; }
+.xam-sticks i:nth-child(2) { height: 44px; }
+.xam-sticks i:nth-child(3) { height: 36px; background: linear-gradient(to top, #8a3a2a, #d05f4a); }
+.xam-sticks i:nth-child(4) { height: 48px; }
+.xam-sticks i:nth-child(5) { height: 40px; }
+.xam-sticks i:nth-child(6) { height: 50px; background: linear-gradient(to top, #8a3a2a, #d05f4a); }
+.xam-sticks i:nth-child(7) { height: 34px; }
+.xam-sticks i:nth-child(8) { height: 42px; }
+
+.xam-tube-body {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 78px;
+  border-radius: 8px 8px 14px 14px;
+  background: linear-gradient(to bottom, #b04a3a, #7d2f24);
+  box-shadow: inset 0 -8px 12px rgba(0, 0, 0, 0.3), inset 0 4px 4px rgba(255, 255, 255, 0.15), 0 8px 16px rgba(0, 0, 0, 0.35);
+}
+
+.xam-tube-body::before {
+  content: '福';
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #ffd93d;
+  font-size: 1.6rem;
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+.xam-fortune {
+  position: absolute;
+  bottom: 0;
+  animation: fortuneRise 0.5s ease-out;
+}
+
+@keyframes fortuneRise {
+  from { transform: translateY(60px) scale(0.8); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.xam-paper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 18px 28px;
+  border-radius: 6px;
+  background: linear-gradient(to bottom, #fdf6e3, #f5e8c8);
+  border: 2px solid #b04a3a;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  text-align: center;
+  max-width: 260px;
+}
+
+.xam-que-label {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: #b04a3a;
+}
+
+.xam-dish {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #5a2a18;
+}
+
+.xam-verse {
+  font-size: 0.75rem;
+  color: #8a6a4a;
+  font-style: italic;
+}
+
+/* ========================================
+   HÁI HOA DÂN CHỦ — flower garden
+   ======================================== */
+.hoa-content {
+  max-width: 480px;
+}
+
+.hoa-garden {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  padding: 12px;
+  border-radius: 18px;
+  background: linear-gradient(to bottom, rgba(30, 90, 40, 0.25), rgba(20, 60, 30, 0.45));
+  margin-bottom: 8px;
+}
+
+.hoa-flower {
+  aspect-ratio: 1;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 6px;
+  transition: transform 0.2s ease;
+}
+
+.hoa-flower svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.35));
+  transition: transform 0.2s ease;
+}
+
+.hoa-flower:hover svg {
+  transform: scale(1.15) rotate(8deg);
+}
+
+.hoa-flower:active svg {
+  transform: scale(0.9);
+}
+
+.hoa-flower.picked svg {
+  animation: flowerPick 0.45s ease-in forwards;
+}
+
+@keyframes flowerPick {
+  40% { transform: scale(1.4) translateY(-14px) rotate(-10deg); }
+  100% { transform: scale(0.2) translateY(-40px) rotate(20deg); opacity: 0; }
+}
+
+/* ========================================
+   CÀO VÉ SỐ — scratch card
+   ======================================== */
+.veso-content {
+  max-width: 420px;
+}
+
+.scratch-wrap {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  border: 2px dashed var(--gold-soft);
+}
+
+.scratch-prize {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #fff8e1, #ffe9b3);
+}
+
+.scratch-prize img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.scratch-prize strong {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #5a3a08;
+}
+
+#scratchCanvas {
+  position: absolute;
+  inset: 0;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.veso-reveal {
+  align-self: center;
+}
+
+/* ========================================
    CONFETTI
    ======================================== */
 .confetti {

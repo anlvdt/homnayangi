@@ -1945,6 +1945,246 @@ function renderMamTray() {
   });
 }
 
+// Shared finish for pick-style modes: flip card, record, celebrate
+function completePick(card) {
+  const deckIndex = deck.findIndex(c => c.id === card.id);
+  if (deckIndex !== -1 && !flippedCards.includes(deckIndex)) {
+    flippedCards.push(deckIndex);
+    const cardEl = document.querySelector(`[data-index="${deckIndex}"]`);
+    if (cardEl) {
+      cardEl.classList.add('flipped');
+      cardEl.innerHTML = createCardFront(card);
+    }
+  }
+  showResult(card);
+  addToHistory(card);
+  if (isMultiPlayer) {
+    gameResults.push({ player: currentPlayer, dish: card.dish, imageUrl: card.imageUrl });
+    updateResultsPanel();
+  }
+  createConfetti();
+  updateRemaining();
+}
+
+function availableCards() {
+  return deck.filter((_, i) => !flippedCards.includes(i));
+}
+
+// ========================================
+// XIN XĂM — shake the fortune-stick tube
+// ========================================
+let xamWinner = null;
+let xamShaking = false;
+
+const XAM_VERSES = [
+  'Trời sinh đã định — hôm nay đổi món này.',
+  'Quẻ tốt nhất nhà — ăn món này no lâu.',
+  'Hữu duyên thiên lý — gặp ngay món ngon.',
+  'Phúc lộc đầy nhà — bữa nay thịnh soạn.',
+  'Xăm này cực kỳ linh — đi ăn liền đi.'
+];
+
+function openXamModal() {
+  const available = availableCards();
+  if (!available.length) {
+    alert('Hết lá rồi! Hãy chia lại bộ bài.');
+    return;
+  }
+  xamWinner = null;
+  document.getElementById('xamFortune').hidden = true;
+  document.getElementById('xamModal').classList.add('show');
+  document.getElementById('shakeXamBtn').disabled = false;
+}
+
+function closeXamModal() {
+  document.getElementById('xamModal').classList.remove('show');
+  document.getElementById('xamTube').classList.remove('shaking');
+}
+
+function shakeXam() {
+  if (xamShaking) return;
+  const available = availableCards();
+  if (!available.length) return;
+  xamShaking = true;
+  document.getElementById('shakeXamBtn').disabled = true;
+
+  xamWinner = available[Math.floor(Math.random() * available.length)];
+  const tube = document.getElementById('xamTube');
+  const shakeMs = prefersReducedMotion() ? 400 : 1400;
+
+  if (settings.soundEnabled) playDrumroll(Math.min(shakeMs, 1200));
+  tube.classList.add('shaking');
+
+  setTimeout(() => {
+    tube.classList.remove('shaking');
+    document.getElementById('xamDish').textContent = xamWinner.dish;
+    document.getElementById('xamVerse').textContent = XAM_VERSES[Math.floor(Math.random() * XAM_VERSES.length)];
+    document.getElementById('xamFortune').hidden = false;
+    playRevealSound();
+
+    setTimeout(() => {
+      closeXamModal();
+      completePick(xamWinner);
+      xamShaking = false;
+    }, prefersReducedMotion() ? 700 : 1500);
+  }, shakeMs);
+}
+
+// ========================================
+// HÁI HOA DÂN CHỦ — pick a flower, get the note inside
+// ========================================
+const HOA_COLORS = ['#ff8fa3', '#ffd166', '#b388ff', '#80ed99', '#8ecae6', '#ffb4a2', '#f4a9e0', '#e9c46a'];
+
+function openHoaModal() {
+  const available = availableCards();
+  if (!available.length) {
+    alert('Hết lá rồi! Hãy chia lại bộ bài.');
+    return;
+  }
+  const garden = document.getElementById('hoaGarden');
+  const count = 12;
+  garden.innerHTML = Array.from({ length: count }, (_, i) => `
+    <button class="hoa-flower" style="--petal:${HOA_COLORS[i % HOA_COLORS.length]}" aria-label="Bông hoa ${i + 1}">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <ellipse cx="24" cy="12" rx="7" ry="11" fill="var(--petal)"/>
+        <ellipse cx="24" cy="36" rx="7" ry="11" fill="var(--petal)"/>
+        <ellipse cx="12" cy="24" rx="11" ry="7" fill="var(--petal)"/>
+        <ellipse cx="36" cy="24" rx="11" ry="7" fill="var(--petal)"/>
+        <circle cx="24" cy="24" r="7" fill="#ffd93d"/>
+        <circle cx="24" cy="24" r="3" fill="#e8a50c"/>
+      </svg>
+    </button>
+  `).join('');
+
+  garden.querySelectorAll('.hoa-flower').forEach(btn => {
+    btn.addEventListener('click', () => pickFlower(btn, available), { once: true });
+  });
+
+  document.getElementById('hoaModal').classList.add('show');
+}
+
+function closeHoaModal() {
+  document.getElementById('hoaModal').classList.remove('show');
+}
+
+function pickFlower(btn, available) {
+  if (btn.classList.contains('picked')) return;
+  btn.classList.add('picked');
+  playTick();
+
+  const winner = available[Math.floor(Math.random() * available.length)];
+  setTimeout(() => {
+    closeHoaModal();
+    completePick(winner);
+  }, prefersReducedMotion() ? 150 : 500);
+}
+
+// ========================================
+// CÀO VÉ SỐ — scratch card reveal
+// ========================================
+let scratchWinner = null;
+let scratchDone = false;
+
+function openVesoModal() {
+  const available = availableCards();
+  if (!available.length) {
+    alert('Hết lá rồi! Hãy chia lại bộ bài.');
+    return;
+  }
+  scratchWinner = available[Math.floor(Math.random() * available.length)];
+  scratchDone = false;
+
+  document.getElementById('scratchDish').textContent = scratchWinner.dish;
+  const img = document.getElementById('scratchImg');
+  img.src = scratchWinner.imageUrl;
+  img.alt = scratchWinner.dish;
+
+  document.getElementById('vesoModal').classList.add('show');
+  requestAnimationFrame(setupScratchCanvas);
+}
+
+function closeVesoModal() {
+  document.getElementById('vesoModal').classList.remove('show');
+}
+
+function setupScratchCanvas() {
+  const canvas = document.getElementById('scratchCanvas');
+  const wrap = canvas.parentElement;
+  const dpr = window.devicePixelRatio || 1;
+  const w = wrap.clientWidth, h = wrap.clientHeight;
+  canvas.width = w * dpr;
+  canvas.height = h * dpr;
+  canvas.style.width = w + 'px';
+  canvas.style.height = h + 'px';
+
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  // Metallic foil coating
+  const grad = ctx.createLinearGradient(0, 0, w, h);
+  grad.addColorStop(0, '#b8b8c8');
+  grad.addColorStop(0.45, '#e8e8f0');
+  grad.addColorStop(0.55, '#c0c0d0');
+  grad.addColorStop(1, '#9898a8');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, w, h);
+
+  ctx.fillStyle = '#6a6a7a';
+  ctx.font = '700 20px "Be Vietnam Pro", sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('✦ CÀO ĐỂ XEM MÓN ✦', w / 2, h / 2 - 12);
+  ctx.font = '500 12px "Be Vietnam Pro", sans-serif';
+  ctx.fillText('vé số kiến thiết ăn uống', w / 2, h / 2 + 14);
+
+  let scratching = false;
+  let moves = 0;
+  const brush = Math.max(22, w / 14);
+
+  const erase = (e) => {
+    const r = canvas.getBoundingClientRect();
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.beginPath();
+    ctx.arc(e.clientX - r.left, e.clientY - r.top, brush, 0, Math.PI * 2);
+    ctx.fill();
+    if (++moves % 8 === 0) checkScratched(canvas, ctx, w, h);
+  };
+
+  canvas.addEventListener('pointerdown', (e) => {
+    scratching = true;
+    canvas.setPointerCapture(e.pointerId);
+    erase(e);
+  });
+  canvas.addEventListener('pointermove', (e) => { if (scratching && !scratchDone) erase(e); });
+  canvas.addEventListener('pointerup', () => { scratching = false; checkScratched(canvas, ctx, w, h); });
+}
+
+function checkScratched(canvas, ctx, w, h) {
+  if (scratchDone) return;
+  const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+  let clear = 0, total = 0;
+  for (let i = 3; i < data.length; i += 64) { total++; if (data[i] < 128) clear++; }
+  if (clear / total > 0.45) revealScratch(ctx, w, h);
+}
+
+function revealScratch(ctx, w, h) {
+  if (scratchDone) return;
+  scratchDone = true;
+  ctx.clearRect(0, 0, w, h);
+  playRevealSound();
+  setTimeout(() => {
+    closeVesoModal();
+    completePick(scratchWinner);
+  }, prefersReducedMotion() ? 600 : 1400);
+}
+
+function revealScratchInstant() {
+  if (scratchDone) return;
+  const canvas = document.getElementById('scratchCanvas');
+  const ctx = canvas.getContext('2d');
+  revealScratch(ctx, canvas.clientWidth, canvas.clientHeight);
+}
+
 // ========================================
 // DISH OF THE DAY — deterministic daily suggestion
 // ========================================
@@ -2201,6 +2441,16 @@ function setupEvents() {
   document.querySelectorAll('.mam-chip').forEach(ch => {
     ch.addEventListener('click', () => setMamRegion(ch.dataset.region));
   });
+
+  // Xin Xăm / Hái Hoa / Cào Vé Số
+  document.getElementById('xamBtn')?.addEventListener('click', openXamModal);
+  document.getElementById('closeXamX')?.addEventListener('click', closeXamModal);
+  document.getElementById('shakeXamBtn')?.addEventListener('click', shakeXam);
+  document.getElementById('hoaBtn')?.addEventListener('click', openHoaModal);
+  document.getElementById('closeHoaX')?.addEventListener('click', closeHoaModal);
+  document.getElementById('vesoBtn')?.addEventListener('click', openVesoModal);
+  document.getElementById('closeVesoX')?.addEventListener('click', closeVesoModal);
+  document.getElementById('revealScratchBtn')?.addEventListener('click', revealScratchInstant);
 
   // Dish of the day
   document.getElementById('dishOfDay')?.addEventListener('click', () => {
