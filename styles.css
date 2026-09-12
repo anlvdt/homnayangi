@@ -428,7 +428,7 @@ header p {
    ======================================== */
 .deck {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(58px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(62px, 1fr));
   gap: 8px;
 }
 
@@ -438,6 +438,9 @@ header p {
   border-radius: 8px;
   cursor: pointer;
   perspective: 600px;
+  /* Container query host — children size in cqw (1cqw = 1% of card width),
+     so every card face scales itself at any breakpoint */
+  container-type: inline-size;
   content-visibility: auto;
   /* Closer to real card size (~80×112 mid-viewport) so off-screen
      estimates don't cause a scroll jump when cards render in */
@@ -486,9 +489,10 @@ header p {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  padding: 4cqw;
+  gap: 3cqw;
 }
 
-.front .corner-tl, .front .corner-br,
 .result-card .corner-tl, .result-card .corner-br {
   position: absolute;
   display: flex;
@@ -498,47 +502,49 @@ header p {
   font-weight: 800;
 }
 
-.front .corner-tl {
-  top: 3px;
-  left: 4px;
-  font-size: 0.62rem;
+/* Head strip — number + category glyph on the cream frame,
+   never floating over the photo */
+.front .card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2cqw;
+  padding: 0 1cqw 2cqw;
+  border-bottom: 1px solid rgba(90, 70, 40, 0.16);
+  line-height: 1;
+  font-weight: 800;
 }
 
-.front .corner-br {
-  bottom: 3px;
-  right: 4px;
-  font-size: 0.62rem;
-  transform: rotate(180deg);
-}
-
-.front .num { font-size: 0.7rem; }
-.front .suit { font-size: 0.62rem; }
+.front .num { font-size: 0.7rem; font-size: 13cqw; }
+.front .suit { font-size: 0.62rem; font-size: 12cqw; }
 
 .front.red { color: var(--red); }
 .front.black { color: var(--black-suit); }
 
-.front .center {
+/* Photo sits inside an inset frame with its own border */
+.front .card-figure {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
   min-height: 0;
+  border-radius: max(4px, 2cqw);
+  overflow: hidden;
+  border: 1px solid rgba(90, 70, 40, 0.2);
+  background: #e9e0c8;
 }
 
 .card-thumb {
   width: 100%;
-  aspect-ratio: 1;
+  height: 100%;
   object-fit: cover;
 }
 
 .front .food {
   width: 100%;
-  padding: 3px 4px 5px;
+  padding: 0 1cqw;
   font-size: 0.56rem;
+  font-size: 9.5cqw;
   font-weight: 700;
   text-align: center;
-  line-height: 1.2;
+  line-height: 1.25;
   color: var(--ink);
   overflow: hidden;
   display: -webkit-box;
@@ -573,17 +579,9 @@ header p {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4), inset 0 0 0 3px rgba(255, 240, 200, 0.14);
 }
 
-.folk-deck .front .corner-tl,
-.folk-deck .front .corner-br,
-.folk-deck .result-card .corner-tl,
-.folk-deck .result-card .corner-br {
-  gap: 1px;
-}
-
 .folk-deck .front .suit-glyph {
-  width: 0.85em;
-  height: 0.85em;
-  font-size: 0.8rem;
+  width: 15cqw;
+  height: 15cqw;
 }
 
 .folk-deck .front.red { color: #a63c2a; }
@@ -597,6 +595,9 @@ header p {
   width: 1.15rem;
   height: 1.15rem;
 }
+
+/* Classic skin head — suit char slightly larger so it balances the numeral */
+.front .card-head .suit { font-size: 12cqw; }
 
 .folk-deck .result-card .main-suit .suit-glyph {
   width: 2rem;
@@ -2902,7 +2903,7 @@ header p {
   }
 
   .deck {
-    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(54px, 1fr));
     gap: 6px;
   }
 
@@ -2976,7 +2977,7 @@ header p {
   }
 
   .deck {
-    grid-template-columns: repeat(auto-fill, minmax(68px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(74px, 1fr));
     gap: 10px;
   }
 
@@ -3125,11 +3126,6 @@ header p {
   }
 
   .card .back::after { font-size: 1.25rem; }
-  .front .corner-tl { font-size: 0.66rem; }
-  .front .corner-br { font-size: 0.66rem; }
-  .front .num { font-size: 0.74rem; }
-  .front .suit { font-size: 0.66rem; }
-  .front .food { font-size: 0.6rem; }
 
   /* Roomier modals on desktop */
   .result-card {
@@ -3165,7 +3161,6 @@ header p {
   .deck { gap: 12px; }
 
   header h1 { font-size: 2rem; }
-  .front .food { font-size: 0.66rem; }
 
   .mam-tray { grid-template-columns: repeat(4, 1fr); }
   .mam-content { max-width: 680px; }
@@ -3186,10 +3181,6 @@ header p {
   .mode-btn, .mode-pill { font-size: 0.92rem; }
   .quick-pick-btn { font-size: 1rem; padding: 14px; }
 
-  .front .food { font-size: 0.72rem; }
-  .front .corner-tl, .front .corner-br { font-size: 0.72rem; }
-  .front .num { font-size: 0.85rem; }
-  .front .suit { font-size: 0.78rem; }
   .card .back::after { font-size: 1.4rem; }
 
   .result-card { width: 420px; }
@@ -3207,11 +3198,6 @@ header p {
 
   .deck { gap: 18px; }
 
-  /* Cards are ~150–180px wide here — scale corner glyphs + labels up */
-  .front .corner-tl, .front .corner-br { font-size: 0.82rem; }
-  .front .num { font-size: 1rem; }
-  .front .suit { font-size: 0.9rem; }
-  .front .food { font-size: 0.82rem; }
   .card .back::after { font-size: 1.6rem; }
 
   .controls { padding: 22px; gap: 16px; }

@@ -1159,6 +1159,19 @@ function cardCornerHTML(card) {
     <span class="suit">${card.suit}</span>`;
 }
 
+// Deck card face — 3 zones (head / figure / name band), no overlapping layers.
+// Sizes are in cqw (container query units) so they scale with card width.
+function cardHeadHTML(card) {
+  if (isFolkDeck()) {
+    const num = FOLK_VALUES[card.value] || card.value;
+    const glyph = SUIT_GLYPHS[card.suit] || SUIT_GLYPHS['♠'];
+    return `<span class="num">${num}</span>
+      <svg class="suit-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${glyph}"/></svg>`;
+  }
+  return `<span class="num">${card.value}</span>
+    <span class="suit">${card.suit}</span>`;
+}
+
 function cardMainSuitHTML(card) {
   if (isFolkDeck()) {
     const glyph = SUIT_GLYPHS[card.suit] || SUIT_GLYPHS['♠'];
@@ -1169,15 +1182,13 @@ function cardMainSuitHTML(card) {
 
 function createCardFront(card) {
   const colorClass = card.isRed ? 'red' : 'black';
-  const corner = cardCornerHTML(card);
   return `
     <div class="front ${colorClass}">
-      <div class="corner-tl">${corner}</div>
-      <div class="center">
+      <div class="card-head">${cardHeadHTML(card)}</div>
+      <div class="card-figure">
         <img src="${escapeHtml(card.imageUrl)}" alt="${escapeHtml(card.dish)}" class="card-thumb" loading="lazy" decoding="async" onerror="this.style.display='none'">
-        <div class="food">${escapeHtml(card.dish)}</div>
       </div>
-      <div class="corner-br">${corner}</div>
+      <div class="food">${escapeHtml(card.dish)}</div>
     </div>
   `;
 }
