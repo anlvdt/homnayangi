@@ -7,7 +7,10 @@
   <title>Hôm Nay Ăn Gì?</title>
   <link rel="icon" href="icons/icon-192.png" type="image/png">
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#1a6b3a">
+  <meta name="theme-color" content="#0b3d24">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -15,44 +18,74 @@
   <div class="container">
     <header>
       <img src="icons/icon-192.png" alt="Logo" class="header-logo">
-      <h1>Hôm Nay Ăn Gì?</h1>
-      <p>Chọn một lá bài để xem món ăn của bạn</p>
+      <div class="header-text">
+        <h1>Hôm Nay Ăn Gì?</h1>
+        <p>Chọn một lá bài để xem món ăn của bạn</p>
+      </div>
+      <span class="challenge-badge" id="challengeBadge" title="Số món đã thử">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0V4z" />
+          <path d="M7 6H4a2 2 0 0 0 0 4h3M17 6h3a2 2 0 0 1 0 4h-3" />
+        </svg>
+        <span id="triedCount">0</span>/52
+      </span>
     </header>
 
     <div class="controls">
-      <button class="btn mode-btn active" id="singleMode">Một người</button>
-      <button class="btn mode-btn" id="multiMode">Nhiều người</button>
-      <select class="filter-select" id="categoryFilter">
-        <option value="all">Tất cả</option>
-        <option value="♥">Bún/Phở</option>
-        <option value="♦">Cơm</option>
-        <option value="♣">Bánh/Xôi</option>
-        <option value="♠">Món khác</option>
-      </select>
-      <select class="filter-select" id="regionFilter">
-        <option value="all">Cả nước</option>
-        <option value="B">Miền Bắc</option>
-        <option value="T">Miền Trung</option>
-        <option value="N">Miền Nam</option>
-      </select>
-      <select class="filter-select filter-fav" id="favFilter">
-        <option value="all">Tất cả món</option>
-        <option value="fav">Yêu thích</option>
-      </select>
-      <button class="btn icon-btn" id="resetBtn" title="Chia lại bộ bài">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
-          <path d="M3 3v5h5" />
-        </svg>
-      </button>
-      <button class="btn icon-btn" id="settingsBtn" title="Cài đặt">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="3" />
-          <path
-            d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
-        </svg>
-      </button>
+      <div class="mode-group" role="group" aria-label="Chế độ chơi">
+        <button class="btn mode-btn active" id="singleMode">Một người</button>
+        <button class="btn mode-btn" id="multiMode">Nhiều người</button>
+      </div>
+      <div class="filter-group">
+        <select class="filter-select" id="categoryFilter" aria-label="Lọc loại món">
+          <option value="all">Tất cả</option>
+          <option value="♥">Bún/Phở</option>
+          <option value="♦">Cơm</option>
+          <option value="♣">Bánh/Xôi</option>
+          <option value="♠">Món khác</option>
+        </select>
+        <select class="filter-select" id="regionFilter" aria-label="Lọc vùng miền">
+          <option value="all">Cả nước</option>
+          <option value="B">Miền Bắc</option>
+          <option value="T">Miền Trung</option>
+          <option value="N">Miền Nam</option>
+        </select>
+        <select class="filter-select filter-fav" id="favFilter" aria-label="Lọc yêu thích">
+          <option value="all">Tất cả món</option>
+          <option value="fav">Yêu thích</option>
+        </select>
+      </div>
+      <div class="action-group">
+        <button class="btn icon-btn" id="wheelBtn" title="Vòng quay may mắn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 2v4M12 18v4M2 12h4M18 12h4M12 12l4.5-4.5" />
+            <circle cx="12" cy="12" r="2" />
+          </svg>
+        </button>
+        <button class="btn icon-btn" id="resetBtn" title="Chia lại bộ bài">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
+        <button class="btn icon-btn" id="settingsBtn" title="Cài đặt">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3" />
+            <path
+              d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
+          </svg>
+        </button>
+      </div>
     </div>
+
+    <button class="btn quick-pick-btn" id="quickPickBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="4" width="13" height="17" rx="2" />
+        <path d="M16 8l3.5 1.5a2 2 0 0 1 1 2.6l-3 7a2 2 0 0 1-2.6 1L13 19.5" />
+      </svg>
+      Bốc ngẫu nhiên
+    </button>
 
     <div class="player-bar" id="playerBar">
       <div class="current-player">
@@ -445,6 +478,32 @@
         <div class="excludes-list" id="excludesList"></div>
       </div>
     </div>
+
+    <!-- Lucky Wheel Modal -->
+    <div class="wheel-modal" id="wheelModal">
+      <div class="wheel-bg" id="wheelBg"></div>
+      <div class="wheel-content">
+        <div class="modal-header">
+          <h2>Vòng Quay May Mắn</h2>
+          <button class="close-x" id="closeWheelX">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div class="wheel-stage">
+          <canvas id="wheelCanvas" width="320" height="320"></canvas>
+          <div class="wheel-pointer"></div>
+        </div>
+        <button class="btn spin-wheel-btn" id="spinWheelBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12a9 9 0 1 1-9-9" />
+            <polyline points="21 3 21 9 15 9" />
+          </svg>
+          Quay
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- Onboarding Modal -->
@@ -524,9 +583,9 @@
   <script>
     // Force Service Worker update
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').then(reg => {
-        reg.update();
-      });
+      navigator.serviceWorker.register('sw.js').then(reg => {
+        reg.update().catch(() => {});
+      }).catch(() => {});
     }
   </script>
   <script src="app.js"></script>

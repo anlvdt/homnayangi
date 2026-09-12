@@ -41,64 +41,64 @@ const PAIRINGS = {
 // Local image file paths
 const IMAGES = {
   '♥': [
-    'images/pho_bo_1769851159194.png',
-    'images/pho_ga.png',
-    'images/bun_bo_hue_1769851174568.png',
-    'images/bun_cha_1769851878488.png',
-    'images/bun_rieu_1769851188904.png',
-    'images/bun_dau_mam_tom_1769851860469.png',
-    'images/bun_thit_nuong.png',
-    'images/hu_tieu_1769851204224.png',
-    'images/mi_quang_1769851314324.png',
-    'images/bun_ca_1769851333627.png',
-    'images/bun_mam_1769851373054.png',
-    'images/mien_ga_1769851220414.png',
-    'images/mi_xao.png'
+    'images/pho_bo_1769851159194.webp',
+    'images/pho_ga.webp',
+    'images/bun_bo_hue_1769851174568.webp',
+    'images/bun_cha_1769851878488.webp',
+    'images/bun_rieu_1769851188904.webp',
+    'images/bun_dau_mam_tom_1769851860469.webp',
+    'images/bun_thit_nuong.webp',
+    'images/hu_tieu_1769851204224.webp',
+    'images/mi_quang_1769851314324.webp',
+    'images/bun_ca_1769851333627.webp',
+    'images/bun_mam_1769851373054.webp',
+    'images/mien_ga_1769851220414.webp',
+    'images/mi_xao.webp'
   ],
   '♦': [
-    'images/com_tam_1769851390923.png',
-    'images/com_suon_1769851423572.png',
-    'images/com_ga_1769851406663.png',
-    'images/com_rang_dua_bo.png',
-    'images/com_chien_1769851438643.png',
-    'images/com_ca_kho_1769851495798.png',
-    'images/com_thit_kho_1769851603858.png',
-    'images/com_trung_chien.png',
-    'images/canh_chua.png',
-    'images/com_vit_1769851588657.png',
-    'images/com_nieu_1769851480399.png',
-    'images/com_ga_luoc.png',
-    'images/com_chay_1769851545278.png'
+    'images/com_tam_1769851390923.webp',
+    'images/com_suon_1769851423572.webp',
+    'images/com_ga_1769851406663.webp',
+    'images/com_rang_dua_bo.webp',
+    'images/com_chien_1769851438643.webp',
+    'images/com_ca_kho_1769851495798.webp',
+    'images/com_thit_kho_1769851603858.webp',
+    'images/com_trung_chien.webp',
+    'images/canh_chua.webp',
+    'images/com_vit_1769851588657.webp',
+    'images/com_nieu_1769851480399.webp',
+    'images/com_ga_luoc.webp',
+    'images/com_chay_1769851545278.webp'
   ],
   '♣': [
-    'images/banh_mi_1769851625130.png',
-    'images/banh_cuon_1769851655972.png',
-    'images/banh_xeo.png',
-    'images/banh_canh_1769851264800.png',
-    'images/xoi_xeo.png',
-    'images/banh_beo_1769851730342.png',
-    'images/banh_khot_1769851670592.png',
-    'images/banh_bot_loc_1769851828366.png',
-    'images/banh_gio.png',
-    'images/xoi_ga.png',
-    'images/banh_trang_nuong_1769851778904.png',
-    'images/banh_uot_1769851715272.png',
-    'images/xoi_man.png'
+    'images/banh_mi_1769851625130.webp',
+    'images/banh_cuon_1769851655972.webp',
+    'images/banh_xeo.webp',
+    'images/banh_canh_1769851264800.webp',
+    'images/xoi_xeo.webp',
+    'images/banh_beo_1769851730342.webp',
+    'images/banh_khot_1769851670592.webp',
+    'images/banh_bot_loc_1769851828366.webp',
+    'images/banh_gio.webp',
+    'images/xoi_ga.webp',
+    'images/banh_trang_nuong_1769851778904.webp',
+    'images/banh_uot_1769851715272.webp',
+    'images/xoi_man.webp'
   ],
   '♠': [
-    'images/goi_cuon_1769851929695.png',
-    'images/cha_gio_1769851944525.png',
-    'images/nem_nuong_1769851901613.png',
-    'images/nem_ran.png',
-    'images/lau_thai_1769851977079.png',
-    'images/chao_ga.png',
-    'images/ga_nuong_1769852050721.png',
-    'images/hai_san_1769852083065.png',
-    'images/bbq_nuong_1769852036308.png',
-    'images/oc_cac_loai_1769851960829.png',
-    'images/lau_bo_1769851992471.png',
-    'images/vit_quay_1769852066805.png',
-    'images/ca_kho_to.png'
+    'images/goi_cuon_1769851929695.webp',
+    'images/cha_gio_1769851944525.webp',
+    'images/nem_nuong_1769851901613.webp',
+    'images/nem_ran.webp',
+    'images/lau_thai_1769851977079.webp',
+    'images/chao_ga.webp',
+    'images/ga_nuong_1769852050721.webp',
+    'images/hai_san_1769852083065.webp',
+    'images/bbq_nuong_1769852036308.webp',
+    'images/oc_cac_loai_1769851960829.webp',
+    'images/lau_bo_1769851992471.webp',
+    'images/vit_quay_1769852066805.webp',
+    'images/ca_kho_to.webp'
   ]
 };
 
@@ -156,10 +156,35 @@ function getTimeSuits(period) {
   }[period];
 }
 
+// Escape user-controlled strings before injecting into innerHTML
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, ch => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[ch]));
+}
+
+// Read persisted JSON safely — corrupted values fall back to null
+// instead of throwing during init.
+function loadStored(key, validate) {
+  try {
+    const raw = localStorage.getItem(key);
+    if (raw === null) return null;
+    const value = JSON.parse(raw);
+    return validate && !validate(value) ? null : value;
+  } catch {
+    return null;
+  }
+}
+
 function loadSettings() {
-  const saved = localStorage.getItem('homnayangi_settings');
+  const saved = loadStored('homnayangi_settings', v => v && typeof v === 'object' && !Array.isArray(v));
   if (saved) {
-    settings = { ...settings, ...JSON.parse(saved) };
+    settings = {
+      darkMode: saved.darkMode === true,
+      soundEnabled: saved.soundEnabled !== false,
+      animSpeed: ['slow', 'normal', 'fast'].includes(saved.animSpeed) ? saved.animSpeed : 'normal',
+      timeFilterEnabled: saved.timeFilterEnabled === true
+    };
   }
   applySettings();
 }
@@ -195,9 +220,12 @@ function applySettings() {
 let customDishes = [];
 
 function loadCustomDishes() {
-  const saved = localStorage.getItem('homnayangi_custom_dishes');
+  const saved = loadStored('homnayangi_custom_dishes', Array.isArray);
   if (saved) {
-    customDishes = JSON.parse(saved);
+    customDishes = saved.filter(d =>
+      d && typeof d.name === 'string' && d.name.trim() &&
+      SUITS.includes(d.category)
+    );
   }
 }
 
@@ -209,8 +237,8 @@ function saveCustomDishes() {
 // FAVORITES & EXCLUDES
 // ========================================
 function loadFavorites() {
-  const saved = localStorage.getItem('homnayangi_favorites');
-  if (saved) favorites = JSON.parse(saved);
+  const saved = loadStored('homnayangi_favorites', Array.isArray);
+  if (saved) favorites = saved.filter(d => typeof d === 'string');
 }
 
 function saveFavorites() {
@@ -231,8 +259,8 @@ function isFavorite(dishName) {
 }
 
 function loadExcludes() {
-  const saved = localStorage.getItem('homnayangi_excludes');
-  if (saved) excludes = JSON.parse(saved);
+  const saved = loadStored('homnayangi_excludes', Array.isArray);
+  if (saved) excludes = saved.filter(d => typeof d === 'string');
 }
 
 function saveExcludes() {
@@ -305,7 +333,7 @@ function addCustomDish(dish) {
     name: dish.name,
     pairing: dish.pairing,
     category: dish.category,
-    imageUrl: dish.imageUrl || 'images/default.png'
+    imageUrl: dish.imageUrl || 'icons/icon-192.png'
   });
   saveCustomDishes();
   renderCustomDishesList();
@@ -331,7 +359,7 @@ function renderCustomDishesList() {
 
   container.innerHTML = customDishes.map(d => `
     <div class="custom-dish-item">
-      <span class="dish-name">${d.name}</span>
+      <span class="dish-name">${escapeHtml(d.name)}</span>
       <button class="delete-btn" onclick="deleteCustomDish(${d.id})">Xóa</button>
     </div>
   `).join('');
@@ -411,9 +439,9 @@ const DAY_NAMES = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
 let weekPlan = ['', '', '', '', '', '', ''];
 
 function loadWeekPlan() {
-  const saved = localStorage.getItem('homnayangi_week_plan');
+  const saved = loadStored('homnayangi_week_plan', v => Array.isArray(v) && v.length === 7);
   if (saved) {
-    weekPlan = JSON.parse(saved);
+    weekPlan = saved.map(d => typeof d === 'string' ? d : '');
   }
 }
 
@@ -438,7 +466,7 @@ function renderWeekGrid() {
   grid.innerHTML = DAY_NAMES.map((day, i) => `
     <div class="day-card">
       <span class="day-name">${day}</span>
-      <span class="day-dish ${weekPlan[i] ? '' : 'empty'}">${weekPlan[i] || 'Chưa chọn'}</span>
+      <span class="day-dish ${weekPlan[i] ? '' : 'empty'}">${escapeHtml(weekPlan[i]) || 'Chưa chọn'}</span>
       <div class="day-actions">
         <button class="day-btn random-btn" onclick="randomDayDish(${i})">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -514,9 +542,9 @@ function closePlanner() {
 let history = [];
 
 function loadHistory() {
-  const saved = localStorage.getItem('homnayangi_history');
+  const saved = loadStored('homnayangi_history', Array.isArray);
   if (saved) {
-    history = JSON.parse(saved);
+    history = saved.filter(h => h && typeof h.dish === 'string');
   }
 }
 
@@ -568,9 +596,9 @@ function updateHistoryPanel() {
     const timeStr = date.toLocaleDateString('vi-VN', { weekday: 'short', day: 'numeric', month: 'numeric' });
     return `
       <div class="history-item">
-        <img src="${h.imageUrl}" alt="${h.dish}" class="history-thumb" onerror="this.style.display='none'">
+        <img src="${escapeHtml(h.imageUrl)}" alt="${escapeHtml(h.dish)}" class="history-thumb" loading="lazy" decoding="async" onerror="this.style.display='none'">
         <div class="history-info">
-          <span class="history-dish">${h.dish}</span>
+          <span class="history-dish">${escapeHtml(h.dish)}</span>
           <span class="history-date">${timeStr}</span>
         </div>
       </div>
@@ -591,7 +619,7 @@ function updateStatsPanel() {
   statsEl.innerHTML = stats.map((s, i) => `
     <div class="stat-item">
       <span class="stat-rank">#${i + 1}</span>
-      <span class="stat-dish">${s.dish}</span>
+      <span class="stat-dish">${escapeHtml(s.dish)}</span>
       <span class="stat-count">${s.count} lần</span>
     </div>
   `).join('');
@@ -600,11 +628,16 @@ function updateStatsPanel() {
 // ========================================
 // AUDIO - Web Audio API for suspense sounds
 // ========================================
+function prefersReducedMotion() {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
 function initAudio() {
   audioContext = new (window.AudioContext || window.webkitAudioContext)();
 }
 
 function playDrumroll(duration = 1500) {
+  if (!settings.soundEnabled) return;
   if (!audioContext) initAudio();
 
   const startTime = audioContext.currentTime;
@@ -645,6 +678,7 @@ function playDrumroll(duration = 1500) {
 }
 
 function playRevealSound() {
+  if (!settings.soundEnabled) return;
   if (!audioContext) initAudio();
 
   const startTime = audioContext.currentTime;
@@ -676,6 +710,7 @@ function playRevealSound() {
 }
 
 function playHeartbeat(count = 3) {
+  if (!settings.soundEnabled) return;
   if (!audioContext) initAudio();
 
   for (let i = 0; i < count; i++) {
@@ -714,6 +749,7 @@ function init() {
   renderDeck(true);
   setupEvents();
   updateHistoryPanel();
+  updateChallengeBadge();
   
   // Handle PWA shortcuts
   handleUrlParams();
@@ -729,15 +765,7 @@ function handleUrlParams() {
   
   // Random card action
   if (params.get('action') === 'random') {
-    setTimeout(() => {
-      const availableCards = deck.filter((_, i) => !flippedCards.includes(i));
-      if (availableCards.length > 0) {
-        const randomIndex = Math.floor(Math.random() * deck.length);
-        if (!flippedCards.includes(randomIndex)) {
-          pickCard(randomIndex);
-        }
-      }
-    }, 500);
+    setTimeout(quickPick, 500);
   }
   
   // Multiplayer mode
@@ -930,8 +958,8 @@ function createCardFront(card) {
         <span class="suit">${card.suit}</span>
       </div>
       <div class="center">
-        <img src="${card.imageUrl}" alt="${card.dish}" class="card-thumb" onerror="this.style.display='none'">
-        <div class="food">${card.dish}</div>
+        <img src="${escapeHtml(card.imageUrl)}" alt="${escapeHtml(card.dish)}" class="card-thumb" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <div class="food">${escapeHtml(card.dish)}</div>
       </div>
       <div class="corner-br">
         <span class="num">${card.value}</span>
@@ -942,7 +970,7 @@ function createCardFront(card) {
 }
 
 function updateRemaining() {
-  document.getElementById('remaining').textContent = 52 - flippedCards.length;
+  document.getElementById('remaining').textContent = deck.length - flippedCards.length;
 }
 
 // ========================================
@@ -963,19 +991,21 @@ async function pickCard(index) {
   // Vibrate on mobile (short pulse)
   if (navigator.vibrate) navigator.vibrate(50);
 
+  const reduceMotion = prefersReducedMotion();
+
   // Start heartbeat (5 beats for longer suspense)
-  playHeartbeat(5);
+  playHeartbeat(reduceMotion ? 1 : 5);
 
   // PHASE 1: Lift card up with glow (800ms)
   cardEl.classList.add('picking');
-  await sleep(800);
+  await sleep(reduceMotion ? 150 : 800);
 
   // PHASE 2: Dramatic shake with drumroll (3000ms = 3 seconds!)
   cardEl.classList.add('shaking');
-  playDrumroll(3000);
+  playDrumroll(reduceMotion ? 400 : 3000);
   // Vibrate pattern during shake
-  if (navigator.vibrate) navigator.vibrate([100, 50, 100, 50, 100, 50, 100, 50, 100]);
-  await sleep(3000);
+  if (!reduceMotion && navigator.vibrate) navigator.vibrate([100, 50, 100, 50, 100, 50, 100, 50, 100]);
+  await sleep(reduceMotion ? 400 : 3000);
 
   // PHASE 3: Flash reveal with sound
   cardEl.classList.remove('picking', 'shaking');
@@ -1039,12 +1069,12 @@ function showResult(card) {
     <div class="main-suit">${card.suit}</div>
     <div class="card-center">
       <div class="card-image">
-        <img src="${card.imageUrl}" alt="${card.dish}" loading="lazy" onerror="this.style.display='none'">
+        <img src="${escapeHtml(card.imageUrl)}" alt="${escapeHtml(card.dish)}" loading="lazy" decoding="async" onerror="this.style.display='none'">
       </div>
       <div class="image-disclaimer">Hình ảnh mang tính chất minh họa</div>
       <div class="card-content">
-        <div class="food-name">${card.dish}</div>
-        <div class="food-pairing">Ăn kèm: ${card.pairing}</div>
+        <div class="food-name">${escapeHtml(card.dish)}</div>
+        <div class="food-pairing">Ăn kèm: ${escapeHtml(card.pairing)}</div>
       </div>
     </div>
     <div class="corner-br">
@@ -1184,6 +1214,7 @@ function endMultiplayerGame() {
 // CONFETTI
 // ========================================
 function createConfetti() {
+  if (prefersReducedMotion()) return;
   const colors = ['#ff6b6b', '#ffd93d', '#6bcb77', '#4d96ff', '#ff6b9d', '#a855f7'];
   const container = document.createElement('div');
   container.className = 'confetti';
@@ -1216,10 +1247,10 @@ function updateResultsPanel() {
 
   list.innerHTML = gameResults.map(r => `
     <div class="result-item">
-      <img src="${r.imageUrl}" alt="${r.dish}" class="result-thumb">
+      <img src="${escapeHtml(r.imageUrl)}" alt="${escapeHtml(r.dish)}" class="result-thumb" loading="lazy" decoding="async">
       <div class="result-info">
-        <span class="result-player">${playerNames[r.player - 1] || 'Người chơi ' + r.player}</span>
-        <span class="result-dish">${r.dish}</span>
+        <span class="result-player">${escapeHtml(playerNames[r.player - 1] || 'Người chơi ' + r.player)}</span>
+        <span class="result-dish">${escapeHtml(r.dish)}</span>
       </div>
     </div>
   `).join('');
@@ -1369,11 +1400,13 @@ function spinWheel() {
 
   document.getElementById('spinWheelBtn').disabled = true;
 
+  const reduceMotion = prefersReducedMotion();
+
   // Play sound
-  if (settings.soundEnabled) playDrumroll(3000);
+  if (settings.soundEnabled) playDrumroll(reduceMotion ? 800 : 3000);
 
   // Random spin: 5-7 full rotations + random final position (longer spin)
-  const totalRotation = (5 + Math.random() * 2) * 2 * Math.PI;
+  const totalRotation = (reduceMotion ? 1.5 : 5 + Math.random() * 2) * 2 * Math.PI;
   const winnerIndex = Math.floor(Math.random() * wheelDishes.length);
   const sliceAngle = (2 * Math.PI) / wheelDishes.length;
 
@@ -1382,7 +1415,7 @@ function spinWheel() {
   const finalAngle = wheelAngle + totalRotation + (targetAngle - (wheelAngle % (2 * Math.PI)));
 
   const startAngle = wheelAngle;
-  const duration = 6000; // 6 seconds for slower spin
+  const duration = reduceMotion ? 1500 : 6000; // 6 seconds for slower spin
   const startTime = Date.now();
 
   function animate() {
@@ -1405,7 +1438,7 @@ function spinWheel() {
       drawWheel(winnerIndex);
 
       // Play reveal sound
-      if (settings.soundEnabled) playReveal();
+      playRevealSound();
 
       // Show result after short delay
       setTimeout(() => {
@@ -1593,6 +1626,13 @@ function loadImage(src) {
   });
 }
 
+// Pick a random unflipped card — used by the quick-pick CTA and PWA shortcut
+function quickPick() {
+  const available = deck.map((_, i) => i).filter(i => !flippedCards.includes(i));
+  if (available.length === 0 || isAnimating) return;
+  pickCard(available[Math.floor(Math.random() * available.length)]);
+}
+
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -1606,6 +1646,13 @@ function setupEvents() {
   document.getElementById('multiMode').addEventListener('click', () => setMode(true));
   document.getElementById('resultsToggle').addEventListener('click', toggleResultsPanel);
   document.getElementById('shareBtn').addEventListener('click', shareResult);
+  document.getElementById('quickPickBtn')?.addEventListener('click', quickPick);
+
+  // Lucky wheel
+  document.getElementById('wheelBtn')?.addEventListener('click', openWheelModal);
+  document.getElementById('closeWheelX')?.addEventListener('click', closeWheelModal);
+  document.getElementById('wheelBg')?.addEventListener('click', closeWheelModal);
+  document.getElementById('spinWheelBtn')?.addEventListener('click', spinWheel);
 
   // Onboarding
   document.getElementById('skipOnboarding')?.addEventListener('click', hideOnboarding);
@@ -1763,4 +1810,88 @@ function setupEvents() {
   }, { once: true });
 }
 
-document.addEventListener('DOMContentLoaded', init);
+if (typeof document !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', init);
+}
+
+// ========================================
+// TEST API — CommonJS export for Jest (no-op in browser)
+// ========================================
+if (typeof module !== 'undefined' && module.exports) {
+  const SUIT_KEYS = { '♥': 'hearts', '♦': 'diamonds', '♣': 'clubs', '♠': 'spades' };
+  const SUIT_SYMBOLS = { hearts: '♥', diamonds: '♦', clubs: '♣', spades: '♠' };
+
+  const FoodDatabase = {
+    FOOD_DATA: {
+      hearts: DISHES['♥'],
+      diamonds: DISHES['♦'],
+      clubs: DISHES['♣'],
+      spades: DISHES['♠']
+    },
+
+    getAllFoods() {
+      const foods = [];
+      for (const suit of SUITS) {
+        DISHES[suit].forEach((foodName, i) => {
+          foods.push(this._toFoodItem(SUIT_KEYS[suit], VALUES[i], foodName));
+        });
+      }
+      return foods;
+    },
+
+    getFoodByCard(suit, value) {
+      const symbol = SUIT_SYMBOLS[suit];
+      const index = VALUES.indexOf(value);
+      if (!symbol || index === -1) return null;
+      return this._toFoodItem(suit, value, DISHES[symbol][index]);
+    },
+
+    getRandomCard() {
+      const suit = SUITS[Math.floor(Math.random() * SUITS.length)];
+      const index = Math.floor(Math.random() * VALUES.length);
+      return this._toFoodItem(SUIT_KEYS[suit], VALUES[index], DISHES[suit][index]);
+    },
+
+    _toFoodItem(suit, cardValue, foodName) {
+      return {
+        cardValue,
+        suit,
+        suitSymbol: SUIT_SYMBOLS[suit],
+        suitColor: (suit === 'hearts' || suit === 'diamonds') ? 'red' : 'black',
+        foodName
+      };
+    }
+  };
+
+  const HistoryManager = {
+    saveToHistory(entry) {
+      history.push(entry);
+      saveHistory();
+    },
+    getHistory() {
+      return [...history].reverse();
+    },
+    getRecentHistory(n) {
+      return this.getHistory().slice(0, n);
+    },
+    clearHistory() {
+      history = [];
+      saveHistory();
+    }
+  };
+
+  const CardPicker = {
+    drawCard() {
+      if (isAnimating) return null;
+      return { card: FoodDatabase.getRandomCard(), timestamp: Date.now() };
+    },
+    isDrawing() {
+      return isAnimating;
+    },
+    setDrawingState(state) {
+      isAnimating = state === true;
+    }
+  };
+
+  module.exports = { FoodDatabase, HistoryManager, CardPicker };
+}

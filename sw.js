@@ -1,12 +1,12 @@
-const CACHE_NAME = 'homnayangi-v6';
+const CACHE_NAME = 'homnayangi-v8';
 const urlsToCache = [
-    '/',
-    '/index.html',
-    '/styles.css',
-    '/app.js',
-    '/manifest.json',
-    '/icons/icon-192.png',
-    '/icons/icon-512.png'
+    './',
+    './index.html',
+    './styles.css',
+    './app.js',
+    './manifest.json',
+    './icons/icon-192.png',
+    './icons/icon-512.png'
 ];
 
 // Install event - skip waiting to activate immediately

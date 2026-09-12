@@ -2,10 +2,10 @@
     "name": "Hôm Nay Ăn Gì?",
     "short_name": "HNAG",
     "description": "Rút bài chọn món - Không biết ăn gì? Rút một lá bài!",
-    "start_url": "/index.html",
+    "start_url": "./index.html",
     "display": "standalone",
-    "background_color": "#0f4a28",
-    "theme_color": "#1a6b3a",
+    "background_color": "#0b3d24",
+    "theme_color": "#0b3d24",
     "orientation": "portrait",
     "icons": [
         {
@@ -26,14 +26,14 @@
             "name": "Bốc bài ngay",
             "short_name": "Bốc bài",
             "description": "Bốc một lá bài ngẫu nhiên",
-            "url": "/index.html?action=random",
+            "url": "./index.html?action=random",
             "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
         },
         {
             "name": "Chơi nhiều người",
             "short_name": "Multiplayer",
             "description": "Bắt đầu chế độ nhiều người",
-            "url": "/index.html?mode=multi",
+            "url": "./index.html?mode=multi",
             "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
         }
     ]

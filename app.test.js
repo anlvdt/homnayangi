@@ -63,36 +63,36 @@ describe('Property 5: Food Database Completeness', () => {
   // Verify specific foods per requirements 6.1-6.4
   test('Hearts suit contains correct foods (Req 6.1)', () => {
     const expectedFoods = [
-      'Phở', 'Bún bò Huế', 'Bún riêu', 'Hủ tiếu', 'Miến gà',
-      'Cháo sườn', 'Bánh canh', 'Bún mọc', 'Bún thang',
-      'Mì Quảng', 'Bún cá', 'Bún chả cá', 'Bún mắm'
+      'Phở bò', 'Phở gà', 'Bún bò Huế', 'Bún chả', 'Bún riêu',
+      'Bún đậu', 'Bún thịt nướng', 'Hủ tiếu', 'Mì Quảng',
+      'Bún cá', 'Cao lầu', 'Miến gà', 'Phở xào'
     ];
     expect(FoodDatabase.FOOD_DATA.hearts).toEqual(expectedFoods);
   });
 
   test('Diamonds suit contains correct foods (Req 6.2)', () => {
     const expectedFoods = [
-      'Cơm tấm', 'Cơm gà', 'Cơm sườn', 'Cơm chiên', 'Cơm bò lúc lắc',
-      'Cơm niêu', 'Cơm cá kho', 'Cơm gà xối mỡ', 'Cơm trộn',
-      'Cơm chay', 'Cơm cà ri', 'Cơm vịt', 'Cơm thịt kho'
+      'Cơm tấm', 'Cơm sườn', 'Cơm gà', 'Cơm rang', 'Cơm chiên',
+      'Cơm cá kho', 'Cơm thịt kho', 'Cơm trứng', 'Cơm canh',
+      'Cơm hến', 'Cơm niêu', 'Cơm lam', 'Cơm cháy'
     ];
     expect(FoodDatabase.FOOD_DATA.diamonds).toEqual(expectedFoods);
   });
 
   test('Clubs suit contains correct foods (Req 6.3)', () => {
     const expectedFoods = [
-      'Bánh mì', 'Bánh xèo', 'Bánh cuốn', 'Bánh khọt', 'Bánh căn',
-      'Bánh ướt', 'Bánh bèo', 'Bánh đúc', 'Bánh hỏi',
-      'Bánh tráng nướng', 'Bánh tráng trộn', 'Bánh bột lọc', 'Bánh bao'
+      'Bánh mì', 'Bánh cuốn', 'Bánh xèo', 'Bánh canh', 'Xôi xéo',
+      'Bánh bèo', 'Bánh khọt', 'Bánh bột lọc', 'Bánh giò',
+      'Xôi gà', 'Bánh tráng', 'Bánh ướt', 'Xôi mặn'
     ];
     expect(FoodDatabase.FOOD_DATA.clubs).toEqual(expectedFoods);
   });
 
   test('Spades suit contains correct foods (Req 6.4)', () => {
     const expectedFoods = [
-      'Bún đậu mắm tôm', 'Bún chả', 'Nem nướng', 'Gỏi cuốn', 'Chả giò',
-      'Ốc các loại', 'Lẩu Thái', 'Lẩu bò', 'Lẩu hải sản',
-      'BBQ nướng', 'Gà nướng', 'Vịt quay', 'Hải sản'
+      'Gỏi cuốn', 'Chả giò', 'Nem nướng', 'Bò lá lốt', 'Lẩu thái',
+      'Cháo', 'Gà nướng', 'Hải sản', 'BBQ', 'Ốc',
+      'Lẩu gà', 'Vịt quay', 'Bò kho'
     ];
     expect(FoodDatabase.FOOD_DATA.spades).toEqual(expectedFoods);
   });
