@@ -535,6 +535,65 @@ header p {
   -webkit-box-orient: vertical;
 }
 
+/* ========== FOLK CARD SKIN (Dân gian) ========== */
+/* Suit glyphs — category icons replace ♠♥♦♣ */
+.suit-glyph {
+  width: 0.9em;
+  height: 0.9em;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.folk-deck .card .back {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 240, 200, 0.16) 0%, transparent 48%),
+    repeating-linear-gradient(45deg, rgba(255, 240, 200, 0.06) 0 2px, transparent 2px 9px),
+    linear-gradient(145deg, #a63c2a 0%, #7d2a1c 100%);
+  border-color: #f0dfb8;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), inset 0 0 0 3px rgba(255, 240, 200, 0.1);
+}
+
+.folk-deck .card .back::after {
+  content: '❀';
+  color: rgba(255, 240, 200, 0.9);
+}
+
+.folk-deck .card:hover .back {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4), inset 0 0 0 3px rgba(255, 240, 200, 0.14);
+}
+
+.folk-deck .front .corner-tl,
+.folk-deck .front .corner-br,
+.folk-deck .result-card .corner-tl,
+.folk-deck .result-card .corner-br {
+  gap: 1px;
+}
+
+.folk-deck .front .suit-glyph {
+  width: 0.85em;
+  height: 0.85em;
+  font-size: 0.8rem;
+}
+
+.folk-deck .front.red { color: #a63c2a; }
+.folk-deck .front.black { color: #5a4634; }
+
+.folk-deck .result-card.red { color: #a63c2a; }
+.folk-deck .result-card.black { color: #5a4634; }
+
+.folk-deck .result-card .corner-tl .suit-glyph,
+.folk-deck .result-card .corner-br .suit-glyph {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.folk-deck .result-card .main-suit .suit-glyph {
+  width: 2rem;
+  height: 2rem;
+}
+
+/* ========== END FOLK CARD SKIN ========== */
+
 /* Card states */
 .card.flipped {
   cursor: default;

@@ -152,7 +152,8 @@ let settings = {
   darkMode: false,
   soundEnabled: true,
   animSpeed: 'normal', // slow, normal, fast
-  timeFilterEnabled: false
+  timeFilterEnabled: false,
+  cardStyle: 'folk' // folk (dân gian), classic (bài tây)
 };
 
 // Time-based filter
@@ -211,7 +212,8 @@ function loadSettings() {
       darkMode: saved.darkMode === true,
       soundEnabled: saved.soundEnabled !== false,
       animSpeed: ['slow', 'normal', 'fast'].includes(saved.animSpeed) ? saved.animSpeed : 'normal',
-      timeFilterEnabled: saved.timeFilterEnabled === true
+      timeFilterEnabled: saved.timeFilterEnabled === true,
+      cardStyle: ['folk', 'classic'].includes(saved.cardStyle) ? saved.cardStyle : 'folk'
     };
   }
   applySettings();
@@ -269,6 +271,11 @@ function applySettings() {
   document.documentElement.style.setProperty('--anim-speed',
     settings.animSpeed === 'slow' ? '1.5' : settings.animSpeed === 'fast' ? '0.6' : '1'
   );
+
+  // Card skin
+  document.body.classList.toggle('folk-deck', settings.cardStyle === 'folk');
+  const cardStyleSelect = document.getElementById('cardStyleSelect');
+  if (cardStyleSelect) cardStyleSelect.value = settings.cardStyle;
 }
 
 // ========================================
@@ -1087,22 +1094,51 @@ function renderDeck(withAnimation = false) {
   updateRemaining();
 }
 
+// Folk card skin — category glyphs instead of suit symbols,
+// sequential numbers instead of card ranks (less casino-coded)
+const SUIT_GLYPHS = {
+  '♥': 'M4 13h16a8 8 0 0 1-16 0zM9 10c0-2.2 2-2.2 2-4.5M13 10c0-2.2 2-2.2 2-4.5',
+  '♦': 'M4 14h16a8 8 0 0 1-16 0zM7 14a5 4 0 0 1 10 0',
+  '♣': 'M6 5h12v14H6zM12 5v14M6 12h12',
+  '♠': 'M7 5l7 15M12 5l7 15'
+};
+
+const FOLK_VALUES = { 'A': '1', 'J': '11', 'Q': '12', 'K': '13' };
+
+function isFolkDeck() {
+  return settings.cardStyle === 'folk';
+}
+
+function cardCornerHTML(card) {
+  if (isFolkDeck()) {
+    const num = FOLK_VALUES[card.value] || card.value;
+    const glyph = SUIT_GLYPHS[card.suit] || SUIT_GLYPHS['♠'];
+    return `<span class="num">${num}</span>
+      <svg class="suit suit-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${glyph}"/></svg>`;
+  }
+  return `<span class="num">${card.value}</span>
+    <span class="suit">${card.suit}</span>`;
+}
+
+function cardMainSuitHTML(card) {
+  if (isFolkDeck()) {
+    const glyph = SUIT_GLYPHS[card.suit] || SUIT_GLYPHS['♠'];
+    return `<svg class="suit-glyph big" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${glyph}"/></svg>`;
+  }
+  return card.suit;
+}
+
 function createCardFront(card) {
   const colorClass = card.isRed ? 'red' : 'black';
+  const corner = cardCornerHTML(card);
   return `
     <div class="front ${colorClass}">
-      <div class="corner-tl">
-        <span class="num">${card.value}</span>
-        <span class="suit">${card.suit}</span>
-      </div>
+      <div class="corner-tl">${corner}</div>
       <div class="center">
         <img src="${escapeHtml(card.imageUrl)}" alt="${escapeHtml(card.dish)}" class="card-thumb" loading="lazy" decoding="async" onerror="this.style.display='none'">
         <div class="food">${escapeHtml(card.dish)}</div>
       </div>
-      <div class="corner-br">
-        <span class="num">${card.value}</span>
-        <span class="suit">${card.suit}</span>
-      </div>
+      <div class="corner-br">${corner}</div>
     </div>
   `;
 }
@@ -1200,11 +1236,8 @@ function showResult(card) {
         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
       </svg>
     </button>
-    <div class="corner-tl">
-      <span class="num">${card.value}</span>
-      <span class="suit">${card.suit}</span>
-    </div>
-    <div class="main-suit">${card.suit}</div>
+    <div class="corner-tl">${cardCornerHTML(card)}</div>
+    <div class="main-suit">${cardMainSuitHTML(card)}</div>
     <div class="card-center">
       <div class="card-image">
         <img src="${escapeHtml(card.imageUrl)}" alt="${escapeHtml(card.dish)}" loading="lazy" decoding="async" onerror="this.style.display='none'">
@@ -1215,10 +1248,7 @@ function showResult(card) {
         <div class="food-pairing">Ăn kèm: ${escapeHtml(card.pairing)}</div>
       </div>
     </div>
-    <div class="corner-br">
-      <span class="num">${card.value}</span>
-      <span class="suit">${card.suit}</span>
-    </div>
+    <div class="corner-br">${cardCornerHTML(card)}</div>
   `;
 
   // Add favorite button listener
@@ -2339,12 +2369,12 @@ async function createShareImage(card) {
     ctx.fill();
   }
 
-  // Suit and value
+  // Suit and value (folk mode: category emoji + sequential number)
   ctx.fillStyle = card.isRed ? '#dc2626' : '#1a1a1a';
   ctx.font = 'bold 48px Georgia, serif';
-  ctx.fillText(card.value, 130, 150);
+  ctx.fillText(isFolkDeck() ? (FOLK_VALUES[card.value] || card.value) : card.value, 130, 150);
   ctx.font = '36px Georgia, serif';
-  ctx.fillText(card.suit, 135, 190);
+  ctx.fillText(isFolkDeck() ? (card.emoji || '🍜') : card.suit, 135, 190);
 
   // Food name
   ctx.fillStyle = card.isRed ? '#dc2626' : '#1a1a1a';
@@ -2586,6 +2616,13 @@ function setupEvents() {
       settings.animSpeed === 'slow' ? '1.5' : settings.animSpeed === 'fast' ? '0.6' : '1'
     );
     saveSettings();
+  });
+
+  document.getElementById('cardStyleSelect')?.addEventListener('change', (e) => {
+    settings.cardStyle = e.target.value;
+    document.body.classList.toggle('folk-deck', settings.cardStyle === 'folk');
+    saveSettings();
+    renderDeck(false);
   });
 
   // Tab switching for history/stats
