@@ -77,7 +77,9 @@ body.dark-mode {
 }
 
 html {
-  font-size: 16px;
+  /* Fluid root size: 16px up to 1600px, then scales with viewport,
+     capped at 20px so hi-res/ultra-wide screens feel proportionate */
+  font-size: clamp(16px, 1vw, 20px);
 }
 
 body {
@@ -2671,10 +2673,10 @@ header p {
   }
 }
 
-/* Very large screens — a touch more air */
+/* Very large screens — scale fluidly with the viewport */
 @media (min-width: 1440px) {
   .container {
-    max-width: 1440px;
+    max-width: min(1500px, 94vw);
     grid-template-columns: 340px 1fr;
     gap: 20px 36px;
   }
@@ -2687,12 +2689,10 @@ header p {
   .mam-content { max-width: 680px; }
 }
 
-/* High-res / ultra-wide (≥1920px) — scale up type and hit areas */
+/* High-res (≥1920px) — more width, bigger hit areas */
 @media (min-width: 1920px) {
-  html { font-size: 18px; }
-
   .container {
-    max-width: 1680px;
+    max-width: min(1900px, 94vw);
     grid-template-columns: 380px 1fr;
     gap: 24px 44px;
   }
@@ -2711,6 +2711,26 @@ header p {
   .result-card { width: 420px; }
   .mam-content { max-width: 760px; }
   .mam-dish { font-size: 1.05rem; }
+}
+
+/* Ultra-wide / 4K+ (≥2560px) — keep cards readable, not tiny */
+@media (min-width: 2560px) {
+  .container {
+    max-width: min(2400px, 92vw);
+    grid-template-columns: 440px 1fr;
+    gap: 28px 56px;
+  }
+
+  .deck { gap: 18px; }
+
+  .controls { padding: 22px; gap: 16px; }
+  .icon-btn { width: 52px; height: 52px; }
+  .icon-btn svg { width: 24px; height: 24px; }
+
+  .result-card { width: 480px; }
+  .reel-content { max-width: 900px; }
+  .reel-window { height: 200px; }
+  .mam-content { max-width: 860px; }
 }
 
 /* ========================================
