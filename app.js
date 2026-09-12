@@ -103,6 +103,34 @@ const IMAGES = {
 };
 
 // ========================================
+// FAMILY MEALS — mâm cơm gia đình theo vùng miền
+// Traditional Vietnamese meal structure: canh + món mặn + rau + tráng miệng
+// ========================================
+const FAMILY_MEALS = {
+  B: {
+    name: 'Miền Bắc',
+    soup: ['Canh cua rau đay', 'Canh mướp nhồi thịt', 'Canh bí nấu tôm', 'Canh mọc nấm', 'Canh cải nấu thịt băm', 'Canh bóng thả', 'Canh cá rô đồng', 'Canh riêu cua'],
+    main: ['Thịt lợn luộc chấm mắm tôm', 'Thịt kho trứng', 'Gà luộc chấm muối tiêu', 'Cá kho tộ', 'Sườn xào chua ngọt', 'Nem rán', 'Đậu rán sốt cà chua', 'Thịt ba chỉ rang cháy cạnh', 'Cá rán sốt cà', 'Giả cầy'],
+    veg: ['Rau muống luộc chấm mắm', 'Rau muống xào tỏi', 'Bông cải xào', 'Đậu que xào tỏi', 'Rau củ luộc kho quẹt', 'Cải thìa xào nấm', 'Su su xào trứng'],
+    dessert: ['Trái cây theo mùa', 'Chè đậu xanh', 'Hoa quả dầm', 'Bánh flan', 'Chè khoai dẻo']
+  },
+  T: {
+    name: 'Miền Trung',
+    soup: ['Canh chua cá', 'Canh bí đao hầm', 'Canh rau tần ô', 'Canh khổ qua', 'Canh hến nấu chua', 'Canh bắp cải tôm khô'],
+    main: ['Cá kho nghệ', 'Thịt heo quay', 'Mực nhồi thịt chiên', 'Tôm rim mặn ngọt', 'Cá nục kho thơm', 'Thịt kho mắm ruốc', 'Gà rang muối', 'Trứng chiên thịt', 'Cá thu chiên nước mắm'],
+    veg: ['Rau muống xào tỏi', 'Rau sống chấm mắm nêm', 'Bí xanh xào tỏi', 'Cà tím kho', 'Đậu đũa xào tép', 'Rau lang luộc'],
+    dessert: ['Mè xửng Huế', 'Trái cây', 'Bánh đậu xanh', 'Chè bắp']
+  },
+  N: {
+    name: 'Miền Nam',
+    soup: ['Canh chua cá lóc', 'Canh khổ qua nhồi thịt', 'Canh bí đỏ hầm', 'Canh rau ngót nấu thịt', 'Canh chua tôm', 'Canh cải bẹ xanh'],
+    main: ['Thịt kho tàu', 'Cá lóc kho tộ', 'Sườn ram mặn', 'Cá điêu hồng chiên xù', 'Gà kho sả ớt', 'Bò lúc lắc', 'Tép kho tộ', 'Thịt ba chỉ kho nước dừa', 'Cá basa kho sả'],
+    veg: ['Rau muống xào tỏi', 'Rau củ luộc kho quẹt', 'Đậu đũa xào', 'Cải xanh xào nấm', 'Bầu xào tôm', 'Rau muống luộc chấm mắm kho'],
+    dessert: ['Chè thái', 'Trái cây nhiệt đới', 'Sương sáo', 'Chè ba màu', 'Bánh flan']
+  }
+};
+
+// ========================================
 // STATE
 // ========================================
 let deck = [];
@@ -594,6 +622,29 @@ function closePlanner() {
 // ========================================
 let history = [];
 
+// Local counters — cumulative, never truncated like the 100-item history.
+// Honest labeling like truanayangi: "on this browser", not a global total.
+let totalSpins = 0;
+let visitCount = 0;
+
+function loadCounters() {
+  const spins = loadStored('homnayangi_spins', v => Number.isSafeInteger(v) && v >= 0);
+  const visits = loadStored('homnayangi_visits', v => Number.isSafeInteger(v) && v >= 0);
+  totalSpins = spins || 0;
+  visitCount = visits || 0;
+}
+
+function recordSpin() {
+  totalSpins = Math.min(Number.MAX_SAFE_INTEGER, totalSpins + 1);
+  persist('homnayangi_spins', totalSpins);
+  updateSessionInfo();
+}
+
+function recordVisit() {
+  visitCount = Math.min(Number.MAX_SAFE_INTEGER, visitCount + 1);
+  persist('homnayangi_visits', visitCount);
+}
+
 function loadHistory() {
   const saved = loadStored('homnayangi_history', Array.isArray);
   if (saved) {
@@ -617,6 +668,7 @@ function addToHistory(card) {
     date: new Date().toISOString()
   });
   saveHistory();
+  recordSpin();
   updateHistoryPanel();
   updateChallengeBadge();
   updateSessionInfo();
@@ -817,6 +869,8 @@ function playHeartbeat(count = 3) {
 function init() {
   loadSettings();
   loadHistory();
+  loadCounters();
+  recordVisit();
   loadCustomDishes();
   loadFavorites();
   loadExcludes();
@@ -1807,6 +1861,91 @@ function pickBattleSide(side) {
 }
 
 // ========================================
+// FAMILY MEAL — Mâm Cơm Gia Đình: region-themed tray generator
+// ========================================
+const MAM_COURSES = [
+  { key: 'soup', label: 'Món canh', icon: 'M4 11h16a8 8 0 0 1-16 0zM8 7c0-2 2-2 2-4M12 7c0-2 2-2 2-4' },
+  { key: 'main', label: 'Món mặn', icon: 'M12 3v3M5.6 5.6l2.1 2.1M18.4 5.6l-2.1 2.1M3 13h18a9 9 0 0 1-18 0z' },
+  { key: 'veg', label: 'Món rau', icon: 'M12 21c-5 0-8-3.5-8-8 4.5 0 8 3.5 8 8zm0 0c0-4.5 3.5-8 8-8 0 4.5-3.5 8-8 8zm0-8V5' },
+  { key: 'dessert', label: 'Tráng miệng', icon: 'M7 3h10l-2 7a3 3 0 0 1-6 0L7 3zM12 13v6M8 21h8' }
+];
+
+let mamRegion = 'B';
+let mamTray = null; // {soup, main, veg, dessert}
+
+function openMamComModal() {
+  document.getElementById('mamModal').classList.add('show');
+  document.querySelectorAll('.mam-chip').forEach(ch => {
+    const on = ch.dataset.region === mamRegion;
+    ch.classList.toggle('selected', on);
+    ch.setAttribute('aria-pressed', String(on));
+  });
+  renderMamTray();
+}
+
+function closeMamComModal() {
+  document.getElementById('mamModal').classList.remove('show');
+}
+
+function setMamRegion(region) {
+  mamRegion = region;
+  document.querySelectorAll('.mam-chip').forEach(ch => {
+    const on = ch.dataset.region === region;
+    ch.classList.toggle('selected', on);
+    ch.setAttribute('aria-pressed', String(on));
+  });
+  rollMamCom();
+}
+
+function pickCourse(region, course, exclude) {
+  const pool = FAMILY_MEALS[region][course].filter(d => d !== exclude);
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+
+function rollMamCom() {
+  mamTray = {};
+  for (const c of MAM_COURSES) {
+    mamTray[c.key] = pickCourse(mamRegion, c.key);
+  }
+  renderMamTray();
+  playTick();
+}
+
+function rerollMamItem(course) {
+  if (!mamTray) return;
+  mamTray[course] = pickCourse(mamRegion, course, mamTray[course]);
+  renderMamTray();
+  playTick();
+}
+
+function renderMamTray() {
+  const tray = document.getElementById('mamTray');
+  if (!tray) return;
+
+  if (!mamTray) {
+    tray.innerHTML = '<p class="mam-hint">Chọn miền rồi bấm Gieo mâm để nhận thực đơn đủ 4 món.</p>';
+    return;
+  }
+
+  tray.innerHTML = MAM_COURSES.map(c => `
+    <div class="mam-course">
+      <div class="mam-course-head">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${c.icon}"/></svg>
+        <span>${c.label}</span>
+        <button class="mam-reroll" data-course="${c.key}" aria-label="Đổi ${c.label}" title="Đổi món này">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        </button>
+      </div>
+      <div class="mam-dish">${escapeHtml(mamTray[c.key])}</div>
+    </div>
+  `).join('');
+
+  tray.querySelectorAll('.mam-reroll').forEach(btn => {
+    btn.addEventListener('click', () => rerollMamItem(btn.dataset.course));
+  });
+}
+
+// ========================================
 // DISH OF THE DAY — deterministic daily suggestion
 // ========================================
 function getDishOfDay() {
@@ -1847,9 +1986,15 @@ function updateSessionInfo() {
     lastName.textContent = last.dish || '';
     lastWrap.hidden = !last.dish;
   }
-  if (history.length > 0 && countEl) {
-    countEl.textContent = String(history.length);
+  if (totalSpins > 0 && countEl) {
+    countEl.textContent = new Intl.NumberFormat('vi-VN').format(totalSpins);
     countWrap.hidden = false;
+  }
+  const visitsWrap = document.getElementById('visitCountWrap');
+  const visitsEl = document.getElementById('visitCount');
+  if (visitCount > 1 && visitsWrap && visitsEl) {
+    visitsEl.textContent = new Intl.NumberFormat('vi-VN').format(visitCount);
+    visitsWrap.hidden = false;
   }
 }
 
@@ -2029,7 +2174,7 @@ function setupEvents() {
   document.getElementById('wheelBg')?.addEventListener('click', closeWheelModal);
   document.getElementById('spinWheelBtn')?.addEventListener('click', spinWheel);
 
-  // Reel (Quay Hòm)
+  // Reel (Quay Mâm)
   document.getElementById('reelBtn')?.addEventListener('click', openReelModal);
   document.getElementById('closeReelX')?.addEventListener('click', closeReelModal);
   document.getElementById('reelBg')?.addEventListener('click', closeReelModal);
@@ -2041,6 +2186,14 @@ function setupEvents() {
   document.getElementById('battleBg')?.addEventListener('click', closeBattleModal);
   document.getElementById('battleCardA')?.addEventListener('click', () => pickBattleSide(0));
   document.getElementById('battleCardB')?.addEventListener('click', () => pickBattleSide(1));
+
+  // Family meal (Mâm Cơm)
+  document.getElementById('mamBtn')?.addEventListener('click', openMamComModal);
+  document.getElementById('closeMamX')?.addEventListener('click', closeMamComModal);
+  document.getElementById('rollMamBtn')?.addEventListener('click', rollMamCom);
+  document.querySelectorAll('.mam-chip').forEach(ch => {
+    ch.addEventListener('click', () => setMamRegion(ch.dataset.region));
+  });
 
   // Dish of the day
   document.getElementById('dishOfDay')?.addEventListener('click', () => {
@@ -2201,6 +2354,17 @@ function setupEvents() {
   document.body.addEventListener('click', () => {
     if (!audioContext) initAudio();
   }, { once: true });
+
+  // Escape closes the topmost open modal (dialog semantics)
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const open = document.querySelector(
+      '.modal.show, .settings-modal.show, .multiplayer-modal.show, .planner-modal.show, ' +
+      '.custom-dish-modal.show, .excludes-modal.show, .wheel-modal.show, .reel-modal.show, ' +
+      '.battle-modal.show, .onboarding-modal.show'
+    );
+    if (open) open.classList.remove('show');
+  });
 
   // Suspend audio when the tab is hidden, resume when it returns
   // (truanayangi pauses its audio engine on visibilitychange)

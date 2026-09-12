@@ -1893,6 +1893,11 @@ header p {
   display: none;
 }
 
+.session-note {
+  opacity: 0.6;
+  font-size: 0.68rem;
+}
+
 /* Storage error toast */
 .app-toast {
   position: fixed;
@@ -2023,7 +2028,7 @@ header p {
 }
 
 /* ========================================
-   REEL — Quay Hòm
+   REEL — Quay Mâm
    ======================================== */
 .reel-content {
   max-width: 560px;
@@ -2216,6 +2221,119 @@ header p {
   font-size: 0.78rem;
   color: var(--ink-soft);
   font-weight: 600;
+}
+
+/* ========================================
+   FAMILY MEAL — Mâm Cơm Gia Đình
+   ======================================== */
+.mam-content {
+  max-width: 520px;
+}
+
+.mam-regions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.mam-chip {
+  padding: 10px 18px;
+  min-height: 44px;
+  border-radius: 999px;
+  border: 1px solid var(--glass-border);
+  background: var(--surface-2);
+  color: var(--ink);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.mam-chip.selected {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #3a2a08;
+}
+
+.mam-tray {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.mam-course {
+  border-radius: 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--glass-border);
+  padding: 12px;
+}
+
+.mam-course-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+
+.mam-course-head svg {
+  width: 15px;
+  height: 15px;
+  color: var(--gold-deep);
+  flex-shrink: 0;
+}
+
+.mam-course-head span {
+  flex: 1;
+}
+
+.mam-reroll {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.06);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  color: var(--ink-soft);
+  transition: all 0.15s ease;
+}
+
+.mam-reroll:hover {
+  background: var(--gold-soft);
+  color: #3a2a08;
+}
+
+.mam-reroll:active {
+  transform: scale(0.9) rotate(-30deg);
+}
+
+.mam-reroll svg {
+  width: 14px;
+  height: 14px;
+  color: inherit;
+}
+
+.mam-dish {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.25;
+}
+
+.mam-hint {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 28px 16px;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
 }
 
 /* ========================================
@@ -2539,8 +2657,44 @@ header p {
 
 /* Very large screens — a touch more air */
 @media (min-width: 1440px) {
-  .container { max-width: 1400px; }
+  .container {
+    max-width: 1440px;
+    grid-template-columns: 340px 1fr;
+    gap: 20px 36px;
+  }
   .deck { gap: 12px; }
+
+  header h1 { font-size: 2rem; }
+  .front .food { font-size: 0.66rem; }
+
+  .mam-tray { grid-template-columns: repeat(4, 1fr); }
+  .mam-content { max-width: 680px; }
+}
+
+/* High-res / ultra-wide (≥1920px) — scale up type and hit areas */
+@media (min-width: 1920px) {
+  html { font-size: 18px; }
+
+  .container {
+    max-width: 1680px;
+    grid-template-columns: 380px 1fr;
+    gap: 24px 44px;
+  }
+
+  .deck { gap: 14px; }
+
+  .controls { padding: 18px; gap: 14px; }
+  .filter-select { font-size: 0.9rem; }
+  .mode-btn, .mode-pill { font-size: 0.92rem; }
+  .quick-pick-btn { font-size: 1rem; padding: 14px; }
+
+  .front .food { font-size: 0.72rem; }
+  .front .num { font-size: 0.85rem; }
+  .front .suit { font-size: 0.78rem; }
+
+  .result-card { width: 420px; }
+  .mam-content { max-width: 760px; }
+  .mam-dish { font-size: 1.05rem; }
 }
 
 /* ========================================

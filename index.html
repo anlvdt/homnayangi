@@ -85,8 +85,12 @@
         Lần trước: <strong id="lastChoiceName"></strong>
       </span>
       <span class="session-item" id="pickCountWrap" hidden>
-        Đã bốc: <strong id="pickCount">0</strong> lần trên trình duyệt này
+        Lượt quay: <strong id="pickCount">0</strong>
       </span>
+      <span class="session-item" id="visitCountWrap" hidden>
+        Lượt truy cập: <strong id="visitCount">0</strong>
+      </span>
+      <span class="session-note">(trên trình duyệt này)</span>
     </div>
 
     <div class="play-actions">
@@ -115,7 +119,7 @@
             <circle cx="12" cy="12" r="1" fill="currentColor" />
             <circle cx="19" cy="12" r="1" fill="currentColor" />
           </svg>
-          Quay hòm
+          Quay Mâm
         </button>
         <button class="btn mode-pill" id="battleBtn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -129,6 +133,14 @@
             <path d="M3 19l2 2" />
           </svg>
           So găng
+        </button>
+        <button class="btn mode-pill" id="mamBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <ellipse cx="12" cy="17" rx="10" ry="3" />
+            <path d="M4 15c0-4 3.5-7 8-7s8 3 8 7" />
+            <path d="M12 8V5M9 6l3-1 3 1" />
+          </svg>
+          Mâm cơm
         </button>
       </div>
     </div>
@@ -563,12 +575,12 @@
       </div>
     </div>
 
-    <!-- Reel (Quay Hòm) Modal -->
+    <!-- Reel (Quay Mâm) Modal -->
     <div class="reel-modal" id="reelModal">
       <div class="reel-bg" id="reelBg"></div>
       <div class="reel-content">
         <div class="modal-header">
-          <h2>Quay Hòm</h2>
+          <h2>Quay Mâm</h2>
           <button class="close-x" id="closeReelX">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M18 6L6 18M6 6l12 12" />
@@ -584,7 +596,7 @@
             <path d="M21 12a9 9 0 1 1-9-9" />
             <polyline points="21 3 21 9 15 9" />
           </svg>
-          Quay hòm
+          Quay Mâm
         </button>
       </div>
     </div>
@@ -608,6 +620,34 @@
           <button class="battle-card" id="battleCardB"></button>
         </div>
         <div class="battle-progress" id="battleProgress"></div>
+      </div>
+    </div>
+
+    <!-- Family Meal (Mâm Cơm) Modal -->
+    <div class="reel-modal" id="mamModal">
+      <div class="reel-content mam-content">
+        <div class="modal-header">
+          <h2>Mâm Cơm Gia Đình</h2>
+          <button class="close-x" id="closeMamX">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <p class="battle-hint">Gợi ý thực đơn đủ 4 món cho bữa cơm gia đình</p>
+        <div class="mam-regions" role="group" aria-label="Chọn vùng miền">
+          <button class="mam-chip selected" data-region="B" aria-pressed="true">Miền Bắc</button>
+          <button class="mam-chip" data-region="T" aria-pressed="false">Miền Trung</button>
+          <button class="mam-chip" data-region="N" aria-pressed="false">Miền Nam</button>
+        </div>
+        <div class="mam-tray" id="mamTray"></div>
+        <button class="btn spin-wheel-btn" id="rollMamBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12a9 9 0 1 1-9-9" />
+            <polyline points="21 3 21 9 15 9" />
+          </svg>
+          Gieo mâm khác
+        </button>
       </div>
     </div>
   </div>
