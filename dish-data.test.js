@@ -39,18 +39,28 @@ describe('Kho món', () => {
     }
   });
 
-  test('món chưa có ảnh vẫn nhận hoạ tiết theo nhóm, không để trống', () => {
-    for (const dish of allDishes.filter(d => !d.img)) {
-      expect(dish.hasPhoto).toBe(false);
-      expect(dish.imageUrl).toMatch(/^data:image\/svg\+xml,/);
+  test('mọi ảnh Wikimedia bổ sung đều có bản ghi nguồn và giấy phép', () => {
+    const manifest = JSON.parse(fs.readFileSync(
+      path.join(__dirname, 'images', 'commons-food-sources.json'),
+      'utf8'
+    ));
+    const byFile = new Map(manifest.map(item => [item.file, item]));
+
+    for (const dish of allDishes.filter(d => d.img.startsWith('photo_'))) {
+      const source = byFile.get(dish.img);
+      expect(source).toMatchObject({ dish: dish.name, file: dish.img });
+      expect(source.source).toMatch(/^https:\/\/commons\.wikimedia\.org\/wiki\/File:/);
+      expect(source.author.trim()).not.toBe('');
+      expect(source.license.trim()).not.toBe('');
     }
   });
 
-  test('hơn một nửa kho món có ảnh chụp thật', () => {
-    // Kho tiếp tục nới rộng với món dân dã và món ngoại lai chưa kịp chụp ảnh —
-    // chúng dùng hoạ tiết theo nhóm. Vẫn giữ đa số món có ảnh thật để bộ bài đẹp.
-    const withPhoto = allDishes.filter(d => d.hasPhoto).length;
-    expect(withPhoto / allDishes.length).toBeGreaterThan(0.5);
+  test('toàn bộ kho món dùng ảnh chụp thật, không rơi về ảnh đồ hoạ', () => {
+    for (const dish of allDishes) {
+      expect(dish.img).toBeTruthy();
+      expect(dish.hasPhoto).toBe(true);
+      expect(dish.imageUrl).toBe(`images/${dish.img}`);
+    }
   });
 
   test('tên tệp ảnh khớp với tên món', () => {
@@ -67,9 +77,10 @@ describe('Kho món', () => {
       const words = slug(dish.name);
       const file = dish.img.toLowerCase();
       const hits = words.filter(w => file.includes(w)).length;
+      const requiredHits = Math.min(2, words.length);
       // Thông điệp lỗi kèm tên món để biết ngay chỗ nào lệch
       expect(`${dish.name} → ${dish.img} (khớp ${hits} từ)`).toBe(
-        hits >= 2 ? `${dish.name} → ${dish.img} (khớp ${hits} từ)` : 'ảnh không khớp tên món'
+        hits >= requiredHits ? `${dish.name} → ${dish.img} (khớp ${hits} từ)` : 'ảnh không khớp tên món'
       );
     }
   });

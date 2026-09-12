@@ -24,9 +24,9 @@ A fun Vietnamese food picker app using a 52-card deck concept. Can't decide what
 
 **Tám cách chọn món**
 - Bốc bài (chạm một lá) và Bốc ngẫu nhiên (một chạm)
-- Vòng quay may mắn · Quay Mâm (băng chuyền) · Cào vé số
-- Xin xăm (quẻ lục bát) · Hái hoa dân chủ · Mâm cơm gia đình ba miền
-- So găng — đấu loại trực tiếp giữa các món
+- Xoay chọn món · Lướt chọn món (băng chuyền) · Cào chọn món
+- Lắc chọn món (kèm câu lục bát) · Chạm chọn món · Mâm cơm gia đình ba miền
+- So sánh món — chọn từng cặp để loại dần
 
 **Cá nhân hoá**
 - Lọc theo nhóm món, vùng miền, **buổi ăn** (sáng · trưa · xế · tối · khuya) và món yêu thích
@@ -36,12 +36,21 @@ A fun Vietnamese food picker app using a 52-card deck concept. Can't decide what
 - Chế độ nhiều người chơi (2–6 người)
 - Chế độ tối, ba mức tốc độ hiệu ứng, hai kiểu mặt bài (Dân gian / Bài tây)
 
+**Không gian làng quê**
+- Nền sân gạch nung phủ chiếu cói và hoạ tiết trống đồng, khung mẹt tre quanh bộ bài
+- Dải cảnh quê chạy ngang chân màn: luỹ tre, mái đình, con trâu, người đội nón,
+  cây chuối, đàn cò, đồng lúa — hiện cả ở chế độ sáng lẫn tối
+- Toàn bộ ảnh món được grade về một tông "nắng chiều sân quê" (xem
+  `tools-grade-images.py`), độ lệch sáng giữa các ảnh giảm hơn ba lần
+
 **Kỹ thuật**
-- Giao diện tự co giãn vừa khít mọi khung nhìn — từ 320px đến màn 4K, không cuộn trang
+- Giao diện tự co giãn từ 320px đến màn 4K; trên máy rộng cả bộ bài nằm gọn
+  một màn, trên điện thoại khu vực bài cuộn dọc và mờ dần ở mép để báo còn bài
 - Đặt món nhanh qua GrabFood, ShopeeFood, beFood, Google Maps
 - PWA cài được lên điện thoại, chạy offline, không cần tài khoản
 - Chia sẻ kết quả kèm ảnh thẻ bài
-- Ảnh WebP 512×512, tải lazy, tôn trọng `prefers-reduced-motion`
+- Cả 149 món đều có ảnh chụp WebP 512×512; ảnh bổ sung có [nguồn, tác giả và giấy phép](images/commons-food-sources.json) rõ ràng
+- Ảnh tải lazy, tôn trọng `prefers-reduced-motion`
 - Truy cập bàn phím đầy đủ: Escape đóng modal, Tab bị giữ trong modal, có vùng thông báo cho trình đọc màn hình
 
 ---
@@ -81,11 +90,23 @@ python -m http.server 3000
 
 ## Tech Stack
 
-- HTML5, CSS3, JavaScript (Vanilla)
+- HTML5, CSS3, JavaScript (Vanilla) — không framework, không bước build
 - Web Audio API for sound effects
 - Canvas API for share image generation
 - Service Worker for offline support
 - LocalStorage for data persistence
+- Phông **Be Vietnam Pro** tự host (`fonts/`, 10 tệp woff2, tổng 89 KB)
+
+### Riêng tư mặc định
+
+Ứng dụng không dùng CDN, Google Fonts, analytics hay cookie bên thứ ba. Phông
+chữ, biểu tượng và ảnh món có sẵn đều nằm trong repo. Chỉ khi người dùng chủ
+động dán một link ảnh HTTPS cho món tùy chỉnh, trình duyệt mới tải ảnh từ máy
+chủ của link đó; ảnh ngoài có thể không khả dụng khi offline.
+
+Dữ liệu người dùng (món yêu thích, món loại trừ, món tự thêm, lịch ăn tuần,
+lịch sử, tuỳ chọn) nằm trong `localStorage` của trình duyệt, không rời khỏi
+máy. Mục **Cài đặt → Giới thiệu → Quyền riêng tư** có nút xoá sạch toàn bộ.
 
 ---
 
@@ -100,14 +121,18 @@ homnayangi/
 ├── manifest.json       # PWA manifest
 ├── app.test.js         # Property-based tests (fast-check)
 ├── dish-data.test.js   # Kiểm tra toàn vẹn dữ liệu kho món
-├── icons/              # App icons
+├── LICENSE             # MIT
+├── icons/              # App icons (192/512 + bản maskable) + ảnh tác giả
+├── fonts/              # Be Vietnam Pro (woff2, tự host) + OFL.txt
 ├── images/             # Food images (WebP 512×512)
-└── screenshots/        # Screenshots for README
+├── screenshots/        # Screenshots for README
+├── tools-grade-images.py  # Đồng bộ tông màu ảnh món
+└── tools-make-icons.py    # Dựng bộ icon PWA từ logo
 ```
 
 ### Dữ liệu món ăn
 
-Toàn bộ 52 món nằm trong hằng `DISH_DB` ở đầu `app.js`. Mỗi món là một bản ghi
+Toàn bộ 149 món nằm trong hằng `DISH_DB` ở đầu `app.js` (mỗi ván rút ngẫu nhiên 52 lá). Mỗi món là một bản ghi
 duy nhất gồm tên, vùng miền, ảnh, gợi ý ăn kèm, khoảng giá và buổi ăn hợp —
 các bảng `DISHES` / `IMAGES` / `REGIONS` / `PAIRINGS` được suy ra từ đó, nên
 không thể xảy ra cảnh tên món một đằng ảnh một nẻo.
@@ -123,7 +148,7 @@ npm test
 
 ## Tác giả / Author
 
-**Le Van An** (Vietnam IT)
+**Lê Văn Ẩn** (Vietnam IT)
 
 [![GitHub](https://img.shields.io/badge/GitHub-@anlvdt-181717?style=for-the-badge&logo=github)](https://github.com/anlvdt)
 [![Facebook](https://img.shields.io/badge/Facebook-Laptop%20Le%20An-1877F2?style=for-the-badge&logo=facebook&logoColor=white)](https://www.facebook.com/laptopleandotcom)
@@ -148,4 +173,7 @@ If you find this app useful, please consider supporting the developer:
 
 ## Giấy phép / License
 
-MIT License
+Mã nguồn: **MIT License** — xem tệp [LICENSE](LICENSE).
+
+Phông Be Vietnam Pro trong `fonts/` phát hành theo **SIL Open Font License 1.1**
+— xem [fonts/OFL.txt](fonts/OFL.txt).

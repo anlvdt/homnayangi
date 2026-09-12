@@ -4,21 +4,33 @@
     "description": "Rút bài chọn món - Không biết ăn gì? Rút một lá bài!",
     "start_url": "./index.html",
     "display": "standalone",
-    "background_color": "#0b3d24",
-    "theme_color": "#0b3d24",
-    "orientation": "portrait",
+    "background_color": "#4a2e19",
+    "theme_color": "#4a2e19",
+    "orientation": "any",
     "icons": [
         {
             "src": "icons/icon-192.png",
             "sizes": "192x192",
             "type": "image/png",
-            "purpose": "any maskable"
+            "purpose": "any"
         },
         {
             "src": "icons/icon-512.png",
             "sizes": "512x512",
             "type": "image/png",
-            "purpose": "any maskable"
+            "purpose": "any"
+        },
+        {
+            "src": "icons/icon-maskable-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "icons/icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
         }
     ],
     "shortcuts": [
@@ -31,7 +43,7 @@
         },
         {
             "name": "Chơi nhiều người",
-            "short_name": "Multiplayer",
+            "short_name": "Nhiều người",
             "description": "Bắt đầu chế độ nhiều người",
             "url": "./index.html?mode=multi",
             "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]

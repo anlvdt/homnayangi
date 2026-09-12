@@ -4,7 +4,45 @@
  */
 
 const fc = require('fast-check');
-const { FoodDatabase, HistoryManager, CardPicker, TOTAL_DISHES, DECK_SIZE } = require('./app.js');
+const {
+  FoodDatabase, HistoryManager, CardPicker, TOTAL_DISHES, DECK_SIZE,
+  chooseSuggestedCard, advanceBattleBracket, fillWeekPlan
+} = require('./app.js');
+
+describe('Thuật toán chọn món và Battle', () => {
+  test('gợi ý theo giờ ưu tiên đúng nhóm theo xác suất cấu hình', () => {
+    const cards = [{ fit: true, id: 1 }, { fit: false, id: 2 }];
+    const randomValues = [0.2, 0];
+    const picked = chooseSuggestedCard(cards, card => card.fit, () => randomValues.shift(), 0.75);
+    expect(picked).toEqual(cards[0]);
+  });
+
+  test('gợi ý vẫn chọn được khi không có món thuộc nhóm ưu tiên', () => {
+    const cards = [{ fit: false, id: 1 }, { fit: false, id: 2 }];
+    expect(chooseSuggestedCard(cards, card => card.fit, () => 0.99)).toEqual(cards[1]);
+  });
+
+  test('Battle số lẻ tự đưa món cuối vào vòng sau và tìm được quán quân', () => {
+    const cards = ['a', 'b', 'c', 'd', 'e'];
+    let state = advanceBattleBracket(cards, [], 0);
+    expect(state).toMatchObject({ round: ['c', 'd', 'e'], nextRound: ['a'], advanced: false });
+    state = advanceBattleBracket(state.round, state.nextRound, 1);
+    expect(state).toMatchObject({ round: ['a', 'd', 'e'], nextRound: [], advanced: true });
+    state = advanceBattleBracket(state.round, state.nextRound, 0);
+    expect(state).toMatchObject({ round: ['a', 'e'], nextRound: [], advanced: true });
+    state = advanceBattleBracket(state.round, state.nextRound, 1);
+    expect(state.champion).toBe('e');
+  });
+
+  test('tự điền lịch giữ món đã chọn và không tạo món trùng', () => {
+    const plan = ['Phở bò', '', '', 'Cơm tấm', '', '', ''];
+    const dishes = ['Phở bò', 'Bún bò', 'Cơm tấm', 'Mì Quảng', 'Bánh cuốn', 'Bò kho', 'Gỏi cuốn'];
+    const filled = fillWeekPlan(plan, dishes, () => 0.5);
+    expect(filled[0]).toBe('Phở bò');
+    expect(filled[3]).toBe('Cơm tấm');
+    expect(new Set(filled.filter(Boolean)).size).toBe(filled.filter(Boolean).length);
+  });
+});
 
 // Valid values for generators
 const VALID_SUITS = ['hearts', 'diamonds', 'clubs', 'spades'];
@@ -47,7 +85,7 @@ describe('Property 5: Food Database Completeness', () => {
     fc.assert(
       fc.property(cardArb, ({ suit, value }) => {
         const food = FoodDatabase.getFoodByCard(suit, value);
-        
+
         // Must have all required fields
         expect(food.cardValue).toBe(value);
         expect(food.suit).toBe(suit);
@@ -91,9 +129,9 @@ describe('Property 5: Food Database Completeness', () => {
 
 /**
  * Property 3: History Save-Retrieve Round Trip
- * For any valid HistoryEntry, after calling saveToHistory(entry), 
+ * For any valid HistoryEntry, after calling saveToHistory(entry),
  * the entry SHALL appear in getHistory() results.
- * 
+ *
  * **Validates: Requirements 5.1**
  */
 describe('Property 3: History Save-Retrieve Round Trip', () => {
@@ -120,7 +158,7 @@ describe('Property 3: History Save-Retrieve Round Trip', () => {
         HistoryManager.clearHistory();
         HistoryManager.saveToHistory(entry);
         const history = HistoryManager.getHistory();
-        
+
         // Entry should be in history
         expect(history.length).toBeGreaterThan(0);
         expect(history[0].card.cardValue).toBe(entry.card.cardValue);
@@ -136,14 +174,14 @@ describe('Property 3: History Save-Retrieve Round Trip', () => {
     fc.assert(
       fc.property(fc.array(historyEntryArb, { minLength: 2, maxLength: 5 }), (entries) => {
         HistoryManager.clearHistory();
-        
+
         for (const entry of entries) {
           HistoryManager.saveToHistory(entry);
         }
-        
+
         const history = HistoryManager.getHistory();
         expect(history.length).toBe(entries.length);
-        
+
         // Most recent should be first (reverse order of insertion)
         for (let i = 0; i < entries.length; i++) {
           expect(history[i].card.foodName).toBe(entries[entries.length - 1 - i].card.foodName);
@@ -156,9 +194,9 @@ describe('Property 3: History Save-Retrieve Round Trip', () => {
 
 /**
  * Property 4: History Limit Enforcement
- * For any number of saved history entries N, getRecentHistory(10) SHALL return 
+ * For any number of saved history entries N, getRecentHistory(10) SHALL return
  * at most 10 entries, and they SHALL be the most recent ones.
- * 
+ *
  * **Validates: Requirements 5.2**
  */
 describe('Property 4: History Limit Enforcement', () => {
@@ -183,16 +221,16 @@ describe('Property 4: History Limit Enforcement', () => {
         fc.array(historyEntryArb, { minLength: 0, maxLength: 25 }),
         (entries) => {
           HistoryManager.clearHistory();
-          
+
           for (const entry of entries) {
             HistoryManager.saveToHistory(entry);
           }
-          
+
           const recent = HistoryManager.getRecentHistory(10);
-          
+
           // Should never exceed 10
           expect(recent.length).toBeLessThanOrEqual(10);
-          
+
           // Should be min(entries.length, 10)
           expect(recent.length).toBe(Math.min(entries.length, 10));
         }
@@ -207,14 +245,14 @@ describe('Property 4: History Limit Enforcement', () => {
         fc.array(historyEntryArb, { minLength: 11, maxLength: 20 }),
         (entries) => {
           HistoryManager.clearHistory();
-          
+
           for (const entry of entries) {
             HistoryManager.saveToHistory(entry);
           }
-          
+
           const recent = HistoryManager.getRecentHistory(10);
           const allHistory = HistoryManager.getHistory();
-          
+
           // Recent should be first 10 of all history
           expect(recent.length).toBe(10);
           for (let i = 0; i < 10; i++) {
@@ -234,11 +272,11 @@ describe('Property 4: History Limit Enforcement', () => {
         timestamp: Date.now()
       });
     }
-    
+
     expect(HistoryManager.getHistory().length).toBe(5);
-    
+
     HistoryManager.clearHistory();
-    
+
     expect(HistoryManager.getHistory().length).toBe(0);
     expect(HistoryManager.getRecentHistory(10).length).toBe(0);
   });
@@ -252,7 +290,7 @@ describe('Property 4: History Limit Enforcement', () => {
  * - A valid suit (one of: "hearts", "diamonds", "clubs", "spades")
  * - A non-empty suitSymbol (one of: "♥", "♦", "♣", "♠")
  * - A non-empty foodName string
- * 
+ *
  * **Validates: Requirements 1.1, 1.3, 2.1, 2.2, 2.3**
  */
 describe('Property 1: Card Data Completeness', () => {
@@ -260,19 +298,19 @@ describe('Property 1: Card Data Completeness', () => {
     fc.assert(
       fc.property(fc.integer({ min: 1, max: 100 }), () => {
         const card = FoodDatabase.getRandomCard();
-        
+
         // Valid cardValue
         expect(VALID_VALUES).toContain(card.cardValue);
-        
+
         // Valid suit
         expect(VALID_SUITS).toContain(card.suit);
-        
+
         // Valid suitSymbol
         expect(VALID_SYMBOLS).toContain(card.suitSymbol);
-        
+
         // Valid suitColor
         expect(['red', 'black']).toContain(card.suitColor);
-        
+
         // Non-empty foodName
         expect(typeof card.foodName).toBe('string');
         expect(card.foodName.length).toBeGreaterThan(0);
@@ -286,14 +324,14 @@ describe('Property 1: Card Data Completeness', () => {
       fc.property(fc.integer({ min: 1, max: 100 }), () => {
         // Ensure not in drawing state
         CardPicker.setDrawingState(false);
-        
+
         const result = CardPicker.drawCard();
-        
+
         expect(result).not.toBeNull();
         expect(result.card).toBeDefined();
         expect(result.timestamp).toBeDefined();
         expect(typeof result.timestamp).toBe('number');
-        
+
         // Validate card completeness
         expect(VALID_VALUES).toContain(result.card.cardValue);
         expect(VALID_SUITS).toContain(result.card.suit);
@@ -307,9 +345,9 @@ describe('Property 1: Card Data Completeness', () => {
 
 /**
  * Property 2: Drawing State Prevents Concurrent Draws
- * For any sequence of draw attempts, WHILE isDrawing() returns true, 
+ * For any sequence of draw attempts, WHILE isDrawing() returns true,
  * calling drawCard() SHALL return null.
- * 
+ *
  * **Validates: Requirements 4.3**
  */
 describe('Property 2: Drawing State Prevents Concurrent Draws', () => {
@@ -324,11 +362,11 @@ describe('Property 2: Drawing State Prevents Concurrent Draws', () => {
         // Set drawing state to true
         CardPicker.setDrawingState(true);
         expect(CardPicker.isDrawing()).toBe(true);
-        
+
         // Attempt to draw should return null
         const result = CardPicker.drawCard();
         expect(result).toBeNull();
-        
+
         // Reset for next iteration
         CardPicker.setDrawingState(false);
       }),
@@ -341,7 +379,7 @@ describe('Property 2: Drawing State Prevents Concurrent Draws', () => {
       fc.property(fc.integer({ min: 1, max: 50 }), () => {
         CardPicker.setDrawingState(false);
         expect(CardPicker.isDrawing()).toBe(false);
-        
+
         const result = CardPicker.drawCard();
         expect(result).not.toBeNull();
         expect(result.card).toBeDefined();
@@ -362,16 +400,16 @@ describe('Property 2: Drawing State Prevents Concurrent Draws', () => {
 
   test('multiple rapid draw attempts while drawing returns null', () => {
     CardPicker.setDrawingState(true);
-    
+
     // Simulate multiple rapid attempts
     const results = [];
     for (let i = 0; i < 10; i++) {
       results.push(CardPicker.drawCard());
     }
-    
+
     // All should be null
     expect(results.every(r => r === null)).toBe(true);
-    
+
     CardPicker.setDrawingState(false);
   });
 });

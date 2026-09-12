@@ -24,8 +24,8 @@ const DECK_SIZE = 52;
 // meals:  buổi ăn hợp — sang | trua | chieu | toi | khuya
 // price:  khoảng giá tham khảo, đơn vị nghìn đồng (một suất bình dân ở VN)
 // region: B = Bắc, T = Trung, N = Nam, A = phổ biến cả nước
-// img:    ảnh trong thư mục images/, đã đối chiếu đúng từng món.
-//         null = chưa có ảnh chụp, sẽ dùng thẻ hoạ tiết theo nhóm món.
+// img:    ảnh gốc trong thư mục images/. Các giá trị null bên dưới được thay bằng
+//         ảnh chụp có nguồn rõ ràng trong REAL_PHOTO_OVERRIDES trước khi dựng UI.
 const DISH_DB = {
   // ♥ BÚN · PHỞ · MÌ — món nước, món sợi
   '♥': [
@@ -190,6 +190,88 @@ const DISH_DB = {
   ]
 };
 
+// Ảnh chụp bổ sung từ Wikimedia Commons (tác giả, giấy phép và nguồn được lưu tại
+// images/commons-food-sources.json). Tách mapping khỏi dữ liệu món để việc
+// kiểm tra và cập nhật nguồn ảnh không làm xô lệch các thuộc tính món ăn.
+const REAL_PHOTO_OVERRIDES = {
+  'Bánh flan': 'photo_banh_flan.webp',
+  'Bánh chưng rán': 'photo_banh_chung_ran.webp',
+  'Bánh cống': 'photo_banh_cong.webp',
+  'Bánh giầy giò': 'photo_banh_giay_gio.webp',
+  'Bánh gối': 'photo_banh_goi.webp',
+  'Bánh khoái': 'photo_banh_khoai.webp',
+  'Bánh mì chảo': 'photo_banh_mi_chao.webp',
+  'Bánh mì que': 'photo_banh_mi_que.webp',
+  'Bánh mì xíu mại': 'photo_banh_mi_xiu_mai.webp',
+  'Bánh nậm': 'photo_banh_nam.webp',
+  'Bánh tôm Hồ Tây': 'photo_banh_tom_ho_tay.webp',
+  'Bánh đa cua': 'photo_banh_da_cua.webp',
+  'Bò kho': 'photo_bo_kho.webp',
+  'Bò lá lốt': 'photo_bo_la_lot.webp',
+  'Bò né': 'photo_bo_ne.webp',
+  'Bún cá rô đồng': 'photo_bun_ca_ro_dong.webp',
+  'Bún măng vịt': 'photo_bun_mang_vit.webp',
+  'Bún nước lèo': 'photo_bun_nuoc_leo.webp',
+  'Bún riêu ốc': 'photo_bun_rieu_oc.webp',
+  'Bún ốc': 'photo_bun_oc.webp',
+  'Cao lầu': 'photo_cao_lau.webp',
+  'Cánh gà chiên mắm': 'photo_canh_ga_chien_mam.webp',
+  'Chân gà sả tắc': 'photo_chan_ga_sa_tac.webp',
+  'Chả cá Lã Vọng': 'photo_cha_ca_la_vong.webp',
+  'Cơm âm phủ': 'photo_com_am_phu.webp',
+  'Cơm bò Hàn Quốc': 'photo_com_bo_han_quoc.webp',
+  'Cơm bò xào cần tỏi': 'photo_com_bo_xao_can_toi.webp',
+  'Cơm bò Nhật': 'photo_com_bo_nhat.webp',
+  'Cơm cà ri Ấn': 'photo_com_ca_ri_an.webp',
+  'Cơm chiên trứng': 'photo_com_chien_trung.webp',
+  'Cơm dừa Bến Tre': 'photo_com_dua_ben_tre.webp',
+  'Cơm gà Hải Nam': 'photo_com_ga_hai_nam.webp',
+  'Cơm gà Tam Kỳ': 'photo_com_ga_tam_ky.webp',
+  'Cơm gà nướng': 'photo_com_ga_nuong.webp',
+  'Cơm hến': 'photo_com_hen.webp',
+  'Cơm heo quay': 'photo_com_heo_quay.webp',
+  'Cơm lam': 'photo_com_lam.webp',
+  'Cơm rang hải sản': 'photo_com_rang_hai_san.webp',
+  'Cơm sườn Hàn Quốc': 'photo_com_suon_han_quoc.webp',
+  'Cơm sườn bì chả': 'photo_com_suon_bi_cha.webp',
+  'Dimsum': 'photo_dimsum.webp',
+  'Gà rán': 'photo_ga_ran.webp',
+  'Hamburger': 'photo_hamburger.webp',
+  'Hủ tiếu Mỹ Tho': 'photo_hu_tieu_my_tho.webp',
+  'Hủ tiếu gõ': 'photo_hu_tieu_go.webp',
+  'Kebab Thổ Nhĩ Kỳ': 'photo_kebab_tho_nhi_ky.webp',
+  'Lẩu gà lá é': 'photo_lau_ga_la_e.webp',
+  'Lẩu mắm': 'photo_lau_mam.webp',
+  'Miến lươn': 'photo_mien_luon.webp',
+  'Mì cay Hàn Quốc': 'photo_mi_cay_han_quoc.webp',
+  'Mì tôm trứng': 'photo_mi_tom_trung.webp',
+  'Mì vằn thắn': 'photo_mi_van_than.webp',
+  'Mì Ý sốt bò bằm': 'photo_mi_y_sot_bo_bam.webp',
+  'Mực nướng sa tế': 'photo_muc_nuong_sa_te.webp',
+  'Nem chua rán': 'photo_nem_chua_ran.webp',
+  'Pad Thái': 'photo_pad_thai.webp',
+  'Phá lấu': 'photo_pha_lau.webp',
+  'Phở cuốn': 'photo_pho_cuon.webp',
+  'Phở khô Gia Lai': 'photo_pho_kho_gia_lai.webp',
+  'Phở xào bò': 'photo_pho_xao_bo.webp',
+  'Pizza': 'photo_pizza.webp',
+  'Ramen Nhật': 'photo_ramen_nhat.webp',
+  'Sandwich': 'photo_sandwich.webp',
+  'Sushi': 'photo_sushi.webp',
+  'Tokbokki': 'photo_tokbokki.webp',
+  'Trứng vịt lộn': 'photo_trung_vit_lon.webp',
+  'Xôi gấc': 'photo_xoi_gac.webp',
+  'Xôi lạc': 'photo_xoi_lac.webp',
+  'Cà ri dê': 'photo_ca_ri_de.webp',
+  'Ếch xào lăn': 'photo_ech_xao_lan.webp'
+};
+
+for (const suit of SUITS) {
+  DISH_DB[suit].forEach(dish => {
+    if (REAL_PHOTO_OVERRIDES[dish.name]) dish.img = REAL_PHOTO_OVERRIDES[dish.name];
+  });
+}
+
 // Bảng phái sinh — giữ nguyên hình dạng cũ để phần còn lại của app và test dùng lại.
 // Mọi thứ index theo cùng một mảng nguồn nên ảnh/vùng miền/ăn kèm không thể lệch nhau.
 const DISHES = {};
@@ -199,14 +281,36 @@ const IMAGES = {};
 const DISH_META = {}; // name -> { suit, region, price, meals, imageUrl }
 
 // Hoạ tiết thay ảnh cho món chưa có hình chụp. Sinh sẵn dạng data-URI nên mọi
-// nơi đang dùng imageUrl (thẻ bài, lịch sử, băng chuyền, so găng, vé số, ảnh
+// nơi đang dùng imageUrl (thẻ bài, lịch sử, băng chuyền, so sánh, thẻ cào, ảnh
 // chia sẻ) chạy y hệt như với ảnh thật, không phải rẽ nhánh ở từng chỗ.
-const CATEGORY_ART = {
-  '♥': { from: '#d4603f', to: '#8f3221', glyph: 'M4 13h16a8 8 0 0 1-16 0zM9 10c0-2.2 2-2.2 2-4.5M13 10c0-2.2 2-2.2 2-4.5' },
-  '♦': { from: '#e3ad4a', to: '#a8741f', glyph: 'M4 14h16a8 8 0 0 1-16 0zM7 14a5 4 0 0 1 10 0' },
-  '♣': { from: '#6aa86f', to: '#35683f', glyph: 'M6 5h12v14H6zM12 5v14M6 12h12' },
-  '♠': { from: '#a8814f', to: '#5a4029', glyph: 'M7 5l7 15M12 5l7 15' }
+// Bộ ký hiệu thay ♠♥♦♣ — mỗi nhóm món một vật quen trên mâm cơm quê.
+// Bản cũ để '♣' là cái hộp có gạch chéo và '♠' là hai nét xiên trơ trọi,
+// nhìn ra "kiện hàng" chứ không ra "bánh · xôi" hay "nhậu".
+const SUIT_GLYPHS = {
+  // Bún · Phở · Mì — tô nước có hơi bốc lên, đôi đũa gác ngang miệng tô
+  '♥': 'M3 12.5h18a9 9 0 0 1-18 0zM8.5 9c0-1.7 1.6-1.7 1.6-3.4M13.4 9c0-1.7 1.6-1.7 1.6-3.4M14.5 12.5l6.5-4.2',
+  // Cơm — chén cơm đầy ngọn
+  '♦': 'M4 13.5h16a8 8 0 0 1-16 0zM7.5 13.5a4.5 3.6 0 0 1 9 0',
+  // Bánh · Xôi — gói bánh chưng nhìn nghiêng, có nếp gấp lá; tránh hình
+  // vuông chia bốn ô vì ở kích thước nhỏ nó bị đọc thành cửa sổ.
+  '♣': 'M5 8.5 12 4l7 4.5v9L12 22l-7-4.5zM5 8.5l7 4.5 7-4.5M12 13v9M8.5 6.2l7 4.5',
+  // Món mặn · Nhậu — chén rượu có chân
+  '♠': 'M6 5.5h12l-1.6 7.4a4.6 4.6 0 0 1-4.4 3.6 4.6 4.6 0 0 1-4.4-3.6zM12 16.5v3M8.5 19.5h7'
 };
+
+// Màu viền theo nhóm món, lấy trong bảng màu làng quê. Ký hiệu KHÔNG chép
+// lại ở đây mà tra thẳng SUIT_GLYPHS — trước đây là hai bản sao, sửa một bên
+// thì bên kia lệch, góc lá bài một kiểu mà thẻ minh hoạ một kiểu khác.
+const CATEGORY_ART = {
+  '♥': { from: '#d4603f', to: '#8f3221' },  // gạch nung
+  '♦': { from: '#e3ad4a', to: '#a8741f' },  // vàng nghệ
+  '♣': { from: '#8fa858', to: '#4a5f2a' },  // lá chuối
+  '♠': { from: '#a8814f', to: '#5a4029' }   // nâu sồng
+};
+
+function categoryGlyph(suit) {
+  return SUIT_GLYPHS[suit] || SUIT_GLYPHS['♠'];
+}
 
 // Vẽ nền hoạ tiết giống mặt lưng lá bài: nan chéo + vệt sáng giữa + biểu
 // tượng nhóm món, để lá không ảnh vẫn ra chất bộ bài chứ không như ảnh lỗi.
@@ -226,7 +330,7 @@ function categoryArt(suit) {
     + `<rect width="512" height="512" fill="url(#w)"/>`
     + `<rect width="512" height="512" fill="url(#h)"/>`
     + `<g transform="translate(140 140) scale(9.33)" fill="none" stroke="#fff" stroke-opacity="0.72"`
-    + ` stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="${art.glyph}"/></g>`
+    + ` stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="${categoryGlyph(suit)}"/></g>`
     + `</svg>`;
   return 'data:image/svg+xml,' + encodeURIComponent(svg);
 }
@@ -273,30 +377,38 @@ function pickDishEmoji(name, suit) {
   return { '♥': '🍜', '♦': '🍚', '♣': '🥮', '♠': '🍲' }[suit] || '🍽️';
 }
 
-// Thẻ minh hoạ cho món chưa có ảnh chụp: đĩa dân gian trên nền giấy dó, khung
-// kép màu theo nhóm và biểu tượng món ở giữa — mỗi món một vẻ, không còn cảnh
-// hàng chục lá giống hệt nhau như hoạ tiết nhóm cũ.
+// Thẻ minh hoạ cho món chưa có ảnh chụp: bát đĩa đặt trên mặt bàn gỗ, đúng
+// bối cảnh của ảnh chụp thật sau khi grade — trước đây nền là giấy dó sáng
+// trắng (độ sáng ~0.80) trong khi ảnh chụp ~0.40, nên trong bộ bài thẻ vẽ
+// sáng bừng còn thẻ ảnh tối, nhìn ra hai bộ bài khác nhau.
 function dishArt(suit, name) {
   const art = CATEGORY_ART[suit] || CATEGORY_ART['♠'];
   const emoji = pickDishEmoji(name, suit);
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">`
     + `<defs>`
-    + `<linearGradient id="p" x1="0" y1="0" x2="1" y2="1">`
-    + `<stop offset="0" stop-color="#f7ead0"/><stop offset="1" stop-color="#e6cd9c"/></linearGradient>`
-    + `<radialGradient id="pl" cx="0.5" cy="0.44" r="0.58">`
-    + `<stop offset="0" stop-color="#fffaf0"/><stop offset="0.8" stop-color="#f4ead2"/><stop offset="1" stop-color="#e9d8b4"/></radialGradient>`
-    + `<pattern id="wv" width="30" height="30" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">`
-    + `<path d="M0 0v30" stroke="${art.to}" stroke-opacity="0.06" stroke-width="11"/></pattern>`
+    + `<linearGradient id="p" x1="0.1" y1="0" x2="0.9" y2="1">`
+    + `<stop offset="0" stop-color="#7a5433"/><stop offset="1" stop-color="#3d2716"/></linearGradient>`
+    + `<radialGradient id="pl" cx="0.5" cy="0.42" r="0.58">`
+    + `<stop offset="0" stop-color="#fdf6e4"/><stop offset="0.78" stop-color="#f0e3c4"/><stop offset="1" stop-color="#dfcda3"/></radialGradient>`
+    + `<radialGradient id="lt" cx="0.5" cy="0.3" r="0.75">`
+    + `<stop offset="0" stop-color="#ffdca8" stop-opacity="0.26"/><stop offset="1" stop-color="#000" stop-opacity="0.22"/></radialGradient>`
+    + `<pattern id="wv" width="34" height="34" patternUnits="userSpaceOnUse">`
+    + `<path d="M0 0h34" stroke="#2a1a0c" stroke-opacity="0.30" stroke-width="3"/>`
+    + `<path d="M0 17h34" stroke="#f6e7bf" stroke-opacity="0.05" stroke-width="2"/></pattern>`
     + `</defs>`
+    // mặt bàn gỗ, vân ngang
     + `<rect width="512" height="512" fill="url(#p)"/>`
     + `<rect width="512" height="512" fill="url(#wv)"/>`
-    + `<rect x="16" y="16" width="480" height="480" rx="26" fill="none" stroke="${art.from}" stroke-opacity="0.55" stroke-width="7"/>`
-    + `<rect x="29" y="29" width="454" height="454" rx="19" fill="none" stroke="${art.to}" stroke-opacity="0.4" stroke-width="2.5"/>`
-    + `<circle cx="256" cy="244" r="150" fill="url(#pl)" stroke="${art.from}" stroke-opacity="0.5" stroke-width="5"/>`
-    + `<circle cx="256" cy="244" r="126" fill="none" stroke="${art.to}" stroke-opacity="0.3" stroke-width="2"/>`
-    + `<text x="256" y="256" font-size="184" text-anchor="middle" dominant-baseline="central">${emoji}</text>`
-    + `<g transform="translate(234 432) scale(2)" fill="none" stroke="${art.to}" stroke-opacity="0.65"`
-    + ` stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="${art.glyph}"/></g>`
+    + `<rect width="512" height="512" fill="url(#lt)"/>`
+    // bóng đổ dưới đĩa
+    + `<ellipse cx="256" cy="408" rx="168" ry="26" fill="#1a0f06" opacity="0.34"/>`
+    // đĩa men trắng ngà
+    + `<circle cx="256" cy="250" r="152" fill="url(#pl)"/>`
+    + `<circle cx="256" cy="250" r="152" fill="none" stroke="${art.to}" stroke-opacity="0.45" stroke-width="4"/>`
+    + `<circle cx="256" cy="250" r="124" fill="none" stroke="${art.from}" stroke-opacity="0.34" stroke-width="2.5"/>`
+    + `<text x="256" y="262" font-size="176" text-anchor="middle" dominant-baseline="central">${emoji}</text>`
+    // Không đóng dấu ký hiệu ở góc: mặt lá bài cắt ảnh vuông về khung 5:7 nên
+    // góc bị xén mất một nửa. Ký hiệu nhóm đã có sẵn trên dải đầu lá bài.
     + `</svg>`;
   return 'data:image/svg+xml,' + encodeURIComponent(svg);
 }
@@ -482,6 +594,32 @@ function announce(message) {
   setTimeout(() => { live.textContent = message; }, 60);
 }
 
+// Mục Quyền riêng tư nói dữ liệu nằm trên máy người dùng — nên phải cho họ
+// cách xoá. Chỉ đụng tới khoá của app, không đập cả localStorage vì tên miền
+// có thể còn đang chứa dữ liệu của trang khác.
+const STORAGE_KEYS = [
+  'homnayangi_settings', 'homnayangi_favorites', 'homnayangi_history',
+  'homnayangi_excludes', 'homnayangi_custom_dishes', 'homnayangi_week_plan',
+  'homnayangi_spins', 'homnayangi_visits', 'homnayangi_onboarded'
+];
+
+function clearAllLocalData() {
+  const ok = window.confirm(
+    'Xoá toàn bộ dữ liệu của ứng dụng trên trình duyệt này?\n\n' +
+    'Gồm: món yêu thích, món loại trừ, món bạn tự thêm, lịch ăn tuần, ' +
+    'lịch sử bốc bài và mọi tuỳ chọn.\n\nKhông thể hoàn tác.'
+  );
+  if (!ok) return;
+  try {
+    STORAGE_KEYS.forEach(k => localStorage.removeItem(k));
+  } catch (e) {
+    showToast('Trình duyệt không cho xoá dữ liệu lưu trữ.');
+    return;
+  }
+  showToast('Đã xoá. Đang tải lại ứng dụng…');
+  setTimeout(() => location.reload(), 900);
+}
+
 function showToast(message) {
   let toast = document.getElementById('appToast');
   if (!toast) {
@@ -501,13 +639,14 @@ function saveSettings() {
   persist('homnayangi_settings', settings);
 }
 
-// Keep the PWA/theme chrome color in sync with the felt background
-// (light: --felt-2 light #0b3d24, dark: --felt-2 dark #041a0f)
+// Thanh chrome của trình duyệt/PWA ăn theo nền sân quê. Đọc thẳng biến CSS
+// để không phải chép tay mã màu ở hai nơi — bản cũ vẫn ghim màu mặt nỉ xanh
+// kể cả sau khi nền đã đổi.
 function updateThemeColor() {
   const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) {
-    meta.setAttribute('content', settings.darkMode ? '#041a0f' : '#0b3d24');
-  }
+  if (!meta) return;
+  const ground = getComputedStyle(document.body).getPropertyValue('--ground-1').trim();
+  meta.setAttribute('content', ground || '#4a2e19');
 }
 
 function applySettings() {
@@ -558,12 +697,12 @@ function sanitizeDishName(name) {
 function loadCustomDishes() {
   const saved = loadStored('homnayangi_custom_dishes', Array.isArray);
   if (saved) {
-    const seen = new Set();
+    const seen = new Set(getBuiltInDishNames().map(dishKey));
     customDishes = saved
       .filter(d => d && typeof d === 'object' && SUITS.includes(d.category))
       .map(d => ({ ...d, name: sanitizeDishName(d.name) }))
       .filter(d => {
-        const key = d.name.toLowerCase();
+        const key = dishKey(d.name);
         if (!d.name || seen.has(key)) return false;
         seen.add(key);
         return true;
@@ -640,6 +779,7 @@ function closeExcludesModal() {
   // Refresh deck after changes
   createDeck();
   renderDeck(true);
+  renderDishOfDay();
 }
 
 // Bỏ dấu tiếng Việt để gõ "bun bo" vẫn ra "Bún bò Huế"
@@ -650,6 +790,14 @@ function normalizeVi(text) {
     .replace(/đ/g, 'd')
     .replace(/Đ/g, 'D')
     .toLowerCase();
+}
+
+function dishKey(name) {
+  return normalizeVi(sanitizeDishName(name)).replace(/\s+/g, ' ').trim();
+}
+
+function getBuiltInDishNames() {
+  return SUITS.flatMap(suit => DISH_DB[suit].map(d => d.name));
 }
 
 function renderExcludesList(query = '') {
@@ -693,26 +841,40 @@ function renderExcludesList(query = '') {
 function addCustomDish(dish) {
   if (customDishes.length >= MAX_CUSTOM_DISHES) {
     showToast(`Tối đa ${MAX_CUSTOM_DISHES} món tự thêm. Hãy xóa bớt món cũ.`);
-    return;
+    return false;
+  }
+  const name = sanitizeDishName(dish.name);
+  if (!name) {
+    showToast('Tên món không hợp lệ.');
+    return false;
+  }
+  if (getAllDishes().some(existing => dishKey(existing) === dishKey(name))) {
+    showToast(`Món “${name}” đã có trong danh sách.`);
+    return false;
   }
   customDishes.push({
     id: Date.now(),
-    name: sanitizeDishName(dish.name),
+    name,
     pairing: dish.pairing,
     category: dish.category,
     imageUrl: dish.imageUrl || 'icons/icon-192.png'
   });
   saveCustomDishes();
   renderCustomDishesList();
+  updateChallengeBadge();
+  return true;
 }
 
 function deleteCustomDish(id) {
+  const dish = customDishes.find(d => d.id === id);
+  if (!dish || !window.confirm(`Xóa món “${dish.name}”?`)) return;
   customDishes = customDishes.filter(d => d.id !== id);
   saveCustomDishes();
   renderCustomDishesList();
   // Refresh deck to remove deleted dish
   createDeck();
   renderDeck(true);
+  updateChallengeBadge();
 }
 
 function renderCustomDishesList() {
@@ -727,14 +889,19 @@ function renderCustomDishesList() {
   container.innerHTML = customDishes.map(d => `
     <div class="custom-dish-item">
       <span class="dish-name">${escapeHtml(d.name)}</span>
-      <button class="delete-btn" onclick="deleteCustomDish(${d.id})">Xóa</button>
+      <button type="button" class="delete-btn" data-delete-dish="${d.id}" aria-label="Xóa món ${escapeHtml(d.name)}">Xóa</button>
     </div>
   `).join('');
+
+  container.querySelectorAll('[data-delete-dish]').forEach(button => {
+    button.addEventListener('click', () => deleteCustomDish(Number(button.dataset.deleteDish)));
+  });
 }
 
 // Food Challenge - Track unique dishes tried
 function getUniqueDishCount() {
-  const uniqueDishes = new Set(history.map(h => h.dish));
+  const currentDishes = new Set(getAllDishes().map(dishKey));
+  const uniqueDishes = new Set(history.map(h => dishKey(h.dish)).filter(key => currentDishes.has(key)));
   return uniqueDishes.size;
 }
 
@@ -750,21 +917,22 @@ function getChallengeLevel(count, total = TOTAL_DISHES) {
 
 function updateChallengeBadge() {
   const count = getUniqueDishCount();
+  const total = TOTAL_DISHES + customDishes.length;
   const badge = document.getElementById('challengeBadge');
   const countEl = document.getElementById('triedCount');
   const totalEl = document.getElementById('totalDishes');
 
   if (countEl) countEl.textContent = count;
-  if (totalEl) totalEl.textContent = TOTAL_DISHES;
+  if (totalEl) totalEl.textContent = total;
   const aboutTotal = document.getElementById('aboutTotalDishes');
-  if (aboutTotal) aboutTotal.textContent = TOTAL_DISHES;
+  if (aboutTotal) aboutTotal.textContent = total;
 
   if (badge) {
-    badge.setAttribute('aria-label', `Đã thử ${count} trong ${TOTAL_DISHES} món`);
+    badge.setAttribute('aria-label', `Đã thử ${count} trong ${total} món`);
     // Remove old level classes
     badge.classList.remove('level-bronze', 'level-silver', 'level-gold', 'level-platinum');
 
-    const level = getChallengeLevel(count);
+    const level = getChallengeLevel(count, total);
     if (level) {
       badge.classList.add('level-' + level);
     }
@@ -796,7 +964,13 @@ function saveCustomDishFromForm() {
     return;
   }
 
-  addCustomDish({ name, pairing: pairing || 'Tùy thích', category, imageUrl });
+  if (imageUrl && !/^https:\/\//i.test(imageUrl)) {
+    showToast('Link ảnh phải bắt đầu bằng https://');
+    document.getElementById('customDishImage').focus();
+    return;
+  }
+
+  if (!addCustomDish({ name, pairing: pairing || 'Tùy thích', category, imageUrl })) return;
 
   // Refresh deck to include new dish
   createDeck();
@@ -842,8 +1016,8 @@ function renderWeekGrid() {
       <span class="day-name">${day}</span>
       <span class="day-dish ${weekPlan[i] ? '' : 'empty'}">${escapeHtml(weekPlan[i]) || 'Chưa chọn'}</span>
       <div class="day-actions">
-        <button class="day-btn random-btn" onclick="randomDayDish(${i})">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button type="button" class="day-btn random-btn" data-random-day="${i}" aria-label="Chọn ngẫu nhiên món cho ${day}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="2" y="2" width="20" height="20" rx="5"/>
             <circle cx="8" cy="8" r="1.5"/>
             <circle cx="16" cy="8" r="1.5"/>
@@ -851,14 +1025,25 @@ function renderWeekGrid() {
             <circle cx="8" cy="16" r="1.5"/>
           </svg>
         </button>
-        <button class="day-btn clear-btn" onclick="clearDayDish(${i})">✕</button>
+        <button type="button" class="day-btn clear-btn" data-clear-day="${i}" aria-label="Xóa món của ${day}">✕</button>
       </div>
     </div>
   `).join('');
+
+  grid.querySelectorAll('[data-random-day]').forEach(button => {
+    button.addEventListener('click', () => randomDayDish(Number(button.dataset.randomDay)));
+  });
+  grid.querySelectorAll('[data-clear-day]').forEach(button => {
+    button.addEventListener('click', () => clearDayDish(Number(button.dataset.clearDay)));
+  });
 }
 
 function randomDayDish(dayIndex) {
-  const allDishes = getAllDishes();
+  const allDishes = getAllDishes().filter(dish => !isExcluded(dish));
+  if (!allDishes.length) {
+    showToast('Không còn món nào sau khi áp danh sách loại trừ.');
+    return;
+  }
   // Avoid dishes already in plan
   const usedDishes = weekPlan.filter(d => d);
   const available = allDishes.filter(d => !usedDishes.includes(d));
@@ -880,21 +1065,28 @@ function clearDayDish(dayIndex) {
 }
 
 function autoFillWeek() {
-  const allDishes = getAllDishes();
-  const shuffled = [...allDishes].sort(() => Math.random() - 0.5);
-
-  weekPlan = weekPlan.map((current, i) => {
-    if (!current) {
-      return shuffled[i % shuffled.length];
-    }
-    return current;
-  });
+  const allDishes = getAllDishes().filter(dish => !isExcluded(dish));
+  if (!allDishes.length) {
+    showToast('Không còn món nào sau khi áp danh sách loại trừ.');
+    return;
+  }
+  weekPlan = fillWeekPlan(weekPlan, allDishes);
 
   saveWeekPlan();
   renderWeekGrid();
 }
 
+function fillWeekPlan(plan, dishes, random = Math.random) {
+  const used = new Set(plan.filter(Boolean));
+  const available = dishes.filter(dish => !used.has(dish));
+  shuffleArray(available, random);
+  let cursor = 0;
+  return plan.map(current => current || available[cursor++] || '');
+}
+
 function clearWeekPlan() {
+  if (!weekPlan.some(Boolean)) return;
+  if (!window.confirm('Xóa toàn bộ lịch ăn tuần?')) return;
   weekPlan = ['', '', '', '', '', '', ''];
   saveWeekPlan();
   renderWeekGrid();
@@ -1176,10 +1368,10 @@ function init() {
   renderDishOfDay();
   updateSessionInfo();
   renderGreeting();
-  
+
   // Handle PWA shortcuts
   handleUrlParams();
-  
+
   // Show onboarding for first-time users
   if (!localStorage.getItem('homnayangi_onboarded')) {
     showOnboarding();
@@ -1188,20 +1380,26 @@ function init() {
 
 function handleUrlParams() {
   const params = new URLSearchParams(window.location.search);
-  
+  let handled = false;
+
   // Random card action
   if (params.get('action') === 'random') {
     setTimeout(quickPick, 500);
+    params.delete('action');
+    handled = true;
   }
-  
+
   // Multiplayer mode
   if (params.get('mode') === 'multi') {
     setTimeout(() => setMode(true), 300);
+    params.delete('mode');
+    handled = true;
   }
-  
+
   // Clear params after handling
-  if (params.toString()) {
-    window.history.replaceState({}, '', window.location.pathname);
+  if (handled) {
+    const query = params.toString();
+    window.history.replaceState({}, '', `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`);
   }
 }
 
@@ -1222,17 +1420,20 @@ function hideOnboarding() {
 
 function goToSlide(slideNum) {
   currentSlide = slideNum;
-  
+
   // Update slides
   document.querySelectorAll('.onboarding-slide').forEach(slide => {
     slide.classList.toggle('active', parseInt(slide.dataset.slide) === slideNum);
   });
-  
+
   // Update dots
   document.querySelectorAll('.onboarding-dots .dot').forEach(dot => {
-    dot.classList.toggle('active', parseInt(dot.dataset.dot) === slideNum);
+    const active = parseInt(dot.dataset.dot) === slideNum;
+    dot.classList.toggle('active', active);
+    if (active) dot.setAttribute('aria-current', 'step');
+    else dot.removeAttribute('aria-current');
   });
-  
+
   // Update button text
   const nextBtn = document.getElementById('nextOnboarding');
   nextBtn.textContent = slideNum === totalSlides ? 'Bắt đầu' : 'Tiếp theo';
@@ -1340,11 +1541,35 @@ function createDeck() {
   });
 }
 
-function shuffleArray(arr) {
+function shuffleArray(arr, random = Math.random) {
   for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const j = Math.floor(random() * (i + 1));
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
+}
+
+// Chọn ngẫu nhiên có trọng số: khi cả món hợp giờ và món khác đều tồn tại,
+// ưu tiên nhóm hợp giờ nhưng vẫn giữ độ bất ngờ. Hàm thuần để kiểm thử được.
+function chooseSuggestedCard(cards, predicate, random = Math.random, preferredChance = 0.75) {
+  if (!Array.isArray(cards) || cards.length === 0) return null;
+  const preferred = cards.filter(predicate);
+  const others = cards.filter(card => !predicate(card));
+  let pool = cards;
+  if (preferred.length && others.length) {
+    pool = random() < preferredChance ? preferred : others;
+  }
+  return pool[Math.min(pool.length - 1, Math.floor(random() * pool.length))];
+}
+
+function suggestedRandomCard(cards, random = Math.random) {
+  const mealFilter = typeof document === 'undefined'
+    ? 'all'
+    : (document.getElementById('mealFilter')?.value || 'all');
+  if (!settings.timeFilterEnabled || mealFilter !== 'all') {
+    return cards[Math.min(cards.length - 1, Math.floor(random() * cards.length))] || null;
+  }
+  const period = getTimePeriod();
+  return chooseSuggestedCard(cards, card => fitsMeal(card.dish || card.name, period), random);
 }
 
 // ========================================
@@ -1362,6 +1587,7 @@ function renderDeck(withAnimation = false) {
     return;
   }
 
+  let rovingTabAssigned = false;
   deck.forEach((card, index) => {
     const el = document.createElement('div');
     el.className = 'card';
@@ -1378,7 +1604,8 @@ function renderDeck(withAnimation = false) {
       el.setAttribute('aria-label', card.dish + ' (đã bốc)');
     } else {
       el.innerHTML = `<div class="back"></div>`;
-      el.tabIndex = 0;
+      el.tabIndex = rovingTabAssigned ? -1 : 0;
+      rovingTabAssigned = true;
       el.setAttribute('role', 'button');
       el.setAttribute('aria-label', 'Lá bài úp số ' + (index + 1) + ' — nhấn Enter để bốc');
       el.addEventListener('click', () => pickCard(index));
@@ -1386,6 +1613,9 @@ function renderDeck(withAnimation = false) {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           pickCard(index);
+        } else if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(e.key)) {
+          e.preventDefault();
+          moveDeckFocus(el, e.key);
         }
       });
     }
@@ -1396,6 +1626,21 @@ function renderDeck(withAnimation = false) {
   container.setAttribute('aria-label', `Bộ bài ${deck.length} món`);
   fitDeck();
   updateRemaining();
+}
+
+function moveDeckFocus(current, key) {
+  const cards = [...document.querySelectorAll('#deck .card[role="button"]')];
+  if (!cards.length) return;
+  const currentIndex = Math.max(0, cards.indexOf(current));
+  let nextIndex;
+  if (key === 'Home') nextIndex = 0;
+  else if (key === 'End') nextIndex = cards.length - 1;
+  else {
+    const delta = key === 'ArrowLeft' || key === 'ArrowUp' ? -1 : 1;
+    nextIndex = (currentIndex + delta + cards.length) % cards.length;
+  }
+  cards.forEach((card, index) => { card.tabIndex = index === nextIndex ? 0 : -1; });
+  cards[nextIndex].focus();
 }
 
 // ========================================
@@ -1472,6 +1717,27 @@ function fitDeck() {
 
   deckEl.style.setProperty('--card-w', w + 'px');
   deckEl.style.setProperty('--deck-w', (cols * w + (cols - 1) * gap) + 'px');
+  markDeckScroll();
+}
+
+// Trên màn nhỏ, 52 lá không thể vừa một khung nên khu vực bài phải cuộn.
+// Trước đây lá bài chỉ bị cắt ngang thân, không có dấu hiệu nào cho biết
+// bên dưới còn bài — đánh dấu để CSS mờ dần đúng cái mép đang còn nội dung.
+function markDeckScroll() {
+  markScrollEdges(document.getElementById('deckArea'));
+  markScrollEdges(document.querySelector('.sidebar'));
+}
+
+// Đánh dấu một vùng cuộn còn nội dung ở mép nào, để CSS mờ dần đúng mép đó.
+function markScrollEdges(el) {
+  if (!el) return;
+  const scrollable = el.scrollHeight - el.clientHeight > 2;
+  el.classList.toggle('is-scrollable', scrollable);
+  el.classList.toggle('at-top', !scrollable || el.scrollTop <= 2);
+  el.classList.toggle(
+    'at-bottom',
+    !scrollable || el.scrollTop + el.clientHeight >= el.scrollHeight - 2
+  );
 }
 
 // Gọi lại khi cửa sổ đổi kích thước, xoay máy, hoặc thanh địa chỉ trên
@@ -1489,6 +1755,14 @@ function observeDeckSize() {
   document.fonts?.ready.then(scheduleFitDeck).catch(() => {});
   if (typeof ResizeObserver === 'function') {
     new ResizeObserver(scheduleFitDeck).observe(area);
+  }
+  area.addEventListener('scroll', markDeckScroll, { passive: true });
+  const sidebar = document.querySelector('.sidebar');
+  if (sidebar) {
+    sidebar.addEventListener('scroll', markDeckScroll, { passive: true });
+    if (typeof ResizeObserver === 'function') {
+      new ResizeObserver(markDeckScroll).observe(sidebar);
+    }
   }
   window.addEventListener('resize', scheduleFitDeck);
   window.addEventListener('orientationchange', scheduleFitDeck);
@@ -1508,20 +1782,18 @@ function scrollCardIntoView(cardEl) {
 // and announce the revealed dish instead
 function markCardElFlipped(cardEl, card) {
   if (!cardEl) return;
-  cardEl.removeAttribute('tabindex');
+  const wasRovingTarget = cardEl.tabIndex === 0;
+  cardEl.tabIndex = -1;
   cardEl.removeAttribute('role');
   cardEl.setAttribute('aria-label', card.dish + ' (đã bốc)');
+  if (wasRovingTarget) {
+    const next = document.querySelector('#deck .card[role="button"]');
+    if (next) next.tabIndex = 0;
+  }
 }
 
 // Folk card skin — category glyphs instead of suit symbols,
 // sequential numbers instead of card ranks (less casino-coded)
-const SUIT_GLYPHS = {
-  '♥': 'M4 13h16a8 8 0 0 1-16 0zM9 10c0-2.2 2-2.2 2-4.5M13 10c0-2.2 2-2.2 2-4.5',
-  '♦': 'M4 14h16a8 8 0 0 1-16 0zM7 14a5 4 0 0 1 10 0',
-  '♣': 'M6 5h12v14H6zM12 5v14M6 12h12',
-  '♠': 'M7 5l7 15M12 5l7 15'
-};
-
 const FOLK_VALUES = { 'A': '1', 'J': '11', 'Q': '12', 'K': '13' };
 
 function isFolkDeck() {
@@ -1819,13 +2091,14 @@ function closeMultiplayerModal() {
 function generatePlayerInputs(count) {
   const container = document.getElementById('playerInputs');
   container.innerHTML = '';
-  
+
   for (let i = 1; i <= count; i++) {
     const row = document.createElement('div');
     row.className = 'player-input-row';
     row.innerHTML = `
       <span class="player-number">${i}</span>
-      <input type="text" placeholder="Người chơi ${i}" data-player="${i}">
+      <label class="sr-only" for="playerName${i}">Tên người chơi ${i}</label>
+      <input type="text" id="playerName${i}" name="playerName${i}" autocomplete="off" placeholder="Người chơi ${i}" data-player="${i}">
     `;
     container.appendChild(row);
   }
@@ -1837,12 +2110,12 @@ function startMultiplayerGame() {
   playerNames = Array.from(inputs).map((inp, i) => inp.value.trim() || `Người chơi ${i + 1}`);
   currentPlayer = 1;
   gameResults = [];
-  
+
   // Close modal and show player bar
   document.getElementById('multiplayerModal').classList.remove('show');
   document.getElementById('playerBar').classList.add('show');
   document.getElementById('playerName').textContent = playerNames[0];
-  
+
   // Reset deck for new game
   flippedCards = [];
   createDeck();
@@ -1853,7 +2126,7 @@ function startMultiplayerGame() {
 function endMultiplayerGame() {
   // Show results panel with final results
   document.getElementById('resultsPanel').classList.add('show');
-  
+
   // Reset to single mode
   isMultiPlayer = false;
   syncModeButtons(false);
@@ -1865,7 +2138,9 @@ function endMultiplayerGame() {
 // ========================================
 function createConfetti() {
   if (prefersReducedMotion()) return;
-  const colors = ['#ff6b6b', '#ffd93d', '#6bcb77', '#4d96ff', '#ff6b9d', '#a855f7'];
+  // Giấy vụn rơi theo tông làng quê — gạch nung, vàng nghệ, lá chuối, chàm,
+  // giấy dó, hoa đào. Bản cũ dùng hồng/xanh dương/tím neon, lạc hẳn palette.
+  const colors = ['#c85a3c', '#f0b429', '#8fa858', '#35526f', '#f6e7bf', '#e8879b'];
   const container = document.createElement('div');
   container.className = 'confetti';
   container.style.left = '50%';
@@ -1914,10 +2189,15 @@ function toggleResultsPanel() {
 let wheelDishes = [];
 let wheelAngle = 0;
 let isSpinning = false;
+let wheelRun = 0;
 
+// Các múi xoay lấy từ bảng màu làng quê — gạch nung, lá chuối khô, chàm,
+// đất nung, nâu sồng, vàng nghệ, mận chín, lá tre. Bản cũ dùng cầu vồng bão
+// hoà (magenta/cyan/lime) nên màn này đọc ra hội chợ chứ không phải sân đình.
+// Mọi múi đều đủ tối để chữ trắng đạt tương phản ≥ 5.4:1.
 const WHEEL_COLORS = [
-  '#ef4444', '#f59e0b', '#10b981', '#3b82f6',
-  '#8b5cf6', '#ec4899', '#06b6d4', '#84cc16'
+  '#8d3b24', '#5f6b33', '#35526f', '#a35426',
+  '#4f3319', '#7a5a1f', '#6d3348', '#2f5c4a'
 ];
 
 function openWheelModal() {
@@ -1929,15 +2209,20 @@ function openWheelModal() {
   }
 
   // Pick up to 8 random dishes for wheel
-  const shuffled = [...available].sort(() => Math.random() - 0.5);
+  const shuffled = [...available];
+  shuffleArray(shuffled);
   wheelDishes = shuffled.slice(0, Math.min(8, shuffled.length));
 
+  wheelRun++;
+  isSpinning = false;
   document.getElementById('wheelModal').classList.add('show');
   document.getElementById('spinWheelBtn').disabled = false;
   drawWheel();
 }
 
 function closeWheelModal() {
+  wheelRun++;
+  isSpinning = false;
   document.getElementById('wheelModal').classList.remove('show');
 }
 
@@ -1947,7 +2232,7 @@ function drawWheel(highlightIndex = -1) {
   const centerX = canvas.width / 2;
   const centerY = canvas.height / 2;
   // Mọi kích thước vẽ co theo cạnh canvas (gốc thiết kế 320px) để phóng to
-  // vòng quay mà không lệch tỉ lệ hay vỡ nét.
+  // bánh xe mà không lệch tỉ lệ hay vỡ nét.
   const S = canvas.width / 320;
   const outerRadius = 145 * S;
   const innerRadius = 130 * S;
@@ -1957,7 +2242,7 @@ function drawWheel(highlightIndex = -1) {
   // Draw outer rim (decorative border)
   ctx.beginPath();
   ctx.arc(centerX, centerY, outerRadius, 0, 2 * Math.PI);
-  ctx.fillStyle = '#2d3748';
+  ctx.fillStyle = '#4f3319';
   ctx.fill();
   ctx.strokeStyle = '#fbbf24';
   ctx.lineWidth = 4;
@@ -2001,7 +2286,7 @@ function drawWheel(highlightIndex = -1) {
     ctx.lineWidth = 1;
     ctx.stroke();
 
-    // Draw text - larger and more readable
+    // Chưa xoay thì giữ bí mật món; chỉ lộ tên ở ô thắng sau khi dừng.
     ctx.save();
     ctx.translate(centerX, centerY);
     ctx.rotate(startAngle + sliceAngle / 2);
@@ -2013,11 +2298,8 @@ function drawWheel(highlightIndex = -1) {
     ctx.shadowOffsetX = 1;
     ctx.shadowOffsetY = 1;
 
-    // Truncate dish name
-    let dishName = dish.dish;
-    if (dishName.length > 10) {
-      dishName = dishName.substring(0, 8) + '..';
-    }
+    let dishName = highlightIndex === i ? dish.dish : '?';
+    if (dishName.length > 10) dishName = dishName.substring(0, 8) + '..';
 
     // Position text in middle of slice
     ctx.fillText(dishName, innerRadius / 2 + 15 * S, 5 * S);
@@ -2039,7 +2321,7 @@ function drawWheel(highlightIndex = -1) {
   ctx.stroke();
 
   // Draw "?" in center
-  ctx.fillStyle = '#1a1a2e';
+  ctx.fillStyle = '#3a2a00';
   ctx.font = `bold ${Math.round(24 * S)}px "Be Vietnam Pro", sans-serif`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
@@ -2050,6 +2332,7 @@ function drawWheel(highlightIndex = -1) {
 function spinWheel() {
   if (isSpinning || wheelDishes.length === 0) return;
   isSpinning = true;
+  const run = ++wheelRun;
 
   document.getElementById('spinWheelBtn').disabled = true;
 
@@ -2059,11 +2342,12 @@ function spinWheel() {
   if (settings.soundEnabled) playDrumroll(reduceMotion ? 800 : 3000);
 
   const TAU = 2 * Math.PI;
-  const winnerIndex = Math.floor(Math.random() * wheelDishes.length);
+  const suggestedWinner = suggestedRandomCard(wheelDishes);
+  const winnerIndex = Math.max(0, wheelDishes.indexOf(suggestedWinner));
   const sliceAngle = TAU / wheelDishes.length;
 
   // Góc đích để tâm ô thắng nằm dưới kim (kim ở đỉnh = -PI/2).
-  // Số vòng quay phải là SỐ NGUYÊN vòng, nếu không bánh xe sẽ dừng lệch
+  // Số vòng xoay phải là SỐ NGUYÊN, nếu không bánh xe sẽ dừng lệch
   // ngẫu nhiên so với ô được tô sáng.
   const targetAngle = -Math.PI / 2 - (winnerIndex * sliceAngle) - sliceAngle / 2;
   const turns = reduceMotion ? 1 : 5 + Math.floor(Math.random() * 3);
@@ -2076,6 +2360,7 @@ function spinWheel() {
   const startTime = Date.now();
 
   function animate() {
+    if (run !== wheelRun) return;
     const elapsed = Date.now() - startTime;
     const progress = Math.min(elapsed / duration, 1);
 
@@ -2099,35 +2384,10 @@ function spinWheel() {
 
       // Show result after short delay
       setTimeout(() => {
+        if (run !== wheelRun) return;
         const winner = wheelDishes[winnerIndex];
-        const deckIndex = deck.findIndex(c => c.id === winner.id);
-
-        if (deckIndex !== -1) {
-          flippedCards.push(deckIndex);
-
-          // Mark card in deck
-          const cardEl = document.querySelector(`[data-index="${deckIndex}"]`);
-          if (cardEl) {
-            cardEl.classList.add('flipped');
-            cardEl.innerHTML = createCardFront(winner);
-          }
-        }
-
         closeWheelModal();
-        showResult(winner);
-        addToHistory(winner);
-
-        if (isMultiPlayer) {
-          gameResults.push({
-            player: currentPlayer,
-            dish: winner.dish,
-            imageUrl: winner.imageUrl
-          });
-          updateResultsPanel();
-        }
-
-        createConfetti();
-        updateRemaining();
+        completePick(winner);
       }, 800);
     }
   }
@@ -2142,6 +2402,7 @@ let reelDishes = [];
 let reelStrip = [];
 let isReelSpinning = false;
 let reelWinnerIndex = -1;
+let reelRun = 0;
 
 const REEL_TILE_W = 104; // px, must match CSS
 const REEL_LEN = 42;
@@ -2153,6 +2414,8 @@ function openReelModal() {
     showToast('Hết lá rồi — bấm nút chia lại bộ bài nhé!');
     return;
   }
+  reelRun++;
+  isReelSpinning = false;
   reelDishes = available;
   buildReelStrip();
   document.getElementById('reelModal').classList.add('show');
@@ -2160,6 +2423,8 @@ function openReelModal() {
 }
 
 function closeReelModal() {
+  reelRun++;
+  isReelSpinning = false;
   document.getElementById('reelModal').classList.remove('show');
 }
 
@@ -2179,7 +2444,7 @@ function spinProgress(progress, friction) {
 }
 
 function buildReelStrip() {
-  const winner = reelDishes[Math.floor(Math.random() * reelDishes.length)];
+  const winner = suggestedRandomCard(reelDishes);
   reelStrip = [];
   const recent = [];
   for (let i = 0; i < REEL_LEN; i++) {
@@ -2199,10 +2464,14 @@ function buildReelStrip() {
   const strip = document.getElementById('reelStrip');
   strip.style.transition = 'none';
   strip.style.transform = 'translateX(0)';
-  strip.innerHTML = reelStrip.map(d => `
+  strip.innerHTML = reelStrip.map(() => `
     <div class="reel-tile">
-      <img src="${escapeHtml(d.imageUrl)}" alt="${escapeHtml(d.dish)}" loading="lazy" decoding="async" onerror="this.style.display='none'">
-      <span>${escapeHtml(d.dish)}</span>
+      <div class="reel-tile-back" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
+          <rect x="5" y="4" width="14" height="16" rx="2" />
+          <path d="M8 8h8M8 12h8M8 16h5" />
+        </svg>
+      </div>
     </div>
   `).join('');
 }
@@ -2210,6 +2479,7 @@ function buildReelStrip() {
 function spinReel() {
   if (isReelSpinning || reelStrip.length === 0) return;
   isReelSpinning = true;
+  const run = ++reelRun;
   document.getElementById('spinReelBtn').disabled = true;
 
   const reduceMotion = prefersReducedMotion();
@@ -2231,6 +2501,7 @@ function spinReel() {
   let lastCell = Math.floor(-targetX / REEL_TILE_W);
 
   function frame(now) {
+    if (run !== reelRun) return;
     const p = Math.min((now - startTime) / duration, 1);
     const ease = spinProgress(p, profile.friction);
     const currentX = targetX * ease;
@@ -2252,24 +2523,9 @@ function spinReel() {
       playRevealSound();
 
       setTimeout(() => {
-        const deckIndex = deck.findIndex(c => c.id === winner.id);
-        if (deckIndex !== -1) {
-          flippedCards.push(deckIndex);
-          const cardEl = document.querySelector(`[data-index="${deckIndex}"]`);
-          if (cardEl) {
-            cardEl.classList.add('flipped');
-            cardEl.innerHTML = createCardFront(winner);
-          }
-        }
+        if (run !== reelRun) return;
         closeReelModal();
-        showResult(winner);
-        addToHistory(winner);
-        if (isMultiPlayer) {
-          gameResults.push({ player: currentPlayer, dish: winner.dish, imageUrl: winner.imageUrl });
-          updateResultsPanel();
-        }
-        createConfetti();
-        updateRemaining();
+        completePick(winner);
       }, 700);
     }
   }
@@ -2278,7 +2534,7 @@ function spinReel() {
 }
 
 // ========================================
-// BATTLE MODE — So Găng: 8-dish head-to-head bracket
+// BATTLE MODE — So sánh món: 8 món loại dần theo từng cặp
 // ========================================
 let battleRound = [];
 let battleNextRound = [];
@@ -2287,11 +2543,12 @@ let battleRoundSize = 0;
 function openBattleModal() {
   const available = deck.filter((_, i) => !flippedCards.includes(i));
   if (available.length < 2) {
-    showToast('Cần ít nhất 2 món để so găng — hãy chia lại bộ bài.');
+    showToast('Cần ít nhất 2 món để so sánh — hãy chia lại bộ bài.');
     return;
   }
 
-  const shuffled = [...available].sort(() => Math.random() - 0.5);
+  const shuffled = [...available];
+  shuffleArray(shuffled);
   battleRound = shuffled.slice(0, Math.min(8, shuffled.length));
   battleRoundSize = battleRound.length;
   battleNextRound = [];
@@ -2305,9 +2562,9 @@ function closeBattleModal() {
 }
 
 function battleRoundLabel(size) {
-  if (size <= 2) return 'Chung kết';
-  if (size <= 4) return 'Bán kết';
-  return 'Tứ kết';
+  if (size <= 2) return 'chung kết';
+  if (size <= 4) return 'bán kết';
+  return 'tứ kết';
 }
 
 function renderBattleMatch() {
@@ -2315,7 +2572,7 @@ function renderBattleMatch() {
   const b = battleRound[1];
 
   document.getElementById('battleTitle').textContent =
-    `So Găng — ${battleRoundLabel(battleRoundSize)}`;
+    `So sánh món — ${battleRoundLabel(battleRoundSize)}`;
 
   for (const [id, d] of [['battleCardA', a], ['battleCardB', b]]) {
     const btn = document.getElementById(id);
@@ -2330,40 +2587,32 @@ function renderBattleMatch() {
     `Còn ${battleRound.length} món vòng này`;
 }
 
+function advanceBattleBracket(round, nextRound, side) {
+  if (!Array.isArray(round) || round.length < 2 || (side !== 0 && side !== 1)) return null;
+  const qualified = [...nextRound, round[side]];
+  const remaining = round.slice(2);
+  if (remaining.length > 1) {
+    return { round: remaining, nextRound: qualified, advanced: false, champion: null };
+  }
+  if (remaining.length === 1) qualified.push(remaining[0]);
+  return {
+    round: qualified,
+    nextRound: [],
+    advanced: true,
+    champion: qualified.length === 1 ? qualified[0] : null
+  };
+}
+
 function pickBattleSide(side) {
-  const winner = battleRound[side];
-  battleNextRound.push(winner);
-  battleRound.splice(0, 2);
-
-  if (battleRound.length === 0) {
-    battleRound = battleNextRound;
-    battleNextRound = [];
-    battleRoundSize = battleRound.length;
-
-    if (battleRound.length === 1) {
-      const champion = battleRound[0];
-      closeBattleModal();
-
-      const deckIndex = deck.findIndex(c => c.id === champion.id);
-      if (deckIndex !== -1) {
-        flippedCards.push(deckIndex);
-        const cardEl = document.querySelector(`[data-index="${deckIndex}"]`);
-        if (cardEl) {
-          cardEl.classList.add('flipped');
-          cardEl.innerHTML = createCardFront(champion);
-        }
-      }
-
-      showResult(champion);
-      addToHistory(champion);
-      if (isMultiPlayer) {
-        gameResults.push({ player: currentPlayer, dish: champion.dish, imageUrl: champion.imageUrl });
-        updateResultsPanel();
-      }
-      createConfetti();
-      updateRemaining();
-      return;
-    }
+  const state = advanceBattleBracket(battleRound, battleNextRound, side);
+  if (!state) return;
+  battleRound = state.round;
+  battleNextRound = state.nextRound;
+  if (state.advanced) battleRoundSize = battleRound.length;
+  if (state.champion) {
+    closeBattleModal();
+    completePick(state.champion);
+    return;
   }
 
   renderBattleMatch();
@@ -2430,9 +2679,11 @@ function rerollMamItem(course) {
 function renderMamTray() {
   const tray = document.getElementById('mamTray');
   if (!tray) return;
+  const label = document.getElementById('rollMamLabel');
+  if (label) label.textContent = mamTray ? 'Gợi ý mâm khác' : 'Gợi ý mâm';
 
   if (!mamTray) {
-    tray.innerHTML = '<p class="mam-hint">Chọn miền rồi bấm Gieo mâm để nhận thực đơn đủ 4 món.</p>';
+    tray.innerHTML = '<p class="mam-hint">Chọn miền rồi bấm Gợi ý mâm để nhận thực đơn đủ 4 món.</p>';
     return;
   }
 
@@ -2482,22 +2733,23 @@ function availableCards() {
 }
 
 // ========================================
-// XIN XĂM — shake the fortune-stick tube
+// LẮC CHỌN MÓN — shake the tube and reveal a playful verse
 // ========================================
 let xamWinner = null;
 let xamShaking = false;
+let xamRun = 0;
 
-// Lời xăm viết theo nhịp lục bát cho ra chất "quẻ xăm" chứ không phải
-// câu quảng cáo. Có cả quẻ thượng lẫn quẻ hạ để còn có cái mà hồi hộp.
+// Câu gợi ý viết theo nhịp lục bát để màn lắc có nét riêng mà không dựa
+// vào thuật ngữ bói quẻ hoặc cách phân hạng khó hiểu.
 const XAM_VERSES = [
-  { tier: 'Thượng thượng', text: 'Duyên trời đưa đẩy tới đây\nMón này ăn thử, no đầy cả trưa.' },
-  { tier: 'Thượng cát',    text: 'Quẻ này lộc đến tận nơi\nĂn xong nhẹ bụng, thảnh thơi cả ngày.' },
-  { tier: 'Trung bình',    text: 'Không ngon cũng chẳng dở đâu\nĂn cho qua bữa, mai cầu món sang.' },
-  { tier: 'Thượng cát',    text: 'Bụng đang réo gọi từng hồi\nMón này hợp ý, đứng ngồi không yên.' },
-  { tier: 'Trung cát',     text: 'Chọn chi cho mệt cái đầu\nQuán quen góc phố, món đâu cũng vừa.' },
-  { tier: 'Thượng thượng', text: 'Xăm này quả thật rất linh\nĂn vào một miếng, thình lình thấy vui.' },
-  { tier: 'Trung bình',    text: 'Hôm nay chẳng có gì sang\nCơm nhà rau muống, vẫn ngon lạ thường.' },
-  { tier: 'Thượng cát',    text: 'Đói thì đầu gối phải bò\nMón này gần đấy, khỏi lo đường xa.' }
+  { tier: 'Rất hợp hôm nay', text: 'Duyên gì đưa đẩy tới đây\nMón này ăn thử, no đầy cả trưa.' },
+  { tier: 'Món đáng thử',    text: 'Hôm nay món đến tận nơi\nĂn xong nhẹ bụng, thảnh thơi cả ngày.' },
+  { tier: 'Lựa chọn dễ ăn',  text: 'Không ngon cũng chẳng dở đâu\nĂn cho qua bữa, mai cầu món sang.' },
+  { tier: 'Rất hợp hôm nay', text: 'Bụng đang réo gọi từng hồi\nMón này hợp ý, đứng ngồi không yên.' },
+  { tier: 'Lựa chọn vừa ý',  text: 'Chọn chi cho mệt cái đầu\nQuán quen góc phố, món đâu cũng vừa.' },
+  { tier: 'Món đáng thử',    text: 'Món này trông thật là xinh\nĂn vào một miếng, thình lình thấy vui.' },
+  { tier: 'Lựa chọn thân quen', text: 'Hôm nay chẳng có gì sang\nCơm nhà rau muống, vẫn ngon lạ thường.' },
+  { tier: 'Tiện đường hôm nay', text: 'Đói thì đầu gối phải bò\nMón này gần đấy, khỏi lo đường xa.' }
 ];
 
 function openXamModal() {
@@ -2506,13 +2758,17 @@ function openXamModal() {
     showToast('Hết lá rồi — bấm nút chia lại bộ bài nhé!');
     return;
   }
+  xamRun++;
   xamWinner = null;
+  xamShaking = false;
   document.getElementById('xamFortune').hidden = true;
   document.getElementById('xamModal').classList.add('show');
   document.getElementById('shakeXamBtn').disabled = false;
 }
 
 function closeXamModal() {
+  xamRun++;
+  xamShaking = false;
   document.getElementById('xamModal').classList.remove('show');
   document.getElementById('xamTube').classList.remove('shaking');
 }
@@ -2522,9 +2778,10 @@ function shakeXam() {
   const available = availableCards();
   if (!available.length) return;
   xamShaking = true;
+  const run = ++xamRun;
   document.getElementById('shakeXamBtn').disabled = true;
 
-  xamWinner = available[Math.floor(Math.random() * available.length)];
+  xamWinner = suggestedRandomCard(available);
   const tube = document.getElementById('xamTube');
   const shakeMs = prefersReducedMotion() ? 400 : 1400;
 
@@ -2532,6 +2789,7 @@ function shakeXam() {
   tube.classList.add('shaking');
 
   setTimeout(() => {
+    if (run !== xamRun) return;
     tube.classList.remove('shaking');
     const verse = XAM_VERSES[Math.floor(Math.random() * XAM_VERSES.length)];
     document.getElementById('xamDish').textContent = xamWinner.dish;
@@ -2542,17 +2800,20 @@ function shakeXam() {
     playRevealSound();
 
     setTimeout(() => {
+      if (run !== xamRun) return;
       closeXamModal();
       completePick(xamWinner);
-      xamShaking = false;
     }, prefersReducedMotion() ? 700 : 1500);
   }, shakeMs);
 }
 
 // ========================================
-// HÁI HOA DÂN CHỦ — pick a flower, get the note inside
+// CHẠM CHỌN MÓN — pick a flower, get the dish inside
 // ========================================
-const HOA_COLORS = ['#ff8fa3', '#ffd166', '#b388ff', '#80ed99', '#8ecae6', '#ffb4a2', '#f4a9e0', '#e9c46a'];
+// Hoa vườn quê: dâm bụt, vạn thọ, sen, mướp, xoan, gạo, cau, nụ lá.
+// Bản cũ là pastel hồng/tím/mint kiểu game trẻ em — lạc nhất trong app.
+const HOA_COLORS = ['#e2563c', '#f2a33c', '#e8879b', '#d9c34a', '#b07fa8', '#c9452f', '#efdcbb', '#8fa858'];
+let hoaRun = 0;
 
 function openHoaModal() {
   const available = availableCards();
@@ -2560,10 +2821,11 @@ function openHoaModal() {
     showToast('Hết lá rồi — bấm nút chia lại bộ bài nhé!');
     return;
   }
+  const run = ++hoaRun;
   const garden = document.getElementById('hoaGarden');
   const count = 12;
   garden.innerHTML = Array.from({ length: count }, (_, i) => `
-    <button class="hoa-flower" style="--petal:${HOA_COLORS[i % HOA_COLORS.length]}" aria-label="Bông hoa ${i + 1}">
+    <button class="hoa-flower" style="--petal:${HOA_COLORS[i % HOA_COLORS.length]}" aria-label="Chọn bông hoa ${i + 1} để mở món">
       <svg viewBox="0 0 48 48" aria-hidden="true">
         <ellipse cx="24" cy="12" rx="7" ry="11" fill="var(--petal)"/>
         <ellipse cx="24" cy="36" rx="7" ry="11" fill="var(--petal)"/>
@@ -2576,33 +2838,36 @@ function openHoaModal() {
   `).join('');
 
   garden.querySelectorAll('.hoa-flower').forEach(btn => {
-    btn.addEventListener('click', () => pickFlower(btn, available), { once: true });
+    btn.addEventListener('click', () => pickFlower(btn, available, run), { once: true });
   });
 
   document.getElementById('hoaModal').classList.add('show');
 }
 
 function closeHoaModal() {
+  hoaRun++;
   document.getElementById('hoaModal').classList.remove('show');
 }
 
-function pickFlower(btn, available) {
+function pickFlower(btn, available, run) {
   if (btn.classList.contains('picked')) return;
   btn.classList.add('picked');
   playTick();
 
-  const winner = available[Math.floor(Math.random() * available.length)];
+  const winner = suggestedRandomCard(available);
   setTimeout(() => {
+    if (run !== hoaRun) return;
     closeHoaModal();
     completePick(winner);
   }, prefersReducedMotion() ? 150 : 500);
 }
 
 // ========================================
-// CÀO VÉ SỐ — scratch card reveal
+// CÀO CHỌN MÓN — scratch card reveal
 // ========================================
 let scratchWinner = null;
 let scratchDone = false;
+let scratchRun = 0;
 
 function openVesoModal() {
   const available = availableCards();
@@ -2610,23 +2875,28 @@ function openVesoModal() {
     showToast('Hết lá rồi — bấm nút chia lại bộ bài nhé!');
     return;
   }
-  scratchWinner = available[Math.floor(Math.random() * available.length)];
+  const run = ++scratchRun;
+  scratchWinner = suggestedRandomCard(available);
   scratchDone = false;
 
   document.getElementById('scratchDish').textContent = scratchWinner.dish;
   const img = document.getElementById('scratchImg');
   img.src = scratchWinner.imageUrl;
-  img.alt = scratchWinner.dish;
+  img.alt = '';
 
   document.getElementById('vesoModal').classList.add('show');
-  requestAnimationFrame(setupScratchCanvas);
+  requestAnimationFrame(() => {
+    if (run === scratchRun) setupScratchCanvas(run);
+  });
 }
 
 function closeVesoModal() {
+  scratchRun++;
+  scratchDone = true;
   document.getElementById('vesoModal').classList.remove('show');
 }
 
-function setupScratchCanvas() {
+function setupScratchCanvas(run) {
   const canvas = document.getElementById('scratchCanvas');
   const wrap = canvas.parentElement;
   const dpr = window.devicePixelRatio || 1;
@@ -2639,28 +2909,30 @@ function setupScratchCanvas() {
   const ctx = canvas.getContext('2d');
   ctx.scale(dpr, dpr);
 
-  // Metallic foil coating
+  // Lớp cào nhũ đồng trên giấy điệp — tông ấm cùng hệ với cả app.
+  // Bản cũ là nhũ bạc xanh lạnh, màu lạnh duy nhất trong giao diện.
   const grad = ctx.createLinearGradient(0, 0, w, h);
-  grad.addColorStop(0, '#b8b8c8');
-  grad.addColorStop(0.45, '#e8e8f0');
-  grad.addColorStop(0.55, '#c0c0d0');
-  grad.addColorStop(1, '#9898a8');
+  grad.addColorStop(0, '#b59461');
+  grad.addColorStop(0.45, '#e6d0a4');
+  grad.addColorStop(0.55, '#c9a877');
+  grad.addColorStop(1, '#a07f4e');
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, w, h);
 
-  ctx.fillStyle = '#6a6a7a';
+  ctx.fillStyle = '#5a4020';
   ctx.font = '700 20px "Be Vietnam Pro", sans-serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillText('✦ CÀO ĐỂ XEM MÓN ✦', w / 2, h / 2 - 12);
   ctx.font = '500 12px "Be Vietnam Pro", sans-serif';
-  ctx.fillText('vé số kiến thiết ăn uống', w / 2, h / 2 + 14);
+  ctx.fillText('món ngon đang chờ bên dưới', w / 2, h / 2 + 14);
 
   let scratching = false;
   let moves = 0;
   const brush = Math.max(22, w / 14);
 
   const erase = (e) => {
+    if (run !== scratchRun || scratchDone) return;
     const r = canvas.getBoundingClientRect();
     ctx.globalCompositeOperation = 'destination-out';
     ctx.beginPath();
@@ -2669,13 +2941,13 @@ function setupScratchCanvas() {
     if (++moves % 8 === 0) checkScratched(canvas, ctx, w, h);
   };
 
-  canvas.addEventListener('pointerdown', (e) => {
+  canvas.onpointerdown = (e) => {
     scratching = true;
     canvas.setPointerCapture(e.pointerId);
     erase(e);
-  });
-  canvas.addEventListener('pointermove', (e) => { if (scratching && !scratchDone) erase(e); });
-  canvas.addEventListener('pointerup', () => { scratching = false; checkScratched(canvas, ctx, w, h); });
+  };
+  canvas.onpointermove = (e) => { if (scratching && !scratchDone) erase(e); };
+  canvas.onpointerup = () => { scratching = false; checkScratched(canvas, ctx, w, h, run); };
 }
 
 // Đo phần đã cào trên một lưới thưa (~60×60 điểm) thay vì đọc toàn bộ
@@ -2683,8 +2955,8 @@ function setupScratchCanvas() {
 // mỗi lần kiểm tra, đủ để cảm giác cào bị khựng.
 const SCRATCH_SAMPLE = 60;
 
-function checkScratched(canvas, ctx, w, h) {
-  if (scratchDone) return;
+function checkScratched(canvas, ctx, w, h, run = scratchRun) {
+  if (scratchDone || run !== scratchRun) return;
   const sw = Math.min(SCRATCH_SAMPLE, canvas.width);
   const sh = Math.min(SCRATCH_SAMPLE, canvas.height);
   const stepX = canvas.width / sw;
@@ -2701,15 +2973,16 @@ function checkScratched(canvas, ctx, w, h) {
     }
   }
 
-  if (total && clear / total > 0.45) revealScratch(ctx, w, h);
+  if (total && clear / total > 0.45) revealScratch(ctx, w, h, run);
 }
 
-function revealScratch(ctx, w, h) {
-  if (scratchDone) return;
+function revealScratch(ctx, w, h, run = scratchRun) {
+  if (scratchDone || run !== scratchRun) return;
   scratchDone = true;
   ctx.clearRect(0, 0, w, h);
   playRevealSound();
   setTimeout(() => {
+    if (run !== scratchRun) return;
     closeVesoModal();
     completePick(scratchWinner);
   }, prefersReducedMotion() ? 600 : 1400);
@@ -2719,7 +2992,7 @@ function revealScratchInstant() {
   if (scratchDone) return;
   const canvas = document.getElementById('scratchCanvas');
   const ctx = canvas.getContext('2d');
-  revealScratch(ctx, canvas.clientWidth, canvas.clientHeight);
+  revealScratch(ctx, canvas.clientWidth, canvas.clientHeight, scratchRun);
 }
 
 // ========================================
@@ -2748,7 +3021,9 @@ function getDishOfDay() {
   h = Math.imul(h ^ (h >>> 16), 0x21f0aaad);
   h = Math.imul(h ^ (h >>> 15), 0x735a2d97);
   h = (h ^ (h >>> 15)) >>> 0;
-  return all[h % all.length];
+  const allowed = all.filter(card => !isExcluded(card.dish));
+  const pool = allowed.length ? allowed : all;
+  return pool[h % pool.length];
 }
 
 // Lời chào đổi theo buổi — thay câu tĩnh "Chọn một lá bài để xem món ăn"
@@ -2855,20 +3130,21 @@ async function createShareImage(card) {
   canvas.height = 800;
   const ctx = canvas.getContext('2d');
 
-  // Background gradient
+  // Nền sân gạch — cùng tông với giao diện. Trước đây là mặt nỉ xanh casino,
+  // mà đây lại đúng là tấm ảnh người dùng đem đi khoe với bạn bè.
   const gradient = ctx.createLinearGradient(0, 0, 0, 800);
-  gradient.addColorStop(0, '#1a6b3a');
-  gradient.addColorStop(1, '#0f4a28');
+  gradient.addColorStop(0, '#6b4426');
+  gradient.addColorStop(1, '#2c1a0d');
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, 600, 800);
 
   // Card background
-  ctx.fillStyle = '#fffef8';
+  ctx.fillStyle = '#fdf6e4';
   roundRect(ctx, 100, 80, 400, 560, 20);
   ctx.fill();
 
-  // Card border
-  ctx.strokeStyle = '#c0a875';
+  // Viền tre quanh lá bài
+  ctx.strokeStyle = '#b5834a';
   ctx.lineWidth = 4;
   roundRect(ctx, 100, 80, 400, 560, 20);
   ctx.stroke();
@@ -2889,30 +3165,30 @@ async function createShareImage(card) {
   }
 
   // Số thứ tự + biểu tượng nhóm món
-  ctx.fillStyle = card.isRed ? '#dc2626' : '#1a1a1a';
-  ctx.font = 'bold 48px Georgia, serif';
+  ctx.fillStyle = card.isRed ? '#8e3826' : '#4f3319';
+  ctx.font = 'bold 48px "Be Vietnam Pro", sans-serif';
   ctx.fillText(isFolkDeck() ? (FOLK_VALUES[card.value] || card.value) : card.value, 130, 150);
-  ctx.font = '36px Georgia, serif';
+  ctx.font = '36px "Be Vietnam Pro", sans-serif';
   ctx.fillText(card.suit, 135, 190);
 
   // Food name
-  ctx.fillStyle = card.isRed ? '#dc2626' : '#1a1a1a';
-  ctx.font = 'bold 32px sans-serif';
+  ctx.fillStyle = card.isRed ? '#8e3826' : '#4f3319';
+  ctx.font = 'bold 32px "Be Vietnam Pro", sans-serif';
   ctx.textAlign = 'center';
   ctx.fillText(card.dish, 300, 460);
 
   // Pairing
-  ctx.fillStyle = '#666';
-  ctx.font = '18px sans-serif';
+  ctx.fillStyle = '#6b6455';
+  ctx.font = '18px "Be Vietnam Pro", sans-serif';
   ctx.fillText(`Ăn kèm: ${card.pairing}`, 300, 500);
 
   // App name
-  ctx.fillStyle = '#fff';
-  ctx.font = 'bold 28px sans-serif';
+  ctx.fillStyle = '#f7f0dd';
+  ctx.font = 'bold 28px "Be Vietnam Pro", sans-serif';
   ctx.fillText('Hôm Nay Ăn Gì?', 300, 720);
 
-  ctx.font = '16px sans-serif';
-  ctx.fillStyle = 'rgba(255,255,255,0.7)';
+  ctx.font = '16px "Be Vietnam Pro", sans-serif';
+  ctx.fillStyle = 'rgba(247,240,221,0.72)';
   ctx.fillText('homnayangi.app', 300, 760);
 
   return canvas;
@@ -2944,9 +3220,11 @@ function loadImage(src) {
 
 // Pick a random unflipped card — used by the quick-pick CTA and PWA shortcut
 function quickPick() {
-  const available = deck.map((_, i) => i).filter(i => !flippedCards.includes(i));
+  const available = deck.filter((_, i) => !flippedCards.includes(i));
   if (available.length === 0 || isAnimating) return;
-  pickCard(available[Math.floor(Math.random() * available.length)]);
+  const winner = suggestedRandomCard(available);
+  const deckIndex = deck.indexOf(winner);
+  if (deckIndex !== -1) pickCard(deckIndex);
 }
 
 function sleep(ms) {
@@ -3053,11 +3331,15 @@ function initModalManager() {
         panel.setAttribute('aria-labelledby', heading.id);
       }
     }
-    // Bấm ra ngoài để đóng — vài modal (mâm cơm, xin xăm, hái hoa, vé số)
+    // Bấm ra ngoài để đóng — vài modal (mâm cơm, lắc, chạm, cào)
     // trước đây không có lớp nền nên chỉ đóng được bằng nút X.
     m.addEventListener('mousedown', e => {
       if (e.target === m) modalCloser(m.id)?.();
     });
+  });
+
+  document.querySelectorAll('[data-close]').forEach(bg => {
+    bg.addEventListener('click', () => modalCloser(bg.dataset.close)?.());
   });
 
   const observer = new MutationObserver(syncModalState);
@@ -3108,13 +3390,13 @@ function setupEvents() {
   document.getElementById('wheelBg')?.addEventListener('click', closeWheelModal);
   document.getElementById('spinWheelBtn')?.addEventListener('click', spinWheel);
 
-  // Reel (Quay Mâm)
+  // Reel (Lướt chọn món)
   document.getElementById('reelBtn')?.addEventListener('click', openReelModal);
   document.getElementById('closeReelX')?.addEventListener('click', closeReelModal);
   document.getElementById('reelBg')?.addEventListener('click', closeReelModal);
   document.getElementById('spinReelBtn')?.addEventListener('click', spinReel);
 
-  // Battle (So Găng)
+  // So sánh món
   document.getElementById('battleBtn')?.addEventListener('click', openBattleModal);
   document.getElementById('closeBattleX')?.addEventListener('click', closeBattleModal);
   document.getElementById('battleBg')?.addEventListener('click', closeBattleModal);
@@ -3129,7 +3411,7 @@ function setupEvents() {
     ch.addEventListener('click', () => setMamRegion(ch.dataset.region));
   });
 
-  // Xin Xăm / Hái Hoa / Cào Vé Số
+  // Lắc / Chạm / Cào chọn món
   document.getElementById('xamBtn')?.addEventListener('click', openXamModal);
   document.getElementById('closeXamX')?.addEventListener('click', closeXamModal);
   document.getElementById('shakeXamBtn')?.addEventListener('click', shakeXam);
@@ -3213,20 +3495,27 @@ function setupEvents() {
   document.getElementById('settingsBtn').addEventListener('click', openSettings);
   document.getElementById('closeSettingsX')?.addEventListener('click', closeSettings);
   document.getElementById('settingsBg').addEventListener('click', closeSettings);
+  document.getElementById('clearDataBtn')?.addEventListener('click', clearAllLocalData);
 
   // Settings navigation
   document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const section = btn.dataset.section;
-      
+
       // Update nav buttons
       document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      
+
       // Update sections
       document.querySelectorAll('.settings-section').forEach(s => s.classList.remove('active'));
-      document.getElementById('section' + section.charAt(0).toUpperCase() + section.slice(1))?.classList.add('active');
-      
+      const sectionId = section === 'privacy' ? 'sectionAbout' :
+        'section' + section.charAt(0).toUpperCase() + section.slice(1);
+      document.getElementById(sectionId)?.classList.add('active');
+
+      if (section === 'privacy') {
+        requestAnimationFrame(() => document.getElementById('privacyBlock')?.scrollIntoView({ block: 'start' }));
+      }
+
       // Refresh history if needed
       if (section === 'history') {
         updateHistoryPanel();
@@ -3240,7 +3529,7 @@ function setupEvents() {
     closeSettings();
     openPlanner();
   });
-  
+
   document.getElementById('openCustomDishBtn')?.addEventListener('click', () => {
     closeSettings();
     openCustomDishModal();
@@ -3418,6 +3707,6 @@ if (typeof module !== 'undefined' && module.exports) {
     DISH_DB, DISH_META, SUITS, VALUES, REGION_NAMES, TOTAL_DISHES, DECK_SIZE,
     CATEGORY_NAMES, drawBalanced,
     // Thuật toán thuần, test được mà không cần DOM
-    bestDeckFit, getTimePeriod, fitsMeal
+    bestDeckFit, getTimePeriod, fitsMeal, chooseSuggestedCard, advanceBattleBracket, fillWeekPlan
   };
 }
