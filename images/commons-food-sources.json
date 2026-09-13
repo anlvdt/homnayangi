@@ -628,5 +628,35 @@
     "author": "PanShiBo",
     "license": "CC BY-SA 3.0",
     "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "dish": "Bánh bao bánh vạc",
+    "file": "photo_banh_bao_banh_vac.webp",
+    "title": "File:Bánh bao bánh vạc - hoi an (2024).jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:B%C3%A1nh_bao_b%C3%A1nh_v%E1%BA%A1c_-_hoi_an_(2024).jpg",
+    "author": "Chainwit.",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0",
+    "change_note": "Resized to 512 px WebP without deliberate color or content changes"
+  },
+  {
+    "dish": "Bột chiên",
+    "file": "photo_bot_chien.webp",
+    "title": "File:Bột chiên tại Sài Gòn.JPG",
+    "source": "https://commons.wikimedia.org/wiki/File:B%E1%BB%99t_chi%C3%AAn_t%E1%BA%A1i_S%C3%A0i_G%C3%B2n.JPG",
+    "author": "Tonbi ko",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "change_note": "Resized to 512 px WebP without deliberate color or content changes"
+  },
+  {
+    "dish": "Bánh tráng cuốn thịt heo",
+    "file": "photo_banh_trang_cuon_thit_heo.webp",
+    "title": "File:Bánh tráng cuốn thịt heo.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:B%C3%A1nh_tr%C3%A1ng_cu%E1%BB%91n_th%E1%BB%8Bt_heo.jpg",
+    "author": "Lê Huỳnh Bộ",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "change_note": "Resized to 512 px WebP without deliberate color or content changes"
   }
 ]

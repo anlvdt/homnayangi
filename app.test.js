@@ -22,6 +22,13 @@ describe('Thuật toán chọn món và Battle', () => {
     expect(chooseSuggestedCard(cards, card => card.fit, () => 0.99)).toEqual(cards[1]);
   });
 
+  test('ưu tiên theo món không làm giảm xác suất của 9/10 món hợp giờ', () => {
+    const cards = Array.from({ length: 10 }, (_, i) => ({ fit: i < 9, id: i }));
+    const draws = Array.from({ length: 1000 }, (_, i) =>
+      chooseSuggestedCard(cards, card => card.fit, () => (i + 0.5) / 1000));
+    expect(draws.filter(card => card.fit).length).toBeGreaterThan(900);
+  });
+
   test('Battle số lẻ tự đưa món cuối vào vòng sau và tìm được quán quân', () => {
     const cards = ['a', 'b', 'c', 'd', 'e'];
     let state = advanceBattleBracket(cards, [], 0);

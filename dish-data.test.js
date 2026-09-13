@@ -8,7 +8,10 @@
 
 const fs = require('fs');
 const path = require('path');
-const { DISH_DB, SUITS, VALUES, DISH_META, REGION_NAMES, TOTAL_DISHES, DECK_SIZE, drawBalanced } = require('./app.js');
+const {
+  DISH_DB, SUITS, VALUES, DISH_META, REGION_NAMES, TOTAL_DISHES, DECK_SIZE,
+  CITY_DISHES, SIDE_DISHES, DISH_FAMILIES, drawBalanced
+} = require('./app.js');
 
 const MEAL_KEYS = ['sang', 'trua', 'chieu', 'toi', 'khuya'];
 const allDishes = SUITS.flatMap(suit => DISH_DB[suit]);
@@ -30,6 +33,28 @@ describe('Kho món', () => {
     expect(new Set(names).size).toBe(names.length);
   });
 
+  test('mọi danh sách thành phố chỉ tham chiếu món có trong kho', () => {
+    const names = new Set(allDishes.map(d => d.name));
+    for (const [city, dishes] of Object.entries(CITY_DISHES)) {
+      expect(dishes.size).toBeGreaterThanOrEqual(6);
+      for (const dish of dishes) {
+        expect(names.has(dish)).toBe(true);
+      }
+    }
+  });
+
+  test('vai trò món phụ và họ món chỉ tham chiếu món có trong kho', () => {
+    const names = new Set(allDishes.map(d => d.name));
+    for (const dish of SIDE_DISHES) expect(names.has(dish)).toBe(true);
+    for (const dish of Object.keys(DISH_FAMILIES)) expect(names.has(dish)).toBe(true);
+  });
+
+  test('service worker chỉ dọn cache thuộc namespace ứng dụng', () => {
+    const source = fs.readFileSync(path.join(__dirname, 'sw.js'), 'utf8');
+    expect(source).toContain("name.startsWith('homnayangi-') && name !== CACHE_NAME");
+    expect(source).not.toMatch(/filter\(name\s*=>\s*name\s*!==\s*CACHE_NAME\)/);
+  });
+
   test('mỗi ảnh chỉ dùng cho một món và ảnh đó có thật', () => {
     const seen = new Set();
     for (const dish of allDishes.filter(d => d.img)) {
@@ -46,7 +71,7 @@ describe('Kho món', () => {
     ));
     const byFile = new Map(manifest.map(item => [item.file, item]));
 
-    for (const dish of allDishes.filter(d => d.img.startsWith('photo_'))) {
+    for (const dish of allDishes.filter(d => d.img?.startsWith('photo_'))) {
       const source = byFile.get(dish.img);
       expect(source).toMatchObject({ dish: dish.name, file: dish.img });
       expect(source.source).toMatch(/^https:\/\/commons\.wikimedia\.org\/wiki\/File:/);
@@ -55,11 +80,21 @@ describe('Kho món', () => {
     }
   });
 
-  test('toàn bộ kho món dùng ảnh chụp thật, không rơi về ảnh đồ hoạ', () => {
+  test('món chưa có ảnh đúng không bị gán ảnh món khác hoặc ảnh đồ họa', () => {
+    expect(allDishes).toHaveLength(153);
+    expect(allDishes.filter(d => !d.hasPhoto)).toHaveLength(21);
     for (const dish of allDishes) {
-      expect(dish.img).toBeTruthy();
-      expect(dish.hasPhoto).toBe(true);
-      expect(dish.imageUrl).toBe(`images/${dish.img}`);
+      expect(dish.hasPhoto).toBe(Boolean(dish.img));
+      expect(dish.imageUrl).toBeTruthy();
+    }
+  });
+
+  test('ảnh sai được cách ly và ba món địa phương mới có nguồn đúng', () => {
+    for (const name of ['Xôi lạc', 'Phở cuốn', 'Cơm âm phủ', 'Chân gà sả tắc', 'Miến lươn', 'Cơm cháy Ninh Bình']) {
+      expect(DISH_META[name].imageStatus).toBe('illustrated');
+    }
+    for (const name of ['Bánh bao bánh vạc', 'Bột chiên', 'Bánh tráng cuốn thịt heo']) {
+      expect(DISH_META[name].imageStatus).toBe('sourced');
     }
   });
 

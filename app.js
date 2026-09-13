@@ -142,7 +142,8 @@ const DISH_DB = {
     { name: 'Bánh flan',           region: 'A', img: null,                               pair: 'Cà phê, nước cốt dừa, đá bào',        price: [10, 25],  meals: ['chieu'] },
     { name: 'Sandwich',            region: 'A', img: null,                               pair: 'Trứng, rau, sốt mayonnaise',          price: [20, 45],  meals: ['sang', 'chieu'] },
     { name: 'Kebab Thổ Nhĩ Kỳ',    region: 'A', img: null,                               pair: 'Rau trộn, sốt phô mai, tương ớt',     price: [25, 50],  meals: ['chieu', 'toi', 'khuya'] },
-    { name: 'Bánh mì que',         region: 'T', img: null,                               pair: 'Pate cay, ruốc, tương ớt',            price: [10, 25],  meals: ['sang', 'chieu'] }
+    { name: 'Bánh mì que',         region: 'T', img: null,                               pair: 'Pate cay, ruốc, tương ớt',            price: [10, 25],  meals: ['sang', 'chieu'] },
+    { name: 'Bánh bao bánh vạc',   region: 'T', img: 'photo_banh_bao_banh_vac.webp',      pair: 'Nước chấm chua ngọt, rau thơm',       price: [40, 80],  meals: ['chieu', 'toi'] }
   ],
   // ♠ MÓN MẶN · NHẬU — cơm nhà, lẩu nướng, hải sản, món ngoại
   '♠': [
@@ -186,7 +187,10 @@ const DISH_DB = {
     { name: 'Chả cá Lã Vọng',      region: 'B', img: null,                               pair: 'Bún, thì là, mắm tôm, đậu phộng',     price: [90, 200],  meals: ['trua', 'toi'] },
     { name: 'Tokbokki',            region: 'A', img: null,                               pair: 'Chả cá, trứng luộc, phô mai',         price: [40, 80],   meals: ['chieu', 'toi'] },
     { name: 'Cà ri dê',            region: 'N', img: null,                               pair: 'Bánh mì, rau quế, muối ớt',           price: [60, 130],  meals: ['toi'] },
-    { name: 'Ếch xào lăn',         region: 'N', img: null,                               pair: 'Bánh mì, cơm, đậu phộng, nước cốt dừa', price: [50, 110], meals: ['toi'] }
+    { name: 'Ếch xào lăn',         region: 'N', img: null,                               pair: 'Bánh mì, cơm, đậu phộng, nước cốt dừa', price: [50, 110], meals: ['toi'] },
+    { name: 'Bột chiên',           region: 'N', img: 'photo_bot_chien.webp',              pair: 'Trứng, đu đủ bào, nước tương',         price: [25, 45],  meals: ['sang', 'chieu', 'toi'] },
+    { name: 'Bánh tráng cuốn thịt heo', region: 'T', img: 'photo_banh_trang_cuon_thit_heo.webp', pair: 'Rau sống, mắm nêm, bún', price: [60, 160], meals: ['trua', 'toi'] },
+    { name: 'Bún mắm nêm',          region: 'T', img: null,                              pair: 'Heo quay, rau sống, đậu phộng',         price: [35, 60],  meals: ['trua', 'toi'] }
   ]
 };
 
@@ -198,10 +202,7 @@ const REAL_PHOTO_OVERRIDES = {
   'Bánh chưng rán': 'photo_banh_chung_ran.webp',
   'Bánh cống': 'photo_banh_cong.webp',
   'Bánh giầy giò': 'photo_banh_giay_gio.webp',
-  'Bánh gối': 'photo_banh_goi.webp',
-  'Bánh khoái': 'photo_banh_khoai.webp',
   'Bánh mì chảo': 'photo_banh_mi_chao.webp',
-  'Bánh mì que': 'photo_banh_mi_que.webp',
   'Bánh mì xíu mại': 'photo_banh_mi_xiu_mai.webp',
   'Bánh nậm': 'photo_banh_nam.webp',
   'Bánh tôm Hồ Tây': 'photo_banh_tom_ho_tay.webp',
@@ -212,19 +213,12 @@ const REAL_PHOTO_OVERRIDES = {
   'Bún cá rô đồng': 'photo_bun_ca_ro_dong.webp',
   'Bún măng vịt': 'photo_bun_mang_vit.webp',
   'Bún nước lèo': 'photo_bun_nuoc_leo.webp',
-  'Bún riêu ốc': 'photo_bun_rieu_oc.webp',
   'Bún ốc': 'photo_bun_oc.webp',
   'Cao lầu': 'photo_cao_lau.webp',
-  'Cánh gà chiên mắm': 'photo_canh_ga_chien_mam.webp',
-  'Chân gà sả tắc': 'photo_chan_ga_sa_tac.webp',
   'Chả cá Lã Vọng': 'photo_cha_ca_la_vong.webp',
-  'Cơm âm phủ': 'photo_com_am_phu.webp',
   'Cơm bò Hàn Quốc': 'photo_com_bo_han_quoc.webp',
-  'Cơm bò xào cần tỏi': 'photo_com_bo_xao_can_toi.webp',
   'Cơm bò Nhật': 'photo_com_bo_nhat.webp',
-  'Cơm cà ri Ấn': 'photo_com_ca_ri_an.webp',
   'Cơm chiên trứng': 'photo_com_chien_trung.webp',
-  'Cơm dừa Bến Tre': 'photo_com_dua_ben_tre.webp',
   'Cơm gà Hải Nam': 'photo_com_ga_hai_nam.webp',
   'Cơm gà Tam Kỳ': 'photo_com_ga_tam_ky.webp',
   'Cơm gà nướng': 'photo_com_ga_nuong.webp',
@@ -232,17 +226,12 @@ const REAL_PHOTO_OVERRIDES = {
   'Cơm heo quay': 'photo_com_heo_quay.webp',
   'Cơm lam': 'photo_com_lam.webp',
   'Cơm rang hải sản': 'photo_com_rang_hai_san.webp',
-  'Cơm sườn Hàn Quốc': 'photo_com_suon_han_quoc.webp',
   'Cơm sườn bì chả': 'photo_com_suon_bi_cha.webp',
   'Dimsum': 'photo_dimsum.webp',
   'Gà rán': 'photo_ga_ran.webp',
   'Hamburger': 'photo_hamburger.webp',
   'Hủ tiếu Mỹ Tho': 'photo_hu_tieu_my_tho.webp',
-  'Hủ tiếu gõ': 'photo_hu_tieu_go.webp',
   'Kebab Thổ Nhĩ Kỳ': 'photo_kebab_tho_nhi_ky.webp',
-  'Lẩu gà lá é': 'photo_lau_ga_la_e.webp',
-  'Lẩu mắm': 'photo_lau_mam.webp',
-  'Miến lươn': 'photo_mien_luon.webp',
   'Mì cay Hàn Quốc': 'photo_mi_cay_han_quoc.webp',
   'Mì tôm trứng': 'photo_mi_tom_trung.webp',
   'Mì vằn thắn': 'photo_mi_van_than.webp',
@@ -251,7 +240,6 @@ const REAL_PHOTO_OVERRIDES = {
   'Nem chua rán': 'photo_nem_chua_ran.webp',
   'Pad Thái': 'photo_pad_thai.webp',
   'Phá lấu': 'photo_pha_lau.webp',
-  'Phở cuốn': 'photo_pho_cuon.webp',
   'Phở khô Gia Lai': 'photo_pho_kho_gia_lai.webp',
   'Phở xào bò': 'photo_pho_xao_bo.webp',
   'Pizza': 'photo_pizza.webp',
@@ -260,15 +248,22 @@ const REAL_PHOTO_OVERRIDES = {
   'Sushi': 'photo_sushi.webp',
   'Tokbokki': 'photo_tokbokki.webp',
   'Trứng vịt lộn': 'photo_trung_vit_lon.webp',
-  'Xôi gấc': 'photo_xoi_gac.webp',
-  'Xôi lạc': 'photo_xoi_lac.webp',
-  'Cà ri dê': 'photo_ca_ri_de.webp',
-  'Ếch xào lăn': 'photo_ech_xao_lan.webp'
+  'Xôi gấc': 'photo_xoi_gac.webp'
 };
+
+// These files depict a different dish or an unverifiable generic variant.
+// Do not show them as if they were evidence for the dish name.
+const UNVERIFIED_PHOTO_DISHES = new Set([
+  'Bánh gối', 'Bánh khoái', 'Bánh mì que', 'Cánh gà chiên mắm',
+  'Chân gà sả tắc', 'Cơm âm phủ', 'Cơm cà ri Ấn', 'Cơm dừa Bến Tre', 'Cơm cháy Ninh Bình',
+  'Ếch xào lăn', 'Hủ tiếu gõ', 'Lẩu gà lá é', 'Lẩu mắm', 'Miến lươn', 'Phở cuốn',
+  'Xôi lạc', 'Bún riêu ốc', 'Cà ri dê', 'Cơm bò xào cần tỏi', 'Cơm sườn Hàn Quốc'
+]);
 
 for (const suit of SUITS) {
   DISH_DB[suit].forEach(dish => {
     if (REAL_PHOTO_OVERRIDES[dish.name]) dish.img = REAL_PHOTO_OVERRIDES[dish.name];
+    if (UNVERIFIED_PHOTO_DISHES.has(dish.name)) dish.img = null;
   });
 }
 
@@ -279,6 +274,21 @@ const PAIRINGS = {};
 const REGIONS = {};
 const IMAGES = {};
 const DISH_META = {}; // name -> { suit, region, price, meals, imageUrl }
+// Curated examples of local food, not a shop inventory or statistical ranking.
+const CITY_DISHES = {
+  hanoi: new Set(['Phở bò', 'Phở gà', 'Bún chả', 'Bún riêu cua', 'Bún đậu mắm tôm', 'Bún thang', 'Bún ốc', 'Bánh cuốn', 'Bánh tôm Hồ Tây', 'Chả cá Lã Vọng', 'Xôi xéo', 'Bánh đa cua', 'Miến lươn', 'Bánh mì thịt']),
+  hcm: new Set(['Cơm tấm sườn', 'Bột chiên', 'Hủ tiếu Nam Vang', 'Bánh mì thịt', 'Bánh tráng trộn', 'Phá lấu', 'Ốc các loại', 'Gỏi cuốn', 'Cơm sườn nướng', 'Bánh xèo miền Tây', 'Bún mắm']),
+  danang: new Set(['Mì Quảng', 'Bún chả cá', 'Bánh tráng cuốn thịt heo', 'Bún mắm nêm', 'Bánh xèo miền Trung', 'Bánh mì thịt']),
+  hoian: new Set(['Cao lầu', 'Cơm gà Hội An', 'Mì Quảng', 'Bún thịt nướng', 'Bánh bao bánh vạc', 'Bánh mì thịt', 'Bánh xèo miền Trung'])
+};
+const SIDE_DISHES = new Set(['Canh mồng tơi', 'Canh chua cá', 'Rau xào tỏi', 'Đậu hũ sốt cà']);
+const DISH_FAMILIES = {
+  'Cơm tấm sườn': 'com-suon', 'Cơm sườn nướng': 'com-suon', 'Cơm sườn bì chả': 'com-suon',
+  'Nem rán': 'cha-gio', 'Chả giò': 'cha-gio',
+  'Cơm cá kho tộ': 'ca-kho-to', 'Cá kho tộ': 'ca-kho-to',
+  'Cơm thịt kho trứng': 'thit-kho-trung', 'Thịt kho trứng': 'thit-kho-trung'
+};
+function dishFamily(name) { return DISH_FAMILIES[name] || name; }
 
 // Hoạ tiết thay ảnh cho món chưa có hình chụp. Sinh sẵn dạng data-URI nên mọi
 // nơi đang dùng imageUrl (thẻ bài, lịch sử, băng chuyền, so sánh, thẻ cào, ảnh
@@ -417,8 +427,9 @@ const ART_CACHE = {};
 
 function dishImageUrl(suit, img, name) {
   if (img) return 'images/' + img;
-  const key = suit + '|' + (name || '');
-  return ART_CACHE[key] || (ART_CACHE[key] = dishArt(suit, name || ''));
+  // Every dish still gets a dish-specific illustrated card when a sourced photo
+  // is unavailable; the UI labels it as illustration rather than implying a photo.
+  return dishArt(suit, name);
 }
 
 for (const suit of SUITS) {
@@ -431,7 +442,8 @@ for (const suit of SUITS) {
     d.hasPhoto = Boolean(d.img);
     DISH_META[d.name] = {
       suit, region: d.region, price: d.price, meals: d.meals,
-      imageUrl: d.imageUrl, hasPhoto: d.hasPhoto
+      imageUrl: d.imageUrl, hasPhoto: d.hasPhoto,
+      imageStatus: !d.hasPhoto ? 'illustrated' : d.img.startsWith('photo_') ? 'sourced' : 'source-unknown'
     };
   });
 }
@@ -483,6 +495,7 @@ let currentPlayer = 1;
 let totalPlayers = 2;
 let playerNames = ['Người chơi 1', 'Người chơi 2'];
 let isAnimating = false;
+let pickRun = 0;
 let audioContext = null;
 let gameResults = []; // Track {player, dish, imageUrl} for multiplayer
 
@@ -495,20 +508,67 @@ let settings = {
   darkMode: false,
   soundEnabled: true,
   animSpeed: 'normal', // slow, normal, fast
-  timeFilterEnabled: false,
   cardStyle: 'folk' // folk (dân gian), classic (bài tây)
 };
 
 // Buổi trong ngày — khớp nhịp ăn của người Việt:
 // sáng (5–10h), trưa (10–14h), xế chiều (14–17h), tối (17–22h), khuya (22–5h)
+let activeCraving = 'all';
+let diningContext = 'all';
+let activeIntent = '';
+const CONTEXT_LABELS = { all: 'Tùy thích', home: 'Nấu ở nhà', order: 'Tìm quán', party: 'Nhậu lai rai', solo: 'Ăn một mình', family: 'Ăn cùng gia đình' };
+const PARTY_DISHES = new Set(['Ốc các loại', 'Bò lá lốt', 'Nem chua rán', 'Chân gà sả tắc', 'Mực nướng sa tế', 'Cánh gà chiên mắm', 'Gà nướng muối ớt', 'Thịt nướng BBQ', 'Hải sản nướng', 'Lẩu Thái', 'Lẩu bò', 'Lẩu hải sản', 'Ếch xào lăn']);
+let dailyRerollCount = 0;
+
 const MEAL_LABELS = { sang: 'Bữa sáng', trua: 'Bữa trưa', chieu: 'Xế chiều', toi: 'Bữa tối', khuya: 'Ăn khuya' };
 const MEAL_GREETINGS = {
-  sang: 'Chào buổi sáng — sáng nay ăn gì?',
-  trua: 'Trưa rồi — trưa nay ăn gì?',
-  chieu: 'Xế chiều — làm gì lót dạ?',
-  toi: 'Chiều tối rồi — tối nay ăn gì?',
-  khuya: 'Khuya rồi — đói bụng hả?'
+  sang: 'Chào buổi sáng — sáng nay ăn gì cho ấm bụng nhé?',
+  trua: 'Nghỉ tay nạp pin thôi! Trưa nay ăn gì cho chắc bụng?',
+  chieu: 'Xế chiều rồi — làm chút gì thanh mát, lót dạ nhâm nhi!',
+  toi: 'Tan làm rồi — tối nay ăn gì thật ngon lành tự thưởng bản thân?',
+  khuya: 'Đêm muộn đói bụng? Kiếm món ấm bụng, nhẹ dạ dễ ngủ nào!'
 };
+
+const MEAL_PICK_GREETINGS = {
+  sang: 'Bữa sáng — sáng ăn gì cho ấm bụng nhé?',
+  trua: 'Bữa trưa — trưa nay ăn gì cho chắc dạ?',
+  chieu: 'Xế chiều — lót dạ món gì nhâm nhi đây?',
+  toi: 'Bữa tối — tối nay ăn gì thật ngon lành?',
+  khuya: 'Ăn khuya — đói bụng kiếm món ấm dạ nào!'
+};
+
+const MEAL_SUBTITLES = {
+  sang: 'Điểm tâm nóng hổi, nhanh gọn trước khi bắt đầu ngày mới',
+  trua: 'Bữa trưa no nê, đủ chất để nạp đầy năng lượng cho ca chiều',
+  chieu: 'Món ăn vặt giòn rụm hoặc ngọt mát giúp xua tan cơn buồn ngủ',
+  toi: 'Mâm cơm ấm cúng sum vầy hoặc đổi vị lai rai cùng bạn bè',
+  khuya: 'Món nước nhẹ bụng, xoa dịu chiếc bụng đói cồn cào đêm khuya'
+};
+
+function fitsCraving(dishName, suit, craving) {
+  if (!craving || craving === 'all') return true;
+  const meta = DISH_META[dishName];
+  const name = (dishName || '').toLowerCase();
+  if (craving === 'nuoc') {
+    return suit === '♥' || /phở|bún|mì|miến|hủ tiếu|bánh canh|cháo|lẩu|súp|canh/i.test(name);
+  }
+  if (craving === 'com') {
+    return suit === '♦' || /cơm/i.test(name);
+  }
+  if (craving === 'banh') {
+    return suit === '♣' || /bánh|xôi|gỏi cuốn|chả giò|nem|bột chiên|bánh tráng/i.test(name);
+  }
+  if (craving === 'thanh') {
+    return /gỏi|cuốn|luộc|hấp|thanh|cháo|canh|đậu hũ|nộm/i.test(name) || /rau|gỏi|nộm|dưa leo|chua ngọt/i.test(meta?.pair || '');
+  }
+  if (craving === 're') {
+    if (meta?.price && Array.isArray(meta.price)) {
+      return meta.price[1] < 40;
+    }
+    return false;
+  }
+  return true;
+}
 
 function getTimePeriod(date = new Date()) {
   const hour = date.getHours();
@@ -557,7 +617,6 @@ function loadSettings() {
       darkMode: saved.darkMode === true,
       soundEnabled: saved.soundEnabled !== false,
       animSpeed: ['slow', 'normal', 'fast'].includes(saved.animSpeed) ? saved.animSpeed : 'normal',
-      timeFilterEnabled: saved.timeFilterEnabled === true,
       cardStyle: ['folk', 'classic'].includes(saved.cardStyle) ? saved.cardStyle : 'folk'
     };
   }
@@ -605,9 +664,9 @@ const STORAGE_KEYS = [
 
 function clearAllLocalData() {
   const ok = window.confirm(
-    'Xoá toàn bộ dữ liệu của ứng dụng trên trình duyệt này?\n\n' +
+    'Xóa toàn bộ dữ liệu của ứng dụng trên trình duyệt này?\n\n' +
     'Gồm: món yêu thích, món loại trừ, món bạn tự thêm, lịch ăn tuần, ' +
-    'lịch sử bốc bài và mọi tuỳ chọn.\n\nKhông thể hoàn tác.'
+    'lịch sử bốc bài và mọi tùy chọn.\n\nKhông thể hoàn tác.'
   );
   if (!ok) return;
   try {
@@ -649,20 +708,23 @@ function updateThemeColor() {
   meta.setAttribute('content', ground || '#4a2e19');
 }
 
+function applyTheme(dark) {
+  document.documentElement.classList.add('theme-switching');
+  document.body.classList.toggle('dark-mode', dark);
+  void document.documentElement.offsetHeight;
+  requestAnimationFrame(() => {
+    document.documentElement.classList.remove('theme-switching');
+  });
+}
+
 function applySettings() {
   // Dark mode
-  document.body.classList.toggle('dark-mode', settings.darkMode);
+  applyTheme(settings.darkMode);
   document.getElementById('darkModeToggle').checked = settings.darkMode;
   updateThemeColor();
 
   // Sound
   document.getElementById('soundToggle').checked = settings.soundEnabled;
-
-  // Time filter
-  const timeFilterToggle = document.getElementById('timeFilterToggle');
-  if (timeFilterToggle) {
-    timeFilterToggle.checked = settings.timeFilterEnabled;
-  }
 
   // Animation speed
   document.getElementById('animSpeedSelect').value = settings.animSpeed;
@@ -728,12 +790,20 @@ function saveFavorites() {
 }
 
 function toggleFavorite(dishName) {
+  if (isExcluded(dishName) && !favorites.includes(dishName)) {
+    showToast('Món này đang nằm trong danh sách loại trừ.');
+    return;
+  }
   if (favorites.includes(dishName)) {
     favorites = favorites.filter(d => d !== dishName);
   } else {
     favorites.push(dishName);
   }
   saveFavorites();
+  if (typeof document !== 'undefined' && document.getElementById('deck')) {
+    createDeck();
+    renderDeck();
+  }
 }
 
 function isFavorite(dishName) {
@@ -761,6 +831,11 @@ function toggleExclude(dishName) {
     }
   }
   saveExcludes();
+  if (typeof document !== 'undefined' && document.getElementById('deck')) {
+    createDeck();
+    renderDeck();
+    renderDishOfDay();
+  }
 }
 
 function isExcluded(dishName) {
@@ -806,16 +881,25 @@ function renderExcludesList(query = '') {
 
   // Gồm cả món tự thêm — trước đây chỉ liệt kê 52 món dựng sẵn nên
   // món do người dùng tạo không có cách nào loại trừ từ giao diện.
-  const allDishes = getAllDishes();
+  const allDishes = getExcludableDishes();
   const q = normalizeVi(query.trim());
   const shown = q ? allDishes.filter(d => normalizeVi(d).includes(q)) : allDishes;
 
   if (!shown.length) {
-    container.innerHTML = '<p class="no-results">Không tìm thấy món nào.</p>';
+    container.innerHTML = `<div class="empty-state">
+      <strong>Không tìm thấy món</strong>
+      <span>Thử từ khóa khác hoặc xóa nội dung tìm kiếm.</span>
+      <button type="button" class="btn empty-state-action" data-clear-exclude-search>Xóa tìm kiếm</button>
+    </div>`;
+    container.querySelector('[data-clear-exclude-search]')?.addEventListener('click', () => {
+      const search = document.getElementById('excludesSearch');
+      if (search) { search.value = ''; search.focus(); }
+      renderExcludesList();
+    });
     return;
   }
 
-  container.innerHTML = shown.map(dish => `
+  const dishButton = dish => `
     <button type="button" class="exclude-item ${isExcluded(dish) ? 'excluded' : ''}"
             data-dish="${escapeHtml(dish)}" aria-pressed="${isExcluded(dish)}">
       <span class="exclude-checkbox" aria-hidden="true">
@@ -825,7 +909,13 @@ function renderExcludesList(query = '') {
       </span>
       <span class="exclude-name">${escapeHtml(dish)}</span>
     </button>
-  `).join('');
+  `;
+  const groups = new Map([...SUITS.map(suit => [suit, []]), ['other', []]]);
+  shown.forEach(dish => {
+    const suit = DISH_META[dish]?.suit || customDishes.find(d => d.name === dish)?.category || 'other';
+    groups.get(suit).push(dish);
+  });
+  container.innerHTML = `<p class="exclude-count" role="status">${shown.length} món · chọn món để loại trừ</p>` + [...groups].filter(([, dishes]) => dishes.length).map(([suit, dishes]) => `<details class="exclude-group" ${q ? 'open' : ''}><summary>${escapeHtml(CATEGORY_NAMES[suit] || 'Món trong mâm cơm')} · ${dishes.length}</summary><div class="exclude-group-items">${dishes.map(dishButton).join('')}</div></details>`).join('');
 
   container.querySelectorAll('.exclude-item').forEach(item => {
     item.addEventListener('click', () => {
@@ -882,7 +972,14 @@ function renderCustomDishesList() {
   if (!container) return;
 
   if (customDishes.length === 0) {
-    container.innerHTML = '<p class="no-results">Chưa có món tùy chỉnh</p>';
+    container.innerHTML = `<div class="empty-state compact">
+      <strong>Chưa có món tùy chỉnh</strong>
+      <span>Nhập thông tin phía trên để tạo món đầu tiên.</span>
+      <button type="button" class="btn empty-state-action" data-focus-custom-name>Nhập món đầu tiên</button>
+    </div>`;
+    container.querySelector('[data-focus-custom-name]')?.addEventListener('click', () => {
+      document.getElementById('customDishName')?.focus();
+    });
     return;
   }
 
@@ -926,9 +1023,14 @@ function updateChallengeBadge() {
   if (totalEl) totalEl.textContent = total;
   const aboutTotal = document.getElementById('aboutTotalDishes');
   if (aboutTotal) aboutTotal.textContent = total;
+  const photoStatus = document.getElementById('photoReviewStatus');
+  if (photoStatus) {
+    const pending = Object.values(DISH_META).filter(meta => !meta.hasPhoto).length;
+    photoStatus.textContent = `${pending} món trong kho chưa có ảnh đúng được xác minh, nên hiện nhãn “Ảnh chưa có”. Ảnh cũ còn cần rà soát nguồn và độ đúng món; ảnh tự thêm phụ thuộc đường dẫn do bạn cung cấp.`;
+  }
 
   if (badge) {
-    badge.setAttribute('aria-label', `Đã thử ${count} trong ${total} món`);
+    badge.setAttribute('aria-label', `Đã chọn ${count} trong ${total} món`);
     // Remove old level classes
     badge.classList.remove('level-bronze', 'level-silver', 'level-gold', 'level-platinum');
 
@@ -1007,6 +1109,13 @@ function getAllDishes() {
   return allDishes;
 }
 
+function getExcludableDishes() {
+  const family = Object.values(FAMILY_MEALS).flatMap(region =>
+    ['soup', 'main', 'veg', 'dessert'].flatMap(course => region[course])
+  );
+  return [...new Set([...getAllDishes(), ...family])];
+}
+
 function renderWeekGrid() {
   const grid = document.getElementById('weekGrid');
   if (!grid) return;
@@ -1014,7 +1123,7 @@ function renderWeekGrid() {
   grid.innerHTML = DAY_NAMES.map((day, i) => `
     <div class="day-card">
       <span class="day-name">${day}</span>
-      <span class="day-dish ${weekPlan[i] ? '' : 'empty'}">${escapeHtml(weekPlan[i]) || 'Chưa chọn'}</span>
+      <span class="day-dish ${weekPlan[i] ? (isExcluded(weekPlan[i]) ? 'plan-conflict' : '') : 'empty'}">${escapeHtml(weekPlan[i]) || 'Chưa chọn'}${weekPlan[i] && isExcluded(weekPlan[i]) ? ' (đã loại trừ)' : ''}</span>
       <div class="day-actions">
         <button type="button" class="day-btn random-btn" data-random-day="${i}" aria-label="Chọn ngẫu nhiên món cho ${day}">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -1025,7 +1134,9 @@ function renderWeekGrid() {
             <circle cx="8" cy="16" r="1.5"/>
           </svg>
         </button>
-        <button type="button" class="day-btn clear-btn" data-clear-day="${i}" aria-label="Xóa món của ${day}">✕</button>
+        <button type="button" class="day-btn clear-btn" data-clear-day="${i}" aria-label="Xóa món của ${day}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg>
+        </button>
       </div>
     </div>
   `).join('');
@@ -1039,14 +1150,14 @@ function renderWeekGrid() {
 }
 
 function randomDayDish(dayIndex) {
-  const allDishes = getAllDishes().filter(dish => !isExcluded(dish));
+  const allDishes = getAllDishes().filter(dish => !isExcluded(dish) && !SIDE_DISHES.has(dish));
   if (!allDishes.length) {
     showToast('Không còn món nào sau khi áp danh sách loại trừ.');
     return;
   }
   // Avoid dishes already in plan
-  const usedDishes = weekPlan.filter(d => d);
-  const available = allDishes.filter(d => !usedDishes.includes(d));
+  const usedFamilies = new Set(weekPlan.filter(d => d).map(dishFamily));
+  const available = allDishes.filter(d => !usedFamilies.has(dishFamily(d)));
 
   if (available.length > 0) {
     weekPlan[dayIndex] = available[Math.floor(Math.random() * available.length)];
@@ -1065,7 +1176,7 @@ function clearDayDish(dayIndex) {
 }
 
 function autoFillWeek() {
-  const allDishes = getAllDishes().filter(dish => !isExcluded(dish));
+  const allDishes = getAllDishes().filter(dish => !isExcluded(dish) && !SIDE_DISHES.has(dish));
   if (!allDishes.length) {
     showToast('Không còn món nào sau khi áp danh sách loại trừ.');
     return;
@@ -1077,11 +1188,17 @@ function autoFillWeek() {
 }
 
 function fillWeekPlan(plan, dishes, random = Math.random) {
-  const used = new Set(plan.filter(Boolean));
-  const available = dishes.filter(dish => !used.has(dish));
+  const used = new Set(plan.filter(Boolean).map(dishFamily));
+  const available = dishes.filter(dish => !used.has(dishFamily(dish)));
   shuffleArray(available, random);
   let cursor = 0;
-  return plan.map(current => current || available[cursor++] || '');
+  return plan.map(current => {
+    if (current) return current;
+    while (cursor < available.length && used.has(dishFamily(available[cursor]))) cursor++;
+    const next = available[cursor++] || '';
+    if (next) used.add(dishFamily(next));
+    return next;
+  });
 }
 
 function clearWeekPlan() {
@@ -1176,7 +1293,16 @@ function updateHistoryPanel() {
   if (!list) return;
 
   if (history.length === 0) {
-    list.innerHTML = '<p class="no-results">Chưa có lịch sử</p>';
+    list.innerHTML = `<div class="empty-state">
+      <strong>Chưa có lịch sử</strong>
+      <span>Gợi ý một món để bắt đầu lưu lựa chọn của bạn.</span>
+      <button type="button" class="btn empty-state-action" data-empty-quick-pick>Gợi ý món đầu tiên</button>
+    </div>`;
+    list.querySelector('[data-empty-quick-pick]')?.addEventListener('click', () => {
+      closeSettings();
+      openCardMethod();
+      quickPick();
+    });
     return;
   }
 
@@ -1187,7 +1313,7 @@ function updateHistoryPanel() {
     const timeStr = date.toLocaleDateString('vi-VN', { weekday: 'short', day: 'numeric', month: 'numeric' });
     return `
       <div class="history-item">
-        <img src="${escapeHtml(h.imageUrl)}" alt="${escapeHtml(h.dish)}" class="history-thumb" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        ${h.imageUrl ? `<img src="${escapeHtml(h.imageUrl)}" alt="" class="history-thumb" loading="lazy" decoding="async" onerror="this.remove()">` : ''}
         <div class="history-info">
           <span class="history-dish">${escapeHtml(h.dish)}</span>
           <span class="history-date">${timeStr}</span>
@@ -1203,7 +1329,16 @@ function updateStatsPanel() {
 
   const stats = getStats();
   if (stats.length === 0) {
-    statsEl.innerHTML = '<p class="no-results">Chưa có thống kê</p>';
+    statsEl.innerHTML = `<div class="empty-state">
+      <strong>Chưa đủ dữ liệu thống kê</strong>
+      <span>Các món bạn chọn nhiều nhất sẽ xuất hiện tại đây.</span>
+      <button type="button" class="btn empty-state-action" data-empty-quick-pick>Gợi ý món ngay</button>
+    </div>`;
+    statsEl.querySelector('[data-empty-quick-pick]')?.addEventListener('click', () => {
+      closeSettings();
+      openCardMethod();
+      quickPick();
+    });
     return;
   }
 
@@ -1369,13 +1504,19 @@ function init() {
   updateSessionInfo();
   renderGreeting();
 
-  // Handle PWA shortcuts
+  // Always begin at the method table. A URL shortcut may preselect an intent,
+  // but it must never skip the user's method choice.
+  showMethodChooser({ restoreFocus: false });
   handleUrlParams();
 
   // Show onboarding for first-time users
-  if (!localStorage.getItem('homnayangi_onboarded')) {
+  let onboarded = true;
+  try { onboarded = !!localStorage.getItem('homnayangi_onboarded'); } catch { /* private mode */ }
+  if (!onboarded) {
     showOnboarding();
   }
+  // Keep the suggestion and greeting in sync across midnight/meal boundaries.
+  setInterval(() => { renderDishOfDay(); renderGreeting(); }, 60_000);
 }
 
 function handleUrlParams() {
@@ -1384,7 +1525,8 @@ function handleUrlParams() {
 
   // Random card action
   if (params.get('action') === 'random') {
-    setTimeout(quickPick, 500);
+    // Keep the method chooser as the mandatory first step.
+    showMethodChooser({ restoreFocus: false });
     params.delete('action');
     handled = true;
   }
@@ -1415,7 +1557,7 @@ function showOnboarding() {
 
 function hideOnboarding() {
   document.getElementById('onboardingModal').classList.remove('show');
-  localStorage.setItem('homnayangi_onboarded', 'true');
+  try { localStorage.setItem('homnayangi_onboarded', 'true'); } catch { /* session-only */ }
 }
 
 function goToSlide(slideNum) {
@@ -1465,12 +1607,17 @@ function drawBalanced(pools, limit) {
 }
 
 // Kho món của một nhóm sau khi áp bộ lọc, gồm cả món người dùng tự thêm
-function candidatesFor(suit, regionFilter, favFilter, mealFilter = 'all') {
+function candidatesFor(suit, regionFilter, favFilter, mealFilter = 'all', cityFilter = 'all') {
   const keep = (name, region) => {
+    if (diningContext === 'party' && !PARTY_DISHES.has(name)) return false;
+    if (diningContext === 'solo' && (SIDE_DISHES.has(name) || /^(Lẩu|Hải sản nướng|Thịt nướng BBQ)/.test(name))) return false;
     if (isExcluded(name)) return false;
     if (favFilter === 'fav' && !isFavorite(name)) return false;
     if (mealFilter !== 'all' && !fitsMeal(name, mealFilter)) return false;
-    return regionFilter === 'all' || region === 'A' || region === regionFilter;
+    if (activeCraving !== 'all' && !fitsCraving(name, suit, activeCraving)) return false;
+    const regionOk = regionFilter === 'all' || region === 'A' || region === regionFilter;
+    const cityOk = cityFilter === 'all' || CITY_DISHES[cityFilter]?.has(name);
+    return regionOk && cityOk;
   };
 
   const list = DISH_DB[suit]
@@ -1492,6 +1639,13 @@ function candidatesFor(suit, regionFilter, favFilter, mealFilter = 'all') {
 }
 
 function createDeck() {
+  // Any filter/preferences change invalidates an in-flight suspense animation.
+  // Without this guard its continuation could reveal a card from the old deck.
+  pickRun++;
+  isAnimating = false;
+  document.querySelectorAll('.dimmed, .picking, .shaking, .revealing').forEach(el =>
+    el.classList.remove('dimmed', 'picking', 'shaking', 'revealing')
+  );
   deck = [];
   flippedCards = [];
 
@@ -1499,10 +1653,11 @@ function createDeck() {
   const regionFilter = document.getElementById('regionFilter')?.value || 'all';
   const favFilter = document.getElementById('favFilter')?.value || 'all';
   const mealFilter = document.getElementById('mealFilter')?.value || 'all';
+  const cityFilter = document.getElementById('cityFilter')?.value || 'all';
   const suitsToUse = categoryFilter === 'all' ? SUITS : [categoryFilter];
 
   const pools = suitsToUse.map(suit => {
-    const list = candidatesFor(suit, regionFilter, favFilter, mealFilter);
+    const list = candidatesFor(suit, regionFilter, favFilter, mealFilter, cityFilter);
     shuffleArray(list);
     return list;
   });
@@ -1511,7 +1666,7 @@ function createDeck() {
 
   // Gợi ý theo giờ: món hợp buổi này xếp lên đầu (ưu tiên, không loại bỏ),
   // hai nhóm đều được xáo riêng nên vẫn ngẫu nhiên trong từng nhóm.
-  if (settings.timeFilterEnabled && mealFilter === 'all') {
+  if (mealFilter === 'all') {
     const period = getTimePeriod();
     const fit = chosen.filter(c => fitsMeal(c.name, period));
     const rest = chosen.filter(c => !fitsMeal(c.name, period));
@@ -1530,6 +1685,7 @@ function createDeck() {
     return {
       id: i,
       value: VALUES[n % VALUES.length],
+      folkNumber: n + 1,
       suit: d.suit,
       dish: d.name,
       pairing: d.pairing,
@@ -1552,20 +1708,27 @@ function shuffleArray(arr, random = Math.random) {
 // ưu tiên nhóm hợp giờ nhưng vẫn giữ độ bất ngờ. Hàm thuần để kiểm thử được.
 function chooseSuggestedCard(cards, predicate, random = Math.random, preferredChance = 0.75) {
   if (!Array.isArray(cards) || cards.length === 0) return null;
-  const preferred = cards.filter(predicate);
-  const others = cards.filter(card => !predicate(card));
-  let pool = cards;
-  if (preferred.length && others.length) {
-    pool = random() < preferredChance ? preferred : others;
+  // A 3:1 weight per dish (75% when one dish competes with one other)
+  // never makes a suitable dish *less* likely when suitable dishes dominate.
+  const weight = preferredChance <= 0 ? 0 : preferredChance >= 1 ? 1000000 : preferredChance / (1 - preferredChance);
+  const weights = cards.map(card => predicate(card) ? weight : 1);
+  const total = weights.reduce((sum, value) => sum + value, 0);
+  if (!total) return cards[Math.min(cards.length - 1, Math.floor(random() * cards.length))];
+  let cursor = random() * total;
+  for (let i = 0; i < cards.length; i++) {
+    cursor -= weights[i];
+    if (cursor < 0) return cards[i];
   }
-  return pool[Math.min(pool.length - 1, Math.floor(random() * pool.length))];
+  return cards[cards.length - 1];
 }
 
 function suggestedRandomCard(cards, random = Math.random) {
+  const standalone = cards.filter(card => !SIDE_DISHES.has(card.dish || card.name));
+  cards = standalone.length ? standalone : cards;
   const mealFilter = typeof document === 'undefined'
     ? 'all'
     : (document.getElementById('mealFilter')?.value || 'all');
-  if (!settings.timeFilterEnabled || mealFilter !== 'all') {
+  if (mealFilter !== 'all') {
     return cards[Math.min(cards.length - 1, Math.floor(random() * cards.length))] || null;
   }
   const period = getTimePeriod();
@@ -1575,6 +1738,26 @@ function suggestedRandomCard(cards, random = Math.random) {
 // ========================================
 // RENDER
 // ========================================
+function resetDishFilters() {
+  activeCraving = 'all';
+  activeIntent = '';
+  diningContext = 'all';
+  document.getElementById('diningContext').value = 'all';
+  const defaults = {
+    categoryFilter: 'all', cityFilter: 'all', regionFilter: 'all',
+    mealFilter: 'all', favFilter: 'all'
+  };
+  Object.entries(defaults).forEach(([id, value]) => {
+    const control = document.getElementById(id);
+    if (control) control.value = value;
+  });
+  updateAdvancedFilterLabel();
+  createDeck();
+  renderDeck(true);
+  renderDishOfDay();
+  renderGreeting();
+}
+
 function renderDeck(withAnimation = false) {
   const container = document.getElementById('deck');
   container.innerHTML = '';
@@ -1582,7 +1765,12 @@ function renderDeck(withAnimation = false) {
   // Empty pool — tell the user to relax filters instead of a blank board
   if (deck.length === 0) {
     container.style.removeProperty('--deck-w');
-    container.innerHTML = '<p class="empty-deck" role="status">Không còn món nào khớp bộ lọc. Bạn thử nới bộ lọc hoặc thêm món mới nhé.</p>';
+    container.innerHTML = `<div class="empty-deck" role="status">
+      <strong>Không còn món phù hợp</strong>
+      <span>Hãy nới bộ lọc để đưa các món trở lại bàn bài.</span>
+      <button type="button" class="btn empty-state-action" data-reset-filters>Đặt lại bộ lọc</button>
+    </div>`;
+    container.querySelector('[data-reset-filters]')?.addEventListener('click', resetDishFilters);
     updateRemaining();
     return;
   }
@@ -1635,8 +1823,17 @@ function moveDeckFocus(current, key) {
   let nextIndex;
   if (key === 'Home') nextIndex = 0;
   else if (key === 'End') nextIndex = cards.length - 1;
-  else {
-    const delta = key === 'ArrowLeft' || key === 'ArrowUp' ? -1 : 1;
+  else if (key === 'ArrowUp' || key === 'ArrowDown') {
+    const rect = current.getBoundingClientRect();
+    const targetRows = cards.map((card, index) => ({ index, rect: card.getBoundingClientRect() }))
+      .filter(item => key === 'ArrowUp' ? item.rect.top < rect.top - 2 : item.rect.top > rect.top + 2);
+    const closestRow = targetRows.length ?
+      (key === 'ArrowUp' ? Math.max(...targetRows.map(item => item.rect.top)) : Math.min(...targetRows.map(item => item.rect.top))) : null;
+    const sameRow = targetRows.filter(item => Math.abs(item.rect.top - closestRow) <= 2);
+    nextIndex = sameRow.length ? sameRow.reduce((best, item) =>
+      Math.abs(item.rect.left - rect.left) < Math.abs(best.rect.left - rect.left) ? item : best).index : currentIndex;
+  } else {
+    const delta = key === 'ArrowLeft' ? -1 : 1;
     nextIndex = (currentIndex + delta + cards.length) % cards.length;
   }
   cards.forEach((card, index) => { card.tabIndex = index === nextIndex ? 0 : -1; });
@@ -1708,8 +1905,14 @@ function fitDeck() {
   const acs = getComputedStyle(area);
   const padX = (parseFloat(acs.paddingLeft) || 0) + (parseFloat(acs.paddingRight) || 0);
   const padY = (parseFloat(acs.paddingTop) || 0) + (parseFloat(acs.paddingBottom) || 0);
+  const heading = document.getElementById('deckHeading');
+  const hcs = heading ? getComputedStyle(heading) : null;
+  const headingH = heading ? heading.offsetHeight +
+    (parseFloat(hcs.marginTop) || 0) + (parseFloat(hcs.marginBottom) || 0) : 0;
   const boxW = area.clientWidth - padX - 2;
-  const boxH = area.clientHeight - padY - 2;
+  // deckArea also contains the heading. Subtract it before fitting cards;
+  // otherwise the last row is clipped by exactly the heading's footprint.
+  const boxH = area.clientHeight - padY - headingH - 2;
   if (boxW < 40 || boxH < 40) return;
 
   const { cols, cardW } = bestDeckFit(count, boxW, boxH, gap, minW, maxW);
@@ -1773,7 +1976,10 @@ function observeDeckSize() {
 function scrollCardIntoView(cardEl) {
   if (!cardEl || typeof cardEl.getBoundingClientRect !== 'function') return;
   const rect = cardEl.getBoundingClientRect();
-  if (rect.top < 0 || rect.bottom > window.innerHeight) {
+  const area = document.getElementById('deckArea');
+  const bounds = area?.getBoundingClientRect();
+  if (rect.top < 0 || rect.bottom > window.innerHeight ||
+      (bounds && (rect.top < bounds.top + 8 || rect.bottom > bounds.bottom - 8))) {
     cardEl.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'nearest' });
   }
 }
@@ -1802,7 +2008,7 @@ function isFolkDeck() {
 
 function cardCornerHTML(card) {
   if (isFolkDeck()) {
-    const num = FOLK_VALUES[card.value] || card.value;
+    const num = card.folkNumber || FOLK_VALUES[card.value] || card.value;
     const glyph = SUIT_GLYPHS[card.suit] || SUIT_GLYPHS['♠'];
     return `<span class="num">${num}</span>
       <svg class="suit suit-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${glyph}"/></svg>`;
@@ -1815,7 +2021,7 @@ function cardCornerHTML(card) {
 // Sizes are in cqw (container query units) so they scale with card width.
 function cardHeadHTML(card) {
   if (isFolkDeck()) {
-    const num = FOLK_VALUES[card.value] || card.value;
+    const num = card.folkNumber || FOLK_VALUES[card.value] || card.value;
     const glyph = SUIT_GLYPHS[card.suit] || SUIT_GLYPHS['♠'];
     return `<span class="num">${num}</span>
       <svg class="suit-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${glyph}"/></svg>`;
@@ -1838,7 +2044,7 @@ function createCardFront(card) {
     <div class="front ${colorClass}">
       <div class="card-head">${cardHeadHTML(card)}</div>
       <div class="card-figure">
-        <img src="${escapeHtml(card.imageUrl)}" alt="${escapeHtml(card.dish)}" class="card-thumb" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        ${card.imageUrl ? `<img src="${escapeHtml(card.imageUrl)}" alt="${escapeHtml(card.dish)}" class="card-thumb" loading="lazy" decoding="async" onerror="this.replaceWith(document.createTextNode('Ảnh chưa có'))">` : '<span class="photo-pending">Ảnh chưa có</span>'}
       </div>
       <div class="food">${escapeHtml(card.dish)}</div>
     </div>
@@ -1846,18 +2052,32 @@ function createCardFront(card) {
 }
 
 function updateRemaining() {
-  document.getElementById('remaining').textContent = deck.length - flippedCards.length;
+  const left = deck.length - flippedCards.length;
+  document.getElementById('remaining').textContent = left;
+  const hint = document.getElementById('deckHint');
+  if (hint) hint.textContent = `Còn ${left} lá`;
 }
 
 // ========================================
-// DRAMATIC CARD PICK - EXTENDED SUSPENSE (~5 seconds)
+// CARD PICK — suspense vừa đủ cho thao tác lặp lại (~1.8 giây ở tốc độ thường)
 // ========================================
 async function pickCard(index) {
   if (flippedCards.includes(index) || isAnimating) return;
   isAnimating = true;
+  const run = ++pickRun;
 
   const card = deck[index];
   const cardEl = document.querySelector(`[data-index="${index}"]`);
+  if (!card || !cardEl) {
+    isAnimating = false;
+    return;
+  }
+  const stillCurrent = () => run === pickRun && deck[index] === card && document.querySelector(`[data-index="${index}"]`) === cardEl;
+  const abortIfStale = () => {
+    if (stillCurrent()) return false;
+    if (run === pickRun) isAnimating = false;
+    return true;
+  };
 
   // Dim other cards
   document.querySelectorAll('.card:not(.flipped)').forEach(c => {
@@ -1869,20 +2089,22 @@ async function pickCard(index) {
 
   const reduceMotion = prefersReducedMotion();
 
-  // Start heartbeat (5 beats for longer suspense)
-  playHeartbeat(reduceMotion ? 1 : 5);
+  // Start heartbeat (ngắn gọn để không làm chậm các lượt chọn liên tiếp)
+  playHeartbeat(reduceMotion ? 1 : 3);
 
-  // PHASE 1: Lift card up with glow (800ms)
+  // PHASE 1: Lift card up with glow (450ms)
   cardEl.classList.add('picking');
-  await beat(reduceMotion ? 150 : 800);
+  await beat(reduceMotion ? 150 : 450);
+  if (abortIfStale()) return;
 
-  // PHASE 2: Dramatic shake with drumroll (3000ms = 3 seconds!)
+  // PHASE 2: Dramatic shake with drumroll (950ms ở tốc độ thường)
   cardEl.classList.add('shaking');
-  const shakeMs = Math.round((reduceMotion ? 400 : 2200) * animSpeedFactor());
+  const shakeMs = Math.round((reduceMotion ? 300 : 950) * animSpeedFactor());
   playDrumroll(shakeMs);
   // Vibrate pattern during shake
   if (!reduceMotion && navigator.vibrate) navigator.vibrate([100, 50, 100, 50, 100, 50, 100, 50, 100]);
   await sleep(shakeMs);
+  if (abortIfStale()) return;
 
   // PHASE 3: Flash reveal with sound
   cardEl.classList.remove('picking', 'shaking');
@@ -1912,6 +2134,7 @@ async function pickCard(index) {
 
   // Then flip the card in background
   await beat(100);
+  if (abortIfStale()) return;
   cardEl.classList.add('flipped');
   cardEl.innerHTML = createCardFront(card);
   markCardElFlipped(cardEl, card);
@@ -1925,26 +2148,29 @@ async function pickCard(index) {
 
   updateRemaining();
 
-  isAnimating = false;
+  if (run === pickRun) isAnimating = false;
 }
 
-// Thẻ thông tin dưới tên món: vùng miền · khoảng giá · buổi hợp.
+// Thẻ thông tin dưới tên món: vùng miền · vai trò bữa ăn · buổi hợp.
 // Giá là khoảng tham khảo cho một suất bình dân, có ghi rõ để không ai hiểu nhầm.
 function formatPrice(range) {
   if (!Array.isArray(range)) return '';
   const [lo, hi] = range;
-  return lo === hi ? `~${lo}k` : `${lo}–${hi}k`;
+  return lo === hi ? `~${lo}K` : `${lo}–${hi}K`;
 }
 
 function dishFactsHTML(card) {
   const meta = DISH_META[card.dish];
   const facts = [];
+  if (diningContext !== 'all') facts.push({ label: CONTEXT_LABELS[diningContext], cls: 'fact-context' });
+  if (meta?.price) facts.push({ label: 'Giá tham khảo: ' + formatPrice(meta.price), cls: 'fact-price' });
 
   const region = REGION_NAMES[card.region || meta?.region];
   if (region) facts.push({ label: region, cls: 'fact-region' });
-  if (meta?.price) facts.push({ label: formatPrice(meta.price) + '/suất', cls: 'fact-price' });
+  if (SIDE_DISHES.has(card.dish)) facts.push({ label: 'Món ăn cùng cơm', cls: 'fact-role' });
+  // Dataset estimates are indicative only, never a live city-specific quote.
 
-  const period = getTimePeriod();
+  const period = suggestionPeriod();
   if (meta?.meals?.includes(period)) {
     facts.push({ label: 'Hợp ' + getTimeLabel(period).toLowerCase(), cls: 'fact-time' });
   }
@@ -1956,7 +2182,21 @@ function dishFactsHTML(card) {
 }
 
 function showResult(card) {
+  if (!card) {
+    showToast('Không còn món hợp danh sách loại trừ.');
+    return;
+  }
+  // Finish the current service before presenting a single dish.
+  ['wheelModal', 'reelModal', 'battleModal', 'mamModal', 'xamModal', 'hoaModal', 'vesoModal'].forEach(id => {
+    if (document.getElementById(id)?.classList.contains('show')) modalCloser(id)?.();
+  });
+  document.getElementById('orderOptions').hidden = true;
+  document.getElementById('orderDishBtn').setAttribute('aria-expanded', 'false');
+  document.getElementById('serviceEyebrow').textContent = 'MÓN CHO BỮA NÀY';
   currentResult = card; // Store for sharing
+  resultFromDeck = !document.body.classList.contains('choosing-method');
+  document.getElementById('closeBtn').textContent = resultFromDeck ? 'Lật lá khác' : 'Gợi ý món khác';
+  document.getElementById('modalTitle')?.replaceChildren(document.createTextNode(`Kết quả: ${card.dish}`));
   const modal = document.getElementById('modal');
   const resultCard = document.getElementById('resultCard');
   const isFav = isFavorite(card.dish);
@@ -1971,16 +2211,16 @@ function showResult(card) {
     <div class="corner-tl">${cardCornerHTML(card)}</div>
     <div class="main-suit">${cardMainSuitHTML(card)}</div>
     <div class="card-center">
-      <div class="card-image">
-        <img src="${escapeHtml(card.imageUrl)}" alt="${escapeHtml(card.dish)}" loading="lazy" decoding="async" onerror="this.style.display='none'">
+      <div class="card-image${card.imageUrl ? '' : ' image-missing'}">
+        ${card.imageUrl ? `<img src="${escapeHtml(card.imageUrl)}" alt="${escapeHtml(card.dish)}" loading="lazy" decoding="async" onerror="this.closest('.card-image')?.classList.add('image-missing','image-unavailable');this.closest('.card-center').querySelector('.image-disclaimer').textContent='Ảnh chưa tải được — thử lại khi có mạng';this.remove()">` : ''}
       </div>
       <div class="image-disclaimer">${DISH_META[card.dish]?.hasPhoto === false
-        ? 'Tranh minh hoạ — món này chưa có ảnh chụp'
+        ? 'Biểu tượng minh hoạ · chưa có ảnh món'
         : 'Hình ảnh mang tính chất minh hoạ'}</div>
       <div class="card-content">
         <div class="food-name">${escapeHtml(card.dish)}</div>
         ${dishFactsHTML(card)}
-        <div class="food-pairing">Ăn kèm: ${escapeHtml(card.pairing)}</div>
+        <div class="food-pairing">Gợi ý ăn cùng: ${escapeHtml(card.pairing)}</div>
       </div>
     </div>
     <div class="corner-br">${cardCornerHTML(card)}</div>
@@ -2007,6 +2247,11 @@ function showResult(card) {
     `https://food.grab.com/vn/vi/restaurants?${new URLSearchParams({ search: card.dish, 'support-deeplink': 'true', searchParameter: card.dish })}`;
   document.getElementById('linkShopee').href = `https://shopeefood.vn/search?keyword=${dishQ}`;
   document.getElementById('linkBe').href = `https://food.be.com.vn/search?q=${dishQ}`;
+  const cookLink = document.getElementById('cookDishBtn');
+  if (cookLink) {
+    cookLink.href = `https://www.google.com/search?q=${encodeURIComponent('cách nấu ' + card.dish)}`;
+    cookLink.setAttribute('aria-label', `Xem cách nấu ${card.dish}`);
+  }
 
   document.getElementById('nextBtn').classList.toggle('show', isMultiPlayer);
   modal.classList.add('show');
@@ -2015,17 +2260,23 @@ function showResult(card) {
 
 function closeModal() {
   document.getElementById('modal').classList.remove('show');
+  if (resultFromDeck) {
+    document.getElementById('deckArea')?.focus({ preventScroll: true });
+    return;
+  }
+  showMethodChooser();
 }
 
 function nextPlayer() {
   currentPlayer = currentPlayer >= totalPlayers ? 1 : currentPlayer + 1;
-  document.getElementById('playerName').textContent = playerNames[currentPlayer - 1];
+  document.getElementById('playerName').textContent = `${playerNames[currentPlayer - 1]} · Lượt ${currentPlayer}/${playerNames.length}`;
   closeModal();
 }
 
 async function resetGame() {
   if (isAnimating) return;
   isAnimating = true;
+  const run = ++pickRun;
 
   const cards = document.querySelectorAll('.card');
   cards.forEach((card, i) => {
@@ -2034,6 +2285,7 @@ async function resetGame() {
   });
 
   await sleep(700);
+  if (run !== pickRun) return;
 
   flippedCards = [];
   gameResults = [];
@@ -2114,13 +2366,14 @@ function startMultiplayerGame() {
   // Close modal and show player bar
   document.getElementById('multiplayerModal').classList.remove('show');
   document.getElementById('playerBar').classList.add('show');
-  document.getElementById('playerName').textContent = playerNames[0];
+  document.getElementById('playerName').textContent = `${playerNames[0]} · Lượt 1/${playerNames.length}`;
 
   // Reset deck for new game
   flippedCards = [];
   createDeck();
   renderDeck(true);
   updateResultsPanel();
+  openCardMethod();
 }
 
 function endMultiplayerGame() {
@@ -2166,13 +2419,20 @@ function createConfetti() {
 function updateResultsPanel() {
   const list = document.getElementById('resultsList');
   if (gameResults.length === 0) {
-    list.innerHTML = '<p class="no-results">Chưa có kết quả</p>';
+    list.innerHTML = `<div class="empty-state">
+      <strong>Chưa có kết quả</strong>
+      <span>Gợi ý món đầu tiên để ghi kết quả cho người chơi hiện tại.</span>
+      <button type="button" class="btn empty-state-action" data-close-results>Quay lại chọn món</button>
+    </div>`;
+    list.querySelector('[data-close-results]')?.addEventListener('click', () => {
+      document.getElementById('resultsPanel').classList.remove('show');
+    });
     return;
   }
 
   list.innerHTML = gameResults.map(r => `
     <div class="result-item">
-      <img src="${escapeHtml(r.imageUrl)}" alt="${escapeHtml(r.dish)}" class="result-thumb" loading="lazy" decoding="async">
+      ${r.imageUrl ? `<img src="${escapeHtml(r.imageUrl)}" alt="" class="result-thumb" loading="lazy" decoding="async" onerror="this.remove()">` : ''}
       <div class="result-info">
         <span class="result-player">${escapeHtml(playerNames[r.player - 1] || 'Người chơi ' + r.player)}</span>
         <span class="result-dish">${escapeHtml(r.dish)}</span>
@@ -2286,23 +2546,42 @@ function drawWheel(highlightIndex = -1) {
     ctx.lineWidth = 1;
     ctx.stroke();
 
-    // Chưa xoay thì giữ bí mật món; chỉ lộ tên ở ô thắng sau khi dừng.
+    // Display every candidate; use dark text on the highlighted slice.
     ctx.save();
     ctx.translate(centerX, centerY);
     ctx.rotate(startAngle + sliceAngle / 2);
     ctx.textAlign = 'center';
-    ctx.fillStyle = '#fff';
+    ctx.fillStyle = highlightIndex === i ? '#3a2a00' : '#fff';
     ctx.font = `bold ${Math.round(13 * S)}px "Be Vietnam Pro", sans-serif`;
     ctx.shadowColor = 'rgba(0,0,0,0.7)';
     ctx.shadowBlur = 4;
     ctx.shadowOffsetX = 1;
     ctx.shadowOffsetY = 1;
 
-    let dishName = highlightIndex === i ? dish.dish : '?';
-    if (dishName.length > 10) dishName = dishName.substring(0, 8) + '..';
+    // Giữ tên món luôn đứng thẳng để đọc được ở cả nửa dưới của bánh xe.
+    // Nếu không, canvas xoay chữ theo bán kính khiến tên bị lộn ngược.
+    const textAngle = ((startAngle + sliceAngle / 2) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI);
+    const textUpsideDown = textAngle > Math.PI / 2 && textAngle < Math.PI * 1.5;
+    if (textUpsideDown) ctx.rotate(Math.PI);
+
+    // Keep every slice understandable before the spin; the selected slice is
+    // highlighted later, but hiding seven labels as '?' makes the wheel feel broken.
+    let dishName = dish.dish;
+    // Chỉ rút gọn khi thật sự vượt bề rộng múi; tên ngắn không bị cắt cứng.
+    // Điều này đặc biệt hữu ích cho tên món dài ở ô chiến thắng.
+    {
+      const maxTextWidth = innerRadius * 0.82;
+      if (ctx.measureText(dishName).width > maxTextWidth) {
+        let fitted = dishName;
+        while (fitted.length > 2 && ctx.measureText(`${fitted}…`).width > maxTextWidth) {
+          fitted = fitted.slice(0, -1);
+        }
+        dishName = `${fitted}…`;
+      }
+    }
 
     // Position text in middle of slice
-    ctx.fillText(dishName, innerRadius / 2 + 15 * S, 5 * S);
+    ctx.fillText(dishName, (textUpsideDown ? -1 : 1) * (innerRadius / 2 + 15 * S), 5 * S);
     ctx.restore();
   });
 
@@ -2519,7 +2798,10 @@ function spinReel() {
       isReelSpinning = false;
       const winner = reelStrip[reelWinnerIndex];
       const tile = strip.children[reelWinnerIndex];
-      if (tile) tile.classList.add('winner');
+      if (tile) {
+        tile.classList.add('winner');
+        tile.innerHTML = `<span class="battle-dish">${escapeHtml(winner.dish)}</span>`;
+      }
       playRevealSound();
 
       setTimeout(() => {
@@ -2561,30 +2843,24 @@ function closeBattleModal() {
   document.getElementById('battleModal').classList.remove('show');
 }
 
-function battleRoundLabel(size) {
-  if (size <= 2) return 'chung kết';
-  if (size <= 4) return 'bán kết';
-  return 'tứ kết';
-}
-
 function renderBattleMatch() {
   const a = battleRound[0];
   const b = battleRound[1];
 
   document.getElementById('battleTitle').textContent =
-    `So sánh món — ${battleRoundLabel(battleRoundSize)}`;
+    battleRound.length === 2 && battleNextRound.length === 0 ? 'Chọn món thắng' : 'Chọn món thích hơn';
 
   for (const [id, d] of [['battleCardA', a], ['battleCardB', b]]) {
     const btn = document.getElementById(id);
     btn.setAttribute('aria-label', d.dish);
     btn.innerHTML = `
-      <img src="${escapeHtml(d.imageUrl)}" alt="${escapeHtml(d.dish)}" loading="lazy" decoding="async" onerror="this.style.display='none'">
+      ${d.imageUrl ? `<img src="${escapeHtml(d.imageUrl)}" alt="" loading="lazy" decoding="async" onerror="this.remove()">` : ''}
       <span class="battle-dish">${escapeHtml(d.dish)}</span>
     `;
   }
 
   document.getElementById('battleProgress').textContent =
-    `Còn ${battleRound.length} món vòng này`;
+    `Còn ${battleRound.length + battleNextRound.length} món trong cuộc chọn`;
 }
 
 function advanceBattleBracket(round, nextRound, side) {
@@ -2656,7 +2932,8 @@ function setMamRegion(region) {
 }
 
 function pickCourse(region, course, exclude) {
-  const pool = FAMILY_MEALS[region][course].filter(d => d !== exclude);
+  const pool = FAMILY_MEALS[region][course].filter(d => d !== exclude && !isExcluded(d));
+  if (!pool.length) return null;
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
@@ -2665,13 +2942,21 @@ function rollMamCom() {
   for (const c of MAM_COURSES) {
     mamTray[c.key] = pickCourse(mamRegion, c.key);
   }
+  if (Object.values(mamTray).some(value => !value)) {
+    mamTray = null;
+    showToast('Không còn đủ món hợp danh sách loại trừ cho mâm này.');
+    renderMamTray();
+    return;
+  }
   renderMamTray();
   playTick();
 }
 
 function rerollMamItem(course) {
   if (!mamTray) return;
-  mamTray[course] = pickCourse(mamRegion, course, mamTray[course]);
+  const replacement = pickCourse(mamRegion, course, mamTray[course]);
+  if (!replacement) { showToast('Không còn món khác cho phần này.'); return; }
+  mamTray[course] = replacement;
   renderMamTray();
   playTick();
 }
@@ -2697,9 +2982,27 @@ function renderMamTray() {
         </button>
       </div>
       <div class="mam-dish">${escapeHtml(mamTray[c.key])}</div>
+      <button class="btn serve-course" data-serve-course="${c.key}">Chọn món này</button>
     </div>
   `).join('');
 
+  tray.querySelectorAll('[data-serve-course]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const dish = mamTray?.[btn.dataset.serveCourse];
+      if (!dish || isExcluded(dish)) return;
+      const card = deck.find(item => item.dish === dish);
+      if (card) completePick(card);
+      else {
+        const result = { dish, pairing: 'Trong mâm cơm gia đình', suit: '♠', value: '', region: mamRegion, isRed: false };
+        showResult(result);
+        addToHistory(result);
+        if (isMultiPlayer) {
+          gameResults.push({ player: currentPlayer, dish, imageUrl: '' });
+          updateResultsPanel();
+        }
+      }
+    });
+  });
   tray.querySelectorAll('.mam-reroll').forEach(btn => {
     btn.addEventListener('click', () => rerollMamItem(btn.dataset.course));
   });
@@ -2707,6 +3010,10 @@ function renderMamTray() {
 
 // Shared finish for pick-style modes: flip card, record, celebrate
 function completePick(card) {
+  if (!card || !deck.includes(card) || isExcluded(card.dish)) {
+    showToast('Bộ bài đã thay đổi. Hãy chọn lại món nhé.');
+    return;
+  }
   const deckIndex = deck.findIndex(c => c.id === card.id);
   if (deckIndex !== -1 && !flippedCards.includes(deckIndex)) {
     flippedCards.push(deckIndex);
@@ -2749,7 +3056,7 @@ const XAM_VERSES = [
   { tier: 'Lựa chọn vừa ý',  text: 'Chọn chi cho mệt cái đầu\nQuán quen góc phố, món đâu cũng vừa.' },
   { tier: 'Món đáng thử',    text: 'Món này trông thật là xinh\nĂn vào một miếng, thình lình thấy vui.' },
   { tier: 'Lựa chọn thân quen', text: 'Hôm nay chẳng có gì sang\nCơm nhà rau muống, vẫn ngon lạ thường.' },
-  { tier: 'Tiện đường hôm nay', text: 'Đói thì đầu gối phải bò\nMón này gần đấy, khỏi lo đường xa.' }
+  { tier: 'Một món đáng thử', text: 'Đói thì đầu gối phải bò\nChọn món hợp ý, khỏi lo nghĩ nhiều.' }
 ];
 
 function openXamModal() {
@@ -2850,7 +3157,8 @@ function closeHoaModal() {
 }
 
 function pickFlower(btn, available, run) {
-  if (btn.classList.contains('picked')) return;
+  if (document.querySelector('.hoa-flower.picked')) return;
+  document.querySelectorAll('.hoa-flower').forEach(flower => { flower.disabled = true; });
   btn.classList.add('picked');
   playTick();
 
@@ -2881,7 +3189,10 @@ function openVesoModal() {
 
   document.getElementById('scratchDish').textContent = scratchWinner.dish;
   const img = document.getElementById('scratchImg');
-  img.src = scratchWinner.imageUrl;
+  img.hidden = !scratchWinner.imageUrl;
+  if (scratchWinner.imageUrl) img.src = scratchWinner.imageUrl;
+  else img.removeAttribute('src');
+  img.onerror = () => { img.hidden = true; };
   img.alt = '';
 
   document.getElementById('vesoModal').classList.add('show');
@@ -2906,7 +3217,9 @@ function setupScratchCanvas(run) {
   canvas.style.width = w + 'px';
   canvas.style.height = h + 'px';
 
-  const ctx = canvas.getContext('2d');
+  // Scratch mode reads alpha repeatedly; ask the browser for a read-optimized
+  // 2D context so pointer moves do not stall on canvas readback.
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
   ctx.scale(dpr, dpr);
 
   // Lớp cào nhũ đồng trên giấy điệp — tông ấm cùng hệ với cả app.
@@ -2953,12 +3266,13 @@ function setupScratchCanvas(run) {
 // Đo phần đã cào trên một lưới thưa (~60×60 điểm) thay vì đọc toàn bộ
 // canvas theo devicePixelRatio — trên điện thoại retina đó là hàng triệu pixel
 // mỗi lần kiểm tra, đủ để cảm giác cào bị khựng.
-const SCRATCH_SAMPLE = 60;
+const SCRATCH_SAMPLE_X = 48;
+const SCRATCH_SAMPLE_Y = 36;
 
 function checkScratched(canvas, ctx, w, h, run = scratchRun) {
   if (scratchDone || run !== scratchRun) return;
-  const sw = Math.min(SCRATCH_SAMPLE, canvas.width);
-  const sh = Math.min(SCRATCH_SAMPLE, canvas.height);
+  const sw = Math.min(SCRATCH_SAMPLE_X, canvas.width);
+  const sh = Math.min(SCRATCH_SAMPLE_Y, canvas.height);
   const stepX = canvas.width / sw;
   const stepY = canvas.height / sh;
   let clear = 0, total = 0;
@@ -2998,43 +3312,195 @@ function revealScratchInstant() {
 // ========================================
 // DISH OF THE DAY — deterministic daily suggestion
 // ========================================
+function suggestionPeriod() {
+  const meal = document.getElementById('mealFilter')?.value || 'all';
+  return meal === 'all' ? getTimePeriod() : meal;
+}
+
 function getDishOfDay() {
   const all = [];
-  for (const suit of SUITS) {
-    DISH_DB[suit].forEach((d, i) => {
+  const category = document.getElementById('categoryFilter')?.value || 'all';
+  const region = document.getElementById('regionFilter')?.value || 'all';
+  const city = document.getElementById('cityFilter')?.value || 'all';
+  const meal = document.getElementById('mealFilter')?.value || 'all';
+  const favoritesOnly = document.getElementById('favFilter')?.value || 'all';
+  for (const suit of category === 'all' ? SUITS : [category]) {
+    candidatesFor(suit, region, favoritesOnly, meal, city).forEach((d, i) => {
       all.push({
         value: VALUES[i % VALUES.length],
         suit,
         dish: d.name,
-        pairing: d.pair,
+        pairing: d.pairing,
         imageUrl: d.imageUrl,
         isRed: suit === '♥' || suit === '♦',
-        region: d.region
+        region: d.region,
+        isCustom: Boolean(d.isCustom)
       });
     });
   }
-  // Băm ngày trước khi lấy chỉ số — nếu dùng thẳng YYYYMMDD thì mỗi ngày
-  // món chỉ nhích lên đúng 1 ô, người dùng đoán được món mai ăn gì.
+  const period = suggestionPeriod();
+  const allowed = all.filter(card => !isExcluded(card.dish) && !SIDE_DISHES.has(card.dish));
+  const timed = allowed.filter(card => fitsMeal(card.dish, period));
+  const pool = timed.length ? timed : allowed;
+  // Băm ngày + buổi — cùng một ngày, sáng và tối ra món khác nhau.
   const d = new Date();
   const day = d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
-  let h = day ^ 0x9e3779b9;
+  const periodKey = { sang: 1, trua: 2, chieu: 3, toi: 4, khuya: 5 }[period] || 0;
+  let h = (day ^ (periodKey * 0x9e3779b9) ^ (dailyRerollCount * 0x85ebca6b)) >>> 0;
   h = Math.imul(h ^ (h >>> 16), 0x21f0aaad);
   h = Math.imul(h ^ (h >>> 15), 0x735a2d97);
   h = (h ^ (h >>> 15)) >>> 0;
-  const allowed = all.filter(card => !isExcluded(card.dish));
-  const pool = allowed.length ? allowed : all;
-  return pool[h % pool.length];
+  return pool.length ? pool[h % pool.length] : null;
 }
 
-// Lời chào đổi theo buổi — thay câu tĩnh "Chọn một lá bài để xem món ăn"
+function updateMealTabs(selectedPeriod) {
+  const currentSystemPeriod = getTimePeriod();
+  document.querySelectorAll('.meal-tab-btn').forEach(btn => {
+    const meal = btn.dataset.meal;
+    const isSelected = meal === selectedPeriod;
+    const isNow = meal === currentSystemPeriod;
+    btn.classList.toggle('active', isSelected);
+    btn.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+    let nowBadge = btn.querySelector('.badge-now');
+    if (isNow && !nowBadge) {
+      nowBadge = document.createElement('span');
+      nowBadge.className = 'badge-now';
+      const dot = document.createElement('span');
+      dot.className = 'badge-now-dot';
+      nowBadge.appendChild(dot);
+      nowBadge.appendChild(document.createTextNode('Bây giờ'));
+      btn.querySelector('.meal-tab-info')?.appendChild(nowBadge);
+    } else if (!isNow && nowBadge) {
+      nowBadge.remove();
+    }
+  });
+}
+
+function updateCravingChips() {
+  document.querySelectorAll('.craving-chip').forEach(chip => {
+    const craving = chip.dataset.craving;
+    const isSelected = craving === activeCraving;
+    chip.classList.toggle('active', isSelected);
+    chip.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+  });
+
+  document.querySelectorAll('.intent-chip').forEach(chip => {
+    const selected = chip.dataset.intent === activeIntent;
+    chip.classList.toggle('active', selected);
+    chip.setAttribute('aria-pressed', String(selected));
+  });
+}
+
+function setupIntentEvents() {
+  const intentMap = {
+    full: { craving: 'all', category: 'all' },
+    light: { craving: 'thanh', category: 'all' },
+    budget: { craving: 're', category: 'all' },
+    party: { craving: 'all', category: '♠' },
+    home: { craving: 'all', category: 'all' }
+  };
+  document.querySelectorAll('.intent-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      if (isAnimating) return;
+      const intent = intentMap[chip.dataset.intent] || intentMap.full;
+      activeIntent = chip.dataset.intent;
+      diningContext = activeIntent === 'home' ? 'home' : activeIntent === 'party' ? 'party' : 'all';
+      document.getElementById('diningContext').value = diningContext;
+      activeCraving = intent.craving;
+      const category = document.getElementById('categoryFilter');
+      if (category) category.value = intent.category;
+      document.querySelectorAll('.intent-chip').forEach(item => item.classList.toggle('active', item === chip));
+      dailyRerollCount = 0;
+      createDeck();
+      renderDeck(true);
+      renderDishOfDay();
+      updateCravingChips();
+      if (deck.length === 0) {
+        showToast('Chưa có món phù hợp. Hãy đổi buổi hoặc đặt lại bộ lọc.');
+        return;
+      }
+      const candidates = deck.filter(card => activeIntent !== 'full' || (!SIDE_DISHES.has(card.dish) && card.suit !== '♣'));
+      const winner = suggestedRandomCard(candidates);
+      if (winner) { showResult(winner); addToHistory(winner); }
+      else showToast('Chưa có món phù hợp. Hãy nới bộ lọc.');
+    });
+  });
+}
+
+// Lời chào đổi theo buổi
 function renderGreeting() {
+  const manual = (document.getElementById('mealFilter')?.value || 'all') !== 'all';
+  const period = suggestionPeriod();
+  const greeting = manual ? MEAL_PICK_GREETINGS[period] : MEAL_GREETINGS[period];
   const el = document.getElementById('headerGreeting');
-  if (el) el.textContent = MEAL_GREETINGS[getTimePeriod()];
+  if (el) el.textContent = greeting;
+  const title = document.getElementById('methodTitle');
+  if (title) title.textContent = greeting;
+  const eyebrow = document.getElementById('methodEyebrow');
+  if (eyebrow) eyebrow.textContent = `Gợi ý ${getTimeLabel(period).toLowerCase()}`;
+  updateMealTabs(period);
+  updateCravingChips();
 }
 
 function renderDishOfDay() {
+  const daily = getDishOfDay();
+  const period = suggestionPeriod();
+  const periodText = getTimeLabel(period).toLowerCase();
+  const label = document.getElementById('dishOfDayLabel');
+  if (label) label.textContent = `Gợi ý ${periodText}`;
   const el = document.getElementById('dishOfDayName');
-  if (el) el.textContent = getDishOfDay().dish;
+  if (el) el.textContent = daily?.dish || 'Không còn món hợp bộ lọc';
+  const pairing = document.getElementById('dishOfDayPairing');
+  if (pairing) {
+    pairing.textContent = daily?.pairing ? `Ăn kèm: ${daily.pairing}` : '';
+    pairing.hidden = !daily?.pairing;
+  }
+  const media = document.getElementById('dishOfDayMedia');
+  if (media) {
+    media.replaceChildren();
+    const fallbackSvg = '<svg class="dish-media-fallback" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="20" stroke-width="2"/><circle cx="24" cy="24" r="14" stroke-dasharray="3 3"/><path d="M16 22a8 8 0 0 0 16 0"/><path d="M20 14c0 1.5.8 2.5.8 3.5M24 13c0 1.5.8 2.5.8 3.5M28 14c0 1.5.8 2.5.8 3.5"/></svg>';
+    if (daily?.imageUrl) {
+      const img = document.createElement('img');
+      img.width = 512;
+      img.height = 512;
+      img.src = daily.imageUrl;
+      img.alt = daily.dish || '';
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.addEventListener('error', () => { media.innerHTML = fallbackSvg; });
+      media.append(img);
+    } else {
+      media.innerHTML = fallbackSvg;
+    }
+  }
+  const tagsEl = document.getElementById('dishOfDayTags');
+  if (tagsEl) {
+    tagsEl.replaceChildren();
+    if (daily) {
+      const meta = DISH_META[daily.dish];
+      const region = REGION_NAMES[daily.region || meta?.region];
+      if (region) {
+        const span = document.createElement('span');
+        span.className = 'spotlight-tag tag-region';
+        span.textContent = region;
+        tagsEl.append(span);
+      }
+      if (meta?.price && Array.isArray(meta.price)) {
+        const priceSpan = document.createElement('span');
+        priceSpan.className = 'spotlight-tag tag-price';
+        priceSpan.textContent = formatPrice(meta.price);
+        tagsEl.append(priceSpan);
+      }
+    }
+  }
+  document.getElementById('dishOfDay')?.classList.toggle('has-photo', Boolean(daily?.imageUrl));
+}
+
+function updateAdvancedFilterLabel() {
+  const active = ['regionFilter', 'favFilter']
+    .filter(id => document.getElementById(id)?.value !== 'all').length;
+  const summary = document.getElementById('advancedFiltersLabel');
+  if (summary) summary.textContent = active ? `Lọc thêm · ${active}` : 'Lọc thêm';
 }
 
 // "Last choice" + local pick counter — ported from truanayangi's local-counter
@@ -3071,6 +3537,10 @@ function updateSessionInfo() {
 
 function openSettings() {
   document.getElementById('settingsModal').classList.add('show');
+  requestAnimationFrame(() => {
+    document.querySelector('.settings-nav .nav-btn.active')
+      ?.scrollIntoView({ block: 'nearest', inline: 'center' });
+  });
 }
 
 function closeSettings() {
@@ -3079,6 +3549,7 @@ function closeSettings() {
 
 // Current result for sharing
 let currentResult = null;
+let resultFromDeck = false;
 
 async function shareResult() {
   if (!currentResult) return;
@@ -3098,6 +3569,7 @@ async function shareResult() {
       return;
     }
   } catch (err) {
+    if (err?.name === 'AbortError') return;
     console.log('Image share failed:', err);
   }
 
@@ -3111,6 +3583,7 @@ async function shareResult() {
     try {
       await navigator.share(shareData);
     } catch (err) {
+      if (err?.name === 'AbortError') return;
       console.log('Share cancelled:', err);
     }
   } else {
@@ -3151,6 +3624,7 @@ async function createShareImage(card) {
 
   // Load and draw food image
   try {
+    if (!card.imageUrl) throw new Error('Ảnh món chưa có');
     const img = await loadImage(card.imageUrl);
     ctx.save();
     roundRect(ctx, 130, 180, 340, 220, 10);
@@ -3158,10 +3632,15 @@ async function createShareImage(card) {
     ctx.drawImage(img, 130, 180, 340, 220);
     ctx.restore();
   } catch (e) {
-    // Draw placeholder if image fails
-    ctx.fillStyle = '#eee';
+    // Nói rõ ảnh chưa có/không tải được trên tấm hình được chia sẻ.
+    ctx.fillStyle = '#efe4ce';
     roundRect(ctx, 130, 180, 340, 220, 10);
     ctx.fill();
+    ctx.fillStyle = '#674422';
+    ctx.font = 'bold 25px "Be Vietnam Pro", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(card.imageUrl ? 'Ảnh chưa tải được' : 'Ảnh chưa có', 300, 295);
+    ctx.textAlign = 'start';
   }
 
   // Số thứ tự + biểu tượng nhóm món
@@ -3218,7 +3697,34 @@ function loadImage(src) {
   });
 }
 
-// Pick a random unflipped card — used by the quick-pick CTA and PWA shortcut
+// Màn đầu là bộ chọn phương thức. Bàn bài chỉ xuất hiện khi người dùng chọn
+// “Lật thẻ bài”, nhờ vậy tám cách chọn có vị thế ngang nhau và không bị cắt.
+function openCardMethod() {
+  window.scrollTo({ top: 0, behavior: 'instant' });
+  document.body.classList.remove('choosing-method');
+  requestAnimationFrame(() => {
+    scheduleFitDeck();
+    document.getElementById('deckArea')?.focus({ preventScroll: true });
+  });
+}
+
+function showMethodChooser(options = {}) {
+  pickRun++;
+  isAnimating = false;
+  document.querySelectorAll('.dimmed, .picking, .shaking, .revealing').forEach(el =>
+    el.classList.remove('dimmed', 'picking', 'shaking', 'revealing')
+  );
+  document.body.classList.add('choosing-method');
+  document.querySelector('.sidebar')?.scrollTo({ top: 0, behavior: 'auto' });
+  requestAnimationFrame(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    if (options.restoreFocus !== false) {
+      document.getElementById('methodHeading')?.focus({ preventScroll: true });
+    }
+  });
+}
+
+// Pick a random unflipped card — used by the PWA shortcut and empty-state CTA
 function quickPick() {
   const available = deck.filter((_, i) => !flippedCards.includes(i));
   if (available.length === 0 || isAnimating) return;
@@ -3265,6 +3771,7 @@ const PANEL_SELECTOR = [
 const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 let modalEls = [];
+let modalOrder = [];
 let focusBeforeModal = null;
 
 function modalCloser(id) {
@@ -3288,7 +3795,9 @@ function modalCloser(id) {
 }
 
 function openModalStack() {
-  return modalEls.filter(m => m.classList.contains('show'));
+  const visible = modalEls.filter(m => m.classList.contains('show'));
+  modalOrder = [...modalOrder.filter(m => visible.includes(m)), ...visible.filter(m => !modalOrder.includes(m))];
+  return modalOrder;
 }
 
 function focusablesIn(root) {
@@ -3299,6 +3808,10 @@ function focusablesIn(root) {
 function syncModalState() {
   const stack = openModalStack();
   document.body.classList.toggle('modal-open', stack.length > 0);
+  const top = stack[stack.length - 1];
+  if (stack.length && !focusBeforeModal) focusBeforeModal = document.activeElement;
+  document.querySelectorAll('header, .sidebar, .deck-area').forEach(el => { el.inert = !!top; });
+  modalEls.forEach(m => { m.inert = !!top && m !== top; });
 
   if (!stack.length) {
     if (focusBeforeModal && document.body.contains(focusBeforeModal)) {
@@ -3308,9 +3821,6 @@ function syncModalState() {
     return;
   }
 
-  if (!focusBeforeModal) focusBeforeModal = document.activeElement;
-
-  const top = stack[stack.length - 1];
   if (top.contains(document.activeElement)) return;
   const panel = top.querySelector(PANEL_SELECTOR) || top;
   (focusablesIn(panel)[0] || panel).focus({ preventScroll: true });
@@ -3342,7 +3852,13 @@ function initModalManager() {
     bg.addEventListener('click', () => modalCloser(bg.dataset.close)?.());
   });
 
-  const observer = new MutationObserver(syncModalState);
+  const observer = new MutationObserver(records => {
+    for (const { target } of records) {
+      modalOrder = modalOrder.filter(m => m !== target);
+      if (target.classList.contains('show')) modalOrder.push(target);
+    }
+    syncModalState();
+  });
   modalEls.forEach(m => observer.observe(m, { attributes: true, attributeFilter: ['class'] }));
 
   document.addEventListener('keydown', e => {
@@ -3359,8 +3875,10 @@ function initModalManager() {
     }
 
     if (e.key !== 'Tab') return;
-    const items = focusablesIn(top.querySelector(PANEL_SELECTOR) || top);
-    if (items.length < 2) return;
+    const panel = top.querySelector(PANEL_SELECTOR) || top;
+    const items = focusablesIn(panel);
+    if (!items.length) { e.preventDefault(); panel.focus(); return; }
+    if (items.length === 1) { e.preventDefault(); items[0].focus(); return; }
     const first = items[0];
     const last = items[items.length - 1];
     if (e.shiftKey && document.activeElement === first) {
@@ -3374,6 +3892,34 @@ function initModalManager() {
 }
 
 function setupEvents() {
+  setupIntentEvents();
+  document.getElementById('diningContext').addEventListener('change', e => {
+    diningContext = e.target.value;
+    activeIntent = '';
+    createDeck(); renderDeck(true); renderDishOfDay(); updateCravingChips();
+    announce('Đang gợi ý: ' + CONTEXT_LABELS[diningContext]);
+  });
+  document.getElementById('resetFiltersHome').addEventListener('click', resetDishFilters);
+  document.getElementById('preferencesToggle').addEventListener('click', () => {
+    const open = document.body.classList.toggle('preferences-open');
+    document.getElementById('preferencesToggle').setAttribute('aria-expanded', String(open));
+  });
+  document.getElementById('moreMethodsSummary')?.addEventListener('click', () => {
+    const panel = document.getElementById('moreMethodsPanel');
+    const btn = document.getElementById('moreMethodsSummary');
+    if (!panel || !btn) return;
+    const open = panel.hidden;
+    panel.hidden = !open;
+    btn.setAttribute('aria-expanded', String(open));
+    btn.classList.toggle('is-open', open);
+  });
+  document.getElementById('orderDishBtn').addEventListener('click', () => {
+    const options = document.getElementById('orderOptions');
+    options.hidden = !options.hidden;
+    document.getElementById('orderDishBtn').setAttribute('aria-expanded', String(!options.hidden));
+    document.getElementById('serviceEyebrow').textContent = options.hidden ? 'MÓN CHO BỮA NÀY' : 'CHỌN NƠI ĐẶT';
+    if (!options.hidden) document.getElementById('orderHeading').focus();
+  });
   document.getElementById('closeBtn').addEventListener('click', closeModal);
   document.getElementById('modalBg').addEventListener('click', closeModal);
   document.getElementById('nextBtn').addEventListener('click', nextPlayer);
@@ -3382,7 +3928,8 @@ function setupEvents() {
   document.getElementById('multiMode').addEventListener('click', () => setMode(true));
   document.getElementById('resultsToggle').addEventListener('click', toggleResultsPanel);
   document.getElementById('shareBtn').addEventListener('click', shareResult);
-  document.getElementById('quickPickBtn')?.addEventListener('click', quickPick);
+  document.getElementById('quickPickBtn')?.addEventListener('click', openCardMethod);
+  document.getElementById('backToMethodsBtn')?.addEventListener('click', showMethodChooser);
 
   // Lucky wheel
   document.getElementById('wheelBtn')?.addEventListener('click', openWheelModal);
@@ -3421,9 +3968,51 @@ function setupEvents() {
   document.getElementById('closeVesoX')?.addEventListener('click', closeVesoModal);
   document.getElementById('revealScratchBtn')?.addEventListener('click', revealScratchInstant);
 
-  // Dish of the day
+  // Meal tabs navigation
+  document.querySelectorAll('.meal-tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetMeal = btn.dataset.meal;
+      const mealSelect = document.getElementById('mealFilter');
+      if (mealSelect) {
+        mealSelect.value = targetMeal;
+        mealSelect.dispatchEvent(new Event('change'));
+      }
+    });
+  });
+
+  // Craving chips 1-tap filter
+  document.querySelectorAll('.craving-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const craving = chip.dataset.craving;
+      activeCraving = craving;
+      activeIntent = '';
+      dailyRerollCount = 0;
+      createDeck();
+      renderDeck(true);
+      renderDishOfDay();
+      updateCravingChips();
+
+      if (deck.length === 0) {
+        showToast('Chưa có món phù hợp. Hãy đổi buổi hoặc đặt lại bộ lọc.');
+      }
+    });
+  });
+
+  // Spotlight card reroll button (rolls another suggestion without opening modal)
+  document.getElementById('dishOfDayRerollBtn')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dailyRerollCount++;
+    renderDishOfDay();
+    const btn = document.getElementById('dishOfDayRerollBtn');
+    btn?.classList.add('spinning');
+    setTimeout(() => btn?.classList.remove('spinning'), 350);
+  });
+
+  // Spotlight card click: shows result
   document.getElementById('dishOfDay')?.addEventListener('click', () => {
-    showResult(getDishOfDay());
+    const daily = getDishOfDay();
+    if (daily) { showResult(daily); addToHistory(daily); }
+    else showToast('Không còn món hợp danh sách loại trừ.');
   });
 
   // Onboarding
@@ -3437,24 +4026,34 @@ function setupEvents() {
   document.getElementById('categoryFilter').addEventListener('change', () => {
     createDeck();
     renderDeck(true);
+    renderDishOfDay();
   });
 
   // Region filter
   document.getElementById('regionFilter').addEventListener('change', () => {
     createDeck();
     renderDeck(true);
+    renderDishOfDay(); updateAdvancedFilterLabel();
+  });
+
+  document.getElementById('cityFilter')?.addEventListener('change', () => {
+    createDeck();
+    renderDeck(true);
+    renderDishOfDay();
   });
 
   // Meal-time filter — chọn xem món hợp buổi nào (sáng/trưa/xế/tối/khuya)
   document.getElementById('mealFilter')?.addEventListener('change', () => {
     createDeck();
     renderDeck(true);
+    renderDishOfDay(); renderGreeting(); updateAdvancedFilterLabel();
   });
 
   // Favorites filter
   document.getElementById('favFilter').addEventListener('change', () => {
     createDeck();
     renderDeck(true);
+    renderDishOfDay(); updateAdvancedFilterLabel();
   });
 
   // Multiplayer modal
@@ -3505,6 +4104,7 @@ function setupEvents() {
       // Update nav buttons
       document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      btn.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'nearest', inline: 'center' });
 
       // Update sections
       document.querySelectorAll('.settings-section').forEach(s => s.classList.remove('active'));
@@ -3546,7 +4146,7 @@ function setupEvents() {
 
   document.getElementById('darkModeToggle').addEventListener('change', (e) => {
     settings.darkMode = e.target.checked;
-    document.body.classList.toggle('dark-mode', settings.darkMode);
+    applyTheme(settings.darkMode);
     updateThemeColor();
     saveSettings();
   });
@@ -3554,14 +4154,6 @@ function setupEvents() {
   document.getElementById('soundToggle').addEventListener('change', (e) => {
     settings.soundEnabled = e.target.checked;
     saveSettings();
-  });
-
-  // Time filter toggle (now in settings)
-  document.getElementById('timeFilterToggle')?.addEventListener('change', (e) => {
-    settings.timeFilterEnabled = e.target.checked;
-    saveSettings();
-    createDeck();
-    renderDeck(true);
   });
 
   document.getElementById('animSpeedSelect').addEventListener('change', (e) => {
@@ -3618,7 +4210,9 @@ function setupEvents() {
 }
 
 if (typeof document !== 'undefined') {
-  document.addEventListener('DOMContentLoaded', init);
+  document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('deckArea')) init();
+  });
 }
 
 // ========================================
@@ -3705,7 +4299,7 @@ if (typeof module !== 'undefined' && module.exports) {
     FoodDatabase, HistoryManager, CardPicker,
     // Dữ liệu thô cho bộ test toàn vẹn (dish-data.test.js)
     DISH_DB, DISH_META, SUITS, VALUES, REGION_NAMES, TOTAL_DISHES, DECK_SIZE,
-    CATEGORY_NAMES, drawBalanced,
+    CATEGORY_NAMES, CITY_DISHES, SIDE_DISHES, DISH_FAMILIES, drawBalanced,
     // Thuật toán thuần, test được mà không cần DOM
     bestDeckFit, getTimePeriod, fitsMeal, chooseSuggestedCard, advanceBattleBracket, fillWeekPlan
   };

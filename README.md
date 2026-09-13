@@ -8,7 +8,7 @@
 
 ## Giới thiệu / Introduction
 
-**Hôm Nay Ăn Gì?** là ứng dụng giúp bạn chọn món ăn mỗi ngày một cách thú vị với bộ bài 52 lá. Mỗi lá bài tương ứng với một món ăn Việt Nam truyền thống.
+**Hôm Nay Ăn Gì?** là ứng dụng giúp bạn chọn món ăn mỗi ngày với bộ bài tối đa 52 lá. Mỗi ván lấy một phần từ kho món Việt và một số món quốc tế quen thuộc.
 
 A fun Vietnamese food picker app using a 52-card deck concept. Can't decide what to eat? Just pick a card!
 
@@ -17,8 +17,8 @@ A fun Vietnamese food picker app using a 52-card deck concept. Can't decide what
 ## Tính năng / Features
 
 **Bộ món**
-- Gần 150 món chia 4 nhóm: Bún · Phở, Cơm, Bánh · Xôi, Nhậu · Cơm nhà — từ món dân dã tới món ngoại lai quen thuộc; mỗi ván chia 52 lá rút ngẫu nhiên
-- Mỗi món có ảnh riêng, gợi ý ăn kèm, vùng miền, khoảng giá tham khảo và buổi ăn hợp
+- 153 món chia 4 nhóm: Bún · Phở, Cơm, Bánh · Xôi, Món mặn · Nhậu; mỗi ván chia tối đa 52 lá
+- Gợi ý ăn cùng, vùng miền và buổi ăn phù hợp; món chưa có ảnh phù hợp được ghi rõ, không thay bằng ảnh món khác
 - Đủ ba miền Bắc – Trung – Nam trong từng nhóm
 - Thêm món tùy chỉnh của riêng bạn
 
@@ -29,10 +29,10 @@ A fun Vietnamese food picker app using a 52-card deck concept. Can't decide what
 - So sánh món — chọn từng cặp để loại dần
 
 **Cá nhân hoá**
-- Lọc theo nhóm món, vùng miền, **buổi ăn** (sáng · trưa · xế · tối · khuya) và món yêu thích
+- Lọc theo nhóm món, món tiêu biểu của Hà Nội/TP. Hồ Chí Minh/Đà Nẵng/Hội An, vùng miền, **buổi ăn** (sáng · trưa · xế · tối · khuya) và món yêu thích
 - Đánh dấu yêu thích, loại trừ món không hợp khẩu vị (có ô tìm kiếm, bỏ dấu vẫn ra)
 - Gợi ý theo giờ: món hợp buổi hiện tại được xếp lên đầu — phục vụ cả ngày, không chỉ bữa tối
-- Món của ngày, lịch ăn tuần, lịch sử và thống kê món hay ăn
+- Món của ngày theo bộ lọc hiện tại, lịch ăn tuần, lịch sử và thống kê món đã chọn
 - Chế độ nhiều người chơi (2–6 người)
 - Chế độ tối, ba mức tốc độ hiệu ứng, hai kiểu mặt bài (Dân gian / Bài tây)
 
@@ -47,9 +47,9 @@ A fun Vietnamese food picker app using a 52-card deck concept. Can't decide what
 - Giao diện tự co giãn từ 320px đến màn 4K; trên máy rộng cả bộ bài nằm gọn
   một màn, trên điện thoại khu vực bài cuộn dọc và mờ dần ở mép để báo còn bài
 - Đặt món nhanh qua GrabFood, ShopeeFood, beFood, Google Maps
-- PWA cài được lên điện thoại, chạy offline, không cần tài khoản
+- PWA cài được lên điện thoại, giao diện dùng được offline sau lần tải đầu; ảnh chưa được cache có thể không hiện khi mất mạng
 - Chia sẻ kết quả kèm ảnh thẻ bài
-- Cả 149 món đều có ảnh chụp WebP 512×512; ảnh bổ sung có [nguồn, tác giả và giấy phép](images/commons-food-sources.json) rõ ràng
+- 132/153 món đang có ảnh; 21 món còn lại hiện "Ảnh chưa có" trong khi chờ ảnh đúng món và quyền sử dụng rõ ràng. Nguồn, tác giả và giấy phép của ảnh bổ sung xem tại [trang ghi công ảnh](images/credits.html). Không phải mọi ảnh cũ đã được xác minh độc lập về nguồn gốc hoặc độ đúng món
 - Ảnh tải lazy, tôn trọng `prefers-reduced-motion`
 - Truy cập bàn phím đầy đủ: Escape đóng modal, Tab bị giữ trong modal, có vùng thông báo cho trình đọc màn hình
 
@@ -81,6 +81,29 @@ python -m http.server 3000
 # Open http://localhost:3000 in your browser
 ```
 
+### Kiểm tra trình duyệt / Browser regression
+
+Smoke test responsive, modal, lọc, chia sẻ, credits, localStorage lỗi và
+offline được đặt tại `tests/browser_regression.py`.
+
+```bash
+# Terminal 1
+python -m http.server 4173
+
+# Terminal 2 (cần cài Playwright, Pillow + Chromium một lần)
+pip install playwright pillow
+playwright install chromium
+npm run test:browser
+```
+
+Test so sánh màn hình mobile chính và menu cài đặt với ảnh chuẩn trong
+`tests/visual-baselines/`, đồng thời chụp các viewport chẩn đoán vào `/tmp`.
+Khi thay đổi giao diện có chủ đích, xem ảnh mới rồi cập nhật baseline bằng:
+
+```bash
+npm run test:visual:update
+```
+
 ### PWA
 1. Mở ứng dụng trong Chrome/Safari / Open the app in Chrome/Safari
 2. Nhấn "Add to Home Screen" / Click "Add to Home Screen" or install prompt
@@ -105,7 +128,7 @@ chữ, biểu tượng và ảnh món có sẵn đều nằm trong repo. Chỉ k
 chủ của link đó; ảnh ngoài có thể không khả dụng khi offline.
 
 Dữ liệu người dùng (món yêu thích, món loại trừ, món tự thêm, lịch ăn tuần,
-lịch sử, tuỳ chọn) nằm trong `localStorage` của trình duyệt, không rời khỏi
+lịch sử, tùy chọn) nằm trong `localStorage` của trình duyệt, không rời khỏi
 máy. Mục **Cài đặt → Giới thiệu → Quyền riêng tư** có nút xoá sạch toàn bộ.
 
 ---
@@ -132,12 +155,13 @@ homnayangi/
 
 ### Dữ liệu món ăn
 
-Toàn bộ 149 món nằm trong hằng `DISH_DB` ở đầu `app.js` (mỗi ván rút ngẫu nhiên 52 lá). Mỗi món là một bản ghi
-duy nhất gồm tên, vùng miền, ảnh, gợi ý ăn kèm, khoảng giá và buổi ăn hợp —
-các bảng `DISHES` / `IMAGES` / `REGIONS` / `PAIRINGS` được suy ra từ đó, nên
-không thể xảy ra cảnh tên món một đằng ảnh một nẻo.
+153 món nằm trong hằng `DISH_DB` ở đầu `app.js` (mỗi ván tối đa 52 lá). Mỗi bản ghi
+gồm tên, vùng miền, ảnh (có thể chưa có), gợi ý ăn cùng, khoảng giá nội bộ và buổi ăn hợp.
+Khoảng giá chưa đủ nguồn cập nhật theo địa điểm/thời điểm nên không hiển thị cho người dùng.
+Các bảng `DISHES` / `IMAGES` / `REGIONS` / `PAIRINGS` được suy ra từ đó; kiểm tra
+tự động chỉ chứng minh tệp tồn tại và dữ liệu đúng định dạng, không chứng minh ảnh chụp đúng món.
 
-`dish-data.test.js` kiểm tra tự động: ảnh tồn tại và khớp tên món, không trùng
+`dish-data.test.js` kiểm tra tự động: tệp ảnh được gán tồn tại, không trùng
 lặp, vùng miền và buổi ăn hợp lệ, khoảng giá tăng dần, mỗi nhóm đủ ba miền.
 
 ```bash

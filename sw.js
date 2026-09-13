@@ -1,14 +1,16 @@
-const CACHE_NAME = 'homnayangi-v25';
+const CACHE_NAME = 'homnayangi-v47';
 
 // Vỏ ứng dụng + phông. Phông nằm trong danh sách cài đặt sẵn vì nếu thiếu,
 // lần chạy offline đầu tiên sẽ rơi về phông hệ thống — dấu tiếng Việt lệch
-// và cả giao diện xô chữ. Ảnh món KHÔNG cài sẵn (3,7 MB cho 149 món) mà được
-// cache dần khi người dùng lật tới, theo chiến lược network-first bên dưới.
+// và cả giao diện xô chữ. Ảnh món không cài sẵn để tránh tải toàn kho trên
+// kết nối di động; ảnh chưa từng xem có thể không có khi offline.
 const urlsToCache = [
     './',
     './index.html',
     './styles.css',
     './app.js',
+    './images/credits.html',
+    './images/commons-food-sources.json',
     './manifest.json',
     './icons/icon-192.png',
     './icons/icon-512.png',
@@ -40,26 +42,31 @@ self.addEventListener('install', event => {
 self.addEventListener('fetch', event => {
     // Skip non-GET requests
     if (event.request.method !== 'GET') return;
+    const url = new URL(event.request.url);
+    // Never store third-party content (including user-provided image links).
+    if (url.origin !== self.location.origin) return;
+
+    const isImage = url.pathname.includes('/images/');
+    const isShellAsset = urlsToCache.some(path => new URL(path, self.registration.scope).pathname === url.pathname);
+    const requestFresh = () => fetch(event.request).then(response => {
+        if (response.ok && (isImage || isShellAsset)) {
+            const copy = response.clone();
+            event.waitUntil(caches.open(CACHE_NAME)
+                .then(cache => cache.put(event.request, copy))
+                .catch(() => {}));
+        }
+        return response;
+    });
 
     event.respondWith(
-        fetch(event.request)
-            .then(response => {
-                // Clone and cache the fresh response
-                if (response.ok) {
-                    const responseClone = response.clone();
-                    // Keep the worker alive until the write finishes without delaying
-                    // the fresh network response shown to the user.
-                    event.waitUntil(
-                        caches.open(CACHE_NAME)
-                            .then(cache => cache.put(event.request, responseClone))
-                            .catch(() => {})
-                    );
-                }
-                return response;
-            })
-            .catch(() => {
-                // Offline - fallback to cache
-                return caches.match(event.request);
+        isImage
+            ? caches.match(event.request).then(cached => cached || requestFresh())
+            : requestFresh().catch(async () => {
+                const exact = await caches.match(event.request);
+                if (exact) return exact;
+                if (isShellAsset) return caches.match(url.pathname, { ignoreSearch: true });
+                if (event.request.mode === 'navigate') return caches.match(new URL('./index.html', self.registration.scope).href);
+                return Response.error();
             })
     );
 });
@@ -72,7 +79,7 @@ self.addEventListener('activate', event => {
             caches.keys().then(cacheNames => {
                 return Promise.all(
                     cacheNames
-                        .filter(name => name !== CACHE_NAME)
+                        .filter(name => name.startsWith('homnayangi-') && name !== CACHE_NAME)
                         .map(name => caches.delete(name))
                 );
             })
