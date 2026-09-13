@@ -16,9 +16,32 @@ Luồng xoay vòng chọn món:
 
 ![Xoay vòng món](screenshots/github-pages-wheel-1440.png)
 
-Các luồng Lướt, Cào, Mâm cơm và Đấu loại dùng chung hệ thống modal và kết quả; ảnh minh họa riêng sẽ được bổ sung sau khi chụp đủ từng trạng thái.
+Ba ảnh trên chụp trực tiếp từ bản public ở viewport 1440×900.
 
-Ảnh được chụp trực tiếp từ bản public ở viewport 1440×900.
+### Tám cách chọn món / Eight ways to pick
+
+Mỗi cách chọn có một luồng riêng, dùng chung màn kết quả và hệ đặt món. Ảnh dưới
+chụp từ bản phát hành **v47** ở viewport 1440×900.
+
+| Bốc bài — bộ 52 lá | Kết quả gợi ý món |
+| --- | --- |
+| ![Bốc bài 52 lá](screenshots/flow-deck-1440.png) | ![Kết quả gợi ý món](screenshots/flow-result-1440.png) |
+
+| Lướt chọn món (băng chuyền) | Cào chọn món |
+| --- | --- |
+| ![Lướt chọn món](screenshots/flow-reel-1440.png) | ![Cào chọn món](screenshots/flow-scratch-1440.png) |
+
+| Lắc chọn món (kèm lộc) | Chạm chọn món (bốc hoa) |
+| --- | --- |
+| ![Lắc chọn món](screenshots/flow-shake-1440.png) | ![Chạm chọn món](screenshots/flow-touch-1440.png) |
+
+| Đấu loại món (chọn từng cặp) | Mâm cơm gia đình ba miền |
+| --- | --- |
+| ![Đấu loại món](screenshots/flow-battle-1440.png) | ![Mâm cơm gia đình](screenshots/flow-mam-1440.png) |
+
+Chế độ tối:
+
+![Chế độ tối](screenshots/dark-mode-1440.png)
 
 ---
 
