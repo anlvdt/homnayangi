@@ -28,6 +28,11 @@ try:
             page.locator('#wheelBtn').click()
             page.locator('#spinWheelBtn').click()
             page.locator('#modal.show').wait_for(timeout=15000)
+            # The wheel result populates the modal asynchronously; wait for the
+            # name before asserting so slower engines (WebKit) are not flaky.
+            page.wait_for_function(
+                "document.querySelector('#resultCard .food-name')?.textContent.trim().length > 0",
+                timeout=15000)
             assert page.locator('#resultCard .food-name').inner_text().strip()
             page.locator('#closeBtn').click()
             if engine == 'chromium':
@@ -35,13 +40,16 @@ try:
                 page.evaluate('navigator.serviceWorker.ready')
                 page.wait_for_function('navigator.serviceWorker.controller !== null')
                 context.set_offline(True)
-                page.reload(wait_until='load')
-                assert page.locator('#app').is_visible()
+                # Deep-link navigation while offline must fall back to the precached shell.
+                page.goto(url+'offline-route', wait_until='load')
+                assert page.locator('.container').is_visible()
                 # Query cache miss must fall back to the precached unversioned shell.
                 assert page.evaluate("fetch('./app.js?acceptance=uncached').then(r=>r.ok)")
                 assert page.evaluate("fetch('./styles.css?acceptance=uncached').then(r=>r.ok)")
-                page.goto(url+'offline-route', wait_until='load')
-                assert page.locator('#app').is_visible()
+                # Offline reload of the app shell.
+                page.goto(url, wait_until='load')
+                page.reload(wait_until='load')
+                assert page.locator('.container').is_visible()
                 page.locator('#wheelBtn').click()
                 page.locator('#spinWheelBtn').click()
                 page.locator('#modal.show').wait_for(timeout=15000)

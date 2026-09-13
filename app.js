@@ -3570,7 +3570,6 @@ async function shareResult() {
     }
   } catch (err) {
     if (err?.name === 'AbortError') return;
-    console.log('Image share failed:', err);
   }
 
   // Fallback to text share
@@ -3584,7 +3583,6 @@ async function shareResult() {
       await navigator.share(shareData);
     } catch (err) {
       if (err?.name === 'AbortError') return;
-      console.log('Share cancelled:', err);
     }
   } else {
     // Fallback: copy to clipboard
