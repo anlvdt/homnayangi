@@ -6,6 +6,14 @@
 
 Bản phát hành hiện tại: **v47** · GitHub Pages được triển khai tự động từ nhánh `feat/khong-gian-lang-que`.
 
+### Ảnh thực tế trên GitHub Pages
+
+![Trang chính trên GitHub Pages](screenshots/github-pages-home-1440.png)
+
+![Menu cài đặt trên GitHub Pages](screenshots/github-pages-settings-1440.png)
+
+Ảnh được chụp trực tiếp từ bản public ở viewport 1440×900.
+
 ---
 
 ## Giới thiệu / Introduction
