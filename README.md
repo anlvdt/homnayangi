@@ -12,15 +12,11 @@ Bản phát hành hiện tại: **v47** · GitHub Pages được triển khai t�
 
 ![Menu cài đặt trên GitHub Pages](screenshots/github-pages-settings-1440.png)
 
-Các luồng chọn món:
+Luồng xoay vòng chọn món:
 
-| Xoay vòng | Lướt chọn món | Cào chọn món |
-|---|---|---|
-| ![Xoay vòng](screenshots/github-pages-wheel-1440.png) | ![Lướt](screenshots/github-pages-reel-1440.png) | ![Cào](screenshots/github-pages-scratch-1440.png) |
+![Xoay vòng món](screenshots/github-pages-wheel-1440.png)
 
-![Gợi ý mâm cơm gia đình](screenshots/github-pages-family-meal-1440.png)
-
-![Đấu loại món](screenshots/github-pages-battle-1440.png)
+Các luồng Lướt, Cào, Mâm cơm và Đấu loại dùng chung hệ thống modal và kết quả; ảnh minh họa riêng sẽ được bổ sung sau khi chụp đủ từng trạng thái.
 
 Ảnh được chụp trực tiếp từ bản public ở viewport 1440×900.
 
