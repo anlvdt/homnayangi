@@ -1,0 +1,662 @@
+[
+  {
+    "dish": "Bánh chưng rán",
+    "file": "photo_banh_chung_ran.webp",
+    "title": "File:Bánh chưng chấm mật 2.JPG",
+    "source": "https://commons.wikimedia.org/wiki/File:B%C3%A1nh_ch%C6%B0ng_ch%E1%BA%A5m_m%E1%BA%ADt_2.JPG",
+    "author": "Hungda",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "dish": "Bánh cống",
+    "file": "photo_banh_cong.webp",
+    "title": "File:Bánh cống de Cần Thơ.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:B%C3%A1nh_c%E1%BB%91ng_de_C%E1%BA%A7n_Th%C6%A1.jpg",
+    "author": "Vietcuongdao",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "dish": "Bánh flan",
+    "file": "photo_banh_flan.webp",
+    "title": "File:Homemade Flan.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Homemade_Flan.jpg",
+    "author": "Cary Bass",
+    "license": "CC BY-SA 2.5",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.5"
+  },
+  {
+    "dish": "Bánh giầy giò",
+    "file": "photo_banh_giay_gio.webp",
+    "title": "File:Bánh giầy giò.JPG",
+    "source": "https://commons.wikimedia.org/wiki/File:B%C3%A1nh_gi%E1%BA%A7y_gi%C3%B2.JPG",
+    "author": "Nguyễn Thanh Quang",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "dish": "Bánh gối",
+    "file": "photo_banh_goi.webp",
+    "title": "File:Bite of Curry Puff.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Bite_of_Curry_Puff.jpg",
+    "author": "stef yau from Seattle, USA",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "dish": "Bánh khoái",
+    "file": "photo_banh_khoai.webp",
+    "title": "File:Bánh xèo 1.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:B%C3%A1nh_x%C3%A8o_1.jpg",
+    "author": "Kent Wang from Austin, TX",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "dish": "Bánh mì chảo",
+    "file": "photo_banh_mi_chao.webp",
+    "title": "File:Một phần bánh mì chảo với trứng và chả (38657217774).jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:M%E1%BB%99t_ph%E1%BA%A7n_b%C3%A1nh_m%C3%AC_ch%E1%BA%A3o_v%E1%BB%9Bi_tr%E1%BB%A9ng_v%C3%A0_ch%E1%BA%A3_(38657217774).jpg",
+    "author": "Vinnie Cartabiano",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "dish": "Bánh mì que",
+    "file": "photo_banh_mi_que.webp",
+    "title": "File:アオサンズのバインミークエ.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:%E3%82%A2%E3%82%AA%E3%82%B5%E3%83%B3%E3%82%BA%E3%81%AE%E3%83%90%E3%82%A4%E3%83%B3%E3%83%9F%E3%83%BC%E3%82%AF%E3%82%A8.jpg",
+    "author": "経済特区",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "dish": "Bánh mì xíu mại",
+    "file": "photo_banh_mi_xiu_mai.webp",
+    "title": "File:Bánh mì xíu mại-meatball-sandwich.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:B%C3%A1nh_m%C3%AC_x%C3%ADu_m%E1%BA%A1i-meatball-sandwich.jpg",
+    "author": "Nummymuffin",
+    "license": "Public domain",
+    "license_url": null
+  },
+  {
+    "dish": "Bánh nậm",
+    "file": "photo_banh_nam.webp",
+    "title": "File:Bánh Nậm.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:B%C3%A1nh_N%E1%BA%ADm.jpg",
+    "author": "Christopher Crouzet",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "dish": "Bánh tôm Hồ Tây",
+    "file": "photo_banh_tom_ho_tay.webp",
+    "title": "File:Lễ hội ẩm thực Cửa Việt th4n2023 đặc sản bánh tôm Hồ Tây (2).jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:L%E1%BB%85_h%E1%BB%99i_%E1%BA%A9m_th%E1%BB%B1c_C%E1%BB%ADa_Vi%E1%BB%87t_th4n2023_%C4%91%E1%BA%B7c_s%E1%BA%A3n_b%C3%A1nh_t%C3%B4m_H%E1%BB%93_T%C3%A2y_(2).jpg",
+    "author": "Phương Huy",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "dish": "Bánh đa cua",
+    "file": "photo_banh_da_cua.webp",
+    "title": "File:Bánh đa cua Hải Phòng (27.2 (1).jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:B%C3%A1nh_%C4%91a_cua_H%E1%BA%A3i_Ph%C3%B2ng_(27.2_(1).jpg",
+    "author": "Phương Huy",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "dish": "Bò kho",
+    "file": "photo_bo_kho.webp",
+    "title": "File:Bo Kho.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Bo_Kho.jpg",
+    "author": "Jason Hutchens",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "dish": "Bò lá lốt",
+    "file": "photo_bo_la_lot.webp",
+    "title": "File:Một phần bò nướng lá lốt.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:M%E1%BB%99t_ph%E1%BA%A7n_b%C3%B2_n%C6%B0%E1%BB%9Bng_l%C3%A1_l%E1%BB%91t.jpg",
+    "author": "Baoothersks",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0"
+  },
+  {
+    "dish": "Bò né",
+    "file": "photo_bo_ne.webp",
+    "title": "File:Bò né.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:B%C3%B2_n%C3%A9.jpg",
+    "author": "Kwozyn",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  {
+    "dish": "Bún cá rô đồng",
+    "file": "photo_bun_ca_ro_dong.webp",
+    "title": "File:Tô bún cá rô ng1th9n2022 (2).jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:T%C3%B4_b%C3%BAn_c%C3%A1_r%C3%B4_ng1th9n2022_(2).jpg",
+    "author": "Phương Huy",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  {
+    "dish": "Bún măng vịt",
+    "file": "photo_bun_mang_vit.webp",
+    "title": "File:Bún măng thịt vịt.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:B%C3%BAn_m%C4%83ng_th%E1%BB%8Bt_v%E1%BB%8Bt.jpg",
+    "author": "yuchinkay",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "dish": "Bún nước lèo",
+    "file": "photo_bun_nuoc_leo.webp",
+    "title": "File:Bún nước lèo.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:B%C3%BAn_n%C6%B0%E1%BB%9Bc_l%C3%A8o.jpg",
+    "author": "SauceSupreme",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "dish": "Bún riêu ốc",
+    "file": "photo_bun_rieu_oc.webp",
+    "title": "File:Bun rieu.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Bun_rieu.jpg",
+    "author": "Schellack at English Wikipedia",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0"
+  },
+  {
+    "dish": "Bún ốc",
+    "file": "photo_bun_oc.webp",
+    "title": "File:Bun oc Hoe Nhai.JPG",
+    "source": "https://commons.wikimedia.org/wiki/File:Bun_oc_Hoe_Nhai.JPG",
+    "author": "vi:thành viên:Rungbachduong",
+    "license": "CC BY-SA 3.0",
+    "license_url": "http://creativecommons.org/licenses/by-sa/3.0/"
+  },
+  {
+    "dish": "Cao lầu",
+    "file": "photo_cao_lau.webp",
+    "title": "File:Cao lầu 2.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Cao_l%E1%BA%A7u_2.jpg",
+    "author": "harmony-hiro",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "dish": "Chân gà sả tắc",
+    "file": "photo_chan_ga_sa_tac.webp",
+    "title": "File:Chicken feet (food) 1 2017-09-01.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Chicken_feet_(food)_1_2017-09-01.jpg",
+    "author": "FASTILY",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "dish": "Chả cá Lã Vọng",
+    "file": "photo_cha_ca_la_vong.webp",
+    "title": "File:Chả cá Lã Vọng.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Ch%E1%BA%A3_c%C3%A1_L%C3%A3_V%E1%BB%8Dng.jpg",
+    "author": "Lionel Ng from Singapore",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "dish": "Cà ri dê",
+    "file": "photo_ca_ri_de.webp",
+    "title": "File:Curry Goat and Rice.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Curry_Goat_and_Rice.jpg",
+    "author": "Leon Brocard from London, UK",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "dish": "Cánh gà chiên mắm",
+    "file": "photo_canh_ga_chien_mam.webp",
+    "title": "File:Fried Chicken Wings (54282490120).jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Fried_Chicken_Wings_(54282490120).jpg",
+    "author": "Choo Yut Shing from Singapore, Singapore",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "dish": "Cơm bò Hàn Quốc",
+    "file": "photo_com_bo_han_quoc.webp",
+    "title": "File:Beef Bulgogi Set - Let's Bap AUD9 (4359189190).jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Beef_Bulgogi_Set_-_Let%27s_Bap_AUD9_(4359189190).jpg",
+    "author": "Alpha from Melbourne, Australia",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "dish": "Cơm bò Nhật",
+    "file": "photo_com_bo_nhat.webp",
+    "title": "File:Gyudon by jetalone in Higashi-Ginza, Tokyo.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Gyudon_by_jetalone_in_Higashi-Ginza,_Tokyo.jpg",
+    "author": "jetalone from Higashi-Ginza, Tokyo",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "dish": "Cơm bò xào cần tỏi",
+    "file": "photo_com_bo_xao_can_toi.webp",
+    "title": "File:2016-08-20 Stir fried beef slices with celery in a Beijing Restaurant anagoria.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:2016-08-20_Stir_fried_beef_slices_with_celery_in_a_Beijing_Restaurant_anagoria.jpg",
+    "author": "Anagoria",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0"
+  },
+  {
+    "dish": "Cơm chiên trứng",
+    "file": "photo_com_chien_trung.webp",
+    "title": "File:Egg Fried Rice.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Egg_Fried_Rice.jpg",
+    "author": "Gaurav Dhwaj Khadka",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "dish": "Cơm cà ri Ấn",
+    "file": "photo_com_ca_ri_an.webp",
+    "title": "File:Curry rice.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Curry_rice.jpg",
+    "author": "wizdata",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  {
+    "dish": "Cơm dừa Bến Tre",
+    "file": "photo_com_dua_ben_tre.webp",
+    "title": "File:Coconut rice with crispies.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Coconut_rice_with_crispies.jpg",
+    "author": "Lakshmibsriram",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "dish": "Cơm gà Hải Nam",
+    "file": "photo_com_ga_hai_nam.webp",
+    "title": "File:Hainanese Chicken Rice.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Hainanese_Chicken_Rice.jpg",
+    "author": "No machine-readable author provided. Terence assumed (based on copyright claims).",
+    "license": "CC BY 2.5",
+    "license_url": "https://creativecommons.org/licenses/by/2.5"
+  },
+  {
+    "dish": "Cơm gà Tam Kỳ",
+    "file": "photo_com_ga_tam_ky.webp",
+    "title": "File:Cơm gà Tam Kỳ, Quảng Nam.JPG",
+    "source": "https://commons.wikimedia.org/wiki/File:C%C6%A1m_g%C3%A0_Tam_K%E1%BB%B3,_Qu%E1%BA%A3ng_Nam.JPG",
+    "author": "Đông Sơn (thảo luận)",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "dish": "Cơm gà nướng",
+    "file": "photo_com_ga_nuong.webp",
+    "title": "File:Cơm gà nướng quán Thủy Trúc đường NNL ng4th9n2022 (1).jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:C%C6%A1m_g%C3%A0_n%C6%B0%E1%BB%9Bng_qu%C3%A1n_Th%E1%BB%A7y_Tr%C3%BAc_%C4%91%C6%B0%E1%BB%9Dng_NNL_ng4th9n2022_(1).jpg",
+    "author": "Phương Huy",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  {
+    "dish": "Cơm heo quay",
+    "file": "photo_com_heo_quay.webp",
+    "title": "File:Roast pork and Char Siu Rice, Singapore September 2017.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Roast_pork_and_Char_Siu_Rice,_Singapore_September_2017.jpg",
+    "author": "Banej",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "dish": "Cơm hến",
+    "file": "photo_com_hen.webp",
+    "title": "File:Com Hen at Hue Vietnam.JPG",
+    "source": "https://commons.wikimedia.org/wiki/File:Com_Hen_at_Hue_Vietnam.JPG",
+    "author": "Tonbi ko",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "dish": "Cơm lam",
+    "file": "photo_com_lam.webp",
+    "title": "File:Cơm lam Tây Nguyên.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:C%C6%A1m_lam_T%C3%A2y_Nguy%C3%AAn.jpg",
+    "author": "Lam Nguyen from Ho Chi Minh City, Vietnam",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "dish": "Cơm rang hải sản",
+    "file": "photo_com_rang_hai_san.webp",
+    "title": "File:Koh Mak, Thailand, Fried rice with seafood, Thai fried rice.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Koh_Mak,_Thailand,_Fried_rice_with_seafood,_Thai_fried_rice.jpg",
+    "author": "Vyacheslav Argenberg",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0"
+  },
+  {
+    "dish": "Cơm sườn Hàn Quốc",
+    "file": "photo_com_suon_han_quoc.webp",
+    "title": "File:Galbi Bibimbap in Hong Kong.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Galbi_Bibimbap_in_Hong_Kong.jpg",
+    "author": "Ceeseven",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "dish": "Cơm sườn bì chả",
+    "file": "photo_com_suon_bi_cha.webp",
+    "title": "File:Cơm tấm sườn bì chả.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:C%C6%A1m_t%E1%BA%A5m_s%C6%B0%E1%BB%9Dn_b%C3%AC_ch%E1%BA%A3.jpg",
+    "author": "Alpha from Melbourne, Australia",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "dish": "Cơm âm phủ",
+    "file": "photo_com_am_phu.webp",
+    "title": "File:Special Broken Rice with Pork Chop, Shredded Pork Skin and Fried Egg - Thanh Ha (3015036072).jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Special_Broken_Rice_with_Pork_Chop,_Shredded_Pork_Skin_and_Fried_Egg_-_Thanh_Ha_(3015036072).jpg",
+    "author": "Alpha from Melbourne, Australia",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "dish": "Dimsum",
+    "file": "photo_dimsum.webp",
+    "title": "File:Fast food dim sum and soy sauce.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Fast_food_dim_sum_and_soy_sauce.jpg",
+    "author": "User:Fir0002",
+    "license": "GFDL 1.2",
+    "license_url": "http://www.gnu.org/licenses/old-licenses/fdl-1.2.html"
+  },
+  {
+    "dish": "Gà rán",
+    "file": "photo_ga_ran.webp",
+    "title": "File:Fried-Chicken-Set.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Fried-Chicken-Set.jpg",
+    "author": "Evan-Amos",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  {
+    "dish": "Hamburger",
+    "file": "photo_hamburger.webp",
+    "title": "File:NCI Visuals Food Hamburger.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:NCI_Visuals_Food_Hamburger.jpg",
+    "author": "Len Rizzi (photographer)",
+    "license": "Public domain",
+    "license_url": null
+  },
+  {
+    "dish": "Hủ tiếu Mỹ Tho",
+    "file": "photo_hu_tieu_my_tho.webp",
+    "title": "File:Tô hủ tiếu Mỹ Tho, ng14th8n2022 (chén gan thêm) (1).jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:T%C3%B4_h%E1%BB%A7_ti%E1%BA%BFu_M%E1%BB%B9_Tho,_ng14th8n2022_(ch%C3%A9n_gan_th%C3%AAm)_(1).jpg",
+    "author": "Phương Huy",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  {
+    "dish": "Hủ tiếu gõ",
+    "file": "photo_hu_tieu_go.webp",
+    "title": "File:Kuyteav.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Kuyteav.jpg",
+    "author": "Goomba King (w:en:User:Trilinguist)",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "dish": "Kebab Thổ Nhĩ Kỳ",
+    "file": "photo_kebab_tho_nhi_ky.webp",
+    "title": "File:Döner Kebab, Berlin, 2010 (01).jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:D%C3%B6ner_Kebab,_Berlin,_2010_(01).jpg",
+    "author": "AleGranholm",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+  },
+  {
+    "dish": "Lẩu gà lá é",
+    "file": "photo_lau_ga_la_e.webp",
+    "title": "File:Newone - lẩu gà, sườn và rượu đinh lăng.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Newone_-_l%E1%BA%A9u_g%C3%A0,_s%C6%B0%E1%BB%9Dn_v%C3%A0_r%C6%B0%E1%BB%A3u_%C4%91inh_l%C4%83ng.jpg",
+    "author": "Newone",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "dish": "Lẩu mắm",
+    "file": "photo_lau_mam.webp",
+    "title": "File:Lẩu cá dày đường Nguyễn Sơn, Tân Phú (1).jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:L%E1%BA%A9u_c%C3%A1_d%C3%A0y_%C4%91%C6%B0%E1%BB%9Dng_Nguy%E1%BB%85n_S%C6%A1n,_T%C3%A2n_Ph%C3%BA_(1).jpg",
+    "author": "Phương Huy (thảo luận)",
+    "license": "Public domain",
+    "license_url": null
+  },
+  {
+    "dish": "Miến lươn",
+    "file": "photo_mien_luon.webp",
+    "title": "File:Yuxi eel rice noodles (20210320161044).jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Yuxi_eel_rice_noodles_(20210320161044).jpg",
+    "author": "N509FZ",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "dish": "Mì cay Hàn Quốc",
+    "file": "photo_mi_cay_han_quoc.webp",
+    "title": "File:Pork Balls Spicy Korean Instant Noodle Soup.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Pork_Balls_Spicy_Korean_Instant_Noodle_Soup.jpg",
+    "author": "Peachyeung316",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "dish": "Mì tôm trứng",
+    "file": "photo_mi_tom_trung.webp",
+    "title": "File:A plate of instant noodles topped with a fried egg.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:A_plate_of_instant_noodles_topped_with_a_fried_egg.jpg",
+    "author": "পাপৰি বৰা",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "dish": "Mì vằn thắn",
+    "file": "photo_mi_van_than.webp",
+    "title": "File:Wonton Noodle - Wu Cai Ji - 20131228.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Wonton_Noodle_-_Wu_Cai_Ji_-_20131228.jpg",
+    "author": "DragonSamYU",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "dish": "Mì Ý sốt bò bằm",
+    "file": "photo_mi_y_sot_bo_bam.webp",
+    "title": "File:Spaghetti Bolognese.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Spaghetti_Bolognese.jpg",
+    "author": "No machine-readable author provided. Chingon assumed (based on copyright claims).",
+    "license": "Public domain",
+    "license_url": null
+  },
+  {
+    "dish": "Mực nướng sa tế",
+    "file": "photo_muc_nuong_sa_te.webp",
+    "title": "File:Grilled squid3.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Grilled_squid3.jpg",
+    "author": "Valenzuela400",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "dish": "Nem chua rán",
+    "file": "photo_nem_chua_ran.webp",
+    "title": "File:Nem-chua-ran2.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Nem-chua-ran2.jpg",
+    "author": "Group6gma04",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "dish": "Pad Thái",
+    "file": "photo_pad_thai.webp",
+    "title": "File:Phat Thai kung Chang Khien street stall.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Phat_Thai_kung_Chang_Khien_street_stall.jpg",
+    "author": "Takeaway",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "dish": "Phá lấu",
+    "file": "photo_pha_lau.webp",
+    "title": "File:Phá lấu as served in Vietnam.jpeg",
+    "source": "https://commons.wikimedia.org/wiki/File:Ph%C3%A1_l%E1%BA%A5u_as_served_in_Vietnam.jpeg",
+    "author": "Policyandinternet",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "dish": "Phở cuốn",
+    "file": "photo_pho_cuon.webp",
+    "title": "File:Viet soft rolls with a black bean dipping sauce.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Viet_soft_rolls_with_a_black_bean_dipping_sauce.jpg",
+    "author": "Spicy Bear from Charlottesville, USA",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "dish": "Phở khô Gia Lai",
+    "file": "photo_pho_kho_gia_lai.webp",
+    "title": "File:Phở khô Gia Lai ở Tân Phú, phần nạm bò (1).jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Ph%E1%BB%9F_kh%C3%B4_Gia_Lai_%E1%BB%9F_T%C3%A2n_Ph%C3%BA,_ph%E1%BA%A7n_n%E1%BA%A1m_b%C3%B2_(1).jpg",
+    "author": "Phương Huy (thảo luận)",
+    "license": "Public domain",
+    "license_url": null
+  },
+  {
+    "dish": "Phở xào bò",
+    "file": "photo_pho_xao_bo.webp",
+    "title": "File:Phở xào bò.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Ph%E1%BB%9F_x%C3%A0o_b%C3%B2.jpg",
+    "author": "Codename5281",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "dish": "Pizza",
+    "file": "photo_pizza.webp",
+    "title": "File:Vegetarian Pizza.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Vegetarian_Pizza.jpg",
+    "author": "Petar Milošević",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "dish": "Ramen Nhật",
+    "file": "photo_ramen_nhat.webp",
+    "title": "File:Tonkotsu Ramen - Goemon Ramen Bar 2023-06-06.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Tonkotsu_Ramen_-_Goemon_Ramen_Bar_2023-06-06.jpg",
+    "author": "Andy Li",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+  },
+  {
+    "dish": "Sandwich",
+    "file": "photo_sandwich.webp",
+    "title": "File:Bologna sandwich.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Bologna_sandwich.jpg",
+    "author": "Diderot's dreams",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0"
+  },
+  {
+    "dish": "Sushi",
+    "file": "photo_sushi.webp",
+    "title": "File:Sushi platter.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Sushi_platter.jpg",
+    "author": "chidorian from Japan",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "dish": "Tokbokki",
+    "file": "photo_tokbokki.webp",
+    "title": "File:Korean.snacks-Cheese tteokbokki.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Korean.snacks-Cheese_tteokbokki.jpg",
+    "author": "by avlxyz",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  {
+    "dish": "Trứng vịt lộn",
+    "file": "photo_trung_vit_lon.webp",
+    "title": "File:Chinese Balut sold in Nanjing 20100115.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Chinese_Balut_sold_in_Nanjing_20100115.jpg",
+    "author": "User:Berthe",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0"
+  },
+  {
+    "dish": "Xôi gấc",
+    "file": "photo_xoi_gac.webp",
+    "title": "File:Xôi gấc.JPG",
+    "source": "https://commons.wikimedia.org/wiki/File:X%C3%B4i_g%E1%BA%A5c.JPG",
+    "author": "Nguyễn Thanh Quang 07:20, 3 December 2007 (UTC)",
+    "license": "Public domain",
+    "license_url": null
+  },
+  {
+    "dish": "Xôi lạc",
+    "file": "photo_xoi_lac.webp",
+    "title": "File:Masi (Peanut Stuffed Sticky Rice).jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Masi_(Peanut_Stuffed_Sticky_Rice).jpg",
+    "author": "Herbertkikoy",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "dish": "Ếch xào lăn",
+    "file": "photo_ech_xao_lan.webp",
+    "title": "File:Cooked frog.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Cooked_frog.jpg",
+    "author": "PanShiBo",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  {
+    "dish": "Bánh bao bánh vạc",
+    "file": "photo_banh_bao_banh_vac.webp",
+    "title": "File:Bánh bao bánh vạc - hoi an (2024).jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:B%C3%A1nh_bao_b%C3%A1nh_v%E1%BA%A1c_-_hoi_an_(2024).jpg",
+    "author": "Chainwit.",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0",
+    "change_note": "Resized to 512 px WebP without deliberate color or content changes"
+  },
+  {
+    "dish": "Bột chiên",
+    "file": "photo_bot_chien.webp",
+    "title": "File:Bột chiên tại Sài Gòn.JPG",
+    "source": "https://commons.wikimedia.org/wiki/File:B%E1%BB%99t_chi%C3%AAn_t%E1%BA%A1i_S%C3%A0i_G%C3%B2n.JPG",
+    "author": "Tonbi ko",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "change_note": "Resized to 512 px WebP without deliberate color or content changes"
+  },
+  {
+    "dish": "Bánh tráng cuốn thịt heo",
+    "file": "photo_banh_trang_cuon_thit_heo.webp",
+    "title": "File:Bánh tráng cuốn thịt heo.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:B%C3%A1nh_tr%C3%A1ng_cu%E1%BB%91n_th%E1%BB%8Bt_heo.jpg",
+    "author": "Lê Huỳnh Bộ",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "change_note": "Resized to 512 px WebP without deliberate color or content changes"
+  }
+]

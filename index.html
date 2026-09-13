@@ -5,47 +5,200 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hôm Nay Ăn Gì?</title>
+  <meta name="description" content="Rút một lá bài để tìm món ngon hôm nay — khám phá 153 món Việt và quốc tế theo cách vui nhộn, miễn phí, chạy offline.">
+  <link rel="canonical" href="https://hnangi.netlify.app/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hnangi.netlify.app/">
+  <meta property="og:title" content="Hôm Nay Ăn Gì? — Rút bài chọn món">
+  <meta property="og:description" content="Không biết ăn gì? Rút một lá bài và khám phá món ngon cho hôm nay.">
+  <meta property="og:image" content="https://hnangi.netlify.app/icons/icon-512.png">
+  <meta property="og:image:alt" content="Biểu tượng Hôm Nay Ăn Gì?">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Hôm Nay Ăn Gì? — Rút bài chọn món">
+  <meta name="twitter:description" content="Không biết ăn gì? Rút một lá bài và khám phá món ngon cho hôm nay.">
+  <meta name="twitter:image" content="https://hnangi.netlify.app/icons/icon-512.png">
   <link rel="icon" href="icons/icon-192.png" type="image/png">
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0b3d24">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <meta name="theme-color" content="#4a2e19">
+  <!-- Phông tự host trong styles.css (thư mục fonts/). Không còn preconnect
+       tới Google: app chạy offline thật và không rò địa chỉ IP người dùng. -->
+  <link rel="preload" href="fonts/bevietnampro-400-vietnamese.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/bevietnampro-700-vietnamese.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/bevietnampro-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/bevietnampro-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css?v=47">
 </head>
 
-<body>
+<body class="choosing-method">
+  <a class="skip-link" href="#methodHeading">Đến khu vực chọn món</a>
+  <!-- Các lớp nền "sân quê" — hoạ tiết, bóng rìa, luỹ tre/đàn cò/nắng chiều.
+       Tách khỏi ::before/::after để tô được bằng biến màu (theo sáng/tối). -->
+  <div class="ground-motif" aria-hidden="true"></div>
+  <div class="ground-vignette" aria-hidden="true"></div>
+  <div class="scene-glow" aria-hidden="true"></div>
+  <div class="scene-birds" aria-hidden="true"></div>
+
   <div class="container">
     <header>
-      <img src="icons/icon-192.png" alt="Logo" class="header-logo">
+      <svg class="header-logo" viewBox="0 0 48 48" role="img" aria-label="Logo Hôm Nay Ăn Gì">
+        <defs><linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#c8623a"/><stop offset="1" stop-color="#8f3f22"/></linearGradient></defs>
+        <rect width="48" height="48" rx="13" fill="url(#logoGrad)"/>
+        <g fill="none" stroke="#f7ecd5" stroke-width="2" stroke-linecap="round" opacity="0.8">
+          <path d="M20 12.5 C16.8 10.7 16.8 8.8 20 8 C23.2 7.2 23.2 5.3 20 3.5"/>
+          <path d="M27 12.5 C23.8 10.7 23.8 8.8 27 8 C30.2 7.2 30.2 5.3 27 3.5"/></g>
+        <g stroke="#f2c14e" stroke-width="2.4" stroke-linecap="round">
+          <path d="M33 10 L21 26"/><path d="M37 13 L25 27"/></g>
+        <path d="M11 24 h26 a13 13 0 0 1 -26 0 z" fill="#f7ecd5"/>
+        <ellipse cx="24" cy="24" rx="13" ry="2.6" fill="#fff6e6"/>
+        <path d="M20 37 h8 l-1.4 3 h-5.2 z" fill="#eaddbf"/>
+      </svg>
       <div class="header-text">
         <h1>Hôm Nay Ăn Gì?</h1>
-        <p>Chọn một lá bài để xem món ăn của bạn</p>
+        <p id="headerGreeting">Hôm nay ăn gì?</p>
       </div>
-      <span class="challenge-badge" id="challengeBadge" title="Số món đã thử">
+      <span class="challenge-badge" id="challengeBadge" title="Số món đã chọn" role="img" aria-label="Đã chọn 0 trong 153 món">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0V4z" />
           <path d="M7 6H4a2 2 0 0 0 0 4h3M17 6h3a2 2 0 0 1 0 4h-3" />
         </svg>
-        <span id="triedCount">0</span>/52
+        <span id="triedCount">0</span>/<span id="totalDishes">153</span>
       </span>
     </header>
 
     <aside class="sidebar">
+    <div class="method-heading" id="methodHeading" tabindex="-1">
+      <div class="method-heading-row">
+        <span class="eyebrow" id="methodEyebrow">Gợi ý bữa này</span>
+        <h2 id="methodTitle" class="sr-only">Gợi ý món ăn hôm nay</h2>
+      </div>
+
+      <!-- Thanh chọn buổi ăn trực quan (Sáng, Trưa, Xế, Tối, Khuya) với SVG chuẩn mực -->
+      <div class="meal-tabs-wrap" id="mealTabsWrap" role="navigation" aria-label="Chọn buổi ăn">
+        <div class="meal-tabs" id="mealTabs" role="tablist">
+          <button type="button" class="meal-tab-btn" data-meal="sang" role="tab" aria-selected="false">
+            <span class="meal-tab-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4"/>
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+              </svg>
+            </span>
+            <span class="meal-tab-info">
+              <strong class="meal-tab-title">Sáng</strong>
+              <small class="meal-tab-time">5h–10h</small>
+            </span>
+          </button>
+          <button type="button" class="meal-tab-btn" data-meal="trua" role="tab" aria-selected="false">
+            <span class="meal-tab-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 11h16a8 8 0 0 1-16 0z"/>
+                <path d="M9 19h6M12 15v4"/>
+                <path d="M8 4c0 1.5 1 2 1 3M12 3c0 1.5 1 2 1 3M16 4c0 1.5 1 2 1 3"/>
+              </svg>
+            </span>
+            <span class="meal-tab-info">
+              <strong class="meal-tab-title">Trưa</strong>
+              <small class="meal-tab-time">10h–14h</small>
+            </span>
+          </button>
+          <button type="button" class="meal-tab-btn" data-meal="chieu" role="tab" aria-selected="false">
+            <span class="meal-tab-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                <path d="M2 8h16v7a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                <line x1="6" y1="2" x2="6" y2="4"/>
+                <line x1="10" y1="2" x2="10" y2="4"/>
+                <line x1="14" y1="2" x2="14" y2="4"/>
+              </svg>
+            </span>
+            <span class="meal-tab-info">
+              <strong class="meal-tab-title">Xế chiều</strong>
+              <small class="meal-tab-time">14h–17h</small>
+            </span>
+          </button>
+          <button type="button" class="meal-tab-btn" data-meal="toi" role="tab" aria-selected="false">
+            <span class="meal-tab-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 18h18M4 18a8 8 0 0 1 16 0"/>
+                <path d="M12 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+              </svg>
+            </span>
+            <span class="meal-tab-info">
+              <strong class="meal-tab-title">Tối</strong>
+              <small class="meal-tab-time">17h–22h</small>
+            </span>
+          </button>
+          <button type="button" class="meal-tab-btn" data-meal="khuya" role="tab" aria-selected="false">
+            <span class="meal-tab-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+              </svg>
+            </span>
+            <span class="meal-tab-info">
+              <strong class="meal-tab-title">Ăn khuya</strong>
+              <small class="meal-tab-time">22h–5h</small>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Bộ lọc khẩu vị 1 chạm tối giản (Craving Chips) không emoji -->
+      <div class="craving-chips-wrap" id="cravingChipsWrap" role="group" aria-label="Lọc theo khẩu vị">
+        <div class="craving-chips" id="cravingChips">
+          <button type="button" class="craving-chip active" data-craving="all">Tất cả</button>
+          <button type="button" class="craving-chip" data-craving="nuoc">Món nước</button>
+          <button type="button" class="craving-chip" data-craving="com">Cơm</button>
+          <button type="button" class="craving-chip" data-craving="banh">Bánh &amp; cuốn</button>
+          <button type="button" class="craving-chip" data-craving="thanh">Thanh đạm</button>
+          <button type="button" class="craving-chip" data-craving="re">Dưới 40K</button>
+        </div>
+      </div>
+    </div>
+
     <div class="controls">
+      <button class="btn preferences-toggle" id="preferencesToggle" aria-expanded="false" aria-controls="categoryFilter cityFilter advancedFilters singleMode multiMode">Khẩu vị<span class="pref-people">&amp; số người</span>
+        <svg class="pref-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </button>
+      <div class="meal-now sr-only">
+        <label class="sr-only" for="mealFilter">Buổi ăn</label>
+        <select class="filter-select" id="mealFilter" aria-label="Buổi ăn">
+          <option value="all">Theo giờ hiện tại</option>
+          <option value="sang">Bữa sáng</option>
+          <option value="trua">Bữa trưa</option>
+          <option value="chieu">Xế chiều</option>
+          <option value="toi">Bữa tối</option>
+          <option value="khuya">Ăn khuya</option>
+        </select>
+      </div>
       <div class="mode-group" role="group" aria-label="Chế độ chơi">
         <button class="btn mode-btn active" id="singleMode" aria-pressed="true">Một người</button>
         <button class="btn mode-btn" id="multiMode" aria-pressed="false">Nhiều người</button>
       </div>
       <div class="filter-group">
-        <select class="filter-select" id="categoryFilter" aria-label="Lọc loại món">
-          <option value="all">Tất cả</option>
-          <option value="♥">Bún/Phở</option>
-          <option value="♦">Cơm</option>
-          <option value="♣">Bánh/Xôi</option>
-          <option value="♠">Món khác</option>
+        <label for="diningContext">Bữa này bạn muốn</label>
+        <select class="filter-select" id="diningContext">
+          <option value="all">Tùy thích</option><option value="home">Nấu ở nhà</option><option value="order">Tìm quán</option><option value="party">Nhậu lai rai</option><option value="solo">Ăn một mình</option><option value="family">Ăn cùng gia đình</option>
         </select>
-        <select class="filter-select" id="regionFilter" aria-label="Lọc vùng miền">
+        <select class="filter-select" id="categoryFilter" aria-label="Lọc loại món">
+          <option value="all">Mọi loại món</option>
+          <option value="♥">Bún · Phở · Mì</option>
+          <option value="♦">Cơm</option>
+          <option value="♣">Bánh · Xôi</option>
+          <option value="♠">Món mặn · Nhậu</option>
+        </select>
+        <select class="filter-select" id="cityFilter" aria-label="Gợi ý món tiêu biểu theo thành phố">
+          <option value="all">Mọi thành phố</option>
+          <option value="hanoi">Hà Nội</option>
+          <option value="hcm">TP. Hồ Chí Minh</option>
+          <option value="danang">Đà Nẵng</option>
+          <option value="hoian">Hội An</option>
+        </select>
+        <details class="advanced-filters" id="advancedFilters">
+          <summary id="advancedFiltersLabel">Lọc thêm</summary>
+          <div class="advanced-filters-inner">
+        <select class="filter-select" id="regionFilter" aria-label="Lọc theo nguồn gốc vùng miền">
           <option value="all">Cả nước</option>
           <option value="B">Miền Bắc</option>
           <option value="T">Miền Trung</option>
@@ -55,38 +208,52 @@
           <option value="all">Tất cả món</option>
           <option value="fav">Yêu thích</option>
         </select>
+          </div>
+        </details>
       </div>
       <div class="action-group">
-        <button class="btn icon-btn" id="resetBtn" title="Chia lại bộ bài" aria-label="Chia lại bộ bài">
+        <button class="btn icon-btn" id="resetBtn" title="Làm mới gợi ý" aria-label="Làm mới gợi ý">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
             <path d="M3 3v5h5" />
           </svg>
         </button>
-        <button class="btn icon-btn" id="settingsBtn" title="Cài đặt" aria-label="Cài đặt">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <circle cx="12" cy="12" r="3" />
-            <path
-              d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
+        <button class="btn icon-btn" id="settingsBtn" title="Mở menu" aria-label="Mở menu">
+          <!-- Menu gom Cài đặt, Tính năng, Lịch sử, Giới thiệu và Quyền riêng tư. -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
       </div>
     </div>
 
-    <button class="dish-of-day" id="dishOfDay" title="Món gợi ý cho hôm nay">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-        <circle cx="12" cy="12" r="5" />
-        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
-      </svg>
-      Món của ngày: <strong id="dishOfDayName"></strong>
-    </button>
+    <div class="dish-of-day" id="dishOfDay" role="button" tabindex="0" title="Chạm để xem và đặt món">
+      <span class="dish-of-day-media" id="dishOfDayMedia" aria-hidden="true"></span>
+      <div class="dish-of-day-copy">
+        <div class="dish-of-day-meta">
+          <span id="dishOfDayLabel" class="dish-of-day-label">Gợi ý bữa này</span>
+          <span class="dish-of-day-tags" id="dishOfDayTags"></span>
+        </div>
+        <strong id="dishOfDayName"></strong>
+        <em id="dishOfDayPairing"></em>
+      </div>
+      <div class="dish-of-day-side">
+        <button type="button" class="btn-reroll" id="dishOfDayRerollBtn" title="Gợi ý món khác cho bữa này">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.19"/>
+          </svg>
+          <span>Đổi món</span>
+        </button>
+        <span class="dish-of-day-go" aria-hidden="true">Chọn</span>
+      </div>
+    </div>
 
     <div class="session-info" id="sessionInfo">
       <span class="session-item" id="lastChoiceWrap" hidden>
         Lần trước: <strong id="lastChoiceName"></strong>
       </span>
       <span class="session-item" id="pickCountWrap" hidden>
-        Lượt quay: <strong id="pickCount">0</strong>
+        Lượt chọn: <strong id="pickCount">0</strong>
       </span>
       <span class="session-item" id="visitCountWrap" hidden>
         Lượt truy cập: <strong id="visitCount">0</strong>
@@ -94,25 +261,44 @@
       <span class="session-note">(trên trình duyệt này)</span>
     </div>
 
-    <div class="play-actions">
-      <button class="btn quick-pick-btn" id="quickPickBtn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <rect x="3" y="4" width="13" height="17" rx="2" />
-          <path d="M16 8l3.5 1.5a2 2 0 0 1 1 2.6l-3 7a2 2 0 0 1-2.6 1L13 19.5" />
-        </svg>
-        Bốc ngẫu nhiên
-      </button>
-      <div class="play-modes">
+    <section class="intent-picker" aria-labelledby="intentHeading">
+      <div class="intent-heading-row">
+        <h3 id="intentHeading">Bạn đang muốn…</h3>
+        <div class="intent-heading-actions">
+          <span class="intent-hint">1 chạm để ra món</span>
+          <button type="button" class="reset-filters-home" id="resetFiltersHome">Đặt lại</button>
+        </div>
+      </div>
+      <div class="intent-chips" role="group" aria-label="Tình huống ăn uống">
+        <button type="button" class="intent-chip" data-intent="full">Ăn no</button>
+        <button type="button" class="intent-chip" data-intent="light">Nhẹ bụng</button>
+        <button type="button" class="intent-chip" data-intent="budget">Dưới 40K</button>
+        <button type="button" class="intent-chip" data-intent="party">Nhậu lai rai</button>
+        <button type="button" class="intent-chip" data-intent="home">Nấu ở nhà</button>
+      </div>
+    </section>
+
+    <section class="game-picker" aria-labelledby="gamePickerHeading">
+      <div class="game-picker-heading">
+        <h3 id="gamePickerHeading">Chọn cách chơi</h3>
+        <span>8 cách chọn món</span>
+      </div>
+    <div class="play-actions" role="group" aria-label="Tất cả trò chơi chọn món">
+      <div class="play-modes" id="moreMethodsPanel">
         <div class="mode-section">
-          <span class="mode-section-label">Quay &amp; cào</span>
+          <span class="mode-section-label">Hiệu ứng</span>
           <div class="mode-pills">
+            <button class="btn mode-pill quick-pick-btn" id="quickPickBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="13" height="17" rx="2"/><path d="M16 8l3.5 1.5a2 2 0 0 1 1 2.6l-3 7a2 2 0 0 1-2.6 1L13 19.5"/></svg>
+              <span class="method-copy"><strong>Lật thẻ</strong><em>Chọn một lá bất ngờ</em></span>
+            </button>
             <button class="btn mode-pill" id="wheelBtn">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <circle cx="12" cy="12" r="10" />
                 <path d="M12 2v4M12 18v4M2 12h4M18 12h4M12 12l4.5-4.5" />
                 <circle cx="12" cy="12" r="2" />
               </svg>
-              Vòng quay
+              <span class="method-copy"><strong>Xoay vòng món</strong><em>Quay để ra món bữa này</em></span>
             </button>
             <button class="btn mode-pill" id="reelBtn">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -123,64 +309,72 @@
                 <circle cx="12" cy="12" r="1" fill="currentColor" />
                 <circle cx="19" cy="12" r="1" fill="currentColor" />
               </svg>
-              Quay Mâm
+              <span class="method-copy"><strong>Lướt chọn món</strong><em>Dừng băng chuyền ở một món</em></span>
             </button>
             <button class="btn mode-pill" id="vesoBtn">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path d="M3 9V6a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v3a3 3 0 0 0 0 6v3a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-3a3 3 0 0 0 0-6z" />
                 <path d="M13 5v2M13 11v2M13 17v2" />
               </svg>
-              Vé số
+              <span class="method-copy"><strong>Cào chọn món</strong><em>Cào lớp phủ để ra món</em></span>
             </button>
           </div>
         </div>
         <div class="mode-section">
-          <span class="mode-section-label">Dân gian</span>
+          <span class="mode-section-label">Tương tác</span>
           <div class="mode-pills">
             <button class="btn mode-pill" id="xamBtn">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <rect x="7" y="10" width="10" height="11" rx="2" />
                 <path d="M9 10V4M12 10V3M15 10V5" />
               </svg>
-              Xin xăm
+              <span class="method-copy"><strong>Lắc chọn món</strong><em>Lắc ống để nhận món</em></span>
             </button>
             <button class="btn mode-pill" id="hoaBtn">
+              <!-- Bông hoa 4 cánh, đúng hình bông trong modal. Trước đây là dấu
+                   hoa thị 8 tia — tức mặt trời thứ ba trong cùng một màn hình. -->
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <circle cx="12" cy="12" r="3" />
-                <path d="M12 9V3M12 15v6M9 12H3M15 12h6M10 10L6 6M14 10l4-4M10 14l-4 4M14 14l4 4" />
+                <ellipse cx="12" cy="6.6" rx="3.1" ry="4.3" />
+                <ellipse cx="12" cy="17.4" rx="3.1" ry="4.3" />
+                <ellipse cx="6.6" cy="12" rx="4.3" ry="3.1" />
+                <ellipse cx="17.4" cy="12" rx="4.3" ry="3.1" />
+                <circle cx="12" cy="12" r="2.1" fill="currentColor" stroke="none" />
               </svg>
-              Hái hoa
+              <span class="method-copy"><strong>Chạm chọn món</strong><em>Chọn cánh hoa để ra món</em></span>
             </button>
+          </div>
+        </div>
+        <div class="mode-section">
+          <span class="mode-section-label">Gợi ý bữa ăn</span>
+          <div class="mode-pills">
             <button class="btn mode-pill" id="mamBtn">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <ellipse cx="12" cy="17" rx="10" ry="3" />
                 <path d="M4 15c0-4 3.5-7 8-7s8 3 8 7" />
                 <path d="M12 8V5M9 6l3-1 3 1" />
               </svg>
-              Mâm cơm
+              <span class="method-copy"><strong>Gợi ý mâm cơm</strong><em>Cả bữa, đủ món theo miền</em></span>
             </button>
           </div>
         </div>
         <div class="mode-section">
-          <span class="mode-section-label">Thi đấu</span>
+          <span class="mode-section-label">So sánh</span>
           <div class="mode-pills">
             <button class="btn mode-pill" id="battleBtn">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path d="M14.5 17.5L3 6V3h3l11.5 11.5" />
-                <path d="M13 19l6-6" />
-                <path d="M16 16l4 4" />
-                <path d="M19 21l2-2" />
-                <path d="M14.5 6.5L18 3h3v3l-3.5 3.5" />
-                <path d="M5 14l4 4" />
-                <path d="M7 17l-4 4" />
-                <path d="M3 19l2 2" />
+              <!-- Hai lá bài đối đầu. Bản cũ là đôi kiếm bắt chéo: 8 nét, 30 lệnh
+                   vẽ, mà chỗ này chỉ hiển thị ở 15px nên nhoè thành một vệt xám. -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2.5" y="5" width="7.5" height="14" rx="1.6" />
+                <rect x="14" y="5" width="7.5" height="14" rx="1.6" />
+                <path d="M12 10.2v3.6" stroke-linecap="round" />
               </svg>
-              So găng
+              <span class="method-copy"><strong>Đấu loại món</strong><em>Chọn 1 trong 2 đến khi ra món</em></span>
             </button>
           </div>
         </div>
       </div>
     </div>
+    </section>
 
     <div class="player-bar" id="playerBar">
       <div class="current-player">
@@ -191,7 +385,7 @@
         <span id="playerName">Người chơi 1</span>
       </div>
       <div class="game-info">
-        <span class="cards-left"><strong id="remaining">52</strong> lá</span>
+        <span class="cards-left"><strong id="remaining">52</strong> món</span>
         <button class="btn icon-btn-sm" id="resultsToggle" title="Xem kết quả" aria-label="Xem kết quả">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -201,10 +395,11 @@
           </svg>
         </button>
         <button class="btn icon-btn-sm end-game-btn" id="endGameBtn" title="Kết thúc" aria-label="Kết thúc">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-            <line x1="9" y1="9" x2="15" y2="15" />
-            <line x1="15" y1="9" x2="9" y2="15" />
+          <!-- Lá cờ về đích. Trước đây là dấu X trong khung — trùng nghĩa với
+               nút "Đóng" (cũng dấu X) ở ngay cạnh, hai việc hoàn toàn khác nhau. -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 21V4" />
+            <path d="M5 4h12l-2.5 4L17 12H5" />
           </svg>
         </button>
       </div>
@@ -263,12 +458,35 @@
       </div>
     </div>
 
-    <div class="deck" id="deck"></div>
+    <main class="deck-area" id="deckArea" tabindex="-1">
+      <div class="deck-heading" id="deckHeading">
+        <button type="button" class="btn back-methods-btn" id="backToMethodsBtn" aria-label="Về trang gợi ý">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+          <span>Về gợi ý</span>
+        </button>
+        <div>
+          <span class="eyebrow">GỢI Ý NHANH</span>
+          <h2>Chạm một lá để ra món</h2>
+          <p>Bộ bài ưu tiên món hợp bữa này.</p>
+        </div>
+        <span class="deck-hint" id="deckHint">Còn 52 lá</span>
+      </div>
+      <div class="deck" id="deck" role="group" aria-label="Bộ bài"></div>
+    </main>
 
     <div class="modal" id="modal">
       <div class="modal-bg" id="modalBg"></div>
       <div class="modal-card">
+        <p class="service-eyebrow" id="serviceEyebrow">MÓN CHO BỮA NÀY</p>
+        <h2 id="modalTitle" class="sr-only">Kết quả chọn món</h2>
         <div class="result-card" id="resultCard"></div>
+        <div class="result-actions" aria-label="Chọn cách dùng món">
+          <a class="btn cook-dish-btn" id="cookDishBtn" target="_blank" rel="noreferrer">Xem cách nấu <svg class="action-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+          <button class="btn order-dish-btn" id="orderDishBtn" aria-expanded="false" aria-controls="orderOptions">Tìm quán đặt món <svg class="action-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></button>
+        </div>
+        <section id="orderOptions" hidden aria-labelledby="orderHeading">
+        <h3 id="orderHeading" tabindex="-1">Bạn muốn đặt ở đâu?</h3>
+        <p class="order-note">Mở ứng dụng để tìm quán, xem giá và xác nhận đơn.</p>
         <div class="food-links" id="foodLinks">
           <a class="food-link link-maps" id="linkMaps" target="_blank" rel="noreferrer">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -281,8 +499,9 @@
           <a class="food-link link-shopee" id="linkShopee" target="_blank" rel="noreferrer">ShopeeFood</a>
           <a class="food-link link-be" id="linkBe" target="_blank" rel="noreferrer">beFood</a>
         </div>
+        </section>
         <div class="modal-buttons">
-          <button class="btn close-btn" id="closeBtn">Đóng</button>
+          <button class="btn close-btn" id="closeBtn">Gợi ý món khác</button>
           <button class="btn next-btn" id="nextBtn">Người tiếp theo</button>
           <button class="btn share-btn" id="shareBtn">Chia sẻ</button>
         </div>
@@ -294,7 +513,7 @@
       <div class="settings-bg" id="settingsBg"></div>
       <div class="settings-content">
         <div class="settings-header">
-          <h2>Cài đặt</h2>
+          <h2>Menu &amp; cài đặt</h2>
           <button class="close-x" aria-label="Đóng" id="closeSettingsX">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M18 6L6 18M6 6l12 12" />
@@ -304,10 +523,11 @@
 
         <!-- Settings Tabs -->
         <div class="settings-nav">
-          <button class="nav-btn active" data-section="general">Chung</button>
+          <button class="nav-btn active" data-section="general">Cài đặt</button>
           <button class="nav-btn" data-section="features">Tính năng</button>
           <button class="nav-btn" data-section="history">Lịch sử</button>
           <button class="nav-btn" data-section="about">Giới thiệu</button>
+          <button class="nav-btn" data-section="privacy">Quyền riêng tư</button>
         </div>
 
         <!-- General Settings -->
@@ -317,10 +537,10 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
               </svg>
-              <span>Chế độ tối</span>
+              <span id="darkModeLabel">Chế độ tối<small class="setting-help">Nền nâu tối, chữ sáng.</small></span>
             </div>
             <label class="toggle">
-              <input type="checkbox" id="darkModeToggle">
+              <input type="checkbox" id="darkModeToggle" aria-labelledby="darkModeLabel">
               <span class="slider"></span>
             </label>
           </div>
@@ -331,60 +551,56 @@
                 <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
                 <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
               </svg>
-              <span>Âm thanh</span>
+              <span id="soundLabel">Âm thanh<small class="setting-help">Hiệu ứng khi chơi và chọn món.</small></span>
             </div>
             <label class="toggle">
-              <input type="checkbox" id="soundToggle" checked>
+              <input type="checkbox" id="soundToggle" aria-labelledby="soundLabel" checked>
               <span class="slider"></span>
             </label>
           </div>
 
           <div class="setting-item">
-            <div class="setting-label">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <circle cx="12" cy="12" r="10" />
-                <polyline points="12 6 12 12 16 14" />
-              </svg>
-              <span>Gợi ý theo giờ</span>
-            </div>
-            <label class="toggle">
-              <input type="checkbox" id="timeFilterToggle" checked>
-              <span class="slider"></span>
-            </label>
-          </div>
-
-          <div class="setting-item">
-            <div class="setting-label">
+            <label class="setting-label" for="animSpeedSelect">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
               </svg>
-              <span>Tốc độ animation</span>
-            </div>
-            <select id="animSpeedSelect">
-              <option value="slow">Chậm</option>
-              <option value="normal" selected>Bình thường</option>
-              <option value="fast">Nhanh</option>
-            </select>
+              <span>Tốc độ hiệu ứng<small class="setting-help">Nhanh hoặc chậm khi mở thẻ.</small></span>
+            </label>
+            <span class="setting-select-wrap">
+              <select id="animSpeedSelect">
+                <option value="slow">Chậm</option>
+                <option value="normal" selected>Bình thường</option>
+                <option value="fast">Nhanh</option>
+              </select>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m7 10 5 5 5-5" />
+              </svg>
+            </span>
           </div>
 
           <div class="setting-item">
-            <div class="setting-label">
+            <label class="setting-label" for="cardStyleSelect">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <rect x="4" y="3" width="16" height="18" rx="2" />
                 <path d="M12 8l1.2 2.4 2.6.4-1.9 1.9.5 2.7-2.4-1.3-2.4 1.3.5-2.7-1.9-1.9 2.6-.4z" />
               </svg>
-              <span>Phong cách thẻ</span>
-            </div>
-            <select id="cardStyleSelect">
-              <option value="folk" selected>Dân gian</option>
-              <option value="classic">Bài tây</option>
-            </select>
+              <span>Phong cách thẻ<small class="setting-help">Đổi hình thẻ, giữ nguyên kho món.</small></span>
+            </label>
+            <span class="setting-select-wrap">
+              <select id="cardStyleSelect">
+                <option value="folk" selected>Dân gian</option>
+                <option value="classic">Bài tây</option>
+              </select>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m7 10 5 5 5-5" />
+              </svg>
+            </span>
           </div>
         </div>
 
         <!-- Features Section -->
         <div class="settings-section" id="sectionFeatures">
-          <div class="feature-card" id="openPlannerBtn">
+          <button type="button" class="feature-card" id="openPlannerBtn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
               <line x1="16" y1="2" x2="16" y2="6" />
@@ -398,9 +614,9 @@
             <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <polyline points="9 18 15 12 9 6" />
             </svg>
-          </div>
+          </button>
 
-          <div class="feature-card" id="openCustomDishBtn">
+          <button type="button" class="feature-card" id="openCustomDishBtn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <circle cx="12" cy="12" r="10" />
               <line x1="12" y1="8" x2="12" y2="16" />
@@ -413,9 +629,9 @@
             <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <polyline points="9 18 15 12 9 6" />
             </svg>
-          </div>
+          </button>
 
-          <div class="feature-card" id="openExcludesBtn">
+          <button type="button" class="feature-card" id="openExcludesBtn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <circle cx="12" cy="12" r="10" />
               <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
@@ -427,7 +643,7 @@
             <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <polyline points="9 18 15 12 9 6" />
             </svg>
-          </div>
+          </button>
         </div>
 
         <!-- History Section -->
@@ -452,20 +668,20 @@
             <img src="icons/icon-192.png" alt="App Icon" class="about-logo">
             <div class="about-hero-text">
               <h3>Hôm Nay Ăn Gì?</h3>
-              <span class="about-version">v2.0</span>
-              <p class="about-tagline">Bốc một lá — ăn một món.<br>Không còn “trưa nay ăn gì ta?”</p>
+              <span class="about-version">v1.0.0</span>
+              <p class="about-tagline">Không còn “hôm nay ăn gì?”<br>Chọn một cách — nhận một món cho bữa này.</p>
             </div>
           </div>
 
-          <p class="about-desc">Bộ bài 52 món Việt kết hợp cơ chế quay thưởng — chơi một mình, so găng
-            với bạn bè, gieo mâm cơm gia đình ba miền, hay xin xăm, hái hoa, cào vé số.
-            Chạy hoàn toàn trên trình duyệt, cài được như app, không cần tài khoản.</p>
+          <p class="about-desc">App gợi ý món khi bạn không muốn mất thời gian nghĩ sáng, trưa, chiều,
+            tối hay khuya ăn gì. Kho hơn trăm món Việt và quốc tế; muốn nhanh thì lật thẻ,
+            muốn vui thì xoay, lắc, cào. Chạy trên trình duyệt, cài được như app, không cần tài khoản.</p>
 
           <div class="about-stats">
-            <div class="about-stat"><strong>52</strong><span>lá bài món ăn</span></div>
-            <div class="about-stat"><strong>8</strong><span>cách chơi</span></div>
+            <div class="about-stat"><strong id="aboutTotalDishes">153</strong><span>món trong kho</span></div>
+            <div class="about-stat"><strong>52</strong><span>món mỗi lần</span></div>
+            <div class="about-stat"><strong>8</strong><span>cách gợi ý</span></div>
             <div class="about-stat"><strong>3</strong><span>miền mâm cơm</span></div>
-            <div class="about-stat"><strong>4</strong><span>app đặt món</span></div>
           </div>
 
           <div class="about-credit">
@@ -485,14 +701,69 @@
 
           <div class="about-author">
             <span class="author-label">Tác giả</span>
-            <span class="author-name">Le An</span>
-            <a href="https://github.com/anlvdt" target="_blank" class="author-github">
+            <img src="icons/author.png" alt="" class="author-avatar" width="44" height="44" loading="lazy" decoding="async">
+            <span class="author-name">Lê Ẩn</span>
+            <span class="author-meta">33 kho mã công khai · trên GitHub từ 2014</span>
+            <a href="https://github.com/anlvdt" target="_blank" rel="noopener noreferrer" class="author-github">
               <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true">
                 <path
                   d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
               </svg>
               @anlvdt
             </a>
+          </div>
+
+          <div class="about-divider"></div>
+
+          <div class="about-block">
+            <span class="about-block-title">Mã nguồn</span>
+            <a href="https://github.com/anlvdt/homnayangi" target="_blank" rel="noopener noreferrer" class="about-link-row">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+              </svg>
+              <span>
+                <strong>anlvdt/homnayangi</strong>
+                <em>Mã nguồn mở — xem, tải về hoặc góp ý trên GitHub</em>
+              </span>
+            </a>
+          </div>
+
+          <div class="about-divider"></div>
+
+          <div class="about-block">
+            <span class="about-block-title">Nguồn ảnh món ăn</span>
+            <p id="photoReviewStatus">Một số món chưa có ảnh đúng được xác minh và sẽ hiện nhãn “Ảnh chưa có”. Ảnh cũ chưa được xác minh đầy đủ về nguồn và nội dung.</p>
+            <a href="images/credits.html" target="_blank" rel="noopener noreferrer" class="about-link-row">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" aria-hidden="true">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/>
+              </svg>
+              <span>
+                <strong>Tác giả và giấy phép ảnh</strong>
+                <em>Xem ảnh đang dùng, nguồn, tác giả và giấy phép</em>
+              </span>
+            </a>
+          </div>
+
+          <div class="about-divider"></div>
+
+          <div class="about-block" id="privacyBlock">
+            <span class="about-block-title">Quyền riêng tư</span>
+            <p class="about-privacy-lead">Ứng dụng không có tài khoản, không có máy chủ và
+              <strong>không tự động gửi dữ liệu cá nhân của bạn đi đâu cả</strong>.</p>
+            <ul class="about-privacy-list">
+              <li><strong>Lưu trên máy bạn:</strong> món yêu thích, món loại trừ, món tự thêm,
+                lịch ăn tuần, lịch sử bốc bài, số lượt và các tùy chọn. Tất cả nằm trong bộ nhớ
+                cục bộ của trình duyệt này, không đồng bộ sang thiết bị khác.</li>
+              <li><strong>Không theo dõi:</strong> không có analytics, không cookie quảng cáo,
+                không mã theo dõi của bên thứ ba.</li>
+              <li><strong>Không tự động gọi ra bên ngoài:</strong> phông chữ, ảnh món có sẵn
+                và biểu tượng đều nằm trong ứng dụng. Nếu bạn tự dán link ảnh HTTPS cho món
+                tùy chỉnh, trình duyệt sẽ tải ảnh từ máy chủ đó và ảnh có thể không xem được khi offline.</li>
+              <li><strong>Liên kết ra ngoài:</strong> khi bạn bấm GrabFood, ShopeeFood, beFood
+                hay Bản đồ, trình duyệt mở sang trang của họ — từ đó áp dụng chính sách riêng
+                của các dịch vụ ấy.</li>
+            </ul>
+            <button class="btn danger-btn" id="clearDataBtn" type="button">Xóa toàn bộ dữ liệu trên máy này</button>
           </div>
 
           <div class="about-divider"></div>
@@ -522,7 +793,7 @@
             </a>
           </div>
 
-          <p class="about-footer">© 2026 Le An · MIT License</p>
+          <p class="about-footer">© 2026 Lê Ẩn · MIT License</p>
         </div>
       </div>
     </div>
@@ -532,7 +803,7 @@
       <div class="planner-bg" id="plannerBg"></div>
       <div class="planner-content">
         <div class="modal-header">
-          <h2>Lịch Ăn Tuần</h2>
+          <h2>Lịch ăn tuần</h2>
           <button class="close-x" aria-label="Đóng" id="closePlannerX">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M18 6L6 18M6 6l12 12" />
@@ -570,28 +841,29 @@
         </div>
 
         <div class="form-group">
-          <label>Tên món</label>
-          <input type="text" id="customDishName" placeholder="VD: Bún riêu cua">
+          <label for="customDishName">Tên món</label>
+          <input type="text" id="customDishName" name="customDishName" autocomplete="off" placeholder="VD: Bún riêu cua">
         </div>
 
         <div class="form-group">
-          <label>Ăn kèm</label>
-          <input type="text" id="customDishPairing" placeholder="VD: Rau sống, đậu phụ">
+          <label for="customDishPairing">Ăn kèm</label>
+          <input type="text" id="customDishPairing" name="customDishPairing" autocomplete="off" placeholder="VD: Rau sống, đậu phụ">
         </div>
 
         <div class="form-group">
-          <label>Loại</label>
-          <select id="customDishCategory">
-            <option value="♥">Bún/Phở</option>
+          <label for="customDishCategory">Loại</label>
+          <select id="customDishCategory" name="customDishCategory">
+            <option value="♥">Bún · Phở · Mì</option>
             <option value="♦">Cơm</option>
-            <option value="♣">Bánh/Xôi</option>
-            <option value="♠">Món khác</option>
+            <option value="♣">Bánh · Xôi</option>
+            <option value="♠">Món mặn · Nhậu</option>
           </select>
         </div>
 
         <div class="form-group">
-          <label>Hình ảnh (URL)</label>
-          <input type="text" id="customDishImage" placeholder="https://…">
+          <label for="customDishImage">Link ảnh HTTPS (nếu có)</label>
+          <input type="url" inputmode="url" id="customDishImage" name="customDishImage" autocomplete="off" aria-describedby="customDishImageHelp" placeholder="https://…">
+          <small id="customDishImageHelp" class="form-help">Ảnh ngoài sẽ được tải từ website bạn nhập và có thể không dùng được khi offline.</small>
         </div>
 
         <div class="custom-dish-buttons">
@@ -619,6 +891,7 @@
           </button>
         </div>
         <p class="excludes-desc">Chọn món bạn không muốn xuất hiện khi bốc bài</p>
+        <input type="search" class="excludes-search" id="excludesSearch" placeholder="Tìm món…" aria-label="Tìm món để loại trừ">
         <div class="excludes-list" id="excludesList"></div>
       </div>
     </div>
@@ -628,7 +901,7 @@
       <div class="wheel-bg" id="wheelBg"></div>
       <div class="wheel-content">
         <div class="modal-header">
-          <h2>Vòng Quay May Mắn</h2>
+          <h2>Xoay để ra món</h2>
           <button class="close-x" aria-label="Đóng" id="closeWheelX">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M18 6L6 18M6 6l12 12" />
@@ -636,25 +909,25 @@
           </button>
         </div>
         <div class="wheel-stage">
-          <canvas id="wheelCanvas" width="320" height="320"></canvas>
+          <canvas id="wheelCanvas" width="380" height="380" aria-hidden="true"></canvas>
           <div class="wheel-pointer"></div>
         </div>
         <button class="btn spin-wheel-btn" id="spinWheelBtn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M21 12a9 9 0 1 1-9-9" />
-            <polyline points="21 3 21 9 15 9" />
+            <path d="M20 11a8 8 0 1 0 2 5" />
+            <polyline points="20 4 20 11 13 11" />
           </svg>
-          Quay
+          Xoay để ra món
         </button>
       </div>
     </div>
 
-    <!-- Reel (Quay Mâm) Modal -->
+    <!-- Reel (Lướt chọn món) Modal -->
     <div class="reel-modal" id="reelModal">
       <div class="reel-bg" id="reelBg"></div>
       <div class="reel-content">
         <div class="modal-header">
-          <h2>Quay Mâm</h2>
+          <h2>Lướt để ra món</h2>
           <button class="close-x" aria-label="Đóng" id="closeReelX">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M18 6L6 18M6 6l12 12" />
@@ -663,24 +936,21 @@
         </div>
         <div class="reel-window">
           <div class="reel-marker"></div>
-          <div class="reel-strip" id="reelStrip"></div>
+          <div class="reel-strip" id="reelStrip" aria-hidden="true"></div>
         </div>
         <button class="btn spin-wheel-btn" id="spinReelBtn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M21 12a9 9 0 1 1-9-9" />
-            <polyline points="21 3 21 9 15 9" />
-          </svg>
-          Quay Mâm
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 11a8 8 0 1 0 2 5"/><path d="M20 4v7h-7"/></svg>
+          Lướt chọn món
         </button>
       </div>
     </div>
 
-    <!-- Battle (So Găng) Modal -->
+    <!-- So sánh món Modal -->
     <div class="battle-modal" id="battleModal">
       <div class="battle-bg" id="battleBg"></div>
       <div class="battle-content">
         <div class="modal-header">
-          <h2 id="battleTitle">So Găng — Tứ kết</h2>
+          <h2 id="battleTitle">Chọn món thích hơn</h2>
           <button class="close-x" aria-label="Đóng" id="closeBattleX">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M18 6L6 18M6 6l12 12" />
@@ -699,16 +969,17 @@
 
     <!-- Family Meal (Mâm Cơm) Modal -->
     <div class="reel-modal" id="mamModal">
+      <div class="reel-bg" data-close="mamModal"></div>
       <div class="reel-content mam-content">
         <div class="modal-header">
-          <h2>Mâm Cơm Gia Đình</h2>
+          <h2>Mâm cơm gia đình</h2>
           <button class="close-x" aria-label="Đóng" id="closeMamX">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M18 6L6 18M6 6l12 12" />
             </svg>
           </button>
         </div>
-        <p class="battle-hint">Gợi ý thực đơn đủ 4 món cho bữa cơm gia đình</p>
+        <p class="battle-hint">Thực đơn 4 món theo miền và danh sách món không thích. Các bộ lọc buổi ăn, giá và khẩu vị ở màn chính không áp dụng cho mâm cơm.</p>
         <div class="mam-regions" role="group" aria-label="Chọn vùng miền">
           <button class="mam-chip selected" data-region="B" aria-pressed="true">Miền Bắc</button>
           <button class="mam-chip" data-region="T" aria-pressed="false">Miền Trung</button>
@@ -717,26 +988,27 @@
         <div class="mam-tray" id="mamTray"></div>
         <button class="btn spin-wheel-btn" id="rollMamBtn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M21 12a9 9 0 1 1-9-9" />
-            <polyline points="21 3 21 9 15 9" />
+            <path d="M20 11a8 8 0 1 0 2 5" />
+            <polyline points="20 4 20 11 13 11" />
           </svg>
-          Gieo mâm khác
+          <span id="rollMamLabel">Gợi ý mâm</span>
         </button>
       </div>
     </div>
 
-    <!-- Xin Xăm Modal -->
+    <!-- Lắc chọn món Modal -->
     <div class="reel-modal" id="xamModal">
+      <div class="reel-bg" data-close="xamModal"></div>
       <div class="reel-content xam-content">
         <div class="modal-header">
-          <h2>Xin Xăm Ăn Uống</h2>
+          <h2>Lắc để ra món</h2>
           <button class="close-x" aria-label="Đóng" id="closeXamX">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M18 6L6 18M6 6l12 12" />
             </svg>
           </button>
         </div>
-        <p class="battle-hint">Lắc ống để nhận quẻ món ăn hôm nay</p>
+        <p class="battle-hint">Lắc ống để nhận một món kèm câu lục bát vui</p>
         <div class="xam-stage">
           <div class="xam-tube" id="xamTube" aria-hidden="true">
             <div class="xam-sticks">
@@ -746,7 +1018,8 @@
           </div>
           <div class="xam-fortune" id="xamFortune" hidden>
             <div class="xam-paper">
-              <span class="xam-que-label">LỜI XĂM</span>
+              <span class="xam-que-label">GỢI Ý HÔM NAY</span>
+              <span class="xam-tier" id="xamTier"></span>
               <strong class="xam-dish" id="xamDish"></strong>
               <span class="xam-verse" id="xamVerse"></span>
             </div>
@@ -756,47 +1029,49 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M8 3v8M16 3v8M4 13h16l-2 8H6l-2-8z" />
           </svg>
-          Lắc ống xăm
+          Lắc chọn món
         </button>
       </div>
     </div>
 
-    <!-- Hái Hoa Dân Chủ Modal -->
+    <!-- Chạm chọn món Modal -->
     <div class="reel-modal" id="hoaModal">
+      <div class="reel-bg" data-close="hoaModal"></div>
       <div class="reel-content hoa-content">
         <div class="modal-header">
-          <h2>Hái Hoa Ăn Gì?</h2>
+          <h2>Chạm để ra món</h2>
           <button class="close-x" aria-label="Đóng" id="closeHoaX">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M18 6L6 18M6 6l12 12" />
             </svg>
           </button>
         </div>
-        <p class="battle-hint">Hái một bông hoa — món ăn giấu trong đó</p>
+        <p class="battle-hint">Chạm một bông hoa để mở món ăn giấu bên trong</p>
         <div class="hoa-garden" id="hoaGarden"></div>
       </div>
     </div>
 
-    <!-- Cào Vé Số Modal -->
+    <!-- Cào chọn món Modal -->
     <div class="reel-modal" id="vesoModal">
+      <div class="reel-bg" data-close="vesoModal"></div>
       <div class="reel-content veso-content">
         <div class="modal-header">
-          <h2>Cào Vé Số</h2>
+          <h2>Cào để ra món</h2>
           <button class="close-x" aria-label="Đóng" id="closeVesoX">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M18 6L6 18M6 6l12 12" />
             </svg>
           </button>
         </div>
-        <p class="battle-hint">Cào lớp bạc để lộ món ăn may mắn</p>
+        <p class="battle-hint">Cào lớp phủ để mở món ăn được chọn ngẫu nhiên</p>
         <div class="scratch-wrap">
-          <div class="scratch-prize">
-            <img id="scratchImg" src="" alt="" loading="lazy" decoding="async">
+          <div class="scratch-prize" aria-hidden="true">
+            <img id="scratchImg" alt="" loading="lazy" decoding="async" hidden>
             <strong id="scratchDish"></strong>
           </div>
-          <canvas id="scratchCanvas"></canvas>
+          <canvas id="scratchCanvas" aria-hidden="true"></canvas>
         </div>
-        <button class="btn mode-pill veso-reveal" id="revealScratchBtn">Lộ món ngay</button>
+        <button class="btn veso-reveal" id="revealScratchBtn">Bỏ qua, xem món luôn</button>
       </div>
     </div>
   </div>
@@ -807,45 +1082,48 @@
       <div class="onboarding-slide active" data-slide="1">
         <div class="onboarding-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <rect x="2" y="2" width="20" height="20" rx="3" />
-            <path d="M12 8v8M8 12h8" />
+            <rect x="3" y="2" width="13" height="18" rx="2" />
+            <path d="M16 7l4 1.7a2 2 0 0 1 1.1 2.6l-3.4 8a2 2 0 0 1-2.6 1.1L13 19.4" />
           </svg>
         </div>
-        <h2>Chào mừng đến với<br>Hôm Nay Ăn Gì?</h2>
-        <p>Ứng dụng giúp bạn chọn món ăn mỗi ngày một cách thú vị với bộ bài 52 lá!</p>
+        <h2>Không biết ăn gì?</h2>
+        <p>Sáng, trưa, chiều, tối hay khuya — chọn một cách, app gợi ý món, khỏi phải nghĩ.</p>
       </div>
 
       <div class="onboarding-slide" data-slide="2">
         <div class="onboarding-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <rect x="3" y="3" width="7" height="10" rx="1" />
-            <path d="M14 5h4M14 9h4M14 13h2" />
+            <path d="M4 12h16" />
+            <path d="M6 12a6 6 0 0 1 12 0" />
+            <path d="M4 12a8 8 0 0 0 16 0" />
+            <path d="M9 6c0-1.5 1.5-1.5 1.5-3M13.5 6c0-1.5 1.5-1.5 1.5-3" />
           </svg>
         </div>
-        <h2>Bốc bài ngẫu nhiên</h2>
-        <p>Chạm vào bất kỳ lá bài nào để xem món ăn may mắn của bạn hôm nay!</p>
+        <h2>Hơn trăm món, đủ ba miền</h2>
+        <p>Phở bò Hà Nội, bún bò Huế, cơm tấm Sài Gòn, cả gà rán với mì cay. Mỗi ván chia tối đa 52 lá khác nhau, kèm gợi ý ăn cùng. Món chưa có ảnh đúng được ghi rõ.</p>
       </div>
 
       <div class="onboarding-slide" data-slide="3">
         <div class="onboarding-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <circle cx="12" cy="10" r="3" />
-            <path d="M12 2a8 8 0 0 0-8 8c0 5.4 7 11 8 12 1-1 8-6.6 8-12a8 8 0 0 0-8-8z" />
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 3v4M12 17v4M3 12h4M17 12h4M12 12l5-5" />
+            <circle cx="12" cy="12" r="1.6" />
           </svg>
         </div>
-        <h2>Lọc theo vùng miền</h2>
-        <p>Chọn món ăn theo vùng miền Bắc, Trung, Nam phù hợp với khẩu vị của bạn!</p>
+        <h2>Nhiều cách, một món</h2>
+        <p>Muốn nhanh thì lật thẻ. Muốn vui thì xoay, lắc, cào. Kết quả như nhau: hết phải nghĩ hôm nay ăn gì.</p>
       </div>
 
       <div class="onboarding-slide" data-slide="4">
         <div class="onboarding-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <path
-              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+            <path d="M12 2a8 8 0 0 0-8 8c0 5.4 7 11 8 12 1-1 8-6.6 8-12a8 8 0 0 0-8-8z" />
+            <circle cx="12" cy="10" r="3" />
           </svg>
         </div>
-        <h2>Yêu thích & Loại trừ</h2>
-        <p>Đánh dấu món yêu thích và loại bỏ món không thích để bốc bài theo ý muốn!</p>
+        <h2>Lọc theo ý bạn</h2>
+        <p>Chọn miền Bắc – Trung – Nam, thả tim món ruột, gạch tên món không hợp khẩu vị. App nhớ hết cho lần sau.</p>
       </div>
 
       <div class="onboarding-slide" data-slide="5">
@@ -856,16 +1134,16 @@
             <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
           </svg>
         </div>
-        <h2>Chơi cùng bạn bè</h2>
-        <p>Chế độ nhiều người cho phép cả nhóm cùng bốc bài và xem ai được món ngon nhất!</p>
+        <h2>Cùng hội chọn món</h2>
+        <p>Bật chế độ nhiều người để cả phòng cùng nhận món. Ra món rồi thì mở Grab, Shopee hay Google Maps ngay trên gợi ý.</p>
       </div>
 
       <div class="onboarding-dots">
-        <span class="dot active" data-dot="1"></span>
-        <span class="dot" data-dot="2"></span>
-        <span class="dot" data-dot="3"></span>
-        <span class="dot" data-dot="4"></span>
-        <span class="dot" data-dot="5"></span>
+        <button type="button" class="dot active" data-dot="1" aria-label="Xem bước 1" aria-current="step"></button>
+        <button type="button" class="dot" data-dot="2" aria-label="Xem bước 2"></button>
+        <button type="button" class="dot" data-dot="3" aria-label="Xem bước 3"></button>
+        <button type="button" class="dot" data-dot="4" aria-label="Xem bước 4"></button>
+        <button type="button" class="dot" data-dot="5" aria-label="Xem bước 5"></button>
       </div>
 
       <div class="onboarding-buttons">
@@ -883,7 +1161,7 @@
       }).catch(() => {});
     }
   </script>
-  <script src="app.js"></script>
+  <script src="app.js?v=47"></script>
 </body>
 
 </html>

@@ -1,0 +1,8 @@
+Phông Be Vietnam Pro trong thư mục này phát hành theo SIL Open Font License 1.1.
+
+Copyright 2019 The Be Vietnam Pro Project Authors
+(https://github.com/bettergui/BeVietnamPro)
+
+Toàn văn giấy phép: https://openfontlicense.org
+Giấy phép OFL cho phép nhúng và phân phối lại tệp phông kèm phần mềm,
+miễn là giữ nguyên thông báo bản quyền này và không bán riêng tệp phông.

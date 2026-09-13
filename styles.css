@@ -1,30 +1,134 @@
 /* ========================================
-   Hôm Nay Ăn Gì? — Design System v2
-   Casino card table × modern polish
+   Be Vietnam Pro — tự host, không gọi ra Google Fonts
+   ========================================
+   Trước đây phông tải từ fonts.googleapis.com: Google thấy được IP của mọi
+   người mở app, và PWA tự nhận "chạy offline" nhưng lần chạy offline đầu
+   tiên lại không có chữ đúng phông. Mười tệp woff2 dưới đây tổng 89 KB,
+   chia theo dải ký tự nên máy chỉ tải phần nó thực sự cần.
+
+   Be Vietnam Pro do người Việt thiết kế riêng cho tiếng Việt — dấu thanh
+   đặt đúng chỗ, không bị chồng lên dấu mũ như phần lớn phông Latin. */
+
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/bevietnampro-400-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/bevietnampro-400-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('fonts/bevietnampro-500-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('fonts/bevietnampro-500-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('fonts/bevietnampro-600-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('fonts/bevietnampro-600-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('fonts/bevietnampro-700-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('fonts/bevietnampro-700-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('fonts/bevietnampro-800-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('fonts/bevietnampro-800-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ========================================
+   Hôm Nay Ăn Gì? — Design System v3
+   Sân gạch · chiếu cói · mẹt tre — không gian làng quê Việt
    ======================================== */
 
 :root {
   --anim-speed: 1;
 
-  /* Felt table */
-  --felt-1: #17714a;
-  --felt-2: #0b3d24;
-  --felt-edge: rgba(0, 0, 0, 0.45);
+  /* Nền "sân quê": chiếu cói trải trên sân gạch nung, thay mặt nỉ casino.
+     Tối dần từ tâm ra rìa nên chữ kem giữ tương phản ≥ 7:1 ở mọi điểm —
+     mặt nỉ cũ sáng dần lên đỉnh màn khiến phụ đề header chỉ còn 2.3:1. */
+  --ground-1: #6b4426;
+  --ground-2: #2c1a0d;
+  --ground-edge: rgba(0, 0, 0, 0.42);
 
-  /* Surfaces */
-  --card-cream: #fffdf4;
-  --surface: rgba(255, 253, 244, 0.94);
-  --surface-solid: #fffdf4;
+  /* Surfaces — tông giấy dó/giấy điệp ấm */
+  --card-cream: #fdf6e4;
+  --surface: rgba(253, 246, 228, 0.95);
+  --surface-solid: #fdf6e4;
   --surface-2: #f5efdc;
-  --overlay: rgba(4, 20, 12, 0.72);
-  --glass: rgba(255, 255, 255, 0.1);
-  --glass-border: rgba(255, 255, 255, 0.22);
+  --overlay: rgba(26, 14, 6, 0.74);
+  --glass: rgba(255, 246, 226, 0.11);
+  --glass-border: rgba(246, 231, 191, 0.26);
 
   /* Text */
   --ink: #24211b;
   --ink-soft: #6b6455;
-  --ink-on-felt: #f4f1e4;
-  --ink-on-felt-soft: rgba(244, 241, 228, 0.72);
+  --ink-on-ground: #f7f0dd;
+  /* 0.80 chứ không phải 0.72: trên nền đất sáng nhất vẫn cho 5.4:1 (AA) */
+  --ink-on-ground-soft: rgba(247, 240, 221, 0.80);
 
   /* Accents */
   --gold: #f0b429;
@@ -32,15 +136,76 @@
   --gold-soft: #fbe3a1;
   --red: #d92d20;
   --black-suit: #2c2926;
-  --green-btn: #1f9d5c;
-  --green-btn-deep: #157347;
-  --danger: #d92d20;
+  /* Xanh lá chuối / lá tre thay xanh "iOS" #1f9d5c — vẫn đủ 5:1 với chữ trắng */
+  --green-btn: #4a7c3f;
+  --green-btn-deep: #35632f;
+  --danger: var(--chili);
+  /* Mực báo nguy trên nền giấy dó: --chili chỉ đạt 4.1:1, dưới chuẩn AA */
+  --danger-ink: #b52d18;
+
+  /* Bảng màu làng quê: chàm (áo nâu sồng - vải chàm), nâu đất (tre gỗ),
+     điểm nhấn ấm kích thích vị giác (gạch nung, ớt, vàng nghệ). */
+  --indigo: #35526f;
+  --indigo-deep: #24384d;
+  --earth: #6f4a29;
+  --earth-deep: #4f3319;
+  --terracotta: #c85a3c;
+  --terracotta-deep: #8e3826;
+  --chili: #d43a24;
+  /* Mực trên mặt bài giấy dó — 7.1:1 và 11.5:1 */
+  --ink-red: #8e3826;
+  --ink-brown: #4f3319;
+  /* Dạng bộ ba RGB để pha được độ trong suốt mà vẫn dùng chung một nguồn màu */
+  --indigo-rgb: 53, 82, 111;
+  --earth-rgb: 111, 74, 41;
+  --earth-deep-rgb: 79, 51, 25;
+  --terracotta-rgb: 200, 90, 60;
+  --chili-rgb: 212, 58, 36;
+
+  /* Tre nứa — khung mẹt quanh bộ bài, sáng hơn nền để nổi khối */
+  --bamboo: #b5834a;
+  --bamboo-deep: #8d6234;
+  --bamboo-lit: rgba(246, 231, 191, 0.35);
+
+  /* Cảnh quê — tô bằng mask nên đổi được theo sáng/tối, khác với bản cũ
+     hard-code #06251a trong data-URI (dark mode còn 1.11:1, mất hút). */
+  --scene-ink: #24150a;
+  --scene-far: rgba(36, 21, 10, 0.55);
+  --scene-glow: rgba(240, 180, 41, 0.20);
+
+  /* Hoạ tiết nền — trước để 0.09–0.14, nhìn gần như không thấy */
+  --weave: rgba(247, 240, 221, 0.055);
+  --motif: rgba(246, 231, 191, 0.10);
+
+  /* Chiều cao "sân làng" — dải cảnh quê chừa dưới chân bàn bài */
+  --scene-reveal: 104px;
 
   /* Shape */
   --r-sm: 10px;
   --r-md: 14px;
   --r-lg: 20px;
   --r-xl: 28px;
+  /* Type scale (root co giãn 13.5–20px nên dùng rem) — thang chữ/icon/khoảng, mọi kích thước lấy từ đây */
+  --fs-2xs: 0.7rem;
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.8125rem;
+  --fs-md: 0.875rem;
+  --fs-base: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: 1.25rem;
+  --fs-2xl: 1.5rem;
+  --fs-3xl: 1.75rem;
+  --fs-4xl: 2rem;
+  --lh-tight: 1.15;
+  --lh-snug: 1.3;
+  --lh-body: 1.5;
+  --track-caps: 0.12em;
+  --track-display: -0.02em;
+  --icon-sm: 16px;
+  --icon-md: 20px;
+  --icon-lg: 24px;
+  --tap: 44px;
+  --ease-spring: cubic-bezier(0.2, 0.9, 0.3, 1.15);
 
   /* Depth */
   --shadow-card: 0 2px 6px rgba(0, 0, 0, 0.25), 0 8px 24px rgba(0, 0, 0, 0.18);
@@ -48,26 +213,54 @@
   --press-offset: 3px;
 
   --font: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* Tiêu đề dùng chung một họ phông với phần còn lại, chỉ khác ở độ đậm và
+     giãn chữ. Đã thử Dancing Script (chữ thiếp cưới Anh–Mỹ, lạc văn hoá) rồi
+     Lora (serif phương Tây, phải tải thêm một họ phông nữa); Be Vietnam Pro
+     là phông Việt, dấu thanh dựng riêng cho tiếng Việt, và dùng lại phông
+     sẵn có thì không tốn thêm byte nào. */
+  --font-display: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+/* Chế độ tối = "đêm ở quê": sân gạch nguội đi thành nâu đêm, còn luỹ tre
+   phải SÁNG hơn nền (không phải tối hơn) mới thấy được — bản cũ giữ nguyên
+   silhouette #06251a trên nền #041a0f, tương phản 1.11:1, coi như mất. */
 body.dark-mode {
   color-scheme: dark;
-  --felt-1: #0c3a24;
-  --felt-2: #041a0f;
-  --card-cream: #1d2a20;
-  --surface: rgba(23, 34, 27, 0.96);
-  --surface-solid: #17221b;
-  --surface-2: #223028;
-  --overlay: rgba(0, 0, 0, 0.8);
-  --glass: rgba(255, 255, 255, 0.06);
-  --glass-border: rgba(255, 255, 255, 0.12);
+  --ground-1: #2e1d10;
+  --ground-2: #140b05;
+  --card-cream: #241a12;
+  --surface: rgba(32, 23, 16, 0.96);
+  --surface-solid: #20170f;
+  --surface-2: #2c2018;
+  --overlay: rgba(12, 6, 2, 0.82);
+  --glass: rgba(255, 246, 226, 0.07);
+  --glass-border: rgba(246, 231, 191, 0.16);
   --ink: #ece7d6;
   --ink-soft: #a8a190;
-  --ink-on-felt: #ece7d6;
-  --ink-on-felt-soft: rgba(236, 231, 214, 0.6);
+  --ink-on-ground: #ece7d6;
+  --ink-on-ground-soft: rgba(236, 231, 214, 0.74);
   --gold: #f0b429;
   --black-suit: #e8e4d8;
   --red: #ff6b5e;
+
+  --bamboo: #7c5630;
+  --bamboo-deep: #5c3e21;
+  --bamboo-lit: rgba(246, 231, 191, 0.22);
+
+  /* Đảo chiều: đêm thì luỹ tre hiện lên như bóng ngược sáng, sáng hơn nền */
+  --scene-ink: #5b3c20;
+  --scene-far: rgba(120, 86, 50, 0.55);
+  --scene-glow: rgba(240, 180, 41, 0.13);
+
+  --weave: rgba(247, 240, 221, 0.04);
+  --motif: rgba(246, 231, 191, 0.07);
+
+  /* Mực trên mặt bài: nền thẻ thành nâu đêm nên mực phải sáng lên (≥ 5.7:1).
+     Đây là token RIÊNG cho chữ — không đụng vào --terracotta-deep, vì màu đó
+     còn dùng cho nền lưng bài, đổi chung thì lưng bài bạc hết màu. */
+  --ink-red: #e5765c;
+  --ink-brown: #c9b79c;
+  --danger-ink: #ff8a70;
 }
 
 * {
@@ -78,33 +271,181 @@ body.dark-mode {
 }
 
 html {
-  /* Fluid root size: 16px up to 1600px, then scales with viewport,
-     capped at 20px so hi-res/ultra-wide screens feel proportionate */
-  font-size: clamp(16px, 1vw, 20px);
+  /* Cỡ chữ gốc co giãn theo CẢ chiều ngang và chiều cao khung nhìn.
+     Cửa sổ thấp (laptop 13", chia đôi màn hình, xoay ngang điện thoại)
+     sẽ tự thu nhỏ chữ để mọi thứ vẫn nằm gọn trong một màn.
+
+     Công thức cũ `min(1vw, 2.1vh)` luôn rơi về sàn 13px: 1vw chỉ vượt 13px
+     khi khung nhìn rộng hơn 1300px, nên gần như MỌI thiết bị — kể cả laptop
+     1280px — đều chạy ở cỡ chữ nhỏ nhất. Giờ cộng cả hai chiều lại, chiều
+     cao vẫn là ràng buộc chính (2.2vh) nhưng chiều ngang được góp phần. */
+  font-size: clamp(13.5px, min(1.25vh + 0.35vw, 2.2vh), 20px);;
   /* Render built-in UI (scrollbars, form controls) in light mode by default */
   color-scheme: light;
+  height: 100%;
+}
+
+/* Điện thoại: bộ bài vốn đã cuộn được, không cần bóp chữ để nhồi vào một
+   màn nữa — nhãn 8px của bản cũ gần như không đọc nổi. */
+@media (max-width: 600px) {
+  html { font-size: clamp(15px, 1.15vh + 1.6vw, 18px); }
+}
+
+/* Xoay ngang điện thoại: chiều cao là thứ hiếm nên chữ thu lại — nhưng chỉ
+   tới mức còn đọc được. Manifest đã bỏ khoá "portrait" (khoá một chiều xoay
+   là lỗi WCAG 2.1 SC 1.3.4), nên nằm ngang là tư thế hạng nhất chứ không
+   còn là trường hợp bên lề. Sàn 12.5px trước đây cho ra nhãn 9.8px. */
+@media (max-width: 900px) and (max-height: 500px) {
+  html { font-size: clamp(15px, 3.2vh, 16px); }
+
+  /* Bộ bài cuộn được và đã có vệt mờ báo hiệu, nên ưu tiên chữ đọc được
+     hơn là nhồi thêm một hàng bài. */
+  .challenge-badge { font-size: var(--fs-sm); }
+  .mode-btn { font-size: var(--fs-md); }
 }
 
 body {
   font-family: var(--font);
-  color: var(--ink-on-felt);
+  color: var(--ink-on-ground);
+  height: 100%;
   min-height: 100vh;
   min-height: 100dvh;
-  background:
-    radial-gradient(ellipse 120% 90% at 50% 0%, var(--felt-1) 0%, var(--felt-2) 70%),
-    var(--felt-2);
+  /* Nền "sân quê": chiếu cói dệt (lớp 16px) trải trên sân gạch nung, điểm
+     hoạ tiết trống đồng (lớp 96px). Hoạ tiết tô bằng currentcolor-qua-mask
+     nên đổi được theo sáng/tối; bản cũ nhúng thẳng mã màu vào data-URI. */
+  background-color: var(--ground-2);
+  background-image:
+    radial-gradient(ellipse 130% 95% at 50% 8%, var(--ground-1) 0%, var(--ground-2) 74%);
   background-attachment: fixed;
-  overflow-x: hidden;
-  transition: background 0.4s ease;
+  overflow: hidden;
+  transition: background-color 0.4s ease;
+  isolation: isolate;
 }
 
+/* Hai lớp hoạ tiết nằm riêng để tô được bằng biến màu:
+   ảnh SVG làm mask, màu lấy từ --weave / --motif. */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(ellipse 90% 70% at 50% 40%, transparent 55%, var(--felt-edge) 100%);
   z-index: 0;
+  background-color: var(--weave);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Cg%20stroke%3D%22%23fff%22%20stroke-width%3D%221%22%20stroke-opacity%3D%220.5%22%3E%3Cpath%20d%3D%22M0%203.5h16M0%2011.5h16%22%2F%3E%3Cpath%20d%3D%22M3.5%200v16M11.5%200v16%22%20stroke-opacity%3D%220.32%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%23fff%22%20fill-opacity%3D%220.22%22%3E%3Crect%20x%3D%224%22%20y%3D%220%22%20width%3D%227%22%20height%3D%223%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%228%22%20width%3D%224%22%20height%3D%223%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%228%22%20width%3D%223%22%20height%3D%223%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%3E%3Cg%20stroke%3D%22%23fff%22%20stroke-width%3D%221%22%20stroke-opacity%3D%220.5%22%3E%3Cpath%20d%3D%22M0%203.5h16M0%2011.5h16%22%2F%3E%3Cpath%20d%3D%22M3.5%200v16M11.5%200v16%22%20stroke-opacity%3D%220.32%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%23fff%22%20fill-opacity%3D%220.22%22%3E%3Crect%20x%3D%224%22%20y%3D%220%22%20width%3D%227%22%20height%3D%223%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%228%22%20width%3D%224%22%20height%3D%223%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%228%22%20width%3D%223%22%20height%3D%223%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  -webkit-mask-size: 16px 16px;
+  mask-size: 16px 16px;
+}
+
+.ground-motif {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-color: var(--motif);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2296%22%20height%3D%2296%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%221.5%22%20stroke-opacity%3D%220.55%22%3E%3Cpath%20d%3D%22M48%208%2088%2048%2048%2088%208%2048Z%22%2F%3E%3Cpath%20d%3D%22M48%2024%2072%2048%2048%2072%2024%2048Z%22%20stroke-opacity%3D%220.36%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%23fff%22%20fill-opacity%3D%220.5%22%3E%3Ccircle%20cx%3D%2248%22%20cy%3D%2248%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%220%22%20cy%3D%2248%22%20r%3D%222.4%22%2F%3E%3Ccircle%20cx%3D%2296%22%20cy%3D%2248%22%20r%3D%222.4%22%2F%3E%3Ccircle%20cx%3D%2248%22%20cy%3D%220%22%20r%3D%222.4%22%2F%3E%3Ccircle%20cx%3D%2248%22%20cy%3D%2296%22%20r%3D%222.4%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2296%22%20height%3D%2296%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%221.5%22%20stroke-opacity%3D%220.55%22%3E%3Cpath%20d%3D%22M48%208%2088%2048%2048%2088%208%2048Z%22%2F%3E%3Cpath%20d%3D%22M48%2024%2072%2048%2048%2072%2024%2048Z%22%20stroke-opacity%3D%220.36%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%23fff%22%20fill-opacity%3D%220.5%22%3E%3Ccircle%20cx%3D%2248%22%20cy%3D%2248%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%220%22%20cy%3D%2248%22%20r%3D%222.4%22%2F%3E%3Ccircle%20cx%3D%2296%22%20cy%3D%2248%22%20r%3D%222.4%22%2F%3E%3Ccircle%20cx%3D%2248%22%20cy%3D%220%22%20r%3D%222.4%22%2F%3E%3Ccircle%20cx%3D%2248%22%20cy%3D%2296%22%20r%3D%222.4%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  -webkit-mask-size: 96px 96px;
+  mask-size: 96px 96px;
+}
+
+/* Bóng tối dồn về bốn rìa, giữ tâm màn sáng như dưới ánh đèn dầu */
+.ground-vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(ellipse 92% 72% at 50% 42%, transparent 52%, var(--ground-edge) 100%);
+}
+
+/* Modal đang mở thì khoá cuộn nền — trước đây nền vẫn cuộn sau lớp phủ */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* Chỉ dành cho trình đọc màn hình */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Cảnh làng quê chạy ngang dưới chân màn hình: luỹ tre, mái đình, con trâu,
+   người đội nón, cây chuối, rặng cây, đàn cò, đồng lúa — dựng cả app thành
+   một khoảnh sân quê. Nằm sau nội dung (z-index 0), không chắn thao tác.
+
+   Vẽ bằng mask chứ không nhúng mã màu vào SVG: bản cũ hard-code #06251a nên
+   ở chế độ tối nó nằm trên nền #041a0f, tương phản 1.11:1 — cảnh quê biến
+   mất hẳn. Giờ màu lấy từ --scene-ink, đổi được theo theme. */
+body::after {
+  content: '';
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(var(--scene-reveal) + 34px);
+  pointer-events: none;
+  z-index: 0;
+  background-color: var(--scene-ink);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201440%20280%22%20width%3D%221440%22%20height%3D%22280%22%3E%3Cg%20fill%3D%22%23000%22%3E%3Cpath%20d%3D%22M0%20232%20Q%20300%20210%20620%20226%20T%201160%20224%20T%201440%20228%20L1440%20280%20L0%20280%20Z%22%2F%3E%3Cg%3E%3Crect%20x%3D%2270%22%20y%3D%22120%22%20width%3D%224%22%20height%3D%22112%22%2F%3E%3Crect%20x%3D%2292%22%20y%3D%2296%22%20width%3D%224%22%20height%3D%22136%22%2F%3E%3Crect%20x%3D%22114%22%20y%3D%22130%22%20width%3D%224%22%20height%3D%22102%22%2F%3E%3Crect%20x%3D%22132%22%20y%3D%22108%22%20width%3D%223.5%22%20height%3D%22124%22%2F%3E%3Cpath%20d%3D%22M72%20120%20q%20-22%20-10%20-34%20-30%20q%2024%206%2036%2024%20z%22%2F%3E%3Cpath%20d%3D%22M72%20132%20q%2022%20-8%2036%20-26%20q%20-12%2022%20-34%2030%20z%22%2F%3E%3Cpath%20d%3D%22M94%2096%20q%20-24%20-10%20-36%20-32%20q%2026%206%2038%2026%20z%22%2F%3E%3Cpath%20d%3D%22M94%20108%20q%2024%20-8%2038%20-28%20q%20-14%2024%20-36%2032%20z%22%2F%3E%3Cpath%20d%3D%22M116%20130%20q%20-20%20-8%20-30%20-26%20q%2022%204%2032%2022%20z%22%2F%3E%3Cpath%20d%3D%22M133%20108%20q%2022%20-8%2034%20-26%20q%20-12%2022%20-32%2030%20z%22%2F%3E%3C%2Fg%3E%3Cg%3E%3Crect%20x%3D%22262%22%20y%3D%22176%22%20width%3D%2296%22%20height%3D%2256%22%2F%3E%3Cpath%20d%3D%22M244%20176%20L310%20132%20L376%20176%20Z%22%2F%3E%3Cpath%20d%3D%22M244%20176%20q%2066%20-14%20132%200%20l%20-6%20-8%20q%20-60%20-12%20-120%200%20z%22%2F%3E%3Crect%20x%3D%22298%22%20y%3D%22200%22%20width%3D%2222%22%20height%3D%2232%22%2F%3E%3C%2Fg%3E%3Cg%3E%3Crect%20x%3D%22388%22%20y%3D%22192%22%20width%3D%2264%22%20height%3D%2240%22%2F%3E%3Cpath%20d%3D%22M376%20192%20L420%20160%20L464%20192%20Z%22%2F%3E%3C%2Fg%3E%3Cg%3E%3Cellipse%20cx%3D%22672%22%20cy%3D%22196%22%20rx%3D%2258%22%20ry%3D%2226%22%2F%3E%3Cpath%20d%3D%22M726%20190%20q%2026%20-4%2034%20-20%20q%204%2018%20-10%2028%20q%20-12%208%20-24%204%20z%22%2F%3E%3Cpath%20d%3D%22M752%20172%20q%2014%20-18%204%20-34%20q%2016%208%2012%2030%20z%22%2F%3E%3Cpath%20d%3D%22M766%20172%20q%2018%20-14%2016%20-34%20q%2010%2012%20-2%2032%20z%22%2F%3E%3Crect%20x%3D%22636%22%20y%3D%22214%22%20width%3D%227%22%20height%3D%2226%22%2F%3E%3Crect%20x%3D%22656%22%20y%3D%22214%22%20width%3D%227%22%20height%3D%2226%22%2F%3E%3Crect%20x%3D%22690%22%20y%3D%22214%22%20width%3D%227%22%20height%3D%2226%22%2F%3E%3Crect%20x%3D%22710%22%20y%3D%22214%22%20width%3D%227%22%20height%3D%2226%22%2F%3E%3Cpath%20d%3D%22M616%20196%20q%20-16%204%20-20%2022%20q%2010%20-8%2022%20-14%20z%22%2F%3E%3C%2Fg%3E%3Cg%3E%3Crect%20x%3D%22600%22%20y%3D%22176%22%20width%3D%229%22%20height%3D%2246%22%2F%3E%3Ccircle%20cx%3D%22604.5%22%20cy%3D%22168%22%20r%3D%228%22%2F%3E%3Cpath%20d%3D%22M586%20162%20q%2018%20-22%2038%200%20q%20-19%20-8%20-38%200%20z%22%2F%3E%3Crect%20x%3D%22597%22%20y%3D%22196%22%20width%3D%227%22%20height%3D%2226%22%20transform%3D%22rotate%2812%20600%20200%29%22%2F%3E%3C%2Fg%3E%3Cg%3E%3Crect%20x%3D%22908%22%20y%3D%22150%22%20width%3D%228%22%20height%3D%2284%22%2F%3E%3Cpath%20d%3D%22M912%20150%20q%20-6%20-34%20-40%20-44%20q%2026%2030%2034%2046%20z%22%2F%3E%3Cpath%20d%3D%22M912%20150%20q%206%20-36%2044%20-44%20q%20-30%2030%20-38%2046%20z%22%2F%3E%3Cpath%20d%3D%22M912%20156%20q%20-30%20-12%20-56%20-6%20q%2030%20-14%2058%20-2%20z%22%2F%3E%3Cpath%20d%3D%22M912%20156%20q%2030%20-12%2058%20-4%20q%20-32%20-12%20-60%200%20z%22%2F%3E%3Cpath%20d%3D%22M912%20168%20q%20-22%206%20-40%2024%20q%2020%20-6%2042%20-12%20z%22%2F%3E%3Cpath%20d%3D%22M912%20168%20q%2024%206%2042%2024%20q%20-22%20-6%20-44%20-12%20z%22%2F%3E%3C%2Fg%3E%3Cg%3E%3Crect%20x%3D%221150%22%20y%3D%22168%22%20width%3D%2210%22%20height%3D%2266%22%2F%3E%3Ccircle%20cx%3D%221155%22%20cy%3D%22150%22%20r%3D%2240%22%2F%3E%3Ccircle%20cx%3D%221120%22%20cy%3D%22164%22%20r%3D%2230%22%2F%3E%3Ccircle%20cx%3D%221192%22%20cy%3D%22162%22%20r%3D%2232%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23000%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M40%20262%20l6%20-20%20M60%20264%20l6%20-22%20M80%20262%20l5%20-20%20M120%20264%20l6%20-22%20M160%20262%20l6%20-20%20M210%20264%20l6%20-22%20M470%20262%20l6%20-20%20M510%20264%20l6%20-22%20M560%20262%20l6%20-20%20M820%20262%20l6%20-20%20M860%20264%20l6%20-22%20M1000%20262%20l6%20-20%20M1040%20264%20l6%20-22%20M1240%20262%20l6%20-20%20M1290%20264%20l6%20-22%20M1340%20262%20l6%20-20%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201440%20280%22%20width%3D%221440%22%20height%3D%22280%22%3E%3Cg%20fill%3D%22%23000%22%3E%3Cpath%20d%3D%22M0%20232%20Q%20300%20210%20620%20226%20T%201160%20224%20T%201440%20228%20L1440%20280%20L0%20280%20Z%22%2F%3E%3Cg%3E%3Crect%20x%3D%2270%22%20y%3D%22120%22%20width%3D%224%22%20height%3D%22112%22%2F%3E%3Crect%20x%3D%2292%22%20y%3D%2296%22%20width%3D%224%22%20height%3D%22136%22%2F%3E%3Crect%20x%3D%22114%22%20y%3D%22130%22%20width%3D%224%22%20height%3D%22102%22%2F%3E%3Crect%20x%3D%22132%22%20y%3D%22108%22%20width%3D%223.5%22%20height%3D%22124%22%2F%3E%3Cpath%20d%3D%22M72%20120%20q%20-22%20-10%20-34%20-30%20q%2024%206%2036%2024%20z%22%2F%3E%3Cpath%20d%3D%22M72%20132%20q%2022%20-8%2036%20-26%20q%20-12%2022%20-34%2030%20z%22%2F%3E%3Cpath%20d%3D%22M94%2096%20q%20-24%20-10%20-36%20-32%20q%2026%206%2038%2026%20z%22%2F%3E%3Cpath%20d%3D%22M94%20108%20q%2024%20-8%2038%20-28%20q%20-14%2024%20-36%2032%20z%22%2F%3E%3Cpath%20d%3D%22M116%20130%20q%20-20%20-8%20-30%20-26%20q%2022%204%2032%2022%20z%22%2F%3E%3Cpath%20d%3D%22M133%20108%20q%2022%20-8%2034%20-26%20q%20-12%2022%20-32%2030%20z%22%2F%3E%3C%2Fg%3E%3Cg%3E%3Crect%20x%3D%22262%22%20y%3D%22176%22%20width%3D%2296%22%20height%3D%2256%22%2F%3E%3Cpath%20d%3D%22M244%20176%20L310%20132%20L376%20176%20Z%22%2F%3E%3Cpath%20d%3D%22M244%20176%20q%2066%20-14%20132%200%20l%20-6%20-8%20q%20-60%20-12%20-120%200%20z%22%2F%3E%3Crect%20x%3D%22298%22%20y%3D%22200%22%20width%3D%2222%22%20height%3D%2232%22%2F%3E%3C%2Fg%3E%3Cg%3E%3Crect%20x%3D%22388%22%20y%3D%22192%22%20width%3D%2264%22%20height%3D%2240%22%2F%3E%3Cpath%20d%3D%22M376%20192%20L420%20160%20L464%20192%20Z%22%2F%3E%3C%2Fg%3E%3Cg%3E%3Cellipse%20cx%3D%22672%22%20cy%3D%22196%22%20rx%3D%2258%22%20ry%3D%2226%22%2F%3E%3Cpath%20d%3D%22M726%20190%20q%2026%20-4%2034%20-20%20q%204%2018%20-10%2028%20q%20-12%208%20-24%204%20z%22%2F%3E%3Cpath%20d%3D%22M752%20172%20q%2014%20-18%204%20-34%20q%2016%208%2012%2030%20z%22%2F%3E%3Cpath%20d%3D%22M766%20172%20q%2018%20-14%2016%20-34%20q%2010%2012%20-2%2032%20z%22%2F%3E%3Crect%20x%3D%22636%22%20y%3D%22214%22%20width%3D%227%22%20height%3D%2226%22%2F%3E%3Crect%20x%3D%22656%22%20y%3D%22214%22%20width%3D%227%22%20height%3D%2226%22%2F%3E%3Crect%20x%3D%22690%22%20y%3D%22214%22%20width%3D%227%22%20height%3D%2226%22%2F%3E%3Crect%20x%3D%22710%22%20y%3D%22214%22%20width%3D%227%22%20height%3D%2226%22%2F%3E%3Cpath%20d%3D%22M616%20196%20q%20-16%204%20-20%2022%20q%2010%20-8%2022%20-14%20z%22%2F%3E%3C%2Fg%3E%3Cg%3E%3Crect%20x%3D%22600%22%20y%3D%22176%22%20width%3D%229%22%20height%3D%2246%22%2F%3E%3Ccircle%20cx%3D%22604.5%22%20cy%3D%22168%22%20r%3D%228%22%2F%3E%3Cpath%20d%3D%22M586%20162%20q%2018%20-22%2038%200%20q%20-19%20-8%20-38%200%20z%22%2F%3E%3Crect%20x%3D%22597%22%20y%3D%22196%22%20width%3D%227%22%20height%3D%2226%22%20transform%3D%22rotate%2812%20600%20200%29%22%2F%3E%3C%2Fg%3E%3Cg%3E%3Crect%20x%3D%22908%22%20y%3D%22150%22%20width%3D%228%22%20height%3D%2284%22%2F%3E%3Cpath%20d%3D%22M912%20150%20q%20-6%20-34%20-40%20-44%20q%2026%2030%2034%2046%20z%22%2F%3E%3Cpath%20d%3D%22M912%20150%20q%206%20-36%2044%20-44%20q%20-30%2030%20-38%2046%20z%22%2F%3E%3Cpath%20d%3D%22M912%20156%20q%20-30%20-12%20-56%20-6%20q%2030%20-14%2058%20-2%20z%22%2F%3E%3Cpath%20d%3D%22M912%20156%20q%2030%20-12%2058%20-4%20q%20-32%20-12%20-60%200%20z%22%2F%3E%3Cpath%20d%3D%22M912%20168%20q%20-22%206%20-40%2024%20q%2020%20-6%2042%20-12%20z%22%2F%3E%3Cpath%20d%3D%22M912%20168%20q%2024%206%2042%2024%20q%20-22%20-6%20-44%20-12%20z%22%2F%3E%3C%2Fg%3E%3Cg%3E%3Crect%20x%3D%221150%22%20y%3D%22168%22%20width%3D%2210%22%20height%3D%2266%22%2F%3E%3Ccircle%20cx%3D%221155%22%20cy%3D%22150%22%20r%3D%2240%22%2F%3E%3Ccircle%20cx%3D%221120%22%20cy%3D%22164%22%20r%3D%2230%22%2F%3E%3Ccircle%20cx%3D%221192%22%20cy%3D%22162%22%20r%3D%2232%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23000%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M40%20262%20l6%20-20%20M60%20264%20l6%20-22%20M80%20262%20l5%20-20%20M120%20264%20l6%20-22%20M160%20262%20l6%20-20%20M210%20264%20l6%20-22%20M470%20262%20l6%20-20%20M510%20264%20l6%20-22%20M560%20262%20l6%20-20%20M820%20262%20l6%20-20%20M860%20264%20l6%20-22%20M1000%20262%20l6%20-20%20M1040%20264%20l6%20-22%20M1240%20262%20l6%20-20%20M1290%20264%20l6%20-22%20M1340%20262%20l6%20-20%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  -webkit-mask-repeat: repeat-x;
+  mask-repeat: repeat-x;
+  -webkit-mask-position: center bottom;
+  mask-position: center bottom;
+  -webkit-mask-size: auto 100%;
+  mask-size: auto 100%;
+}
+
+/* Đàn cò bay — lớp riêng, nhạt hơn để tạo chiều sâu */
+.scene-birds {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(var(--scene-reveal) + 34px);
+  pointer-events: none;
+  z-index: 0;
+  background-color: var(--scene-far);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201440%20280%22%20width%3D%221440%22%20height%3D%22280%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M360%2070%20q%2016%20-14%2032%200%20q%2016%20-14%2032%200%22%2F%3E%3Cpath%20d%3D%22M470%2052%20q%2014%20-12%2028%200%20q%2014%20-12%2028%200%22%2F%3E%3Cpath%20d%3D%22M560%2078%20q%2012%20-10%2024%200%20q%2012%20-10%2024%200%22%2F%3E%3Cpath%20d%3D%22M1010%2060%20q%2014%20-12%2028%200%20q%2014%20-12%2028%200%22%2F%3E%3Cpath%20d%3D%22M1090%2082%20q%2012%20-10%2024%200%20q%2012%20-10%2024%200%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201440%20280%22%20width%3D%221440%22%20height%3D%22280%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M360%2070%20q%2016%20-14%2032%200%20q%2016%20-14%2032%200%22%2F%3E%3Cpath%20d%3D%22M470%2052%20q%2014%20-12%2028%200%20q%2014%20-12%2028%200%22%2F%3E%3Cpath%20d%3D%22M560%2078%20q%2012%20-10%2024%200%20q%2012%20-10%2024%200%22%2F%3E%3Cpath%20d%3D%22M1010%2060%20q%2014%20-12%2028%200%20q%2014%20-12%2028%200%22%2F%3E%3Cpath%20d%3D%22M1090%2082%20q%2012%20-10%2024%200%20q%2012%20-10%2024%200%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  -webkit-mask-repeat: repeat-x;
+  mask-repeat: repeat-x;
+  -webkit-mask-position: center bottom;
+  mask-position: center bottom;
+  -webkit-mask-size: auto 100%;
+  mask-size: auto 100%;
+}
+
+/* Nắng chiều hắt lên từ chân trời */
+.scene-glow {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(var(--scene-reveal) + 68px);
+  pointer-events: none;
+  z-index: 0;
+  background: linear-gradient(0deg, var(--scene-glow) 0%, transparent 82%);
+}
+
+/* Dải cảnh quê co theo màn hình để không lấn chỗ bộ bài */
+@media (max-width: 600px) { :root { --scene-reveal: 74px; } }
+@media (max-height: 700px) { :root { --scene-reveal: 66px; } }
+
+/* Màn rất thấp (xoay ngang điện thoại): thu về một vệt chân trời mỏng chứ
+   KHÔNG ẩn hẳn — ẩn đi là mất sạch chất làng quê ở đúng tư thế người ta hay
+   cầm máy để chơi. Đàn cò thì bỏ, vì bay ở nửa trên khung hình. */
+@media (max-height: 560px) {
+  :root { --scene-reveal: 26px; }
+  .scene-birds { display: none; }
 }
 
 button {
@@ -127,6 +468,28 @@ input, select {
 
 img {
   display: block;
+  outline: 1px solid oklch(0 0 0 / 0.1);
+  outline-offset: -1px;
+}
+
+body.dark-mode img {
+  outline-color: oklch(1 0 0 / 0.1);
+}
+
+/* Không cho transition chạy trong lúc đổi theme — nếu không cả trang nhấp
+   màu/layer một nhịp nhìn rất rối. */
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after {
+  transition: none !important;
+}
+
+h1, h2, h3, .food-name, #dishOfDayName, .battle-dish, .empty-state strong {
+  text-wrap: balance;
+}
+
+p, .food-pairing, .order-note, .battle-hint, .method-copy em, .empty-state span {
+  text-wrap: pretty;
 }
 
 :focus-visible {
@@ -135,24 +498,160 @@ img {
   border-radius: 4px;
 }
 
+.skip-link {
+  position: fixed;
+  z-index: 10000;
+  top: max(8px, env(safe-area-inset-top));
+  left: max(8px, env(safe-area-inset-left));
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--surface-solid);
+  color: var(--ink);
+  font-weight: 700;
+  transform: translateY(-160%);
+  transition: transform 0.15s ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
 /* ========================================
    LAYOUT
    ======================================== */
 .container {
   position: relative;
   z-index: 1;
-  max-width: 720px;
+  width: 100%;
+  max-width: 760px;
   margin: 0 auto;
-  padding: calc(12px + env(safe-area-inset-top)) 16px calc(32px + env(safe-area-inset-bottom));
+  padding:
+    calc(18px + env(safe-area-inset-top))
+    max(16px, env(safe-area-inset-right))
+    calc(var(--scene-reveal) + env(safe-area-inset-bottom))
+    max(16px, env(safe-area-inset-left));
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: clamp(8px, 1.4vh, 16px);
+  /* App shell: khung ứng dụng luôn bằng đúng một màn hình, chỉ khu vực
+     bộ bài mới cuộn khi thật sự không đủ chỗ. */
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
 }
 
 /* Sidebar wrapper — transparent on small screens so children flow
-   exactly as before; becomes a single sticky column on desktop. */
+   exactly as before; becomes its own scrollable column on desktop. */
 .sidebar {
   display: contents;
+}
+
+/* Khu vực chứa bộ bài — nhận toàn bộ chỗ trống còn lại và tự căn giữa.
+   JS đo đúng ô này để tính cỡ lá bài, nên không cần đoán chiều cao. */
+.deck-area {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  /* Khung "khay/mẹt tre" bao quanh bộ bài — dùng border (không phải padding)
+     vì JS đo clientWidth/Height đã trừ sẵn border, cỡ lá bài vẫn tính đúng.
+     Nan gỗ chuyển màu + đường mây sáng bên trong cho ra chất tre đan.
+     Tre phải SÁNG hơn sân gạch mới nổi khối (3.6:1); nền trong lòng mẹt
+     tối lại để lá bài đỏ gạch tách khỏi nền đất. */
+  border: 12px solid var(--bamboo);
+  border-bottom-color: var(--bamboo-deep);
+  border-radius: 18px;
+  /* Chừa khoảng thở giữa lá bài và khung tre (fitDeck đã trừ padding này) */
+  padding: 14px;
+  /* Lòng mẹt: nâu sẫm ấm chứ không phải mảng đen — đủ tối để lá bài gạch
+     nung nổi lên (4.2:1) nhưng vẫn ra chất tre đan, không ra cái hố. */
+  background:
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.10) 0 3px, transparent 3px 7px),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.10) 0 3px, transparent 3px 7px),
+    linear-gradient(180deg, var(--earth-deep), var(--ground-2));
+  box-shadow:
+    inset 0 0 0 2px var(--bamboo-lit),
+    inset 0 8px 22px rgba(0, 0, 0, 0.38),
+    0 6px 18px rgba(0, 0, 0, 0.34);
+  /* Mờ dần mép trên/dưới khi bộ bài dài hơn khung — trước đây lá bài bị cắt
+     ngang thân mà không có dấu hiệu nào cho biết bên dưới còn 24 lá nữa. */
+  scroll-padding-block: 8px;
+}
+
+.deck-heading {
+  width: min(100%, 760px);
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 auto 12px;
+  padding: 0 4px;
+  color: var(--ink-on-ground);
+}
+
+.deck-heading h2,
+.method-heading h2 {
+  margin: 3px 0 2px;
+  color: var(--ink-on-ground);
+  font-size: var(--fs-base);
+  line-height: var(--lh-snug);
+}
+
+.deck-heading p,
+.method-heading p {
+  margin: 0;
+  color: var(--ink-on-ground-soft);
+  font-size: var(--fs-xs);
+  line-height: var(--lh-snug);
+}
+
+.eyebrow {
+  display: block;
+  color: var(--gold-soft);
+  font-size: var(--fs-2xs);
+  font-weight: 800;
+  letter-spacing: var(--track-caps);
+  line-height: var(--lh-snug);
+}
+
+.deck-hint,
+.method-count {
+  flex: 0 0 auto;
+  padding: 6px 10px;
+  font-variant-numeric: tabular-nums;
+  border: 1px solid rgba(246, 231, 191, 0.26);
+  border-radius: 999px;
+  color: var(--ink-on-ground-soft);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.deck-area.is-scrollable {
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%);
+}
+
+.deck-area.is-scrollable.at-top {
+  -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 18px), transparent 100%);
+  mask-image: linear-gradient(180deg, #000 calc(100% - 18px), transparent 100%);
+}
+
+.deck-area.is-scrollable.at-bottom {
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 18px);
+  mask-image: linear-gradient(180deg, transparent 0, #000 18px);
+}
+
+.deck-area.is-scrollable.at-top.at-bottom {
+  -webkit-mask-image: none;
+  mask-image: none;
 }
 
 /* ========================================
@@ -179,16 +678,18 @@ header {
 }
 
 header h1 {
-  font-size: 1.35rem;
+  font-family: var(--font-display);
+  font-size: var(--fs-2xl);
   font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--ink-on-felt);
-  line-height: 1.15;
+  letter-spacing: var(--track-display);
+  color: var(--gold-soft);
+  line-height: var(--lh-tight);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
 }
 
 header p {
-  font-size: 0.78rem;
-  color: var(--ink-on-felt-soft);
+  font-size: var(--fs-sm);
+  color: var(--ink-on-ground-soft);
   font-weight: 500;
   margin-top: 2px;
 }
@@ -196,22 +697,22 @@ header p {
 .challenge-badge {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
   padding: 6px 12px;
+  font-variant-numeric: tabular-nums;
   border-radius: 999px;
   background: var(--glass);
   border: 1px solid var(--glass-border);
-  font-size: 0.78rem;
+  font-size: var(--fs-sm);
   font-weight: 700;
   color: var(--gold-soft);
   flex-shrink: 0;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
 }
 
+/* Cúp là hình nhiều chi tiết (quai, thân, đế) — 14px là bệt hết vào nhau */
 .challenge-badge svg {
-  width: 14px;
-  height: 14px;
+  width: var(--icon-md);
+  height: var(--icon-md);
 }
 
 .challenge-badge.level-bronze { color: #e8956d; }
@@ -229,10 +730,10 @@ header p {
   flex-wrap: wrap;
   padding: 10px;
   border-radius: var(--r-lg);
-  background: var(--glass);
-  border: 1px solid var(--glass-border);
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  /* Panel phẳng, matte (không kính mờ) và nâu gỗ ấm để nối liền
+     với nền sân đất; xanh chàm chỉ còn là màu nhấn nhỏ trong bảng màu. */
+  background: linear-gradient(180deg, rgba(var(--earth-rgb), 0.78), var(--earth-deep));
+  border: 1px solid rgba(246, 231, 191, 0.16);
 }
 
 .mode-group {
@@ -246,11 +747,11 @@ header p {
 .mode-btn {
   padding: 8px 14px;
   border-radius: 9px;
-  font-size: 0.82rem;
+  font-size: var(--fs-sm);
   font-weight: 600;
-  color: var(--ink-on-felt-soft);
+  color: var(--ink-on-ground-soft);
   transition: background-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
-  min-height: 38px;
+  min-height: 44px;
 }
 
 .mode-btn.active {
@@ -267,19 +768,73 @@ header p {
   flex-wrap: wrap;
 }
 
+.advanced-filters { min-width: 0; }
+.advanced-filters summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  color: var(--ink-on-ground);
+  background: rgba(0, 0, 0, 0.22);
+  cursor: pointer;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  list-style: none;
+  position: relative;
+}
+.advanced-filters summary::-webkit-details-marker { display: none; }
+.advanced-filters summary::after {
+  content: '';
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-65%) rotate(45deg);
+  transition: transform 180ms ease;
+}
+.advanced-filters[open] summary::after { transform: translateY(-35%) rotate(225deg); }
+
+/* Keep action icons optically aligned across font/rendering engines. */
+.btn > svg:not(.pref-chevron):not(.more-methods-chevron),
+.mode-pill > svg,
+.spin-wheel-btn > svg,
+.more-methods-toggle > svg {
+  width: 1.25em;
+  height: 1.25em;
+  flex: 0 0 1.25em;
+  display: block;
+  stroke: currentColor;
+}
+.advanced-filters summary:hover { border-color: rgba(255, 255, 255, 0.45); }
+.advanced-filters summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.advanced-filters-inner { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.advanced-filters-inner .filter-select { flex: 1 1 120px; min-width: 0; }
+
+.meal-now {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
 .filter-select {
   appearance: none;
   -webkit-appearance: none;
-  padding: 8px 30px 8px 12px;
+  padding: 8px 44px 8px 12px;
   border-radius: 10px;
   border: 1px solid var(--glass-border);
   background: rgba(0, 0, 0, 0.22)
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f4f1e4' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E")
-    no-repeat right 8px center / 14px;
-  color: var(--ink-on-felt);
-  font-size: 0.82rem;
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f4f1e4' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E")
+    no-repeat right 10px center / 22px;
+  color: var(--ink-on-ground);
+  font-size: var(--fs-sm);
   font-weight: 600;
-  min-height: 38px;
+  min-height: 44px;
   cursor: pointer;
   transition: border-color 0.15s ease;
 }
@@ -305,22 +860,22 @@ header p {
   border-radius: 10px;
   background: rgba(0, 0, 0, 0.22);
   border: 1px solid var(--glass-border);
-  color: var(--ink-on-felt);
+  color: var(--ink-on-ground);
   transition: background-color 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
 }
 
 .icon-btn {
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
 }
 
 .icon-btn-sm {
-  width: 32px;
-  height: 32px;
+  width: var(--tap);
+  height: var(--tap);
 }
 
-.icon-btn svg { width: 17px; height: 17px; }
-.icon-btn-sm svg { width: 14px; height: 14px; }
+.icon-btn svg { width: var(--icon-md); height: var(--icon-md); }
+.icon-btn-sm svg { width: var(--icon-md); height: var(--icon-md); }
 
 .icon-btn:hover, .icon-btn-sm:hover {
   background: rgba(0, 0, 0, 0.35);
@@ -328,7 +883,7 @@ header p {
 }
 
 .icon-btn:active, .icon-btn-sm:active {
-  transform: translateY(0) scale(0.95);
+  transform: translateY(0) scale(0.96);
 }
 
 /* ========================================
@@ -344,19 +899,19 @@ header p {
   border-radius: 999px;
   background: linear-gradient(180deg, var(--gold) 0%, var(--gold-deep) 100%);
   color: #3a2a00;
-  font-size: 1.05rem;
+  font-size: var(--fs-lg);
   font-weight: 800;
-  letter-spacing: 0.01em;
+  letter-spacing: normal;
   box-shadow:
-    0 4px 0 #8a6104,
-    0 10px 28px rgba(240, 180, 41, 0.35);
+    0 3px 0 #8a6104,
+    0 6px 16px rgba(0, 0, 0, 0.28);
   transition: transform 0.1s ease, box-shadow 0.1s ease;
   min-height: 52px;
 }
 
 .quick-pick-btn svg {
-  width: 20px;
-  height: 20px;
+  width: var(--icon-lg);
+  height: var(--icon-lg);
 }
 
 .quick-pick-btn:hover {
@@ -366,7 +921,7 @@ header p {
 
 .quick-pick-btn:active {
   transform: translateY(3px);
-  box-shadow: 0 1px 0 #8a6104, 0 4px 12px rgba(240, 180, 41, 0.3);
+  box-shadow: 0 0 0 #8a6104, 0 3px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* ========================================
@@ -393,7 +948,7 @@ header p {
   align-items: center;
   gap: 8px;
   font-weight: 700;
-  font-size: 0.92rem;
+  font-size: var(--fs-md);
 }
 
 .current-player svg {
@@ -409,8 +964,9 @@ header p {
 }
 
 .cards-left {
-  font-size: 0.82rem;
+  font-size: var(--fs-sm);
   color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
 }
 
 .cards-left strong {
@@ -426,14 +982,29 @@ header p {
 /* ========================================
    DECK — card grid
    ======================================== */
+/* Lưới bài dùng flex-wrap chứ không phải grid: hàng cuối lẻ vẫn được căn
+   giữa thay vì dồn về trái. Bề rộng lá bài (--card-w) và bề rộng cả cỗ bài
+   (--deck-w, quyết định số lá mỗi hàng) do fitDeck() tính lại mỗi lần
+   khung nhìn đổi kích thước. */
 .deck {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(62px, 1fr));
-  gap: 8px;
+  --deck-gap: clamp(8px, 0.7vmin, 12px);
+  --card-min: 44px;
+  --card-max: 150px;
+  --card-w: 64px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  gap: var(--deck-gap);
+  width: var(--deck-w, 100%);
+  max-width: 100%;
+  margin: auto;
 }
 
 .card {
   position: relative;
+  flex: 0 0 auto;
+  width: var(--card-w);
   aspect-ratio: 5 / 7;
   border-radius: 8px;
   cursor: pointer;
@@ -441,10 +1012,6 @@ header p {
   /* Container query host — children size in cqw (1cqw = 1% of card width),
      so every card face scales itself at any breakpoint */
   container-type: inline-size;
-  content-visibility: auto;
-  /* Closer to real card size (~80×112 mid-viewport) so off-screen
-     estimates don't cause a scroll jump when cards render in */
-  contain-intrinsic-size: auto 80px auto 112px;
 }
 
 .card .back {
@@ -466,7 +1033,7 @@ header p {
   inset: 0;
   display: grid;
   place-items: center;
-  font-size: 1.1rem;
+  font-size: var(--fs-lg);
   color: rgba(240, 180, 41, 0.85);
 }
 
@@ -498,7 +1065,7 @@ header p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  line-height: 1;
+  line-height: var(--lh-tight);
   font-weight: 800;
 }
 
@@ -511,12 +1078,12 @@ header p {
   gap: 2cqw;
   padding: 0 1cqw 2cqw;
   border-bottom: 1px solid rgba(90, 70, 40, 0.16);
-  line-height: 1;
+  line-height: var(--lh-tight);
   font-weight: 800;
 }
 
-.front .num { font-size: 0.7rem; font-size: 13cqw; }
-.front .suit { font-size: 0.62rem; font-size: 12cqw; }
+.front .num { font-size: 0.7rem;; font-size: 13cqw;; }
+.front .suit { font-size: 0.62rem;; font-size: 12cqw;; }
 
 .front.red { color: var(--red); }
 .front.black { color: var(--black-suit); }
@@ -540,16 +1107,30 @@ header p {
 .front .food {
   width: 100%;
   padding: 0 1cqw;
-  font-size: 0.56rem;
-  font-size: 9.5cqw;
+  font-size: 0.56rem;;
+  font-size: 9.5cqw;;
   font-weight: 700;
   text-align: center;
-  line-height: 1.25;
+  line-height: var(--lh-snug);
   color: var(--ink);
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+/* Lá bài quá nhỏ (màn hình chật) thì bỏ chữ, để ảnh món chiếm trọn —
+   tên món ở cỡ đó chỉ còn ~4px, vừa không đọc được vừa làm rối mặt bài.
+   PHẢI đặt sau `.front .food` ở trên: @container không cộng thêm độ ưu tiên,
+   nên nếu nằm trước thì `display: -webkit-box` sẽ đè mất `display: none`. */
+@container (max-width: 58px) {
+  .front .food { display: none; }
+  .front .card-head { padding-bottom: 1cqw; }
+}
+
+@container (max-width: 42px) {
+  .front .card-head { display: none; }
+  .front { padding: 2cqw; }
 }
 
 /* ========== FOLK CARD SKIN (Dân gian) ========== */
@@ -561,11 +1142,13 @@ header p {
   vertical-align: middle;
 }
 
+/* Lưng bài dân gian sáng lên một bậc (gạch nung thay vì nâu sẫm) để tách
+   khỏi nền sân đất mới — tương phản với lòng mẹt lên 4.2:1. */
 .folk-deck .card .back {
   background:
     radial-gradient(circle at 50% 50%, rgba(255, 240, 200, 0.16) 0%, transparent 48%),
     repeating-linear-gradient(45deg, rgba(255, 240, 200, 0.06) 0 2px, transparent 2px 9px),
-    linear-gradient(145deg, #a63c2a 0%, #7d2a1c 100%);
+    linear-gradient(145deg, var(--terracotta) 0%, var(--terracotta-deep) 100%);
   border-color: #f0dfb8;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), inset 0 0 0 3px rgba(255, 240, 200, 0.1);
 }
@@ -584,11 +1167,11 @@ header p {
   height: 15cqw;
 }
 
-.folk-deck .front.red { color: #a63c2a; }
-.folk-deck .front.black { color: #5a4634; }
+.folk-deck .front.red { color: var(--ink-red); }
+.folk-deck .front.black { color: var(--ink-brown); }
 
-.folk-deck .result-card.red { color: #a63c2a; }
-.folk-deck .result-card.black { color: #5a4634; }
+.folk-deck .result-card.red { color: var(--ink-red); }
+.folk-deck .result-card.black { color: var(--ink-brown); }
 
 .folk-deck .result-card .corner-tl .suit-glyph,
 .folk-deck .result-card .corner-br .suit-glyph {
@@ -597,7 +1180,7 @@ header p {
 }
 
 /* Classic skin head — suit char slightly larger so it balances the numeral */
-.front .card-head .suit { font-size: 12cqw; }
+.front .card-head .suit { font-size: 12cqw;; }
 
 .folk-deck .result-card .main-suit .suit-glyph {
   width: 2rem;
@@ -612,10 +1195,15 @@ header p {
   animation: popIn 0.35s ease;
 }
 
-/* Desaturate opened cards so they read as "spent" vs the live deck.
-   Applied to .front (not .card) so the drop shadow stays crisp. */
+/* Opened cards stay readable against the live deck: keep the front and text
+   at full brightness, then apply only a light colour reduction to the photo
+   so food details do not disappear into the dark table. */
 .card.flipped .front {
-  filter: saturate(0.45) brightness(0.85);
+  filter: none;
+}
+
+.card.flipped .card-thumb {
+  filter: saturate(0.9) brightness(1.12) contrast(1.02);
 }
 
 .card.dimmed {
@@ -625,7 +1213,7 @@ header p {
 }
 
 .card.dealing {
-  animation: dealCard 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+  animation: dealCard 0.45s var(--ease-spring) both;
   animation-delay: calc(var(--deal-delay, 0ms) * var(--anim-speed));
 }
 
@@ -635,12 +1223,14 @@ header p {
 
 .card.picking .back {
   animation: pulsingGlow 0.8s ease-in-out infinite;
-  transform: translateY(-14px) scale(1.12);
+  /* Không kéo lên trên: hàng đầu nằm sát mép khay có thể bị overflow cắt.
+     Scale + glow vẫn giữ cảm giác lá bài đang được chọn. */
+  transform: scale(1.12);
 }
 
 .card.shaking .back {
   animation: dramaticShake 0.12s linear infinite;
-  transform: translateY(-14px) scale(1.12);
+  transform: scale(1.08);
 }
 
 .card.revealing {
@@ -662,16 +1252,23 @@ header p {
   position: fixed;
   inset: 0;
   z-index: 100;
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   padding: 16px;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease-out, visibility 0s linear 150ms;
 }
 
 .modal.show, .settings-modal.show, .multiplayer-modal.show, .planner-modal.show,
 .custom-dish-modal.show, .excludes-modal.show, .wheel-modal.show, .reel-modal.show,
 .battle-modal.show, .results-panel.show {
-  display: flex;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 200ms ease-out, visibility 0s;
 }
 
 .modal-bg, .settings-bg, .multiplayer-bg, .planner-bg,
@@ -681,16 +1278,23 @@ header p {
   background: var(--overlay);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  animation: fadeIn 0.2s ease;
 }
 
 .modal-card {
   position: relative;
-  animation: popIn 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.15);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
+  transform: translateY(8px);
+  opacity: 0;
+  transition: transform 150ms ease-out, opacity 150ms ease-out;
+}
+
+.modal.show .modal-card {
+  transform: none;
+  opacity: 1;
+  transition: transform 300ms var(--ease-spring), opacity 200ms ease-out;
 }
 
 /* The big revealed card */
@@ -717,24 +1321,24 @@ header p {
 .result-card .corner-tl {
   top: 10px;
   left: 12px;
-  font-size: 1.5rem;
+  font-size: var(--fs-2xl);
 }
 
-.result-card .corner-tl .suit { font-size: 1.15rem; }
+.result-card .corner-tl .suit { font-size: var(--fs-lg); }
 
 .result-card .corner-br {
   bottom: 10px;
   right: 12px;
-  font-size: 1.5rem;
+  font-size: var(--fs-2xl);
   transform: rotate(180deg);
 }
 
-.result-card .corner-br .suit { font-size: 1.15rem; }
+.result-card .corner-br .suit { font-size: var(--fs-lg); }
 
 .result-card .main-suit {
   text-align: center;
-  font-size: 1.6rem;
-  margin-top: 26px;
+  font-size: var(--fs-3xl);
+  margin-top: 24px;
   opacity: 0.85;
 }
 
@@ -763,8 +1367,38 @@ header p {
   object-fit: cover;
 }
 
+.card-image.image-missing {
+  min-height: 150px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #6f4a2c, #3f2718);
+}
+
+.card-image.image-missing::after {
+  content: 'Ảnh đang được kiểm duyệt';
+  max-width: 13rem;
+  padding: 1rem;
+  color: #f7ecd5;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-snug);
+  text-align: center;
+}
+
+.card-image.image-unavailable::after { content: 'Ảnh chưa tải được'; }
+
+.photo-pending {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  color: var(--ink-soft);
+  font-size: clamp(7px, 12cqw, 11px);;
+  text-align: center;
+}
+
+.plan-conflict { color: #b14730; font-weight: 700; }
+
 .image-disclaimer {
-  font-size: 0.6rem;
+  font-size: var(--fs-xs);
   color: var(--ink-soft);
   font-style: italic;
 }
@@ -774,15 +1408,59 @@ header p {
 }
 
 .food-name {
-  font-size: 1.5rem;
+  font-size: var(--fs-2xl);
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: var(--track-display);
   color: var(--ink);
-  line-height: 1.2;
+  line-height: var(--lh-snug);
+}
+
+/* Thẻ thông tin nhanh: vùng miền · khoảng giá · hợp buổi nào */
+.dish-facts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+  margin: 6px 0 2px;
+}
+
+.dish-fact {
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  line-height: var(--lh-body);
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--ink-soft);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+body.dark-mode .dish-fact {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.dish-fact.fact-region {
+  background: rgba(31, 157, 92, 0.14);
+  border-color: rgba(31, 157, 92, 0.3);
+  color: var(--green-btn-deep);
+}
+
+.dish-fact.fact-price {
+  background: rgba(240, 180, 41, 0.18);
+  border-color: rgba(240, 180, 41, 0.4);
+  color: var(--gold-deep);
+}
+
+.dish-fact.fact-time {
+  background: rgba(217, 45, 32, 0.12);
+  border-color: rgba(217, 45, 32, 0.28);
+  color: var(--red);
 }
 
 .food-pairing {
-  font-size: 0.8rem;
+  font-size: var(--fs-sm);
   color: var(--ink-soft);
   margin-top: 4px;
 }
@@ -803,8 +1481,8 @@ header p {
 }
 
 .fav-btn svg {
-  width: 19px;
-  height: 19px;
+  width: var(--icon-md);
+  height: var(--icon-md);
 }
 
 .fav-btn.active {
@@ -821,9 +1499,9 @@ header p {
 }
 
 .modal-buttons .btn {
-  padding: 12px 22px;
+  padding: 12px 24px;
   border-radius: 12px;
-  font-size: 0.92rem;
+  font-size: var(--fs-md);
   font-weight: 700;
   min-height: 46px;
   transition: transform 0.1s ease, filter 0.15s ease;
@@ -837,9 +1515,9 @@ header p {
 
 .next-btn {
   display: none;
-  background: linear-gradient(180deg, #3b82f6, #1d4ed8);
-  color: #fff;
-  box-shadow: 0 3px 0 #15307a;
+  background: linear-gradient(180deg, var(--gold), var(--gold-deep));
+  color: #3a2a00;
+  box-shadow: 0 3px 0 #8a6104;
 }
 
 .next-btn.show {
@@ -847,9 +1525,9 @@ header p {
 }
 
 .share-btn {
-  background: linear-gradient(180deg, var(--green-btn), var(--green-btn-deep));
-  color: #fff;
-  box-shadow: 0 3px 0 #0c4d2c;
+  background: var(--surface-2);
+  color: var(--ink);
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.3);
 }
 
 .modal-buttons .btn:active {
@@ -877,8 +1555,20 @@ header p {
   padding: 20px;
   color: var(--ink);
   box-shadow: var(--shadow-pop);
-  animation: sheetUp 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+  transform: translateY(16px);
+  opacity: 0;
+  transition: transform 150ms ease-out, opacity 150ms ease-out;
   overscroll-behavior: contain;
+}
+
+.settings-modal.show .settings-content, .multiplayer-modal.show .multiplayer-content,
+.planner-modal.show .planner-content, .custom-dish-modal.show .custom-dish-content,
+.excludes-modal.show .excludes-content, .wheel-modal.show .wheel-content,
+.reel-modal.show .reel-content, .battle-modal.show .battle-content,
+.results-panel.show .results-panel-content {
+  transform: none;
+  opacity: 1;
+  transition: transform 300ms var(--ease-spring), opacity 200ms ease-out;
 }
 
 .modal-header, .settings-header, .results-header {
@@ -888,15 +1578,18 @@ header p {
   margin-bottom: 16px;
 }
 
+/* Tiêu đề modal dùng chung phông tiêu đề với header — trước đây chỉ h1 của
+   trang chủ mới có phông riêng, nên chất "mộc" không lan ra được chỗ nào. */
 .modal-header h2, .settings-header h2, .results-header h3 {
-  font-size: 1.2rem;
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
   font-weight: 800;
-  letter-spacing: -0.01em;
+  letter-spacing: var(--track-display);
 }
 
 .close-x {
-  width: 34px;
-  height: 34px;
+  width: 44px;
+  height: 44px;
   border-radius: 10px;
   display: grid;
   place-items: center;
@@ -910,8 +1603,8 @@ header p {
 }
 
 .close-x svg {
-  width: 16px;
-  height: 16px;
+  width: var(--icon-sm);
+  height: var(--icon-sm);
 }
 
 /* ========================================
@@ -923,7 +1616,7 @@ header p {
 
 .count-label {
   display: block;
-  font-size: 0.82rem;
+  font-size: var(--fs-sm);
   font-weight: 600;
   color: var(--ink-soft);
   margin-bottom: 8px;
@@ -939,11 +1632,16 @@ header p {
   min-height: 44px;
   border-radius: 10px;
   background: var(--surface-2);
-  font-size: 1rem;
+  font-size: var(--fs-base);
   font-weight: 700;
   color: var(--ink);
   border: 2px solid transparent;
-  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease,
+    transform 150ms ease-out;
+}
+
+.count-btn:active {
+  transform: scale(0.96);
 }
 
 .count-btn.active {
@@ -973,7 +1671,7 @@ header p {
   color: #3a2a00;
   display: grid;
   place-items: center;
-  font-size: 0.85rem;
+  font-size: var(--fs-md);
   font-weight: 800;
   flex-shrink: 0;
 }
@@ -986,7 +1684,7 @@ header p {
   border: 2px solid var(--surface-2);
   background: var(--surface-solid);
   color: var(--ink);
-  font-size: 0.92rem;
+  font-size: var(--fs-md);
   transition: border-color 0.15s ease;
 }
 
@@ -998,15 +1696,15 @@ header p {
   width: 100%;
   min-height: 50px;
   border-radius: 12px;
-  background: linear-gradient(180deg, var(--green-btn), var(--green-btn-deep));
-  color: #fff;
-  font-size: 1rem;
+  background: linear-gradient(180deg, var(--gold), var(--gold-deep));
+  color: #3a2a00;
+  font-size: var(--fs-base);
   font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  box-shadow: 0 3px 0 #0c4d2c;
+  box-shadow: 0 3px 0 #8a6104;
   transition: transform 0.1s ease;
 }
 
@@ -1016,8 +1714,8 @@ header p {
 }
 
 .start-game-btn svg {
-  width: 18px;
-  height: 18px;
+  width: var(--icon-md);
+  height: var(--icon-md);
 }
 
 /* ========================================
@@ -1052,21 +1750,49 @@ header p {
 }
 
 .result-player {
-  font-size: 0.72rem;
+  font-size: var(--fs-xs);
   font-weight: 600;
   color: var(--ink-soft);
 }
 
 .result-dish {
-  font-size: 0.95rem;
+  font-size: var(--fs-base);
   font-weight: 700;
 }
 
 .no-results {
   text-align: center;
   color: var(--ink-soft);
-  font-size: 0.88rem;
+  font-size: var(--fs-md);
   padding: 24px 0;
+}
+
+/* Empty states pair an explanation with one concrete recovery action. */
+.empty-state {
+  min-height: 150px;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+.empty-state.compact { min-height: 126px; padding-block: 16px; }
+.empty-state strong { color: var(--ink); font-size: var(--fs-base); }
+.empty-state span { max-width: 32ch; font-size: var(--fs-sm); line-height: var(--lh-body); }
+.empty-state-action {
+  min-height: var(--tap);
+  margin-top: 6px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--gold);
+  color: #3a2a00;
+  font-size: var(--fs-sm);
+  font-weight: 800;
+  box-shadow: 0 2px 0 #8a6104;
 }
 
 /* ========================================
@@ -1078,17 +1804,27 @@ header p {
   padding: 4px;
   border-radius: 12px;
   background: var(--surface-2);
-  margin-bottom: 18px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+  scroll-padding-inline: 4px;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold-soft) transparent;
 }
+
+.settings-nav::-webkit-scrollbar { height: 4px; }
+.settings-nav::-webkit-scrollbar-thumb { background: var(--gold-soft); border-radius: 4px; }
 
 .nav-btn {
   flex: 1;
-  min-height: 38px;
-  border-radius: 9px;
-  font-size: 0.8rem;
+  min-width: max-content;
+  min-height: var(--tap);
+  border-radius: 8px;
+  font-size: var(--fs-sm);
   font-weight: 600;
   color: var(--ink-soft);
   transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+  scroll-snap-align: center;
 }
 
 .nav-btn.active {
@@ -1111,6 +1847,7 @@ header p {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-height: var(--tap);
   padding: 14px 4px;
   border-bottom: 1px solid var(--surface-2);
 }
@@ -1123,13 +1860,13 @@ header p {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 0.92rem;
+  font-size: var(--fs-md);
   font-weight: 600;
 }
 
 .setting-label svg {
-  width: 19px;
-  height: 19px;
+  width: var(--icon-md);
+  height: var(--icon-md);
   color: var(--gold-deep);
 }
 
@@ -1166,11 +1903,11 @@ header p {
   border-radius: 50%;
   background: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-  transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+  transition: transform 0.2s var(--ease-spring);
 }
 
 .toggle input:checked + .slider {
-  background: var(--green-btn);
+  background: var(--gold);
 }
 
 .toggle input:checked + .slider::before {
@@ -1182,15 +1919,68 @@ header p {
   outline-offset: 2px;
 }
 
-#animSpeedSelect {
-  padding: 8px 12px;
-  border-radius: 10px;
-  border: 2px solid var(--surface-2);
-  background: var(--surface-solid);
+.setting-select-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  min-width: 138px;
+  border-radius: 12px;
+  color: var(--earth-deep);
+  transition: box-shadow 0.15s ease, transform 0.1s ease;
+}
+
+.setting-select-wrap:hover {
+  transform: translateY(-1px);
+}
+
+.setting-select-wrap:focus-within {
+  box-shadow: 0 0 0 3px var(--gold);
+}
+
+.setting-select-wrap svg {
+  position: absolute;
+  right: 12px;
+  width: var(--icon-md);
+  height: var(--icon-md);
+  pointer-events: none;
+}
+
+#animSpeedSelect,
+#cardStyleSelect {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 38px 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(var(--earth-rgb), 0.28);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.28), transparent),
+    var(--surface-2);
   color: var(--ink);
-  font-size: 0.85rem;
-  font-weight: 600;
-  min-height: 40px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.38), 0 2px 5px rgba(79, 51, 25, 0.10);
+  font-size: var(--fs-md);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#animSpeedSelect:focus-visible,
+#cardStyleSelect:focus-visible {
+  outline: none;
+}
+
+body.dark-mode .setting-select-wrap {
+  color: var(--gold-soft);
+}
+
+body.dark-mode #animSpeedSelect,
+body.dark-mode #cardStyleSelect {
+  border-color: rgba(246, 231, 191, 0.24);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent),
+    var(--surface-2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 2px 6px rgba(0, 0, 0, 0.22);
 }
 
 /* Feature cards */
@@ -1204,6 +1994,11 @@ header p {
   margin-bottom: 10px;
   cursor: pointer;
   transition: transform 0.15s ease, background 0.15s ease;
+  width: 100%;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  text-align: left;
 }
 
 .feature-card:hover {
@@ -1211,12 +2006,12 @@ header p {
 }
 
 .feature-card:active {
-  transform: scale(0.98);
+  transform: scale(0.96);
 }
 
 .feature-card > svg:first-child {
-  width: 22px;
-  height: 22px;
+  width: var(--icon-lg);
+  height: var(--icon-lg);
   color: var(--gold-deep);
   flex-shrink: 0;
 }
@@ -1229,18 +2024,18 @@ header p {
 }
 
 .feature-title {
-  font-size: 0.92rem;
+  font-size: var(--fs-md);
   font-weight: 700;
 }
 
 .feature-desc {
-  font-size: 0.75rem;
+  font-size: var(--fs-xs);
   color: var(--ink-soft);
 }
 
 .chevron {
-  width: 18px;
-  height: 18px;
+  width: var(--icon-md);
+  height: var(--icon-md);
   color: var(--ink-soft);
   flex-shrink: 0;
 }
@@ -1257,9 +2052,9 @@ header p {
 
 .tab-btn {
   flex: 1;
-  min-height: 36px;
-  border-radius: 9px;
-  font-size: 0.82rem;
+  min-height: var(--tap);
+  border-radius: 8px;
+  font-size: var(--fs-sm);
   font-weight: 600;
   color: var(--ink-soft);
 }
@@ -1290,7 +2085,8 @@ header p {
 .history-thumb {
   width: 52px;
   height: 52px;
-  border-radius: 10px;
+  aspect-ratio: 1;
+  border-radius: 4px;
   object-fit: cover;
   flex-shrink: 0;
 }
@@ -1303,12 +2099,12 @@ header p {
 }
 
 .history-dish {
-  font-size: 0.92rem;
+  font-size: var(--fs-md);
   font-weight: 700;
 }
 
 .history-date {
-  font-size: 0.72rem;
+  font-size: var(--fs-xs);
   color: var(--ink-soft);
 }
 
@@ -1334,7 +2130,7 @@ header p {
 }
 
 .stat-count {
-  font-size: 0.8rem;
+  font-size: var(--fs-sm);
   color: var(--ink-soft);
   font-weight: 600;
 }
@@ -1352,7 +2148,7 @@ header p {
 }
 
 .about-hero-text h3 {
-  font-size: 1.25rem;
+  font-size: var(--fs-xl);
   font-weight: 800;
   background: linear-gradient(90deg, var(--gold-deep), var(--gold));
   -webkit-background-clip: text;
@@ -1366,14 +2162,14 @@ header p {
   padding: 1px 8px;
   border-radius: 999px;
   background: var(--surface-2);
-  font-size: 0.68rem;
+  font-size: var(--fs-xs);
   font-weight: 700;
 }
 
 .about-tagline {
-  font-size: 0.8rem;
+  font-size: var(--fs-sm);
   color: var(--ink-soft);
-  line-height: 1.4;
+  line-height: var(--lh-snug);
   margin: 0;
 }
 
@@ -1396,16 +2192,17 @@ header p {
 }
 
 .about-stat strong {
-  font-size: 1.15rem;
+  font-size: var(--fs-lg);
   font-weight: 800;
   color: var(--gold-deep);
+  font-variant-numeric: tabular-nums;
 }
 
 .about-stat span {
-  font-size: 0.62rem;
+  font-size: var(--fs-xs);
   font-weight: 600;
   color: var(--ink-soft);
-  line-height: 1.2;
+  line-height: var(--lh-snug);
 }
 
 .about-credit {
@@ -1414,25 +2211,34 @@ header p {
   margin-top: 14px;
   padding: 12px;
   border-radius: 14px;
-  background: rgba(236, 72, 153, 0.07);
-  border: 1px solid rgba(236, 72, 153, 0.2);
+  /* Hồng #ec4899 là màu Tailwind mặc định, không thuộc bảng màu nào của app.
+     Đổi sang gạch nung cho khớp phần còn lại của trang giới thiệu. */
+  background: rgba(var(--terracotta-rgb), 0.09);
+  border: 1px solid rgba(var(--terracotta-rgb), 0.28);
 }
 
 .about-credit > svg {
-  width: 18px;
-  height: 18px;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--terracotta);
+}
+
+.about-credit > svg {
+  width: var(--icon-md);
+  height: var(--icon-md);
   flex-shrink: 0;
   color: #ec4899;
   margin-top: 2px;
 }
 
 .about-credit strong {
-  font-size: 0.82rem;
+  font-size: var(--fs-sm);
 }
 
 .about-credit p {
-  font-size: 0.75rem;
-  line-height: 1.5;
+  font-size: var(--fs-xs);
+  line-height: var(--lh-body);
   color: var(--ink-soft);
   margin: 4px 0 0;
 }
@@ -1461,18 +2267,18 @@ header p {
 }
 
 .about-title h3 {
-  font-size: 1.1rem;
+  font-size: var(--fs-lg);
   font-weight: 800;
 }
 
 .about-version {
-  font-size: 0.72rem;
+  font-size: var(--fs-xs);
   color: var(--ink-soft);
 }
 
 .about-desc {
-  font-size: 0.85rem;
-  line-height: 1.55;
+  font-size: var(--fs-md);
+  line-height: var(--lh-body);
   color: var(--ink-soft);
 }
 
@@ -1483,14 +2289,128 @@ header p {
 }
 
 .about-author {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 3px 10px;
+}
+
+.about-author .author-label {
+  grid-column: 1 / -1;
+}
+
+.author-avatar {
+  grid-row: span 3;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--bamboo);
+}
+
+.author-meta {
+  font-size: var(--fs-xs);
+  color: var(--ink-soft);
+}
+
+.about-author .author-github {
+  justify-self: start;
+}
+
+/* Khối chung cho các mục thêm vào trang giới thiệu (mã nguồn, quyền riêng tư) */
+.about-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.about-block-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-base);
+  font-weight: 800;
+  letter-spacing: var(--track-display);
+  color: var(--ink);
+}
+
+.about-link-row {
   display: flex;
   align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  min-height: 44px;
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+  border: 1px solid rgba(90, 70, 40, 0.18);
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color 0.15s ease, transform 0.1s ease;
+}
+
+.about-link-row:hover {
+  border-color: var(--earth);
+  transform: translateY(-1px);
+}
+
+.about-link-row span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.about-link-row strong {
+  font-size: var(--fs-md);
+  font-weight: 700;
+}
+
+.about-link-row em {
+  font-style: normal;
+  font-size: var(--fs-xs);
+  color: var(--ink-soft);
+}
+
+.about-link-row svg { width: var(--icon-md); height: var(--icon-md); flex-shrink: 0; }
+
+.about-privacy-lead {
+  font-size: var(--fs-sm);
+  line-height: var(--lh-body);
+  color: var(--ink);
+}
+
+.about-privacy-list {
+  display: flex;
+  flex-direction: column;
   gap: 8px;
-  flex-wrap: wrap;
+  margin: 0;
+  padding-left: 16px;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-body);
+  color: var(--ink-soft);
+}
+
+.about-privacy-list strong {
+  color: var(--ink);
+}
+
+.danger-btn {
+  align-self: flex-start;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: var(--r-md);
+  border: 1.5px solid var(--danger-ink);
+  background: transparent;
+  color: var(--danger-ink);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  transition: background-color 0.15s ease;
+}
+
+.danger-btn:hover {
+  background: rgba(var(--terracotta-rgb), 0.12);
 }
 
 .author-label {
-  font-size: 0.78rem;
+  font-size: var(--fs-sm);
   color: var(--ink-soft);
 }
 
@@ -1501,8 +2421,8 @@ header p {
 .author-github {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  font-size: 0.82rem;
+  gap: 4px;
+  font-size: var(--fs-sm);
   font-weight: 600;
   color: var(--ink);
   text-decoration: none;
@@ -1514,11 +2434,11 @@ header p {
 
 .donate-title {
   font-weight: 700;
-  font-size: 0.92rem;
+  font-size: var(--fs-md);
 }
 
 .donate-desc {
-  font-size: 0.78rem;
+  font-size: var(--fs-sm);
   color: var(--ink-soft);
   margin: 4px 0 12px;
 }
@@ -1534,15 +2454,21 @@ header p {
   display: flex;
   justify-content: space-between;
   padding: 6px 0;
-  font-size: 0.85rem;
+  font-size: var(--fs-md);
 }
 
 .bank-name {
   font-weight: 700;
 }
 
+/* Hồng Momo nguyên bản (#d82d8b) là mảng màu neon duy nhất trong toàn app —
+   hạ về tông mận chín, vẫn nhận ra thương hiệu mà không chói. */
 .bank-name.momo {
-  color: #d82d8b;
+  color: #a8266c;
+}
+
+body.dark-mode .bank-name.momo {
+  color: #e88ec0;
 }
 
 .bank-number {
@@ -1552,16 +2478,16 @@ header p {
 .donate-holder {
   display: block;
   margin-top: 8px;
-  font-size: 0.72rem;
+  font-size: var(--fs-xs);
   color: var(--ink-soft);
-  letter-spacing: 0.08em;
+  letter-spacing: var(--track-caps);
 }
 
 .shopee-link {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.85rem;
+  font-size: var(--fs-md);
   font-weight: 700;
   color: #ee4d2d;
   text-decoration: none;
@@ -1570,7 +2496,7 @@ header p {
 .about-footer {
   margin-top: 16px;
   text-align: center;
-  font-size: 0.7rem;
+  font-size: var(--fs-xs);
   color: var(--ink-soft);
 }
 
@@ -1595,13 +2521,13 @@ header p {
 }
 
 .day-name {
-  font-size: 0.78rem;
+  font-size: var(--fs-sm);
   font-weight: 800;
   color: var(--gold-deep);
 }
 
 .day-dish {
-  font-size: 0.8rem;
+  font-size: var(--fs-sm);
   font-weight: 600;
   min-height: 2.2em;
   display: flex;
@@ -1622,8 +2548,8 @@ header p {
 }
 
 .day-btn {
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   border-radius: 8px;
   display: grid;
   place-items: center;
@@ -1633,17 +2559,17 @@ header p {
 }
 
 .day-btn:active {
-  transform: scale(0.92);
+  transform: scale(0.96);
 }
 
 .day-btn svg {
-  width: 15px;
-  height: 15px;
+  width: var(--icon-sm);
+  height: var(--icon-sm);
 }
 
 .day-btn.clear-btn {
-  color: var(--danger);
-  font-size: 0.8rem;
+  color: var(--danger-ink);
+  font-size: var(--fs-sm);
   font-weight: 700;
 }
 
@@ -1667,16 +2593,16 @@ header p {
 }
 
 .auto-fill-btn svg {
-  width: 18px;
-  height: 18px;
+  width: var(--icon-md);
+  height: var(--icon-md);
 }
 
 .clear-plan-btn {
   min-height: 46px;
-  padding: 0 18px;
+  padding: 0 16px;
   border-radius: 12px;
   background: var(--surface-2);
-  color: var(--danger);
+  color: var(--danger-ink);
   font-weight: 700;
 }
 
@@ -1693,7 +2619,7 @@ header p {
 
 .form-group label {
   display: block;
-  font-size: 0.82rem;
+  font-size: var(--fs-sm);
   font-weight: 600;
   color: var(--ink-soft);
   margin-bottom: 6px;
@@ -1707,7 +2633,7 @@ header p {
   border: 2px solid var(--surface-2);
   background: var(--surface-solid);
   color: var(--ink);
-  font-size: 0.92rem;
+  font-size: var(--fs-md);
 }
 
 .form-group input:focus, .form-group select:focus {
@@ -1717,7 +2643,7 @@ header p {
 .custom-dish-buttons {
   display: flex;
   gap: 10px;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
 .custom-dish-buttons .btn {
@@ -1729,13 +2655,13 @@ header p {
 }
 
 .save-dish-btn {
-  background: linear-gradient(180deg, var(--green-btn), var(--green-btn-deep)) !important;
-  color: #fff;
-  box-shadow: 0 3px 0 #0c4d2c;
+  background: linear-gradient(180deg, var(--gold), var(--gold-deep)) !important;
+  color: #3a2a00;
+  box-shadow: 0 3px 0 #8a6104;
 }
 
 .custom-dishes-list h3 {
-  font-size: 0.9rem;
+  font-size: var(--fs-md);
   font-weight: 700;
   margin-bottom: 10px;
 }
@@ -1752,15 +2678,15 @@ header p {
 
 .custom-dish-item .dish-name {
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: var(--fs-md);
 }
 
 .delete-btn {
   padding: 6px 12px;
   border-radius: 8px;
   background: rgba(217, 45, 32, 0.12);
-  color: var(--danger);
-  font-size: 0.78rem;
+  color: var(--danger-ink);
+  font-size: var(--fs-sm);
   font-weight: 700;
 }
 
@@ -1768,9 +2694,29 @@ header p {
    EXCLUDES
    ======================================== */
 .excludes-desc {
-  font-size: 0.82rem;
+  font-size: var(--fs-sm);
   color: var(--ink-soft);
   margin-bottom: 14px;
+}
+
+.excludes-search {
+  width: 100%;
+  padding: 10px 14px;
+  margin-bottom: 10px;
+  border-radius: var(--r-sm);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: var(--surface-2);
+  color: var(--ink);
+  font-size: var(--fs-md);
+}
+
+.excludes-search:focus {
+  border-color: var(--gold);
+}
+
+.excludes-search:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
 }
 
 .excludes-list {
@@ -1785,6 +2731,11 @@ header p {
   gap: 8px;
   padding: 10px;
   border-radius: 10px;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  color: var(--ink);
   background: var(--surface-2);
   cursor: pointer;
   transition: background 0.15s ease;
@@ -1810,12 +2761,12 @@ header p {
 }
 
 .exclude-item.excluded {
-  background: rgba(217, 45, 32, 0.14);
+  background: rgba(var(--chili-rgb), 0.14);
 }
 
 .exclude-item.excluded .exclude-checkbox {
   background: var(--danger);
-  border-color: var(--danger);
+  border-color: var(--danger-ink);
 }
 
 .exclude-item.excluded .exclude-checkbox svg {
@@ -1828,7 +2779,7 @@ header p {
 }
 
 .exclude-name {
-  font-size: 0.82rem;
+  font-size: var(--fs-sm);
   font-weight: 600;
 }
 
@@ -1836,13 +2787,13 @@ header p {
    WHEEL
    ======================================== */
 .wheel-content {
-  max-width: 380px;
+  max-width: 440px;
   text-align: center;
 }
 
 .wheel-stage {
   position: relative;
-  width: 320px;
+  width: 380px;
   max-width: 100%;
   margin: 0 auto 16px;
 }
@@ -1872,7 +2823,7 @@ header p {
   border-radius: 12px;
   background: linear-gradient(180deg, var(--gold), var(--gold-deep));
   color: #3a2a00;
-  font-size: 1.05rem;
+  font-size: var(--fs-lg);
   font-weight: 800;
   display: flex;
   align-items: center;
@@ -1893,8 +2844,10 @@ header p {
 }
 
 .spin-wheel-btn svg {
-  width: 18px;
-  height: 18px;
+  width: var(--icon-md);
+  height: var(--icon-md);
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 /* ========================================
@@ -1904,17 +2857,24 @@ header p {
   position: fixed;
   inset: 0;
   z-index: 200;
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
   background: var(--overlay);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease-out, visibility 0s linear 150ms;
 }
 
 .onboarding-modal.show {
-  display: flex;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 200ms ease-out, visibility 0s;
 }
 
 .onboarding-content {
@@ -1926,7 +2886,15 @@ header p {
   color: var(--ink);
   text-align: center;
   box-shadow: var(--shadow-pop);
-  animation: sheetUp 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+  transform: translateY(16px);
+  opacity: 0;
+  transition: transform 150ms ease-out, opacity 150ms ease-out;
+}
+
+.onboarding-modal.show .onboarding-content {
+  transform: none;
+  opacity: 1;
+  transition: transform 300ms var(--ease-spring), opacity 200ms ease-out;
 }
 
 .onboarding-slide {
@@ -1941,7 +2909,7 @@ header p {
 .onboarding-icon {
   width: 72px;
   height: 72px;
-  margin: 0 auto 18px;
+  margin: 0 auto 20px;
   border-radius: 20px;
   background: linear-gradient(145deg, var(--gold), var(--gold-deep));
   display: grid;
@@ -1956,38 +2924,59 @@ header p {
 }
 
 .onboarding-slide h2 {
-  font-size: 1.35rem;
+  font-family: var(--font-display);
+  font-size: var(--fs-2xl);
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: var(--track-display);
   margin-bottom: 10px;
 }
 
 .onboarding-slide p {
-  font-size: 0.88rem;
+  font-size: var(--fs-md);
   color: var(--ink-soft);
-  line-height: 1.55;
+  line-height: var(--lh-body);
 }
 
 .onboarding-dots {
   display: flex;
   justify-content: center;
   gap: 8px;
-  margin: 22px 0;
+  margin: 24px 0;
 }
 
 .onboarding-dots .dot {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.onboarding-dots .dot::after {
+  content: '';
+  position: absolute;
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background: var(--surface-2);
-  cursor: pointer;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
   transition: background-color 0.2s ease, width 0.2s ease, border-radius 0.2s ease;
 }
 
-.onboarding-dots .dot.active {
+.onboarding-dots .dot.active::after {
   background: var(--gold);
   width: 22px;
   border-radius: 999px;
+}
+
+.form-help {
+  display: block;
+  margin-top: 6px;
+  color: var(--ink-soft);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-snug);
 }
 
 .onboarding-buttons {
@@ -2008,60 +2997,209 @@ header p {
   flex: 2;
   min-height: 46px;
   border-radius: 12px;
-  background: linear-gradient(180deg, var(--green-btn), var(--green-btn-deep));
-  color: #fff;
+  background: linear-gradient(180deg, var(--gold), var(--gold-deep));
+  color: #3a2a00;
   font-weight: 800;
-  box-shadow: 0 3px 0 #0c4d2c;
+  box-shadow: 0 3px 0 #8a6104;
 }
 
 /* ========================================
-   DISH OF THE DAY + PLAY ACTIONS
+   MEAL TABS & CRAVING CHIPS
    ======================================== */
-.dish-of-day {
-  display: inline-flex;
+
+.method-heading-row {
+  display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 8px;
-  align-self: center;
-  padding: 8px 16px;
-  border-radius: 999px;
+  margin-bottom: 2px;
+}
+
+/* Meal Tabs Bar (5 buổi trong ngày) */
+.meal-tabs-wrap {
+  width: 100%;
+  margin: 6px 0 10px;
+}
+
+.meal-tabs {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.meal-tab-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 6px 8px;
+  border-radius: 14px;
   background: var(--glass);
   border: 1px solid var(--glass-border);
-  color: var(--ink-on-felt-soft);
-  font-size: 0.8rem;
-  font-weight: 600;
-  transition: background-color 0.15s ease, transform 0.15s ease;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  color: var(--ink-on-ground-soft);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  position: relative;
+  text-align: center;
 }
 
-.dish-of-day svg {
-  width: 15px;
-  height: 15px;
-  color: var(--gold);
+.meal-tab-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--ink-on-ground);
+  transform: translateY(-1px);
 }
 
-.dish-of-day strong {
+.meal-tab-btn.active {
+  background: rgba(240, 180, 41, 0.16);
+  border-color: var(--gold);
   color: var(--gold-soft);
-  font-weight: 800;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25), inset 0 0 0 1px var(--gold);
 }
 
-.dish-of-day:hover {
-  background: rgba(255, 255, 255, 0.16);
+.meal-tab-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  margin-bottom: 5px;
 }
 
-.dish-of-day:active {
-  transform: scale(0.97);
+.meal-tab-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.meal-tab-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+
+.meal-tab-title {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.meal-tab-time {
+  font-size: 0.65rem;
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+.badge-now {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  background: rgba(34, 197, 94, 0.2);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  padding: 1px 6px;
+  border-radius: 8px;
+  margin-top: 3px;
+  line-height: 1.1;
+}
+
+.badge-now-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 6px #22c55e;
+  animation: pulse-dot 1.8s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.7; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+/* Craving Chips Bar (Không emoji, phong cách tối giản) */
+.craving-chips-wrap {
+  width: 100%;
+  margin: 2px 0 8px;
+}
+
+.craving-chips {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 2px 1px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.craving-chips::-webkit-scrollbar {
+  display: none;
+}
+
+.craving-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  color: var(--ink-on-ground-soft);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+  min-height: 44px;
+}
+
+.craving-chip:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--ink-on-ground);
+}
+
+.craving-chip.active {
+  background: var(--gold);
+  color: #3a2a00;
+  border-color: var(--gold-deep);
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 520px) {
+  .meal-tabs {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .meal-tabs::-webkit-scrollbar { display: none; }
+  .meal-tab-btn {
+    flex: 1 0 64px;
+    min-width: 64px;
+  }
 }
 
 /* Empty deck state — filters removed every card */
 .empty-deck {
-  grid-column: 1 / -1;
+  width: 100%;
   text-align: center;
   padding: 32px 20px;
-  color: var(--ink-on-felt-soft);
-  font-size: 0.9rem;
+  color: var(--ink-on-ground-soft);
+  font-size: var(--fs-md);
   font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
+
+.empty-deck strong { color: var(--ink-on-ground); font-size: var(--fs-base); }
+.empty-deck span { max-width: 38ch; line-height: var(--lh-body); }
 
 /* Session info — last choice + local pick counter (truanayangi local-counter) */
 .session-info {
@@ -2069,9 +3207,10 @@ header p {
   flex-wrap: wrap;
   justify-content: center;
   gap: 6px 16px;
-  font-size: 0.72rem;
-  color: var(--ink-on-felt-soft);
+  font-size: var(--fs-xs);
+  color: var(--ink-on-ground-soft);
   opacity: 0.85;
+  font-variant-numeric: tabular-nums;
 }
 
 .session-item strong {
@@ -2083,9 +3222,11 @@ header p {
   display: none;
 }
 
+.session-info[hidden] { display: none; }
+
 .session-note {
   opacity: 0.6;
-  font-size: 0.68rem;
+  font-size: var(--fs-xs);
 }
 
 /* Storage error toast */
@@ -2096,12 +3237,12 @@ header p {
   transform: translateX(-50%) translateY(16px);
   z-index: 2000;
   max-width: min(90vw, 420px);
-  padding: 10px 18px;
+  padding: 10px 16px;
   border-radius: 12px;
   background: rgba(30, 20, 10, 0.95);
   border: 1px solid rgba(240, 180, 41, 0.5);
-  color: var(--ink-on-felt);
-  font-size: 0.8rem;
+  color: var(--ink-on-ground);
+  font-size: var(--fs-sm);
   font-weight: 600;
   text-align: center;
   opacity: 0;
@@ -2119,6 +3260,27 @@ header p {
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  /* Con của flex column với align-items:center lấy chiều rộng max-content.
+     Giới hạn lại ở đây để dải nút không phình ra ngoài khung nhìn. */
+  max-width: 100%;
+  min-width: 0;
+}
+
+.method-heading {
+  width: min(100%, 620px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border: 1px solid rgba(246, 231, 191, 0.2);
+  border-radius: 14px;
+  background: rgba(var(--earth-deep-rgb), 0.3);
+}
+
+.method-heading .method-count {
+  color: var(--gold-soft);
+  border-color: rgba(240, 180, 41, 0.36);
 }
 
 .play-modes {
@@ -2126,6 +3288,8 @@ header p {
   gap: 10px;
   flex-wrap: wrap;
   justify-content: center;
+  max-width: 100%;
+  min-width: 0;
 }
 
 /* Grouped play modes — label + pill row per section.
@@ -2140,11 +3304,11 @@ header p {
 }
 
 .mode-section-label {
-  font-size: 0.62rem;
+  font-size: var(--fs-2xs);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--ink-on-felt-soft);
+  letter-spacing: var(--track-caps);
+  color: var(--ink-on-ground-soft);
 }
 
 .mode-pills {
@@ -2157,26 +3321,30 @@ header p {
 .mode-pill {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  padding: 9px 16px;
+  gap: 8px;
+  padding: 8px 16px;
   border-radius: 999px;
-  background: var(--glass);
-  border: 1px solid var(--glass-border);
-  color: var(--ink-on-felt);
-  font-size: 0.82rem;
+  background: linear-gradient(180deg, rgba(var(--earth-rgb), 0.52), rgba(var(--earth-deep-rgb), 0.62));
+  border: 1px solid rgba(246, 231, 191, 0.30);
+  color: var(--ink-on-ground);
+  font-size: var(--fs-sm);
   font-weight: 700;
-  min-height: 40px;
-  transition: background-color 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+  min-height: 44px;
+  transition: background-color 0.15s ease, transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
+/* 15px là quá nhỏ cho icon nét 2px trong lưới 24 — các hình nhiều chi tiết
+   (mẹt, thẻ cào, ống lắc) bệt lại thành vệt. 18px đọc được mà pill không phình. */
 .mode-pill svg {
-  width: 15px;
-  height: 15px;
-  color: var(--gold);
+  width: var(--icon-lg);
+  height: var(--icon-lg);
+  color: var(--gold-soft);
 }
 
 .mode-pill:hover {
-  background: rgba(255, 255, 255, 0.16);
+  background: linear-gradient(180deg, rgba(var(--earth-rgb), 0.68), rgba(var(--earth-deep-rgb), 0.78));
+  border-color: rgba(246, 231, 191, 0.5);
+  box-shadow: 0 0 0 1px var(--terracotta), 0 4px 12px rgba(0, 0, 0, 0.3);
   transform: translateY(-1px);
 }
 
@@ -2184,34 +3352,86 @@ header p {
   transform: scale(0.96);
 }
 
+.method-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  text-align: left;
+}
+
+.method-copy strong { font: inherit; }
+.method-copy em {
+  color: var(--ink-on-ground-soft);
+  font-size: var(--fs-xs);
+  font-style: normal;
+  font-weight: 500;
+  line-height: var(--lh-snug);
+}
+
+.quick-pick-btn .method-copy em { color: rgba(58, 42, 0, 0.72); }
+
+.back-methods-btn {
+  flex: 0 0 auto;
+  min-height: var(--tap);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 10px 8px 8px;
+  border: 1px solid rgba(246, 231, 191, 0.28);
+  border-radius: 999px;
+  transition: transform 150ms ease-out;
+  color: var(--ink-on-ground);
+  background: rgba(var(--earth-deep-rgb), 0.48);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+}
+
+.back-methods-btn:active { transform: scale(0.96); }
+
+.back-methods-btn svg { width: var(--icon-md); height: var(--icon-md); }
+
+body.choosing-method .deck-area { display: none; }
+body:not(.choosing-method) .method-heading,
+body:not(.choosing-method) .play-actions { display: none; }
+
 /* ========================================
    FOOD LINKS — Maps / GrabFood / ShopeeFood / beFood
    ======================================== */
+/* Bốn nút đặt món xếp lưới 2×2 — trước đây dùng flex-wrap nên nút thứ tư
+   thường rớt xuống một mình, nhìn lệch hẳn so với thẻ bài. */
 .food-links {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
-  flex-wrap: wrap;
-  justify-content: center;
-  max-width: 340px;
+  width: min(340px, 100%);
 }
 
+/* Bốn nút đặt món trước đây tô nguyên màu thương hiệu (Grab xanh lá,
+   Shopee cam đỏ, be vàng chanh) — ba mảng màu công ty đập vào giữa lá bài
+   giấy dó. Giờ dùng chung nền kem, chỉ giữ màu hãng ở viền + chữ để vẫn
+   nhận ra ngay mà không phá tông. */
 .food-link {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
-  padding: 9px 14px;
+  padding: 8px 14px;
   border-radius: 999px;
-  font-size: 0.78rem;
+  font-size: var(--fs-sm);
   font-weight: 800;
   text-decoration: none;
-  min-height: 40px;
-  transition: transform 0.1s ease, filter 0.15s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  min-height: 44px;
+  background: var(--surface-2);
+  border: 1.5px solid currentColor;
+  transition: transform 0.1s ease, filter 0.15s ease, background-color 0.15s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .food-link svg {
-  width: 14px;
-  height: 14px;
+  width: var(--icon-md);
+  height: var(--icon-md);
 }
 
 .food-link:hover {
@@ -2223,28 +3443,24 @@ header p {
   transform: translateY(1px);
 }
 
-.link-maps {
-  background: #fff;
-  color: #1a73e8;
+/* Màu hãng đã hạ độ sáng để đạt ≥ 4.5:1 trên nền kem --surface-2 */
+.link-maps  { color: #1257b8; }
+.link-grab  { color: #00713a; }
+.link-shopee { color: #c2381b; }
+.link-be    { color: #7a5a00; }
+
+.food-link:hover {
+  background: var(--card-cream);
 }
 
-.link-grab {
-  background: #00b14f;
-  color: #fff;
-}
-
-.link-shopee {
-  background: #ee4d2d;
-  color: #fff;
-}
-
-.link-be {
-  background: #ffdd00;
-  color: #1a1a1a;
-}
+/* Chế độ tối: nền thẻ thành nâu đêm, màu hãng phải sáng lên mới đủ 4.5:1 */
+body.dark-mode .link-maps   { color: #7aa9f0; }
+body.dark-mode .link-grab   { color: #4fc98a; }
+body.dark-mode .link-shopee { color: #ff8a6b; }
+body.dark-mode .link-be     { color: #e0bc4a; }
 
 /* ========================================
-   REEL — Quay Mâm
+   REEL — Lướt chọn món
    ======================================== */
 .reel-content {
   max-width: 560px;
@@ -2274,12 +3490,12 @@ header p {
 
 .reel-window::before {
   left: 0;
-  background: linear-gradient(to right, rgba(10, 14, 26, 0.95), transparent);
+  background: linear-gradient(to right, rgba(35, 20, 9, 0.95), transparent);
 }
 
 .reel-window::after {
   right: 0;
-  background: linear-gradient(to left, rgba(10, 14, 26, 0.95), transparent);
+  background: linear-gradient(to left, rgba(35, 20, 9, 0.95), transparent);
 }
 
 .reel-marker {
@@ -2333,25 +3549,22 @@ header p {
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.reel-tile img {
+.reel-tile-back {
   width: 100%;
   height: 72px;
-  object-fit: cover;
+  display: grid;
+  place-items: center;
+  color: var(--earth);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent 45%),
+    repeating-linear-gradient(135deg, rgba(90, 64, 32, 0.10) 0 2px, transparent 2px 8px),
+    var(--surface-2);
   flex-shrink: 0;
 }
 
-.reel-tile span {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px 6px;
-  font-size: 0.68rem;
-  font-weight: 700;
-  text-align: center;
-  line-height: 1.15;
-  color: var(--ink);
-  overflow: hidden;
+.reel-tile-back svg {
+  width: 32px;
+  height: 32px;
 }
 
 .reel-tile.winner {
@@ -2360,7 +3573,7 @@ header p {
 }
 
 /* ========================================
-   BATTLE — So Găng
+   BATTLE — So sánh món
    ======================================== */
 .battle-content {
   max-width: 460px;
@@ -2368,7 +3581,7 @@ header p {
 
 .battle-hint {
   text-align: center;
-  font-size: 0.82rem;
+  font-size: var(--fs-sm);
   color: var(--ink-soft);
   margin-bottom: 14px;
 }
@@ -2411,16 +3624,16 @@ header p {
 
 .battle-dish {
   padding: 12px 8px;
-  font-size: 0.95rem;
+  font-size: var(--fs-base);
   font-weight: 800;
   text-align: center;
   color: var(--ink);
-  line-height: 1.2;
+  line-height: var(--lh-snug);
 }
 
 .battle-vs {
   align-self: center;
-  font-size: 0.9rem;
+  font-size: var(--fs-md);
   font-weight: 800;
   color: var(--gold-deep);
   background: var(--surface-2);
@@ -2434,9 +3647,10 @@ header p {
 
 .battle-progress {
   text-align: center;
-  font-size: 0.78rem;
+  font-size: var(--fs-sm);
   color: var(--ink-soft);
   font-weight: 600;
+  font-variant-numeric: tabular-nums;
 }
 
 /* ========================================
@@ -2454,13 +3668,13 @@ header p {
 }
 
 .mam-chip {
-  padding: 10px 18px;
+  padding: 10px 16px;
   min-height: 44px;
   border-radius: 999px;
   border: 1px solid var(--glass-border);
   background: var(--surface-2);
   color: var(--ink);
-  font-size: 0.82rem;
+  font-size: var(--fs-sm);
   font-weight: 700;
   cursor: pointer;
   transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
@@ -2491,16 +3705,16 @@ header p {
   align-items: center;
   gap: 6px;
   margin-bottom: 6px;
-  font-size: 0.7rem;
+  font-size: var(--fs-2xs);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--track-caps);
   color: var(--ink-soft);
 }
 
 .mam-course-head svg {
-  width: 15px;
-  height: 15px;
+  width: var(--icon-sm);
+  height: var(--icon-sm);
   color: var(--gold-deep);
   flex-shrink: 0;
 }
@@ -2510,8 +3724,8 @@ header p {
 }
 
 .mam-reroll {
-  width: 30px;
-  height: 30px;
+  width: var(--tap);
+  height: var(--tap);
   border-radius: 50%;
   border: none;
   background: rgba(0, 0, 0, 0.06);
@@ -2532,28 +3746,28 @@ header p {
 }
 
 .mam-reroll svg {
-  width: 14px;
-  height: 14px;
+  width: var(--icon-sm);
+  height: var(--icon-sm);
   color: inherit;
 }
 
 .mam-dish {
-  font-size: 0.95rem;
+  font-size: var(--fs-base);
   font-weight: 800;
   color: var(--ink);
-  line-height: 1.25;
+  line-height: var(--lh-snug);
 }
 
 .mam-hint {
   grid-column: 1 / -1;
   text-align: center;
   padding: 28px 16px;
-  font-size: 0.85rem;
+  font-size: var(--fs-md);
   color: var(--ink-soft);
 }
 
 /* ========================================
-   XIN XĂM — fortune-stick tube
+   LẮC CHỌN MÓN — fortune-stick tube
    ======================================== */
 .xam-content {
   max-width: 420px;
@@ -2623,16 +3837,21 @@ header p {
   box-shadow: inset 0 -8px 12px rgba(0, 0, 0, 0.3), inset 0 4px 4px rgba(255, 255, 255, 0.15), 0 8px 16px rgba(0, 0, 0, 0.35);
 }
 
+/* Chữ "Lộc" quốc ngữ thay Hán tự 福: đình chùa Việt vẫn dùng Hán tự thật,
+   nhưng trong một app lấy chất "làng quê dân dã" thì nó đọc ra tín hiệu
+   Trung Hoa trước khi đọc ra tín hiệu Việt. */
 .xam-tube-body::before {
-  content: '福';
+  content: 'Lộc';
   position: absolute;
   inset: 0;
   display: grid;
   place-items: center;
+  font-family: var(--font-display);
   color: #ffd93d;
-  font-size: 1.6rem;
+  font-size: var(--fs-lg);
   font-weight: 700;
-  opacity: 0.9;
+  letter-spacing: normal;
+  opacity: 0.92;
 }
 
 .xam-fortune {
@@ -2651,7 +3870,7 @@ header p {
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  padding: 18px 28px;
+  padding: 16px 28px;
   border-radius: 6px;
   background: linear-gradient(to bottom, #fdf6e3, #f5e8c8);
   border: 2px solid #b04a3a;
@@ -2661,38 +3880,56 @@ header p {
 }
 
 .xam-que-label {
-  font-size: 0.62rem;
+  font-size: var(--fs-2xs);
   font-weight: 800;
-  letter-spacing: 0.18em;
+  letter-spacing: var(--track-caps);
   color: #b04a3a;
 }
 
 .xam-dish {
-  font-size: 1.15rem;
+  font-size: var(--fs-lg);
   font-weight: 800;
   color: #5a2a18;
 }
 
+.xam-tier {
+  padding: 2px 12px;
+  border-radius: 999px;
+  background: #b04a3a;
+  color: #fdf6e3;
+  font-size: var(--fs-xs);
+  font-weight: 800;
+  letter-spacing: normal;
+}
+
+/* Câu gợi ý gồm hai dòng lục bát — giữ nguyên xuống dòng để đúng nhịp thơ */
 .xam-verse {
-  font-size: 0.75rem;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-body);
   color: #8a6a4a;
   font-style: italic;
+  white-space: pre-line;
 }
 
 /* ========================================
-   HÁI HOA DÂN CHỦ — flower garden
+   CHẠM CHỌN MÓN — flower garden
    ======================================== */
 .hoa-content {
   max-width: 480px;
 }
 
+/* Vườn hoa đặt trên nền đất vườn (nâu ẩm), không phải mảng xanh xám đục
+   như bản cũ — cánh hoa ấm nổi hẳn lên, tương phản thấp nhất 3.4:1. */
 .hoa-garden {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
-  padding: 12px;
+  padding: 14px;
   border-radius: 18px;
-  background: linear-gradient(to bottom, rgba(30, 90, 40, 0.25), rgba(20, 60, 30, 0.45));
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 0%, rgba(122, 90, 31, 0.28), transparent 70%),
+    linear-gradient(to bottom, #4a2f1b, #2f1d0f);
+  box-shadow: inset 0 0 0 1px var(--bamboo-lit), inset 0 6px 18px rgba(0, 0, 0, 0.35);
   margin-bottom: 8px;
 }
 
@@ -2730,7 +3967,7 @@ header p {
 }
 
 /* ========================================
-   CÀO VÉ SỐ — scratch card
+   CÀO CHỌN MÓN — scratch card
    ======================================== */
 .veso-content {
   max-width: 420px;
@@ -2760,13 +3997,14 @@ header p {
 .scratch-prize img {
   width: 72px;
   height: 72px;
+  aspect-ratio: 1;
   object-fit: cover;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .scratch-prize strong {
-  font-size: 1.1rem;
+  font-size: var(--fs-lg);
   font-weight: 800;
   color: #5a3a08;
 }
@@ -2778,8 +4016,30 @@ header p {
   touch-action: none;
 }
 
+/* .mode-pill vốn được vẽ để nằm trên nền sân tối; đặt nguyên xi lên tấm
+   giấy dó của modal thì chữ kem trên nền kem, gần như không đọc được.
+   Đảo lại thành nút viền trên nền sáng. */
 .veso-reveal {
   align-self: center;
+  font-size: var(--fs-sm);
+  background: none;
+  border: 0;
+  box-shadow: none;
+  color: var(--ink-soft);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  min-height: 44px;
+  padding: 8px 12px;
+  font-weight: 500;
+  transition: transform 150ms ease-out, color 0.15s ease;
+}
+
+.veso-reveal:active {
+  transform: scale(0.96);
+}
+
+.veso-reveal:hover {
+  color: var(--ink);
 }
 
 /* ========================================
@@ -2813,28 +4073,24 @@ header p {
   to { opacity: 1; transform: scale(1); }
 }
 
-@keyframes sheetUp {
-  from { opacity: 0; transform: translateY(24px) scale(0.97); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
 @keyframes dealCard {
   from {
     opacity: 0;
-    transform: translateY(-30px) rotate(-4deg) scale(0.7);
+    /* Chỉ thu nhỏ và xoay nhẹ; translateY âm làm hàng đầu bị khay cắt. */
+    transform: rotate(-4deg) scale(0.7);
   }
   to {
     opacity: 1;
-    transform: translateY(0) rotate(0) scale(1);
+    transform: rotate(0) scale(1);
   }
 }
 
 @keyframes dramaticShake {
-  0% { transform: translateY(-14px) scale(1.12) rotate(-3deg); }
-  25% { transform: translateY(-14px) scale(1.12) rotate(3deg) translateX(2px); }
-  50% { transform: translateY(-14px) scale(1.12) rotate(-2deg) translateX(-2px); }
-  75% { transform: translateY(-14px) scale(1.12) rotate(2deg); }
-  100% { transform: translateY(-14px) scale(1.12) rotate(-3deg); }
+  0% { transform: scale(1.08) rotate(-3deg); }
+  25% { transform: scale(1.08) rotate(3deg) translateX(2px); }
+  50% { transform: scale(1.08) rotate(-2deg) translateX(-2px); }
+  75% { transform: scale(1.08) rotate(2deg); }
+  100% { transform: scale(1.08) rotate(-3deg); }
 }
 
 @keyframes pulsingGlow {
@@ -2861,17 +4117,21 @@ header p {
 }
 
 /* ========================================
-   RESPONSIVE
+   RESPONSIVE — app shell fit mọi khung nhìn
+   Nguyên tắc: khung ứng dụng luôn cao đúng một màn (100dvh). Phần chrome
+   (header, bộ lọc, nút chơi) co lại theo chiều cao khung nhìn, phần còn lại
+   dành hết cho bộ bài; fitDeck() trong app.js tính cỡ lá bài để lấp vừa khít.
    ======================================== */
+
+/* ---------- ĐIỆN THOẠI (≤600px) ---------- */
 @media (max-width: 600px) {
   .container {
-    padding-left: 12px;
-    padding-right: 12px;
-    gap: 12px;
+    gap: clamp(6px, 1.1vh, 12px);
   }
 
   .controls {
     gap: 8px;
+    padding: 8px;
   }
 
   .mode-group {
@@ -2892,20 +4152,29 @@ header p {
   .filter-group {
     order: 2;
     flex-basis: 100%;
+    flex-wrap: nowrap;
   }
 
   .filter-select {
-    flex: 1;
+    flex: 1 1 0;
     min-width: 0;
-    font-size: 0.78rem;
+    font-size: var(--fs-sm);
     padding-left: 10px;
     text-overflow: ellipsis;
   }
 
   .deck {
-    grid-template-columns: repeat(auto-fill, minmax(54px, 1fr));
-    gap: 6px;
+    --card-min: 48px;
+    --card-max: 96px;
   }
+
+  .header-logo { width: 38px; height: 38px; border-radius: 11px; }
+  header h1 { font-size: var(--fs-2xl); }
+  header p { font-size: var(--fs-xs); }
+  #headerGreeting { font-size: var(--fs-md); }
+
+  /* Khung gỗ mảnh hơn trên điện thoại để nhường chỗ cho lá bài */
+  .deck-area { border-width: 7px; border-radius: 13px; padding: 8px; }
 
   /* Bottom-sheet modals on mobile */
   .settings-content, .multiplayer-content, .planner-content,
@@ -2916,8 +4185,8 @@ header p {
     max-width: 100%;
     width: 100%;
     border-radius: 24px 24px 0 0;
-    max-height: 82vh;
-    max-height: 82dvh;
+    max-height: 86vh;
+    max-height: 86dvh;
     padding-bottom: calc(20px + env(safe-area-inset-bottom));
   }
 
@@ -2937,48 +4206,237 @@ header p {
   }
 }
 
-/* Very narrow phones — stack selects full-width so labels don't truncate */
-@media (max-width: 380px) {
-  .filter-group {
-    flex-direction: column;
+/* Máy rất hẹp NHƯNG còn cao — mới cho bộ lọc xuống dòng để chữ khỏi bị cắt.
+   Trên máy hẹp mà thấp, ba ô lọc xếp chồng ngốn ~120px, bộ bài không còn chỗ. */
+/* Máy hẹp: bốn ô lọc xếp 2×2 thay vì bốn hàng chồng. Bốn hàng ngốn ~190px,
+   tức gần hai hàng bài; lưới 2×2 chỉ tốn ~96px mà chữ vẫn đủ chỗ. */
+@media (max-width: 600px) {
+  .back-methods-btn { width: var(--tap); padding: 8px; justify-content: center; }
+  .back-methods-btn span { display: none; }
+
+  body.choosing-method .quick-pick-btn {
+    width: 100%;
+    justify-content: flex-start;
+    border-radius: 18px;
+    padding-block: 12px;
+    padding-inline: 14px 16px;
   }
 
+  body.choosing-method .mode-pill {
+    min-height: 62px;
+    justify-content: flex-start;
+    border-radius: 18px;
+    padding-block: 8px;
+    padding-inline: 8px 10px;
+  }
+
+  body.choosing-method .mode-section-label { display: none; }
+
+  .modal-bg, .settings-bg, .multiplayer-bg, .planner-bg,
+  .custom-dish-bg, .excludes-bg, .wheel-bg, .reel-bg,
+  .battle-bg, .results-panel-bg {
+    background: rgba(24, 12, 5, 0.84);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .settings-content, .multiplayer-content, .planner-content,
+  .custom-dish-content, .excludes-content, .wheel-content,
+  .reel-content, .battle-content, .results-panel-content {
+    background: var(--surface-solid);
+    border-color: rgba(240, 180, 41, 0.24);
+    box-shadow: 0 -12px 42px rgba(15, 7, 2, 0.46);
+  }
+
+  .settings-nav {
+    gap: 8px;
+    padding: 4px 4px 8px;
+    margin-inline: -2px;
+  }
+
+  .nav-btn {
+    flex: 0 0 auto;
+    padding-inline: 12px;
+  }
+
+  .method-heading {
+    align-items: flex-start;
+    padding: 10px 12px;
+  }
+
+  .method-heading h2,
+  .deck-heading h2 { font-size: var(--fs-md); }
+
+  .method-heading p,
+  .deck-heading p { font-size: var(--fs-xs); }
+
+  .method-count { padding: 4px 8px; font-size: var(--fs-xs); }
+
+  .filter-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .advanced-filters { grid-column: 1 / -1; }
+
+  .advanced-filters-inner { display: grid; grid-template-columns: 1fr 1fr; }
+
   .filter-select {
-    flex: none;
     width: 100%;
+    min-width: 0;
   }
 }
 
-/* ========================================
-   TABLET (601–1023px)
-   ======================================== */
+/* Trên điện thoại hiển thị toàn bộ cách chọn trong một lưới. Dải cuộn ngang
+   trước đây khiến các cách ở phía sau trông như không tồn tại. */
+@media (max-width: 600px) and (min-height: 600px) {
+  .play-actions { gap: 8px; }
+
+  .play-modes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 8px;
+    overflow: visible;
+    align-self: stretch;
+    width: 100%;
+    padding: 0;
+  }
+
+  .play-modes:focus-visible { outline-offset: 3px; }
+
+  .mode-section {
+    display: contents;
+  }
+
+  .mode-section-label {
+    grid-column: 1 / -1;
+    margin-top: 1px;
+    text-align: left;
+    font-size: var(--fs-xs);
+  }
+
+  .mode-pills {
+    display: contents;
+  }
+
+  .mode-pill {
+    width: 100%;
+    min-width: 0;
+    justify-content: center;
+    min-height: var(--tap);
+    padding: 8px 8px;
+    font-size: var(--fs-xs);
+  }
+
+  .mode-pill:hover { transform: none; }
+
+  .deck-heading {
+    align-items: flex-start;
+    margin-bottom: 8px;
+    padding-inline: 0;
+  }
+}
+
+/* Trên điện thoại cao, để cả trang cuộn: khay bài vẫn có chiều cao hữu dụng
+   ngay cả khi bộ lọc nâng cao được mở hoặc tiêu đề xuống dòng. */
+@media (max-width: 600px) and (min-height: 600px) {
+  .container { height: auto; min-height: 100dvh; overflow: visible; }
+  .deck-area { flex: none; height: 52dvh; min-height: 340px; }
+}
+
+/* ---------- DƯỚI DESKTOP: dải nút chơi cuộn ngang ----------
+   Ba nhóm chế độ xếp dọc chiếm ~150px chiều cao — trên điện thoại đó là
+   nửa chỗ dành cho bộ bài. Gộp thành một dải cuộn ngang, vẫn giữ nhãn nhóm
+   làm mốc phân cách. */
+@media (max-width: 1023px) {
+  /* Khi 52 lá cao hơn khay, margin:auto của .deck không được phép đẩy
+     tiêu đề ra ngoài mép trên — người dùng phải thấy ngay đây là bộ bài. */
+  .deck-area { justify-content: flex-start; }
+  .deck { margin: 0 auto; }
+
+  .play-modes {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    /* align-self: stretch là mấu chốt — cha là flex column align-items:center,
+       thiếu dòng này dải nút lấy chiều rộng max-content (~780px), tràn đều
+       hai bên khung nhìn và overflow-x không bao giờ có tác dụng. Khi đó
+       Xoay chọn món / Mâm cơm / So sánh món nằm ngoài màn và không thể bấm được. */
+    align-self: stretch;
+    width: 100%;
+    /* Khoảng đệm thật giữ trọn nhãn đầu/cuối, viền focus và bóng hover.
+       Mask mờ cũ làm nội dung ở hai mép trông như bị cắt. */
+    padding: 8px 16px;
+    scroll-padding-inline: 16px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold-soft) transparent;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .play-modes::-webkit-scrollbar { height: 4px; }
+  .play-modes::-webkit-scrollbar-thumb { background: var(--gold-soft); border-radius: 4px; }
+  .play-modes:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
+
+  .mode-section {
+    flex: 0 0 auto;
+    flex-basis: auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mode-section-label {
+    white-space: nowrap;
+    opacity: 0.75;
+  }
+
+  .mode-pills {
+    flex-wrap: nowrap;
+  }
+
+  .mode-pill {
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+  }
+
+  /* Vùng cuộn ngang cắt mọi hiệu ứng vượt scrollport. Giữ feedback hover
+     nằm gọn trong padding thay vì nâng nút và tạo bóng 12px ra ngoài. */
+  .mode-pill:hover {
+    transform: none;
+    box-shadow: 0 0 0 1px var(--terracotta), 0 2px 6px rgba(0, 0, 0, 0.28);
+  }
+
+  /* Thông tin phiên là phụ — nhường chỗ khi màn hình thấp */
+  .session-info { font-size: var(--fs-xs); }
+}
+
+/* ---------- TABLET (601–1023px) ---------- */
 @media (min-width: 601px) and (max-width: 1023px) {
   .container {
-    max-width: 860px;
-    padding-top: 20px;
-    gap: 16px;
+    /* Nới gần hết bề ngang để bớt lề trái/phải thừa ở cửa sổ ~900–1023px */
+    max-width: min(1200px, 96vw);
+    gap: clamp(8px, 1.4vh, 16px);
   }
 
-  header h1 { font-size: 1.6rem; }
-  header p { font-size: 0.85rem; }
+  header h1 { font-size: var(--fs-2xl); }
+  header p { font-size: var(--fs-md); }
 
-  /* Predictable wrapping — selects share space evenly (min ~140px each)
-     instead of sizing to content; action icons keep their own slot */
-  .filter-group {
-    flex-wrap: wrap;
-  }
-
-  .filter-select {
-    flex: 1 1 140px;
-  }
-
-  .action-group {
-    flex-shrink: 0;
-  }
+  .filter-select { flex: 1 1 140px; }
+  .filter-group { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .advanced-filters { grid-column: 1 / -1; }
+  .advanced-filters-inner { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .action-group { flex-shrink: 0; }
 
   .deck {
-    grid-template-columns: repeat(auto-fill, minmax(74px, 1fr));
-    gap: 10px;
+    --card-min: 52px;
+    --card-max: 118px;
   }
 
   .settings-content, .multiplayer-content, .planner-content,
@@ -2990,58 +4448,128 @@ header p {
   .reel-content { max-width: 640px; }
 }
 
-/* ========================================
-   DESKTOP (≥1024px) — sidebar + deck layout
-   ======================================== */
+/* ---------- DESKTOP (≥1024px) — cột điều khiển + bàn bài ---------- */
 @media (min-width: 1024px) {
   .container {
-    max-width: 1280px;
+    max-width: min(1760px, 95vw);
     display: grid;
-    grid-template-columns: 300px 1fr;
-    gap: 18px 28px;
-    align-items: start;
-    padding-top: 24px;
-    /* Fill the viewport so the deck can center vertically on tall screens */
-    min-height: 100vh;
-    min-height: 100dvh;
+    grid-template-columns: clamp(240px, 21vw, 360px) minmax(0, 1fr);
+    /* Hàng 1: header. Hàng 2: chiếm hết phần còn lại — không có hàng ma.
+       (Bản cũ dùng grid-row: 2 / span 20 nên sinh 19 khoảng cách rỗng,
+       đẩy trang dài thêm ~700px và luôn phải cuộn.) */
+    grid-template-rows: auto minmax(0, 1fr);
+    column-gap: clamp(20px, 2.2vw, 44px);
+    row-gap: clamp(10px, 1.6vh, 20px);
+    align-items: stretch;
+    padding-top: calc(16px + env(safe-area-inset-top));
   }
 
   header {
     grid-column: 1 / -1;
-    padding: 8px 4px;
+    padding: 4px;
   }
 
-  .header-logo { width: 52px; height: 52px; border-radius: 14px; }
-  header h1 { font-size: 1.8rem; }
-  header p { font-size: 0.88rem; }
+  .header-logo { width: 50px; height: 50px; border-radius: 14px; }
+  header h1 { font-size: var(--fs-3xl); }
+  header p { font-size: var(--fs-md); }
+
+  body.choosing-method .container { grid-template-columns: minmax(0, 1fr); }
+
+  body.choosing-method .sidebar {
+    grid-column: 1;
+    width: min(1080px, 100%);
+    justify-self: center;
+    display: grid;
+    grid-template-columns: minmax(250px, 310px) minmax(0, 1fr);
+    grid-template-areas:
+      "controls heading"
+      "daily methods"
+      "session methods";
+    align-content: start;
+    align-items: start;
+    gap: 12px 24px;
+    padding: 4px;
+    overflow-y: auto;
+  }
+
+  body.choosing-method .controls { grid-area: controls; }
+  body.choosing-method .dish-of-day { grid-area: daily; width: 100%; }
+  body.choosing-method .session-info { grid-area: session; }
+  body.choosing-method .method-heading { grid-area: heading; width: 100%; }
+  body.choosing-method .play-actions { grid-area: methods; width: 100%; align-items: stretch; }
+  body.choosing-method .quick-pick-btn {
+    width: 100%;
+    justify-content: flex-start;
+    border-radius: 18px;
+    padding-block: 12px;
+    padding-inline: 14px 16px;
+  }
+  body.choosing-method .play-modes {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+  body.choosing-method .mode-section,
+  body.choosing-method .mode-pills { display: contents; }
+  body.choosing-method .mode-section-label { display: none; }
+  body.choosing-method .mode-pill {
+    width: 100%;
+    min-height: 72px;
+    justify-content: flex-start;
+    padding-block: 12px;
+    padding-inline: 12px 14px;
+    border-radius: 18px;
+  }
 
   .challenge-badge {
-    font-size: 0.85rem;
+    font-size: var(--fs-xs);
     padding: 8px 16px;
   }
 
-  /* Sidebar column — one sticky unit so nothing scrolls underneath */
+  /* Cột trái cuộn riêng, không kéo cả trang */
+  /* Cột trái cuộn riêng. Thanh cuộn bị ẩn nên phải mờ dần hai mép, nếu không
+     người dùng không biết phía trên/dưới còn nút — trước đây cột này lặng lẽ
+     cắt cụt nhóm "So sánh" mà không để lại dấu hiệu nào. */
   .sidebar {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: clamp(8px, 1.3vh, 14px);
     grid-column: 1;
-    position: sticky;
-    top: 20px;
-    max-height: calc(100vh - 40px);
+    grid-row: 2;
+    min-height: 0;
     overflow-y: auto;
+    overscroll-behavior: contain;
     scrollbar-width: none;
+    padding-right: 2px;
   }
 
-  .sidebar::-webkit-scrollbar {
-    display: none;
+  .sidebar.is-scrollable {
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
   }
+
+  .sidebar.is-scrollable.at-top {
+    -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 16px), transparent 100%);
+    mask-image: linear-gradient(180deg, #000 calc(100% - 16px), transparent 100%);
+  }
+
+  .sidebar.is-scrollable.at-bottom {
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 16px);
+    mask-image: linear-gradient(180deg, transparent 0, #000 16px);
+  }
+
+  .sidebar.is-scrollable.at-top.at-bottom {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .sidebar::-webkit-scrollbar { display: none; }
 
   .controls {
     flex-direction: column;
     align-items: stretch;
-    gap: 12px;
-    padding: 14px;
+    gap: 10px;
+    padding: 12px;
   }
 
   .mode-group { width: 100%; }
@@ -3052,6 +4580,8 @@ header p {
     gap: 8px;
   }
 
+  .advanced-filters-inner { flex-direction: column; }
+
   .filter-select { width: 100%; }
 
   .action-group {
@@ -3060,34 +4590,31 @@ header p {
   }
 
   .icon-btn { width: 44px; height: 44px; }
-  .icon-btn svg { width: 19px; height: 19px; }
+  .icon-btn svg { width: var(--icon-md); height: var(--icon-md); }
 
   .dish-of-day {
     align-self: stretch;
     justify-content: center;
-    padding: 12px;
-    font-size: 0.85rem;
+    padding: 10px 12px;
+    font-size: var(--fs-sm);
   }
 
   .play-actions {
     align-items: stretch;
-    gap: 12px;
+    gap: 10px;
   }
 
-  .quick-pick-btn {
-    width: 100%;
-  }
+  .quick-pick-btn { width: 100%; }
 
   .play-modes {
     flex-direction: column;
     gap: 10px;
   }
 
-  /* Sidebar sections left-align; pill rows wrap under their label */
   .mode-section {
     align-items: flex-start;
     flex-basis: auto;
-    gap: 8px;
+    gap: 6px;
   }
 
   .mode-pills {
@@ -3095,10 +4622,35 @@ header p {
     gap: 8px;
   }
 
+  /* Tablet vẫn cần nhìn thấy toàn bộ lựa chọn; không để nút cuối bị giấu
+     trong dải ngang khi app nằm trong một panel khoảng 700–800px. */
+  .play-modes {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    overflow: visible;
+    align-self: stretch;
+    width: 100%;
+    padding: 0;
+  }
+
+  .mode-section { display: contents; }
+
+  .mode-section-label {
+    grid-column: 1 / -1;
+    text-align: left;
+  }
+
+  .mode-pills { display: contents; }
+
+  .mode-pill {
+    width: 100%;
+    min-width: 0;
+  }
+
   .mode-pill {
     justify-content: center;
-    padding: 12px;
-    font-size: 0.88rem;
+    padding: 10px 14px;
+    font-size: var(--fs-md);
   }
 
   .player-bar {
@@ -3108,29 +4660,21 @@ header p {
     text-align: center;
   }
 
-  .player-bar .game-info {
-    justify-content: center;
-  }
+  .player-bar .game-info { justify-content: center; }
 
-  /* Deck column — 13 cards per row = 4 rows of a real 52-card deck.
-     min-height + align-content center the card rows in the leftover
-     viewport space instead of letting them hug the top. */
-  .deck {
+  .deck-area {
     grid-column: 2;
-    grid-row: 2 / span 20;
-    grid-template-columns: repeat(13, 1fr);
-    gap: 10px;
-    align-content: center;
-    min-height: calc(100vh - 160px);
-    min-height: calc(100dvh - 160px);
+    grid-row: 2;
   }
 
-  .card .back::after { font-size: 1.25rem; }
-
-  /* Roomier modals on desktop */
-  .result-card {
-    width: 360px;
+  .deck {
+    --card-min: 54px;
+    --card-max: 150px;
   }
+
+  .card .back::after { font-size: var(--fs-xl); }
+
+  .result-card { width: 360px; }
 
   .settings-content, .multiplayer-content, .planner-content,
   .custom-dish-content, .excludes-content, .wheel-content,
@@ -3140,69 +4684,42 @@ header p {
 
   .reel-content { max-width: 720px; }
   .reel-window { height: 160px; }
-  .reel-tile img { height: 88px; }
+  .reel-tile-back { height: 88px; }
 
-  .excludes-list {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .week-grid {
-    grid-template-columns: repeat(7, 1fr);
-  }
+  .excludes-list { grid-template-columns: repeat(3, 1fr); }
+  .week-grid { grid-template-columns: repeat(7, 1fr); }
 }
 
-/* Very large screens — scale fluidly with the viewport */
+/* Màn lớn — chỉ nới cột điều khiển và trần cỡ lá bài, phần fit do JS lo */
 @media (min-width: 1440px) {
-  .container {
-    max-width: min(1500px, 94vw);
-    grid-template-columns: 340px 1fr;
-    gap: 20px 36px;
-  }
-  .deck { gap: 12px; }
-
-  header h1 { font-size: 2rem; }
-
+  header h1 { font-size: var(--fs-4xl); }
+  .deck { --card-max: 168px; }
   .mam-tray { grid-template-columns: repeat(4, 1fr); }
   .mam-content { max-width: 680px; }
 }
 
-/* High-res (≥1920px) — more width, bigger hit areas */
 @media (min-width: 1920px) {
-  .container {
-    max-width: min(1900px, 94vw);
-    grid-template-columns: 380px 1fr;
-    gap: 24px 44px;
-  }
+  .controls { padding: 16px; gap: 12px; }
+  .filter-select { font-size: var(--fs-md); }
+  .mode-btn, .mode-pill { font-size: var(--fs-md); }
+  .quick-pick-btn { font-size: var(--fs-base); padding: 14px; }
 
-  .deck { gap: 14px; }
-
-  .controls { padding: 18px; gap: 14px; }
-  .filter-select { font-size: 0.9rem; }
-  .mode-btn, .mode-pill { font-size: 0.92rem; }
-  .quick-pick-btn { font-size: 1rem; padding: 14px; }
-
-  .card .back::after { font-size: 1.4rem; }
+  .deck { --card-max: 190px; }
+  .card .back::after { font-size: var(--fs-2xl); }
 
   .result-card { width: 420px; }
   .mam-content { max-width: 760px; }
-  .mam-dish { font-size: 1.05rem; }
+  .mam-dish { font-size: var(--fs-lg); }
 }
 
-/* Ultra-wide / 4K+ (≥2560px) — keep cards readable, not tiny */
 @media (min-width: 2560px) {
-  .container {
-    max-width: min(2700px, 92vw);
-    grid-template-columns: 440px 1fr;
-    gap: 28px 56px;
-  }
+  .container { max-width: min(2600px, 92vw); }
+  .deck { --card-max: 230px; }
+  .card .back::after { font-size: var(--fs-3xl); }
 
-  .deck { gap: 18px; }
-
-  .card .back::after { font-size: 1.6rem; }
-
-  .controls { padding: 22px; gap: 16px; }
-  .icon-btn { width: 52px; height: 52px; }
-  .icon-btn svg { width: 24px; height: 24px; }
+  .controls { padding: 20px; gap: 14px; }
+  .icon-btn { width: 50px; height: 50px; }
+  .icon-btn svg { width: var(--icon-md); height: var(--icon-md); }
 
   .result-card { width: 480px; }
   .reel-content { max-width: 900px; }
@@ -3210,25 +4727,67 @@ header p {
   .mam-content { max-width: 860px; }
 }
 
-/* ========================================
-   SHORT VIEWPORTS — landscape phones, short windows.
-   Compress header + section spacing so the deck stays reachable.
-   ======================================== */
-@media (max-height: 560px) and (min-width: 600px) {
-  .container {
-    padding-top: 8px;
-    row-gap: 8px;
+/* ---------- KHUNG NHÌN THẤP — điện thoại nằm ngang, cửa sổ dẹt ----------
+   Ẩn dần những thứ trang trí để bộ bài luôn còn chỗ thở. */
+/* Khung nhìn thấp: hạ sàn cỡ lá bài xuống. Sàn cao khiến thuật toán bỏ
+   phương án vừa khít và rơi về chế độ "xếp kín bề ngang rồi cuộn" — nghịch lý
+   là bài lại to hơn nhưng phải cuộn. Sàn thấp cho phép chọn lưới nhiều cột,
+   ít hàng, vừa vặn màn hình mà kích thước thực tế vẫn ~45px. */
+@media (max-height: 700px) {
+  .deck { --card-min: 48px; }
+}
+
+@media (max-height: 600px) {
+  .deck { --card-min: 48px; }
+}
+
+@media (max-height: 640px) {
+  header p { display: none; }
+  .filter-group { flex-wrap: nowrap; }
+  .filter-select { flex: 1 1 0; min-width: 0; }
+  .header-logo { width: 34px; height: 34px; border-radius: 10px; }
+  header h1 { font-size: var(--fs-2xl); }
+  header { padding: 0 2px; }
+  .deck-area { border-width: 7px; border-radius: 12px; padding: 8px; }
+  .session-info { display: none; }
+  .quick-pick-btn { min-height: 44px; padding: 10px 24px; font-size: var(--fs-base); }
+  .controls { padding: 8px; gap: 8px; }
+  .mode-btn, .filter-select { min-height: var(--tap); }
+  .icon-btn { width: var(--tap); height: var(--tap); }
+  .mode-pill { min-height: var(--tap); padding: 6px 12px; font-size: var(--fs-sm); }
+  .dish-of-day { padding: 6px 12px; font-size: var(--fs-xs); }
+}
+
+@media (max-height: 560px) {
+  .dish-of-day { display: none; }
+}
+
+@media (max-height: 480px) {
+  .mode-section-label { display: none; }
+  header h1 { font-size: var(--fs-xl); }
+  .header-logo { width: 28px; height: 28px; }
+}
+
+@media (max-width: 900px) and (max-height: 500px) {
+  .play-actions {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
   }
 
-  header { padding: 2px; }
-  .header-logo { width: 34px; height: 34px; border-radius: 10px; }
-  header h1 { font-size: 1.1rem; }
-  header p { display: none; }
+  .quick-pick-btn {
+    flex: 0 0 auto;
+    width: auto;
+    align-self: auto;
+    min-height: var(--tap);
+    padding: 8px 16px;
+    font-size: var(--fs-md);
+  }
 
-  .sidebar { gap: 8px; }
-  .controls { gap: 8px; padding: 10px; }
-  .play-actions { gap: 6px; }
-  .play-modes { gap: 6px; }
+  .play-modes {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
 }
 
 /* ========================================
@@ -3242,7 +4801,7 @@ header p {
   }
 
   .mode-btn:not(.active):hover {
-    color: var(--ink-on-felt);
+    color: var(--ink-on-ground);
     background: rgba(255, 255, 255, 0.08);
   }
 
@@ -3280,6 +4839,15 @@ header p {
     animation: none;
     transform: translateY(-6px);
   }
+
+  .modal, .settings-modal, .multiplayer-modal, .planner-modal,
+  .custom-dish-modal, .excludes-modal, .wheel-modal, .reel-modal,
+  .battle-modal, .results-panel, .onboarding-modal,
+  .modal-card, .settings-content, .multiplayer-content, .planner-content,
+  .custom-dish-content, .excludes-content, .wheel-content, .reel-content,
+  .battle-content, .results-panel-content, .onboarding-content {
+    transition-duration: 0s;
+  }
 }
 
 /* Scrollbar */
@@ -3294,4 +4862,546 @@ header p {
 
 ::-webkit-scrollbar-track {
   background: transparent;
+}
+
+/* Đặt cuối stylesheet để thắng các rule "khung nhìn thấp" ở trên. Ở tư thế
+   ngang, mọi nhãn điều khiển còn hiển thị đều giữ sàn 12px. */
+@media (max-width: 900px) and (max-height: 500px) {
+  .challenge-badge,
+  .filter-select,
+  .mode-pill,
+  .mode-section-label,
+  .session-info,
+  .session-note {
+    font-size: max(var(--fs-sm), 12px);
+  }
+}
+
+/* Dining service: one choice, one reveal, one clear next step.
+   Alias village tokens — do not keep a cooler parallel palette.
+   Accent là vàng --gold như CTA ngoài sân; chữ trên accent dùng nâu đậm #3a2a00 để đủ tương phản. */
+body {
+  --dining-paper: var(--surface-solid);
+  --dining-ink: var(--ink);
+  --dining-muted: var(--ink-soft);
+  --dining-line: rgba(var(--earth-rgb), 0.28);
+  --dining-accent: var(--gold);
+  --dining-on-accent: #3a2a00;
+}
+body.dark-mode {
+  --dining-line: rgba(246, 231, 191, 0.18);
+}
+body.choosing-method { overflow-y: auto; }
+body.choosing-method .container { height: auto; min-height: 100dvh; max-width: 1180px; display: flex; flex-direction: column; gap: 24px; padding: 24px 24px 40px; }
+body.choosing-method header { width: 100%; max-width: 1020px; margin: 0 auto; }
+body.choosing-method .sidebar {
+  width: 100%;
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 8px 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow: visible;
+  background: none;
+  color: var(--ink-on-ground);
+  border: 0;
+  box-shadow: none;
+}
+body.choosing-method .method-heading { display: flex; flex-direction: column; align-items: stretch; gap: 0; background: none; border: 0; padding: 0; }
+body.choosing-method .method-heading:focus,
+body.choosing-method .method-heading:focus-visible { outline: none; }
+body.choosing-method .method-heading .eyebrow { color: var(--gold-soft); font-size: var(--fs-2xs); letter-spacing: var(--track-caps); text-transform: uppercase; }
+body.choosing-method .controls { flex-direction: row; flex-wrap: wrap; width: max-content; max-width: 100%; padding: 12px; gap: 10px; border-radius: 22px; }
+body.choosing-method.preferences-open .controls { width: 100%; }
+body.choosing-method .meal-now { flex: 0 1 auto; min-width: 0; }
+body.choosing-method .meal-now .filter-select { width: auto; min-width: 12.5rem; max-width: 100%; }
+body.choosing-method .filter-group { flex: 1 1 300px; }
+body.choosing-method .mode-group { flex: 1 1 210px; }
+body.choosing-method .session-info { display: none; }
+body.choosing-method .dish-of-day {
+  display: flex;
+  align-self: stretch;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 0;
+  min-height: 136px;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 20px;
+  background: var(--surface-solid);
+  color: var(--ink);
+  border: 1px solid rgba(var(--earth-rgb), 0.28);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+  text-align: left;
+}
+
+.intent-picker { width: 100%; padding: 14px 16px; background: var(--surface-solid); border: 1px solid var(--glass-border); border-radius: var(--r-lg); color: var(--ink); }
+.intent-heading-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.intent-heading-row h3 { margin: 0; font-size: var(--fs-base); }
+.intent-hint { color: var(--ink-soft); font-size: var(--fs-xs); }
+.intent-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.intent-chip { min-height: 44px; padding: 10px 14px; border: 1px solid rgba(var(--earth-rgb),.3); border-radius: 999px; background: var(--surface-solid); color: var(--ink); font: inherit; font-size: var(--fs-sm); cursor: pointer; transition: background .15s ease, border-color .15s ease, transform .15s ease; }
+.intent-chip:hover { border-color: var(--earth); transform: translateY(-1px); }
+.intent-chip.active { background: var(--green-btn); border-color: var(--green-btn); color: #fff; }
+@media(max-width: 650px) { .intent-picker { padding: 12px; } .intent-chips { flex-wrap: wrap; } .intent-chip { flex: 1 1 auto; } }
+body.choosing-method .dish-of-day:hover {
+  background: var(--surface-2);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.26);
+}
+body.choosing-method .dish-of-day:active {
+  transform: scale(0.99);
+}
+body.choosing-method .dish-of-day-media {
+  width: 170px;
+  min-height: 136px;
+  height: auto;
+  border-radius: 0;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--earth-soft, #a37248);
+}
+body.choosing-method .dish-of-day-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.dish-media-fallback {
+  width: 52px;
+  height: 52px;
+  opacity: 0.6;
+}
+body.choosing-method .dish-of-day-copy {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  padding: 14px 18px;
+  min-width: 0;
+}
+.dish-of-day-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.dish-of-day-label {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.dish-of-day-tags {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.spotlight-tag {
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  background: rgba(var(--earth-rgb), 0.08);
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.spotlight-tag.tag-region {
+  color: var(--primary-rust, #a2381e);
+  background: rgba(162, 56, 30, 0.1);
+}
+.spotlight-tag.tag-price {
+  color: #15803d;
+  background: rgba(21, 128, 61, 0.1);
+}
+body.choosing-method .dish-of-day strong {
+  color: var(--ink);
+  font-size: clamp(var(--fs-lg), 2vw, var(--fs-2xl));
+  font-weight: 800;
+  line-height: var(--lh-snug);
+  letter-spacing: var(--track-display);
+}
+body.choosing-method .dish-of-day em {
+  font-style: normal;
+  font-weight: 500;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-snug);
+  color: var(--ink-soft);
+}
+.dish-of-day-side {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  align-self: center;
+  flex-shrink: 0;
+}
+.btn-reroll {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(var(--earth-rgb), 0.08);
+  color: var(--ink);
+  border: 1px solid rgba(var(--earth-rgb), 0.2);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  min-height: 44px;
+}
+.btn-reroll svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  overflow: visible;
+  transition: transform 0.3s ease;
+}
+.btn-reroll.spinning svg {
+  transform: rotate(360deg);
+}
+.btn-reroll:hover {
+  background: rgba(var(--earth-rgb), 0.15);
+}
+.btn-reroll:active {
+  transform: scale(0.95);
+}
+body.choosing-method .dish-of-day-go {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-height: 44px;
+  min-width: 80px;
+  padding: 8px 20px;
+  border-radius: 999px;
+  background: var(--gold);
+  color: #3a2a00;
+  font-size: var(--fs-sm);
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: filter 0.15s ease, transform 0.15s ease;
+}
+body.choosing-method .dish-of-day:hover .dish-of-day-go {
+  filter: brightness(1.06);
+}
+body.choosing-method .play-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+body.choosing-method .play-secondary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+}
+body.choosing-method .more-methods-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 54px;
+  padding: 6px 8px 6px 16px;
+  border-radius: 18px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  color: var(--ink-on-ground);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 150ms ease-out, background-color 0.15s ease;
+}
+/* All game modes are visible so users can choose freely without an extra layer. */
+#moreMethodsSummary { display: none !important; }
+#moreMethodsPanel[hidden] { display: grid !important; }
+/* Lật thẻ is the first game, so it shares the same card treatment as every
+   other mode when the full game board is visible. */
+body.choosing-method .quick-pick-btn {
+  min-height: 132px;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 24px 28px;
+  border-radius: 18px;
+  border: 1px solid var(--dining-line);
+  background: var(--surface-2);
+  color: var(--dining-ink);
+  box-shadow: 0 2px 0 rgba(0,0,0,.18);
+}
+body.choosing-method .quick-pick-btn:hover { background: var(--surface-3); }
+body.choosing-method .quick-pick-btn .method-copy em { display: block; }
+.more-methods-lead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  white-space: nowrap;
+}
+.more-methods-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body.choosing-method .more-methods-toggle:active { transform: scale(0.96); }
+body.choosing-method .more-methods-chevron {
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  margin-top: 0;
+  flex-shrink: 0;
+  color: var(--gold-soft);
+  background: rgba(0, 0, 0, 0.22);
+  border-radius: 10px;
+  box-sizing: border-box;
+  transition: transform 0.18s ease;
+}
+body.choosing-method .more-methods-toggle.is-open .more-methods-chevron { transform: rotate(180deg); }
+body.choosing-method .more-methods-toggle:hover { background: rgba(255, 255, 255, 0.12); }
+body.choosing-method .play-modes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+body.choosing-method .play-modes[hidden] { display: none; }
+body.choosing-method .mode-section, body.choosing-method .mode-pills { display: contents; }
+body.choosing-method .mode-section-label { display: none; }
+body.choosing-method .quick-pick-btn, body.choosing-method .mode-pill {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 100%;
+  min-height: 48px;
+  padding-block: 12px;
+  padding-inline: 14px 16px;
+  border: 1px solid rgba(var(--earth-rgb), 0.28);
+  border-radius: 18px;
+  background: var(--surface-solid);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
+  color: var(--ink);
+  white-space: normal;
+  transition: background .18s, border-color .18s, transform .18s, filter .18s;
+}
+body.choosing-method .play-actions svg { width: var(--icon-lg); height: var(--icon-lg); flex-shrink: 0; margin-top: 0; }
+body.choosing-method .more-methods-toggle .more-methods-chevron {
+  width: 40px;
+  height: 40px;
+}
+body.choosing-method .quick-pick-btn {
+  min-height: 56px;
+  background: linear-gradient(180deg, var(--gold) 0%, var(--gold-deep) 100%);
+  color: #3a2a00;
+  border-color: var(--gold-deep);
+  box-shadow: 0 2px 0 #8a6104, 0 4px 12px rgba(0, 0, 0, 0.22);
+}
+body.choosing-method .quick-pick-btn .method-copy em { display: none; }
+body.choosing-method .method-copy strong { font-size: var(--fs-base); line-height: var(--lh-snug); font-weight: 600; }
+body.choosing-method .method-copy em { color: var(--ink-soft); font-size: var(--fs-xs); line-height: var(--lh-body); margin-top: 4px; }
+body.choosing-method .mode-pill {
+  align-items: flex-start;
+  min-height: 96px;
+  padding: 16px;
+}
+body.choosing-method .mode-pill:hover { background: var(--surface-2); border-color: var(--earth); }
+body.choosing-method .quick-pick-btn:hover { filter: brightness(1.06); background: linear-gradient(180deg, var(--gold) 0%, var(--gold-deep) 100%); }
+#modal .modal-bg { background: rgba(26,20,13,.8); }
+#modal .modal-card { width: min(520px,calc(100vw - 32px)); max-height: calc(100dvh - 32px); overflow-y: auto; overscroll-behavior: contain; padding: 24px; gap: 16px; background: var(--dining-paper); color: var(--dining-ink); border: 1px solid var(--dining-line); border-radius: 24px; box-shadow: 0 24px 90px #0005; }
+.service-eyebrow { font-size: var(--fs-2xs); letter-spacing: var(--track-caps); font-weight: 600; color: var(--dining-muted); margin: 0; text-align: center; }
+#modal .result-card { width: 100%; aspect-ratio: auto; padding: 0; background: none; color: var(--dining-ink); border: 0; border-radius: 0; box-shadow: none; flex-shrink: 0; }
+#modal .corner-tl, #modal .corner-br, #modal .main-suit { display: none; }
+#modal .card-center { gap: 8px; }
+#modal .card-image { width: 100%; max-width: none; border: 0; border-radius: 16px; aspect-ratio: 16 / 10; }
+#modal .card-image img { width: 100%; height: 100%; object-fit: cover; }
+#modal .image-disclaimer { color: var(--dining-muted); font-size: var(--fs-xs); }
+#modal .card-content { width: 100%; text-align: center; padding: 8px 0 0; }
+#modal .food-name { color: var(--dining-ink); font-size: clamp(var(--fs-2xl), 5vw, var(--fs-4xl)); letter-spacing: var(--track-display); line-height: var(--lh-snug); }
+#modal .food-pairing { color: var(--dining-muted); font-size: var(--fs-sm); line-height: var(--lh-body); }
+#modal .fav-btn { z-index: 1; top: 10px; right: 10px; width: 44px; height: 44px; background: var(--dining-paper); color: var(--dining-ink); border: 1px solid var(--dining-line); }
+#modal .fav-btn.active { color: var(--terracotta); }
+#modal .order-dish-btn { width: 100%; min-height: 52px; flex-shrink: 0; background: var(--dining-accent); color: var(--dining-on-accent); border-radius: 12px; display: flex; align-items: center; justify-content: space-between; padding: 14px 18px 14px 20px; font-size: var(--fs-base); }
+.result-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
+.result-actions > * { min-height: 52px; display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-radius: 12px; font-size: var(--fs-base); text-decoration: none; }
+#modal .cook-dish-btn { background: var(--surface-2); color: var(--dining-ink); border: 1px solid var(--dining-line); }
+#modal .result-actions .order-dish-btn { width: auto; }
+#orderOptions { width: 100%; }
+#orderOptions[hidden] { display: none; }
+#orderHeading { font-size: var(--fs-lg); margin: 0 0 6px; }
+.order-note { color: var(--dining-muted); font-size: var(--fs-sm); line-height: var(--lh-body); margin: 0 0 12px; }
+#modal .food-links { display: grid; grid-template-columns: 1fr 1fr; width: 100%; gap: 8px; }
+#modal .food-link { min-height: 44px; justify-content: center; padding: 12px; }
+#modal .modal-buttons { width: 100%; display: flex; flex-wrap: wrap; gap: 8px; }
+#modal .close-btn { flex: 1 1 100%; background: transparent; color: var(--dining-ink); border: 1px solid var(--dining-line); border-radius: 12px; min-height: 48px; }
+#modal .share-btn { margin: 0 auto; background: none; color: var(--dining-muted); min-height: 44px; }
+#modal .next-btn.show { width: 100%; min-height: 48px; }
+.serve-course { min-height: 44px; padding: 10px 14px; background: var(--gold); color: #3a2a00; border: 0; border-radius: 10px; margin-top: 10px; font-weight: 800; transition: transform 150ms ease-out, filter 0.15s ease; }
+.serve-course:active { transform: scale(0.96); }
+.serve-course:hover { filter: brightness(1.06); }
+@media(max-width: 650px) {
+  body.choosing-method .container { padding: 16px 12px 28px; gap: 20px; }
+  body.choosing-method header h1 { font-size: var(--fs-2xl); }
+  body.choosing-method .challenge-badge { font-size: var(--fs-xs); padding: 8px; }
+  body.choosing-method .sidebar { padding: 8px 4px 20px; gap: 16px; }
+  .result-actions { grid-template-columns: 1fr; }
+  body.choosing-method .play-actions { display: flex; flex-direction: column; gap: 10px; }
+  body.choosing-method .play-secondary { grid-template-columns: 1fr; gap: 8px; }
+  body.choosing-method .play-modes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  body.choosing-method .quick-pick-btn {
+    min-height: 54px;
+    padding: 10px 16px;
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-start;
+  }
+  body.choosing-method .more-methods-toggle {
+    min-height: 54px;
+    padding: 6px 10px 6px 16px;
+    width: 100%;
+    font-size: var(--fs-base);
+  }
+  body.choosing-method .more-methods-chevron {
+    width: 38px;
+    height: 38px;
+    padding: 9px;
+  }
+  body.choosing-method .mode-pill { min-height: 108px; padding: 14px 12px; gap: 10px; flex-direction: column; }
+  body.choosing-method .method-copy strong { font-size: var(--fs-base); }
+  body.choosing-method .method-copy em { font-size: var(--fs-xs); }
+  body.choosing-method .dish-of-day-go { display: none; }
+  body.choosing-method .dish-of-day { min-height: 112px; }
+  body.choosing-method .dish-of-day-media { width: 112px; min-height: 112px; }
+  body.choosing-method .dish-of-day-side { padding: 8px 12px; }
+  body.choosing-method .dish-of-day-side .btn-reroll span { display: none; }
+  body.choosing-method .dish-of-day-side .btn-reroll { padding: 8px; border-radius: 50%; }
+  #modal .modal-card { padding: 16px; }
+}
+.preferences-toggle { display: none; }
+body.choosing-method .preferences-toggle { display: flex; align-items: center; justify-content: flex-start; gap: 8px; flex: 0 1 auto; min-width: 0; min-height: 44px; padding: 4px 6px 4px 12px; font-size: var(--fs-sm); background: transparent; color: var(--ink-on-ground); box-shadow: none; white-space: nowrap; transition: transform 150ms ease-out; }
+body.choosing-method .preferences-toggle:active { transform: scale(0.96); }
+body.choosing-method .pref-chevron {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  margin-left: 4px;
+  flex: 0 0 20px;
+  border-radius: 0;
+  background: transparent;
+  color: var(--gold-soft);
+  box-sizing: border-box;
+  overflow: visible;
+  transition: transform 0.18s ease;
+}
+body.choosing-method.preferences-open .pref-chevron { transform: rotate(180deg); }
+body.choosing-method .meal-now .filter-select {
+  padding-right: 52px;
+  background-size: 24px;
+  background-position: right 12px center;
+}
+@media (max-width: 650px) {
+  .pref-people { display: none; }
+}
+body.choosing-method:not(.preferences-open) .controls .mode-group,
+body.choosing-method:not(.preferences-open) .controls .filter-group { display: none; }
+body.choosing-method .controls { padding: 6px; }
+body.choosing-method .controls .action-group { order: 0; flex: 0 0 auto; }
+body.choosing-method .meal-now { order: 0; }
+body.choosing-method .controls .mode-group { order: 1; flex-basis: 100%; }
+body.choosing-method .controls .filter-group { order: 2; flex-basis: 100%; }
+body.choosing-method .controls .icon-btn { width: 44px; height: 44px; }
+body.choosing-method .play-actions .mode-pill svg { color: var(--earth); }
+body:not(.choosing-method) .dish-of-day { display: none; }
+#modal .close-btn, #modal .share-btn { box-shadow: none; }
+.reset-filters-home { align-self: flex-start; background: transparent; color: var(--ink-on-ground); min-height: 44px; }
+body:not(.choosing-method) .intent-picker, body:not(.choosing-method) .reset-filters-home { display: none; }
+body.choosing-method .quick-pick-btn, body.choosing-method .quick-pick-btn:hover { background: var(--glass); color: var(--ink-on-ground); border: 1px solid var(--glass-border); box-shadow: none; }
+.exclude-group { grid-column: 1 / -1; width: 100%; }
+.exclude-group summary { min-height: 44px; padding: 12px; cursor: pointer; font-weight: 600; }
+.exclude-group-items { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
+.exclude-count { grid-column: 1 / -1; color: var(--ink-soft); }
+@media(max-height: 800px) { body.choosing-method .meal-tab-btn { min-height: 68px; padding: 8px; } :root { --scene-reveal: 48px; } }
+
+/* Unified game board: all eight choices have equal hierarchy and geometry. */
+body.choosing-method .play-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+body.choosing-method .play-secondary,
+body.choosing-method .play-modes,
+body.choosing-method .mode-section,
+body.choosing-method .mode-pills { display: contents; }
+body.choosing-method .quick-pick-btn,
+body.choosing-method .quick-pick-btn:hover,
+body.choosing-method .mode-pill {
+  min-height: 96px;
+  padding: 16px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  border-radius: 18px;
+  border: 1px solid rgba(var(--earth-rgb), 0.28);
+  background: var(--surface-solid);
+  color: var(--ink);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
+}
+body.choosing-method .quick-pick-btn .method-copy em { display: block; }
+body.choosing-method .quick-pick-btn:hover,
+body.choosing-method .mode-pill:hover {
+  background: var(--surface-2);
+  border-color: var(--earth);
+  filter: none;
+}
+@media (max-width: 650px) {
+  body.choosing-method .play-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  body.choosing-method .quick-pick-btn,
+  body.choosing-method .mode-pill { min-height: 112px; padding: 14px; }
+}
+@media (max-width: 360px) {
+  body.choosing-method .play-actions { grid-template-columns: 1fr; }
+  body.choosing-method .quick-pick-btn,
+  body.choosing-method .mode-pill { min-height: 88px; }
+}
+
+.intent-heading-actions,
+.game-picker-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.intent-heading-actions { margin-left: auto; }
+.reset-filters-home {
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid var(--dining-line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  cursor: pointer;
+}
+.reset-filters-home:hover { background: var(--surface-2); }
+.reset-filters-home:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.setting-help { display: block; margin-top: 4px; font-size: var(--fs-xs); font-weight: 400; line-height: 1.5; color: var(--ink-soft); }
+.game-picker { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+body.choosing-method .game-picker .play-actions { grid-area: auto; }
+.game-picker-heading h3 { margin: 0; color: var(--ink-on-ground); font-size: var(--fs-lg); }
+.game-picker-heading > span { color: var(--ink-on-ground); opacity: .72; font-size: var(--fs-sm); }
+@media (max-width: 650px) {
+  .intent-heading-actions .intent-hint { display: none; }
+  .game-picker-heading { align-items: flex-end; }
+  .game-picker-heading > span { font-size: var(--fs-xs); }
 }

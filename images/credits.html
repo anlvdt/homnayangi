@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nguồn ảnh món ăn — Hôm Nay Ăn Gì?</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; background: #fff9e9; color: #362515; }
+    body { max-width: 980px; margin: auto; padding: 24px 16px 64px; line-height: 1.55; }
+    a { color: #793a1d; }
+    a:focus-visible { outline: 3px solid #bd740e; outline-offset: 3px; }
+    h1 { line-height: 1.2; }
+    .notice { background: #f0e1c3; border-left: 4px solid #a56c2d; padding: 12px 16px; border-radius: 8px; }
+    .list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 285px), 1fr)); gap: 14px; margin-top: 24px; }
+    article { background: #fff; border: 1px solid #d2bb91; border-radius: 12px; padding: 16px; min-width: 0; }
+    article img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 8px; }
+    article h2 { font-size: 1.1rem; margin: 12px 0 6px; }
+    article p { margin: 5px 0; overflow-wrap: anywhere; }
+    .state { color: #785128; font-weight: 700; }
+    .retired { background: #f7f0e5; }
+  </style>
+</head>
+<body>
+  <p><a href="../index.html">← Về ứng dụng</a></p>
+  <h1>Nguồn và tác giả ảnh món ăn</h1>
+  <p class="notice">Danh sách này ghi công các ảnh lấy từ Wikimedia Commons, kể cả ảnh đã ngừng dùng vì không đại diện đúng món. Ảnh được chuyển sang WebP và có thể đã được chỉnh tông màu/crop. Những ảnh cũ không có trong danh sách này vẫn cần rà soát nguồn và quyền sử dụng; tên tệp hay giấy phép của nguồn không chứng minh ảnh đúng món.</p>
+  <p id="count" role="status">Đang tải danh sách…</p>
+  <div class="list" id="credits"></div>
+  <script src="../app.js"></script>
+  <script>
+    (async () => {
+      const count = document.getElementById('count');
+      const list = document.getElementById('credits');
+      try {
+        const response = await fetch('commons-food-sources.json');
+        if (!response.ok) throw new Error('Không tải được danh mục nguồn');
+        const sources = await response.json();
+        const active = new Set(SUITS.flatMap(suit => DISH_DB[suit].map(d => d.img).filter(Boolean)));
+        const used = sources.filter(item => active.has(item.file)).length;
+        count.textContent = `${used} ảnh Commons đang dùng · ${sources.length - used} bản ghi ảnh đã ngừng dùng`;
+        for (const item of sources) {
+          const card = document.createElement('article');
+          const isUsed = active.has(item.file);
+          if (!isUsed) card.className = 'retired';
+          if (isUsed) {
+            const img = document.createElement('img');
+            img.src = item.file;
+            img.alt = `Ảnh món ${item.dish}`;
+            img.loading = 'lazy';
+            img.onerror = () => img.remove();
+            card.append(img);
+          }
+          const title = document.createElement('h2'); title.textContent = item.dish;
+          const status = document.createElement('p'); status.className = 'state';
+          status.textContent = isUsed ? 'Đang dùng' : 'Đã ngừng dùng — cần ảnh đúng món';
+          const author = document.createElement('p'); author.textContent = `Tác giả: ${item.author}`;
+          const source = document.createElement('p');
+          const link = document.createElement('a'); link.href = item.source; link.rel = 'noopener noreferrer';
+          link.target = '_blank'; link.textContent = item.title || 'Xem ảnh gốc';
+          source.append('Nguồn: ', link);
+          const license = document.createElement('p');
+          if (item.license_url) {
+            const anchor = document.createElement('a'); anchor.href = item.license_url;
+            anchor.rel = 'noopener noreferrer'; anchor.target = '_blank'; anchor.textContent = item.license;
+            license.append('Giấy phép: ', anchor);
+          } else license.textContent = `Giấy phép: ${item.license}`;
+          card.append(title, status, author, source, license);
+          if (item.change_note) {
+            const note = document.createElement('p'); note.textContent = `Chỉnh sửa: ${item.change_note}`;
+            card.append(note);
+          }
+          list.append(card);
+        }
+      } catch {
+        count.textContent = 'Không tải được nguồn ảnh. Hãy thử lại khi có kết nối.';
+      }
+    })();
+  </script>
+</body>
+</html>
