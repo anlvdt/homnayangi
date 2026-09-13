@@ -2,13 +2,15 @@
 
 Ứng dụng chọn món ăn thú vị với bộ bài 52 lá. Không biết ăn gì? Bốc một lá bài!
 
-**Demo:** [https://hnangi.netlify.app/](https://hnangi.netlify.app/)
+**Demo:** [https://anlvdt.github.io/homnayangi/](https://anlvdt.github.io/homnayangi/)
+
+Bản phát hành hiện tại: **v47** · GitHub Pages được triển khai tự động từ nhánh `feat/khong-gian-lang-que`.
 
 ---
 
 ## Giới thiệu / Introduction
 
-**Hôm Nay Ăn Gì?** là ứng dụng giúp bạn chọn món ăn mỗi ngày với bộ bài tối đa 52 lá. Mỗi ván lấy một phần từ kho món Việt và một số món quốc tế quen thuộc.
+**Hôm Nay Ăn Gì?** là ứng dụng giúp bạn chọn món ăn mỗi ngày với bộ bài tối đa 52 lá. Mỗi ván lấy một phần từ kho món Việt và một số món quốc tế quen thuộc. Bạn có thể chọn theo buổi trong ngày (sáng, trưa, xế, tối, khuya), khẩu vị, ngân sách hoặc để ứng dụng chọn ngẫu nhiên.
 
 A fun Vietnamese food picker app using a 52-card deck concept. Can't decide what to eat? Just pick a card!
 
@@ -83,8 +85,7 @@ python -m http.server 3000
 
 ### Kiểm tra trình duyệt / Browser regression
 
-Smoke test responsive, modal, lọc, chia sẻ, credits, localStorage lỗi và
-offline được đặt tại `tests/browser_regression.py`.
+Smoke test responsive, modal, lọc, chia sẻ, credits và localStorage nằm tại `tests/browser_regression.py`. Luồng đầy đủ 8 trò chơi nằm tại `tests/dining_flow.py`; kiểm thử release đa engine và PWA nằm tại `tests/release_acceptance.py`.
 
 ```bash
 # Terminal 1
@@ -94,6 +95,7 @@ python -m http.server 4173
 pip install playwright pillow
 playwright install chromium
 npm run test:browser
+python3 tests/dining_flow.py
 ```
 
 Test so sánh màn hình mobile chính và menu cài đặt với ảnh chuẩn trong
@@ -105,6 +107,8 @@ npm run test:visual:update
 ```
 
 ### PWA
+Ứng dụng yêu cầu HTTPS (GitHub Pages đáp ứng điều kiện này). Sau lần tải online đầu tiên, vỏ ứng dụng và phông chữ có thể dùng offline; ảnh món chỉ offline nếu đã từng được tải.
+
 1. Mở ứng dụng trong Chrome/Safari / Open the app in Chrome/Safari
 2. Nhấn "Add to Home Screen" / Click "Add to Home Screen" or install prompt
 3. Sử dụng shortcuts để truy cập nhanh / Use shortcuts for quick actions
