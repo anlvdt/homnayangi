@@ -4,7 +4,7 @@
 
 **Demo:** [https://anlvdt.github.io/homnayangi/](https://anlvdt.github.io/homnayangi/)
 
-Bản phát hành hiện tại: **v47** · GitHub Pages được triển khai tự động từ nhánh `main`.
+Bản phát hành hiện tại: **v48** · GitHub Pages được triển khai tự động từ nhánh `main`.
 
 ### Ảnh thực tế trên GitHub Pages
 

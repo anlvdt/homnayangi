@@ -1,4 +1,4 @@
-const CACHE_NAME = 'homnayangi-v47';
+const CACHE_NAME = 'homnayangi-v48';
 
 // Vỏ ứng dụng + phông. Phông nằm trong danh sách cài đặt sẵn vì nếu thiếu,
 // lần chạy offline đầu tiên sẽ rơi về phông hệ thống — dấu tiếng Việt lệch
