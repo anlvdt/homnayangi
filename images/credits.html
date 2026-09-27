@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Nguồn ảnh món ăn — Hôm Nay Ăn Gì?</title>
+  <meta name="description" content="Nguồn, tác giả và giấy phép của ảnh món ăn dùng trong Hôm Nay Ăn Gì?">
+  <link rel="icon" href="../icons/icon-192.png" type="image/png">
   <style>
     :root { color-scheme: light; font-family: system-ui, sans-serif; background: #fff9e9; color: #362515; }
     body { max-width: 980px; margin: auto; padding: 24px 16px 64px; line-height: 1.55; }
@@ -26,9 +28,10 @@
   <p class="notice">Danh sách này ghi công các ảnh lấy từ Wikimedia Commons, kể cả ảnh đã ngừng dùng vì không đại diện đúng món. Ảnh được chuyển sang WebP và có thể đã được chỉnh tông màu/crop. Những ảnh cũ không có trong danh sách này vẫn cần rà soát nguồn và quyền sử dụng; tên tệp hay giấy phép của nguồn không chứng minh ảnh đúng món.</p>
   <p id="count" role="status">Đang tải danh sách…</p>
   <div class="list" id="credits"></div>
-  <script src="../app.js"></script>
+  <script src="../dish-catalog.js"></script>
   <script>
     (async () => {
+      const { SUITS, DISH_DB } = HNAG_CATALOG;
       const count = document.getElementById('count');
       const list = document.getElementById('credits');
       try {

@@ -8,6 +8,8 @@ const urlsToCache = [
     './',
     './index.html',
     './styles.css',
+    './styles-features.css',
+    './dish-catalog.js',
     './app.js',
     './images/credits.html',
     './images/commons-food-sources.json',

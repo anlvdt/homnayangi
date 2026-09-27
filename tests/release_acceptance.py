@@ -31,7 +31,7 @@ try:
             # The wheel result populates the modal asynchronously; wait for the
             # name before asserting so slower engines (WebKit) are not flaky.
             page.wait_for_function(
-                "document.querySelector('#resultCard .food-name')?.textContent.trim().length > 0",
+                "document.querySelector('#resultCard .food-name')?.innerText.trim().length > 0",
                 timeout=15000)
             assert page.locator('#resultCard .food-name').inner_text().strip()
             page.locator('#closeBtn').click()

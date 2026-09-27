@@ -27,6 +27,7 @@
   <link rel="preload" href="fonts/bevietnampro-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/bevietnampro-700-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css?v=47">
+  <link rel="stylesheet" href="styles-features.css?v=47">
 </head>
 
 <body class="choosing-method">
@@ -56,6 +57,7 @@
       <div class="header-text">
         <h1>Hôm Nay Ăn Gì?</h1>
         <p id="headerGreeting">Hôm nay ăn gì?</p>
+        <p class="header-purpose">Chọn một cách chơi để tìm món hợp bữa này.</p>
       </div>
       <span class="challenge-badge" id="challengeBadge" title="Số món đã chọn" role="img" aria-label="Đã chọn 0 trong 153 món">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -648,16 +650,16 @@
 
         <!-- History Section -->
         <div class="settings-section" id="sectionHistory">
-          <div class="history-tabs">
-            <button class="tab-btn active" data-tab="history">Lịch sử</button>
-            <button class="tab-btn" data-tab="stats">Thống kê</button>
+          <div class="history-tabs" role="tablist" aria-label="Lịch sử và thống kê">
+            <button type="button" class="tab-btn active" id="historyTabButton" data-tab="history" role="tab" aria-controls="historyTab" aria-selected="true" tabindex="0">Lịch sử</button>
+            <button type="button" class="tab-btn" id="statsTabButton" data-tab="stats" role="tab" aria-controls="statsTab" aria-selected="false" tabindex="-1">Thống kê</button>
           </div>
 
-          <div class="tab-content" id="historyTab">
+          <div class="tab-content" id="historyTab" role="tabpanel" aria-labelledby="historyTabButton">
             <div id="historyList"></div>
           </div>
 
-          <div class="tab-content hidden" id="statsTab">
+          <div class="tab-content hidden" id="statsTab" role="tabpanel" aria-labelledby="statsTabButton">
             <div id="statsContent"></div>
           </div>
         </div>
@@ -840,9 +842,11 @@
           </button>
         </div>
 
+        <form id="customDishForm" novalidate>
         <div class="form-group">
           <label for="customDishName">Tên món</label>
-          <input type="text" id="customDishName" name="customDishName" autocomplete="off" placeholder="VD: Bún riêu cua">
+          <input type="text" id="customDishName" name="customDishName" autocomplete="off" required aria-describedby="customDishNameError" placeholder="VD: Bún riêu cua">
+          <small id="customDishNameError" class="form-error" role="alert" hidden></small>
         </div>
 
         <div class="form-group">
@@ -862,14 +866,16 @@
 
         <div class="form-group">
           <label for="customDishImage">Link ảnh HTTPS (nếu có)</label>
-          <input type="url" inputmode="url" id="customDishImage" name="customDishImage" autocomplete="off" aria-describedby="customDishImageHelp" placeholder="https://…">
+          <input type="url" inputmode="url" id="customDishImage" name="customDishImage" autocomplete="off" aria-describedby="customDishImageHelp customDishImageError" placeholder="https://…">
           <small id="customDishImageHelp" class="form-help">Ảnh ngoài sẽ được tải từ website bạn nhập và có thể không dùng được khi offline.</small>
+          <small id="customDishImageError" class="form-error" role="alert" hidden></small>
         </div>
 
         <div class="custom-dish-buttons">
-          <button class="btn" id="cancelCustomDish">Hủy</button>
-          <button class="btn save-dish-btn" id="saveCustomDish">Lưu món</button>
+          <button type="button" class="btn" id="cancelCustomDish">Hủy</button>
+          <button type="submit" class="btn save-dish-btn" id="saveCustomDish">Lưu món</button>
         </div>
+        </form>
 
         <div class="custom-dishes-list" id="customDishesList">
           <h3>Món đã thêm</h3>
@@ -1161,6 +1167,7 @@
       }).catch(() => {});
     }
   </script>
+  <script src="dish-catalog.js?v=47"></script>
   <script src="app.js?v=47"></script>
 </body>
 

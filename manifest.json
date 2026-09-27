@@ -35,10 +35,10 @@
     ],
     "shortcuts": [
         {
-            "name": "Bốc bài ngay",
-            "short_name": "Bốc bài",
-            "description": "Bốc một lá bài ngẫu nhiên",
-            "url": "./index.html?action=random",
+            "name": "Chọn cách chơi",
+            "short_name": "Chọn món",
+            "description": "Mở các cách chọn món cho bữa này",
+            "url": "./index.html",
             "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
         },
         {
